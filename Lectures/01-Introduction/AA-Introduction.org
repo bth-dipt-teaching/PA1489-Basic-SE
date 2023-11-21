@@ -1,0 +1,452 @@
+#+Title: PA1489 Grundläggande Mjukvaruutveckling -- Introduction
+#+Author: Mikael Svahnberg
+#+Email: Mikael.Svahnberg@bth.se
+#+Date: 2023-11-20
+#+EPRESENT_FRAME_LEVEL: 1
+#+OPTIONS: email:t <:t todo:t f:t ':t H:2
+#+STARTUP: beamer
+
+#+LATEX_CLASS_OPTIONS: [10pt,t,a4paper]
+#+BEAMER_THEME: BTH_msv
+
+* Introduktion
+- Om Kursen
+- En Pragmatisk Mjukvaruutvecklare
+- En Pragmatisk Ansats
+- Kort om exekverande program
+* About Me: Mikael Svahnberg
+#+ATTR_LATEX: :height 6cm
+#+ATTR_ORG: :width 300
+[[file:~/Documents/Personal/avatar.png]]
+
+
+- Assistant Professor, PhD in Software Engineering
+- mailto:Mikael.Svahnberg@bth.se
+- https://sites.google.com/site/mikaelsvahnberg/
+- Interests:
+  - Software Architectures, Software Architecture Evaluation,
+    Software Architecture Evolution, Requirements Engineering,
+    Large Scale Requirements Engineering, Market-Driven Requirements Engineering,
+    Software Product Lines, Software Reuse, Empirical Research Methodology,
+    Software Engineering Decision Support, Static Code Analysis, Software Architecture Reconstruction
+* Diskutera: Kursplan PA1489 :Discussion:
+Följande Lärandemål examineras i kursen:
+
+*Kunskap och Förståelse* Efter genomförd kurs ska studenten kunna:
+- Visa grundläggande kunskaper i modern mjukvaruutveckling och containerbaserad mjukvaruutveckling genom att skriftligt beskriva och sammanfatta erfarenheter och observationer från övningar och projekt.
+
+*Färdighet och förmåga*	Efter genomförd kurs ska studenten kunna:
+- Utifrån en specifikation utveckla, dokumentera, och presentera ett mjukvaruprojekt som exekverar på ett fåtal kommunicerande containers.
+- Felsöka ett program med hjälp av testkod och en debugger.
+- Samarbeta runt ett gemensamt utvecklingsprojekt med hjälp av konfigurationsverktyg.
+- Hantera de verktyg och utvecklingsmiljöer som används vid utveckling och felsökning med containerbaserad mjukvaruutveckling.
+
+*Värderingsförmåga och förhållningssätt* 	Efter genomförd kurs ska studenten kunna:
+- Skriftligt reflektera över sina lösningar och sitt användande av utvecklingsverktyg.
+* TODO Struktur på Kursen
+  - Modules
+    - Readings
+    - Lectures
+      - Video Lectures
+      - Classroom Lectures
+    - Things to do
+  - Assignments
+
+OH-bilderna använder sig av en blandning av språk (svenska, engelska)
+och programspråk. Språket och språken är verktyg som du kommer använda
+dig av på olika vis under hela din studietid och din karriär. Övning
+börjar nu.
+* Kursliteratur
+D. Thomas, A. Hunt, The Pragmatic Programmer, 20th Anniversary Edition, 2020. ISBN-10: 0-13-595705-2
+
+#+ATTR_ORG: :width 400
+[[./Thomas-Hunt-2020-Pragmatic-Programmer.png]]
+
+* TODO Inlämningsuppgifter
+Two main themes:
+1. Design (using Design Patterns)
+2. Implement (according to a design and (some) standard libraries)
+
+Delivered as a series of (more than two) assignments. */Some/ but not all are graded.*
+
+Submissions:
+- Submit your work in groups of 3-5 students.
+- Deadlines on Canvas
+
+Resubmissions:
+- Within two weeks after course ends.
+- Same dates as the re-exams
+* TODO Verktyg
+- You will need a Java Development Kit
+  - e.g. OpenJDK https://openjdk.org/ .
+- You may also wish to install a C/C++ compiler
+  - e.g. gcc https://gcc.gnu.org/
+- Make sure that the Java version you install is compatible with your IDE
+  - e.g., BlueJ requires Java 11+.
+- For the lazy, this is as good an opportunity as any to getting to know a ~make~ tool.
+  - https://www.gnu.org/software/make/
+  - https://cmake.org/ 
+
+Examples of Development Environments:
+- BlueJ https://www.bluej.org/
+- IntelliJ https://www.jetbrains.com/idea/
+- Emacs https://www.gnu.org/software/emacs/
+- \dots
+- Vim https://www.vim.org/
+
+Examples of UML Modelling tools
+- PlantUML http://plantuml.com/
+- IntelliJ https://www.jetbrains.com/help/idea/class-diagram.html
+- StarUML: http://staruml.io/
+- VisualParadigm https://www.visual-paradigm.com/
+- \dots
+
+* En Pragmatisk Mjukvaruutvecklare
+** En Pragmatisk Filosofi
+[Thomas & Hunt, Kapitel 1]
+
+- /It's Your Life/ :: It's your career. Your choice. Be good at it. Improve.
+- /Commitment Culture/ :: Take responsibilty for what you do.
+- /We live in a Changing World/ :: Recognise change and prepare to handle it.
+- /Trade-offs are Inevitable/ :: Learn to recognise what is /good enough/
+- /You work in a Team/ :: A team consisting of current colleagues /as well as your future self/
+  - Your commitment is to the team /and/ the customer.
+  - Communicate with your team.
+  - Keep your code tidy and improve it.
+  - Fight the inevitable decay.
+** Åtagandekultur: Gruppen och Du
+*Gruppens åtagande är ditt åtagande -- alla behövs*
+
+[[file:./IDogsleigh.jpg]]
+** Åtagande / Commitment Culture
+ - *Gruppen* har åtagit sig att leverera en produkt eller artefakt
+   - Med en viss funktionalitet
+   - Inom en viss budget
+   - Vid en viss tidpunkt
+   - Med en viss kvalitet
+ - Som medlem i gruppen har *du* gjort samma åtagande!
+
+ [[file:./IKennedy-AskNot.jpg]]
+** Teamwork och Individens Ansvar
+ - Åtagandekultur
+   - Gemensam förståelse för uppgiften
+   - Individens åtagande mot gruppen
+   - Gruppens åtagande mot individen
+
+ - Förutsättningar
+   - Har du nödvändig kunskap om uppgiften?
+   - Har du förmåga och vilja att ta på dig ansvaret?
+** Delaktighet
+- Gemensamma mål
+- Tillgång till nödvändig information -- i tid
+- Förståelse för sammanhanget, individens bidrag till målen
+- Möjlighet att uttrycka sin åsikt
+- Möjlighet att påverka sin situation
+- Individuellt ansvar
+  - för /uppgiften/
+  - för /arbetssättet/
+  - för /gruppen/
+
+*När det går fel:*
+- Saknar gemensamma mål, eller otydliga mål
+- Saknar styrning från de som skall styra
+- Saknar gemensamma processer, eller synkroniseringspunkter mellan processer
+- Saknar åtagande från individerna
+- Ingen tar eller avkrävs ansvar
+- Ett fåtal dominerar diskussioner och beslut
+- Beslut kommuniceras inte
+- *\sum Kommunikationen fungerar inte*
+
+** Entropi
+- Minnes i gymnasiefysiken?
+- I mjukvara: /software rot/
+  - Tecnical debt :: Snabbfix nu, vi lovar oss själva att fixa senare
+  - Architecture erosion / architecture decay :: Vi glömmer den ursprungliga tanken och börjar ta genvägar
+
+Resultat:
+- Det tar längre och längre tid att göra även enklare saker i koden.
+- Mer tid går åt att förstå vad man skall göra och vad konsekvenserna blir
+- Nyanställda behöver mer och mer tid på sig innan de kan bli produktiva
+- Du blir mer och mer missnöjd med ditt arbete
+
+Olika orsaker:
+- Vi hinner inte göra rätt
+- Vi minns inte vad som är rätt
+- Vi förstår inte av koden och/eller dokumentationen vad som är rätt
+- Det finns ingen dokumentation om vad som är rätt
+- Vi bryr oss inte om vad som är rätt för systemet eller resten av teamet
+
+Fundamentalt för att motarbeta mjukvaruröta: *Fixa det som är trasigt*
+- Fortsätt bry er
+- Visa för resten av teamet att det spelar roll
+- Visa i projektplanen att det tar tid och kostar
+- Ta inte sönder saker när du bygger nytt. *Testa din kod*
+** Fortsätt Utvecklas
+- Programvaruteknik förändras ständigt
+  - Nya verktyg, nya teknologier, nya ramverk, nya programspråk
+- Sluta inte lära dig när du tar examen
+- Kurserna hänger ihop: använd det du lärt dig hela tiden.
+- Bredda dig: Lär dig lite om mycket
+  - Gör det enklare att förstå och använda ny teknologi
+- Läs böcker!
+  - Både tekniska och icke-tekniska böcker.
+  - Första steget till att bredda dina kunskaper.
+  - Träning i att hålla fokus.
+- Kritiskt tänkande
+  - Kan detta stämma?
+  - Vad är källan?
+  - "Fem varför"
+** Kommunikation
+- Ditt karriärval handlar om att kommunicera
+  - Kommunicera med en dator
+  - Kommunicera med dig själv
+  - Kommunicera med ditt framtida själv
+  - Kommunicera inom ditt team
+  - Kommunicera med din chef
+  - Kommunicera med andra utvecklingsteam
+  - Kommunicera med Kunder och slutanvändare
+  - \dots
+
+- Det visar sig att färdighet i /språk/ är viktigare än färdighet i matte för att bli en bra programmerare.
+
+Prat et al, "Relating Natural Language Aptitude to Individual
+Differences in Learning Programming Languages". Scientific Reports,
+2020.  https://www.nature.com/articles/s41598-020-60661-8
+
+TL;DR: A study showing that the most important skills that facilitates
+learning programming are short term memory and problem solving
+(explaining 34% of the variance), and in second place language aptitude
+(17%). Math skills was quite irrelevant (2%).
+** Kommunikation
+Det här är viktigt, så ett citat till:
+
+#+begin_quote
+
+Let us change our traditional attitude to the construction of
+programs: Instead of imagining that our main task is to instruct a
+computer what to do, let us concentrate rather on explaining to human
+beings what we want a computer to do.
+
+#+end_quote
+
+-- Donald Knuth, 1984.
+
+* En Pragmatisk Ansats
+[Thomas & Hunt, Kapitel 2]
+
+#+ATTR_ORG: :width 400
+[[./arne01.png]]
+
+- Designa först :: Tänk igenom vad du skall göra innan du gör det.
+  - Easier To Change :: All bra design är lättare att ändra än dålig design.
+  - DRY; Don't Repeat Yourself :: Upprepning == svårare att ändra
+  - Isolera mot Förändring :: Isolerat == lättare att ändra
+  - Sikta mot det Osäkra :: Utvärdera så mycket av designen som möjligt i varje cykel.
+- Prototyper :: Billig utvärdering av din design
+- Estimat :: Hur lång tid kommer det ta? Hur svårt är det? Vad behöver jag veta för att avgöra detta?
+** Easier to Change
+
+#+begin_quote
+*Bra Design är lättare att ändra än Dålig Design*
+#+end_quote
+
+- Vi designar för /underhållbarhet/
+- Datorn begriper vad vi vill göra ändå
+- Det skall vara lätt /för oss människor/ att ändra /våra artefakter/
+- Förändring är oundvikligt; designen måste tåla det.
+
+Grundläggande designprinciper, Objektorienterade designprinciper hjälper:
+- Encapsulation
+- Single Responsibility Principle
+- Low Coupling
+- High Cohesion
+- \dots
+** Don't Repeat Yourself
+- Mjukvara byggs inte i en sittning.
+- Det är inte ett vackert planerat och fint broderat lapptäcke.
+- Snarare en hög med blöta kökstrasor som har slängts i en hög under 40 år.
+- Varje nytt lager är (Lientz et al. 1978):
+  - förändrade krav,
+  - uppdateringar för att fixa gamla fel, eller
+  - uppdateringar för att hänga med en föränderlig verklighet.
+
+Det finns en stor risk att du upprepar gammal kod bara för att du inte hittar den
+- \dots Och du kan ge dig den på att den gamla koden kommer ställa till det för dig.
+- Upprepad kod == svårare att ändra
+
+*Inte bara programkod*
+- Kunskap
+- Avsikt
+- Design
+- Lösning av samma problem
+- Dokumentation
+  - även dokumentation av koden (kommentarer i koden, Doxygen, osv.)
+** Inkapsling
+- Isolera delsystem, komponenter, klasser, mm. från varandra
+- Isolera funktionalitet från varandra
+
+- Lättare att designa, bygga, underhålla, testa.
+- Lättare att förstå, lättare att förklara
+- Lättare att byta från en lösning till en annan.
+  - Lätt att ha en /Plan B/
+  - /Lättare att ändra designen/
+
+*En stor del av kursen kommer handla om inkapsling i olika former*
+
+* Overview of an Executing Program
+** Important Parts of the Computer
+#+begin_src ditaa :file Computer-Parts.png
+  /----------+  +-----------------+  +----------------+
+  | CPU      |  | RAM (Memory)    |  | Hard Disk      |
+  | cGRE     |  |                 |  |                |
+  +----------/  |                 |  |                |
+                |                 |  |                |
+                |                 |  |                |
+                |                 |  |                |
+                |           cBLU  |  | {s} cBLU       |
+                +-----------------+  +----------------+
+
+                /-----------------\
+                | Display  cPNK   |
+                |                 |
+                |                 |
+                \-----------------/
+#+end_src
+
+#+RESULTS:
+[[file:Computer-Parts.png]]
+
+- The CPU Executes all code
+- The CPU reads the code from RAM
+  - It may need to first fetch the code from storage (hard drive, disk, ~C:~, network drive, \dots)
+  - It may output data to a drive, or to the display.
+- Other inputs: keyboard, mouse, sensors, network packets, \dots
+** The Operating System
+#+begin_src ditaa :file OperatingSystem.png
+  +-------------+    +-------------+    +-------------+    +-------------+
+  | User        |    | User        |    | User        |    | User        |
+  | Application |    | Application |    | Application |    | Application |
+  |             |    |             |    |             |    |             |
+  |             |    |             |    |             |    |             |
+  | cGRE        |    | cGRE        |    | cGRE        |    | cGRE        |
+  +-------------+    +-------------+    +-------------+    +-------------+
+                                                               
+  +----------------------------------------------------------------------+
+  |                     Operating System                                 |
+  |                                                             cBLU     |
+  +----------------------------------------------------------------------+
+                                                                  
+  +----------------------------------------------------------------------+
+  |                     Hardware                                cBLK     |
+  +----------------------------------------------------------------------+
+#+end_src
+
+#+RESULTS:
+[[file:OperatingSystem.png]]
+
+The /Operating System/ is responsible for:
+- Hardware Abstraction / Resource Management :: Provides an easy-to-use interface to all hardware.
+- Interruption Management :: Handles interruptions, e.g. timer, disk, network, keyboard, mouse, etc.
+- Process Management :: Divides the CPU time fairly across all user applications
+- Memory Management :: Makes sure the executing program is available in RAM
+  - Security :: Contains data so that other applications can not read it
+- Device Management :: Reads and Writes from/to Devices, e.g.
+  - Filesystem Management :: Reads and Writes from/to Disk
+  - Network Management :: Reads and Writes from/to Network
+
+** An Executing Program
+#+begin_src ditaa :file Executing.png
+
+         /---------+
+         | CPU     |
+         |    cGRE |
+         +---------/
+            ^ Read, Execute and Write to/from RAM
+            |
+  +---------|--------------------------------------------------+
+  | RAM     v                                                  |
+  |     +--------------------------------------------------+   |
+  |     | 1001110100110110110101001001001011100100110...   |   |
+  |     +--------------------------------------------------+   |
+  |                                                            |
+  +------------------------------------------------------------+
+#+end_src
+
+#+RESULTS:
+[[file:Executing.png]]
+
+Courtesy of the operating system, the executing program
+- Appears to be alone on the CPU
+- Appears that it alone has access to of all the memory
+- /Encapsulation/ is an important design principle.
+- *Process* == Executing Program
+** From Humans to Computers
+Three main cases:
+1) Compile directly to executable program for your computer platform (e.g. C++)
+   - 😄 *Write* Source Code and save to disk
+   - 💻 *Compile* to =runnable binary=
+     - Load source code into memory
+     - Translate to your computer platform
+     - Save to disk as a binary
+   - 💻 *Execute* program
+     - Load binary into memory
+     - execute instruction by instruction
+2) Compile to =bytecode=, i.e. a made-up computer platform (e.g. Java, Clojure)
+   - 😄 *Write* Source Code and save to disk
+   - 💻 *Compile* to =bytecde=
+     - Load source code into memory
+     - Translate to your computer platform
+     - Save to disk as a binary
+   - 💻 *Execute* program
+     - Load bytecode into memory
+     - Read each instruction, translate to your computer platform, and execute
+3) Interpret program code directly (e.g. lisp, JavaScript, PHP)
+   - 😄 *Write* Source Code and save to disk
+   - 💻 *Execute* program
+     - Load source code into memory
+     - Read each instruction, translate to your computer platform, and execute
+** Readable source code
+- *The source code is the only artefact intended to be readable by humans.*
+  - It is read and modified often, so we should take care when writing it.
+- We can use low-level languages, close to how the computer sees the world
+  - e.g. Assembly language, C/C++
+- We can use higher-level languages, closer to what we want the computer to perform
+  - e.g. Java, JavaScript, Clojure, lisp
+- We can use /compiled/ or /interpeted/ languages
+  - Compiled languages /usually/ execute faster
+  - Interpreted languages are /usually/ easier to edit on the fly (while they are running)
+  - Some programming paradigms are more common in compiled languages, others are more common in interpreted languages
+- We can use any text editor to write our program
+  - We /should/ use an editor and development environment that help us write /and read/ our program.
+** Summary
+#+begin_verse
+A *process* is an application that runs on a *processor* (or *CPU*).
+A *processor* reads, executes, and writes to and from *memory* (or *RAM*).
+A *thread* executes program code; there can be many *threads* in a *process*.
+*Threads in a process* share the same memory.
+*Processes* are (generally) not able to share memory with other *processes*.
+The *operating system* safeguards the *hardware* and shares resources fairly to all *software*
+The *operating system* allows the *process* to pretend like it is *alone on the computer*.
+
+An *application* may consist of many processes and threads, running on one or several computers.
+A *system* may also include other types of hardware, and even humans.
+#+end_verse
+* TODO Sammanfattning
+D. Thomas, A. Hunt, The Pragmatic Programmer, 20th Anniversary Edition, 2020. ISBN-10: 0-13-595705-2
+
+- Kaptiel 1: En Pragmatisk Filosofi
+- Kapitel 2: En Pragmatisk Ansats
+
+- Åtagandekultur
+- Du arbetar i ett team
+- Designa för förändring
+- Minska risker genom att sikta mot det osäkra
+
+- Vad är det egentligen vi har att arbeta med?
+  - Mjukvarukod som exekveras i en isolerad process
+  - /Inkapsling/
+* TODO Next Lecture: Overview of the Development Environment
+- Thomas & Hunt; Kapitel 3: The Basic Tools
+- Grunderna i Konfigurationshantering
+- Installera och bli vän med din utvecklingsmiljö
+
