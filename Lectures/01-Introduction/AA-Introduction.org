@@ -431,7 +431,7 @@ The *operating system* allows the *process* to pretend like it is *alone on the 
 An *application* may consist of many processes and threads, running on one or several computers.
 A *system* may also include other types of hardware, and even humans.
 #+end_verse
-* TODO Sammanfattning
+* Sammanfattning
 D. Thomas, A. Hunt, The Pragmatic Programmer, 20th Anniversary Edition, 2020. ISBN-10: 0-13-595705-2
 
 - Kaptiel 1: En Pragmatisk Filosofi
@@ -445,7 +445,7 @@ D. Thomas, A. Hunt, The Pragmatic Programmer, 20th Anniversary Edition, 2020. IS
 - Vad är det egentligen vi har att arbeta med?
   - Mjukvarukod som exekveras i en isolerad process
   - /Inkapsling/
-* TODO Next Lecture: Overview of the Development Environment
+* Nästa Föreläsning: Utvecklingsmiljön
 - Thomas & Hunt; Kapitel 3: The Basic Tools
 - Grunderna i Konfigurationshantering
 - Installera och bli vän med din utvecklingsmiljö
