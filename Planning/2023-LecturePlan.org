@@ -4,7 +4,14 @@ Vecka 1: Konfigurationshantering, Bli vän med din IDE
 Vecka 2--4: Utveckling med tester, debugger, och dokumentation
 Vecka 5--8: Microservices, mer om konfigurationshantering
 
-* TODO Week 1
+* Template
+** TODO Introduktion
+** TODO Sammanfattning
+** TODO Nästa Föreläsning
+** TODO Övning: 
+** Outline
+
+* TODO Week 1 - Intro && DevEnv
 ** DONE W1: Introduction
 CLOSED: [2023-11-21 tis 10:44]
    - [ ] Course Overview
@@ -45,7 +52,8 @@ CLOSED: [2023-11-21 tis 10:44]
        - Flexible Design (Change is inevitable)
        - Prototyping
        - Estimations
-** TODO W1: Overview of the Development Environment
+** DONE W1: Overview of the Development Environment
+CLOSED: [2023-12-08 fre 13:41]
    - [ ] ch 3 : The Basic Tools
      - Not one specific IDE, but the principles behind
      - topic 16 Plaintext
@@ -69,8 +77,9 @@ CLOSED: [2023-11-21 tis 10:44]
        - Create Project
        - Edit, compile
        - clone, fetch, pull, push
-* TODO Week 2
-** TODO W2: Testing and Debugging
+* TODO Week 2 - Testing, Debugging, Documenting
+** DONE W2: Testing and Debugging
+CLOSED: [2024-01-12 fre 12:05]
    - [ ] ch 7 : While you are Coding
      - topic 40 refactoring
      - topic 41 Test to Code
@@ -102,7 +111,7 @@ CLOSED: [2023-11-21 tis 10:44]
      - Use code
      - use java standard library
      - Example: If the code contains a ~List<>~, iterate over the elements .
-* TODO Week 3
+* TODO Week 3 - Java
 ** TODO W3: A Compiled Language: Java
    - Quick run-down of
      - class && object, ~new~
@@ -121,7 +130,7 @@ CLOSED: [2023-11-21 tis 10:44]
    - [ ] *Exercises* Java
      - Some input/output class
      - Implement and connect a Swing dialogue or two
-* TODO Week 4
+* TODO Week 4 - JavaScript
 ** TODO W4: An Interpreted Language: JavaScript/node.js
    - Classes, objects, methods, functions
    - Modules, exports
@@ -139,7 +148,7 @@ CLOSED: [2023-11-21 tis 10:44]
    - [ ] *Exercises* JavaScript Server && Frontent
      - implement some simple frontend
      - implement a simple web service
-* TODO Week 5
+* TODO Week 5 - Containers && Microservices
 ** TODO W5: Virtual Machines and Containers
    - Overview of Virtual Machines (Re-use from PA2577)
    - Overview of Light-weight containers
@@ -163,7 +172,7 @@ CLOSED: [2023-11-21 tis 10:44]
     - REST API
     - [ ] *Exercises* Microservices
       - Docker Compose: Write a yaml to deploy and launch replicas
-* TODO Week 6
+* TODO Week 6 - Databases
 ** TODO W6: Introduction to Databases
     - Overview: SQL, NoSQL, Graph
     - Relational Databases (Tables and relations)
@@ -187,7 +196,7 @@ CLOSED: [2023-11-21 tis 10:44]
     - [ ] *Exercises* MongoDB, Redis
       - Simple MongoDB database, something that shows the flexibilty (and danger) over sql.
       - some key/value data to add to a redis database too.
-* TODO Week 7
+* TODO Week 7 - Putting it together; Runtime Edits
 ** TODO W7: Putting it all together: BurgerOrderer
     - Walkthrough of BurgerOrderer system
     - [ ] *Exercises* BurgerOrder
@@ -196,7 +205,7 @@ CLOSED: [2023-11-21 tis 10:44]
 ** TODO W7: Runtime Edits
     - Difference between deployments: local development, test, production
     - How to edit running container
-* TODO Week 8
+* TODO Week 8 - ??
 ** TODO W8: ??
 ** TODO W8: ??
 * TODO Prepare Material
