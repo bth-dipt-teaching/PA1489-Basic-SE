@@ -97,7 +97,8 @@ CLOSED: [2024-01-12 fre 12:05]
      - testa
      - tolka output, fixa fel
      - step through program, watch a variable, find & fix an error
-** TODO W2: Source Code Documentation
+** DONE W2: Source Code Documentation
+CLOSED: [2024-02-19 mån 14:14]
    - Self-Documenting Code (Clean Code; also Uncle Bob)
    - Packages && Structure as documentation
    - Doxygene/JavaDoc
@@ -211,8 +212,8 @@ CLOSED: [2024-01-12 fre 12:05]
 * TODO Prepare Material
 *IDEA* Maybe I can use Ponies as a start?
 
-- [ ] Lecture 03: Project to run testing and debugging on
-- [ ] Lecture 04: Project with half-finished documentation
+- [X] Lecture 03: Project to run testing and debugging on
+- [X] Lecture 04: Project with half-finished documentation
 - [ ] Lecture 05+06: More to do in projects from lecture 03 and 04 in Java
 - [ ] Lecture 07: Simple JavaScript application
 - [ ] Lecture 08: Express application
