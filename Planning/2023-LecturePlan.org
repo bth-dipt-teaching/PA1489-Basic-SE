@@ -12,8 +12,7 @@ Vecka 5--8: Microservices, mer om konfigurationshantering
 ** Outline
 
 * TODO Week 1 - Intro && DevEnv
-** DONE W1: Introduction
-CLOSED: [2023-11-21 tis 10:44]
+** TODO W1: Introduction
    - [ ] Course Overview
      - Contents, teaching team etc.
      - Assignments
@@ -77,7 +76,8 @@ CLOSED: [2023-12-08 fre 13:41]
        - Create Project
        - Edit, compile
        - clone, fetch, pull, push
-* TODO Week 2 - Testing, Debugging, Documenting
+* DONE Week 2 - Testing, Debugging, Documenting
+CLOSED: [2024-02-20 tis 14:00]
 ** DONE W2: Testing and Debugging
 CLOSED: [2024-01-12 fre 12:05]
    - [ ] ch 7 : While you are Coding
@@ -113,7 +113,8 @@ CLOSED: [2024-02-19 mån 14:14]
      - use java standard library
      - Example: If the code contains a ~List<>~, iterate over the elements .
 * TODO Week 3 - Java
-** TODO W3: A Compiled Language: Java
+** DONE W3: A Compiled Language: Java
+CLOSED: [2024-02-20 tis 13:59]
    - Quick run-down of
      - class && object, ~new~
      - attribute (Types; objects and built-in data types)
@@ -215,6 +216,8 @@ CLOSED: [2024-02-19 mån 14:14]
 - [X] Lecture 03: Project to run testing and debugging on
 - [X] Lecture 04: Project with half-finished documentation
 - [ ] Lecture 05+06: More to do in projects from lecture 03 and 04 in Java
+  - *Implement PonyStatistics* so they can use it in Lecture 06!
+    - As a patch?
 - [ ] Lecture 07: Simple JavaScript application
 - [ ] Lecture 08: Express application
 - [ ] Lecture 09: Simple docker app (QFStandalone?)
