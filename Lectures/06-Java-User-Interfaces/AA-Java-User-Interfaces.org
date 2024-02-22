@@ -1,0 +1,570 @@
+#+Title: User Interfaces in Java
+#+Author: Mikael Svahnberg
+#+Email: Mikael.Svahnberg@bth.se
+#+Date: 2024-02-20
+#+EPRESENT_FRAME_LEVEL: 1
+#+OPTIONS: email:t <:t todo:t f:t ':t H:2
+#+STARTUP: beamer
+
+#+LATEX_CLASS_OPTIONS: [10pt,t,a4paper]
+#+BEAMER_THEME: BTH_msv
+
+
+* TODO Introduktion
+- Användargränssnitt i Java
+  - textbaserade gränssnitt
+  - Grafiska gränssnitt med Java AWT/Swing
+- Enkel filhantering i Java
+* Gränssnitt
+- /Gränssnitt/ är en något överanvänd term
+  - Komponenter erbjuder /programmeringsgränssnitt/ som man använder när man skriver kod
+    - API :: Application Programming Interface
+  - Klasser erbjuder ett /publikt gränssnitt/
+    - De publika metoder och attribut som man kan använda på objekt
+  - Paket erbjuder också ett /publikt gränssnitt/
+    - De publika klasser som man kan använda sig av utifrån paketet
+  - Servrar erbjuder ett /gränssnitt/, ett API
+    - De anrop man kan göra mot servern
+    - Vanligt idag är ett /REST-API/, som man ofta gör över /HTTP/
+* Användargränssnitt
+- /Användargränssnitt/ är det sätt som en /användare/ kommer åt ett system
+  - UI :: User Interface
+    - Parametrar på kommandoraden
+    - Utskrifter i ett terminalfönster
+    - In- och Ut-matning i ett terminalfönster
+    - Läsa och Skriva till filer (är det till för användaren?)
+    - TUI :: Text-based User Interface
+      - "Fullständigt" användargränssnitt, fast bara med text, och tillgängligt i en terminal
+    - GUI :: Graphical User Interface
+      - "Fönster och knappar"
+* Exempel på Textbaserade gränssnitt
+- De flesta Unix-kommandon (ex ~ls -al~ , ~curl https://www.zombo.com~) tar parametrar och skriver ut en massa text
+- Några startar en interaktiv miljö (ex /GNU debugger/ ~gdb~ )
+- Några skapar ett textbaserat UI, (ex filhanteraren /Midnight Commander/ ~mc~, editorn ~vi~ , eller ~emacs -nw~ )
+
+Fördelar:
+- De fungerar alltid
+- De fungerar även när du kör dem på en annan maskin (e.g. via ~ssh~)
+- De fungerar även när Windows-miljön -- av olika anledningar -- kanske inte kan starta.
+
+Nackdelar:
+- Svårare att "upptäcka" hur de fungerar
+- Kräver lite mer tanke för att konstruera för att de skall bli enkla
+- Begränsat med information som får plats på 80x25 tecken
+* TODO In- och utmatning i Java
+* Grafiska Användargränssnitt
+#+begin_src plantuml :file gui-ex.png
+@startsalt
+!theme bluegray
+
+{
+{* File | Edit | Tools }
+.
+{/ <b>Selection | Execution | Result }
+{+
+{
+Will you answer "No" to this question:
+() Yes
+() No
+}
+{
+Please motivate your answer:
+{SI
+ .
+ .
+ "                              "
+}
+}
+}
+{ [Submit] | [Cancel] }
+}
+@endsalt
+#+end_src
+
+#+RESULTS:
+[[file:gui-ex.png]]
+
+- Skrivbordsapplikationer
+  - Qt
+  - Gnome
+  - \dots
+  - Java Swing/Java AWT
+- Webapplikationer
+* Att Kunna Byta Gränssnitt
+- En bra grundprincip är att man skall bygga ett system så att man kan /byta gränssnitt/
+- Separera /logik/ från /Presentation/
+- =Model -- View=
+- I praktiken byter man sällan gränssnitt, men det ger också en tydligare design och är lättare att underhålla.
+
+- Ibland använder sig ett "vackrare" gränssnitt av ett "enklare" under, en s.k. /porcelain/
+  - (Linus Torvalds är, som så ofta, ursprunget till denna analogi: Man sitter inte direkt på avloppsröret)
+  - Din utvecklingsmiljö kan mycket väl använda ~gdb~ internt
+  - Den använder också nästan säkert kommandorads- ~git~ undertill
+
+* Grafiska Gränssnitt i Java
+- Två generationer: =java.awt= och =java.Swing=
+  - AWT är äldre, men byggt specifikt för varje platform/operativsystem   
+  - Swing är skrivet i och för Java
+  - De flesta klasser som används börjar med bokstaven "J": JFrame, JPanel, JLabel, \dots
+  - De flesta finns också i flera varianter, t.ex. dekorerade med scrollbars.
+
+#+begin_src dot :file swing.png
+
+digraph {
+rankdir=LR;
+size=10;
+Object
+node [shape=rectangle,style="filled,rounded",fillcolor=lightyellow];
+Window, Container, Component
+node [style="filled,rounded",fillcolor=lightblue];
+JFrame -> Frame -> Window -> Container -> Component -> Object
+JLabel, JList, JText, JMenuBar, JOptionPane, JScrollbar, AbstractButton, JPanel -> JComponent -> Container
+JTextField, JTextArea -> JText
+JToggleButton, JMenuItem, JButton -> AbstractButton
+JMenu -> JMenuItem
+JCheckBox, JRadioButton -> JToggleButton
+}
+
+#+end_src
+
+#+RESULTS:
+[[file:swing.png]]
+* JFrame, JPanel, och LayoutManagers
+#+begin_src java
+		JFrame window = new JFrame("JavaPonies");
+		window.setSize(width, height);
+
+		JPanel canvas = new JPanel();		
+		window.getContentPane().add(canvas);
+		canvas.setLayout(new BorderLayout());
+		canvas.add("North", /* ... */);
+#+end_src
+
+- ~JFrame~ för att skapa ett fönster
+  - Stoppa in en ~JPanel~ som innehåller allt GUI
+  - Lägg till Menyer osv.
+- Kan ha godtyckligt många ~JPanel~; en ~JPanel~ kan i sin tur också innehålla flera ~JPanel~.
+- Varje ~Container~ kan ha en ~LayoutManager~ som styr hur man vill lägga in komponenter i den.
+  - BorderLayout ::
+    - North, South, East, West, Center
+    - =BorderLayout.PAGE_START=, =PAGE_END=, =LINE_START=, =LINE_END=, =CENTER=
+  - BoxLayout :: En rad eller en kolumn
+    - ~new BoxLayout(thePanel, BoxLayout.PAGE_AXIS)~ eller ~BoxLayout.LINE_AXIS~
+  - CardLayout :: olika "kort", där ett i taget är synligt.
+  - FLowLayout :: en lång rad med komponenter
+  - GridLayout :: en =MxN= matris av "hål" att stoppa komponenter i.
+  - GridBagLayout :: Mer komplicerad GridLayout
+  - SpringLayout :: Låter begränsningar för varje komponent styra hur de läggs ut.
+
+* En egen Panel
+- Man kan ärva och utöka alla Swing-komponenter.
+- Mest användbart är det att ärva från ~JPanel~ och bygga sin egen komponent
+  - Till exempel om man vill ha ett "kort" på en Ponny som man kan använda i ett fönster, se ~view.PonyCard~
+  - Vill man ha ett helt eget fönster så kan man ärva och utöka från ~JFrame~ , se t.ex. klassen ~view.PonyWindow~
+
+#+begin_src java
+  private class Banner extends JPanel {
+    public Banner() {
+      super(); 										// Se till att all JPanel-initiering görs.
+      setPreferredSize(new Dimension(width, 50));
+    }
+
+    public void paintComponent(Graphics g) {
+      g.setColor(Color.black);
+      g.setFont(new Font("SansSerif", Font.BOLD, 20));
+      g.drawString("Java Ponies", 20, 40);
+      /* ... */
+    }
+  }
+#+end_src
+* paint()
+- Vid behov anropas ~repaint()~
+  - I sin tur anropar denna ~paint()~
+    - ... som anropar ~paintComponent()~, ~paintBorder()~, och ~paintChildren()~
+- ~paint()~ kan överlagras för att rita sin egen komponent.
+
+#+begin_src java
+  public void paint(Graphics g) {
+    super.paint(g); 							// Om man vill att alla dekorationer och underkomponenter skall ritas ut.
+
+    // Graphics (eller Graphics2D) har en massa metoder för att rita former och text
+    // läs gärna mer i dokumentationen om dessa.
+    g.drawImage(myImage, 0, 50, getBackground(), this);
+    g.setColor(Color.black);
+    g.drawRoundRect(0,0,width-1, height-1, 5, 5);		
+    g.drawString(myPony.getName(), 5, 20);
+
+    g.dispose()										// Var snäll och "släpp" Graphics-objektet efter dig, så vet Java att det inte blir mer ritat.
+  }
+#+end_src
+* TODO EventListerners
+- En ~Component~ kan skapa olika typer av /Händelser/ (Events), till exempel:
+  - Focus
+  - Key
+  - Mouse
+  - MouseMotion
+  - Action
+- Till var och en av dessa händelser kan man koppla en /EventListener/
+  - FocusListener, KeyListener, MouseListener, ActionListerner, osv.
+  - ~addMouseListener(...)~, ~addActionListener(...)~, \dots
+  - En /EventListener/ har ett antal metoder som anropas när händelsen inträffar
+  - Varje metod i /EventListenern/ tar en parameter, som representerar händelsen,
+    - e.g. ~ActionEvent~, ~MouseEvent~, osv.
+- ActionListener, MouseListener, osv. är /interface/, du måste skriva implementationen för dem.
+  - Ibland bara en enda metod, ibland en handfull.
+  - Det blir otydligt att skriva en massa tomma metoder för de händelser du /inte/ är intresserad av.
+  - Numera finns färdiga implementationer /xxxAdapter/ som du kan utöka med bara de beteenden du vill.
+    - (Inkonsekvent nog finns bara /xxxAdapter/ för de Listeners som har mer än en metod 😠)
+
+* EventListeners och Klasser
+Tänk dig följande scenario:
+- Du har ett gränssnitt, med två knappar i.
+- Du vill (såklart) veta när man trycker på en knapp, och helst vilken knapp man trycker på.
+
+Olika lösningar:
+1. Skriv en separat klass som ~implements ActionListener~
+   - Du kollar noga på det ~ActionEvent~ du får som parameter i ~actionPerformed()~ - metoden.
+   - Den här klassen måste alltså veta exakt vad alla knappar heter.
+   - ~ActionListener~ är enkel, den har bara en metod; titta på t.ex. ~MouseListener~ med fem metoder.
+   - Ditt paket får minst en sådan här klass som bara finns för att ta emot en enda händelse.
+     - Jobbigare att läsa; din GUI-klass har inte längre hela ansvaret.
+2. Skriv en /nästlad och privat klass/ som ~implements ActionListener~ på samma sätt
+   - Inga fler separata klasser; den här koden kommer skrivas som en del av din GUI-klass.
+   - I övrigt samma som (1)
+3. Använd ~ActionListener~ som bas och överlagra metoden med lite moderna genvägar:
+
+#+begin_src java
+  JButton b1 = new JButton("Confirm");
+  JButton b2 = new JButton("Cancel");
+  JTextField someText = new JTextField();
+
+  b1.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent evt) {
+        // Read data from window (all local variables are available)
+        someText.getText();
+      } });
+
+  b2.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent evt) {
+        someText.setText("");
+      } });
+#+end_src
+
+* TODO File Output in Java
+- Use ~java.io.FileWriter~ 
+- There are many other ways, e.g. ~java.io.PrintWriter~
+- Careful about the character set, åäö may trip you up.
+
+Basic pattern:
+- ~try { 1. Open, 2. Write, 3. Close } catch(IOException e) {}~
+- What if we fail while writing?
+- What happens with close?
+
+Preferred pattern ~try-with~
+- ~try (resources to use ) { } catch( ... ) { }~
+- Calls ~close()~ for you even if there is an exception.
+
+#+begin_src java :file Outputter.java
+  import java.io.FileWriter;
+  import java.io.PrintWriter;
+
+  public class Outputter {
+    public void basicPattern(String filename) {
+      try {
+        FileWriter fw = new FileWriter(filename);        
+        fw.write("Some text\n");
+        fw.append("Some more text\n");
+        fw.close();
+      } catch(IOException e) {
+        System.err.println("Error writing file " + filename);
+        e.printStackTrace();
+      }
+    }
+
+    public void preferredPattern(String filename) {
+      try(FileWriter fw = new FileWriter(filename);
+          BufferedWriter buf = new BufferedWriter(fw); ) {
+        buf.write("Some preferred text");
+        buf.newLine();
+        buf.write("Some more preferred text");
+      } catch (IOException e) {
+        System.err.println("Error writing file " + filename);
+        e.printStackTrace();
+      }
+    }
+
+    public void otherWriter(String filename) {
+      try ( PrintWriter out = new PrintWriter(filename)  ) {
+        out.println("Some more more text");
+        out.println("and yet some more");
+      } catch(IOException e) {
+        System.err.println("Error writing file " + filename);
+        e.printStackTrace();
+      }
+    }
+
+
+    public static void main(String [] args) {
+      Outputter o = new Outputter();
+
+      o.basicPattern("tst.txt");
+      o.preferredPattern("tst2.txt");
+      o.otherWriter("tst3.txt");
+    }
+
+  }
+#+end_src
+
+#+RESULTS:
+* File Input in Java
+- ~java.io.FileReader~ ?
+  - Only has one method to read a single character.
+  - ~java.io.BufferedReader~ to get ~readLine()~ method
+
+- Two ways here too. One old-school and one newer.
+- As usual, there are many other ways too.
+
+#+begin_src java :file Inputter.java
+  import java.io.FileReader;
+  import java.io.BufferedReader;
+  import java.nio.file.*;
+  import java.util.ArrayList;
+
+  public class Inputter {
+
+    public ArrayList<String> oldSchool(String filename) {
+      ArrayList<String> contents = new ArrayList<String>();
+      try (
+        FileReader file = new FileReader(filename);
+        BufferedReader buf = new BufferedReader(file);
+        ) {
+        String line;
+        while ((line = buf.readLine()) != null) {
+          contents.add(line);
+        }
+      } catch (IOException e) {
+        System.out.println(e);
+      }
+
+      return contents;
+    }
+
+    public ArrayList<String> hipster(String filename) {
+      ArrayList<String> contents = new ArrayList<String>();
+      Path path = Paths.get(filename);
+
+      try(BufferedReader buf = Files.newBufferedReader(path)) {
+        String line;
+        while ((line = buf.readLine()) != null) {
+          contents.add(line);
+        }
+      } catch (IOException e) {
+        System.out.println(e);        
+      }
+
+      return contents;
+    }
+
+    public static void main(String [] args) {
+      Inputter in = new Inputter();
+      ArrayList<String> contents;
+
+      contents = in.oldSchool("tst.txt");
+      for (String l : contents) { System.out.println(l); }
+
+      contents = in.hipster("tst2.txt");
+      for (String l : contents) { System.out.println(l); }
+
+    }
+  }
+
+#+end_src
+
+#+RESULTS:
+: Some text
+: Some more text
+: Some preferred text
+
+* Java Readers and Writers
+- Conceptually, you wrap different levels of readers until you get the functionality you want
+  - Typically, you will want at least a ~BufferedReader~ and a ~BufferedWriter~
+
+#+begin_src plantuml :file readers.png
+object "in:BufferedReader" as in
+object "fileIn:FileReader" as filein
+in o-- filein
+
+object "out:BufferedWriter" as out
+object "fileout:FileWriter" as fileout
+out o-- fileout
+#+end_src
+
+#+RESULTS:
+[[file:readers.png]]
+
+- Reader
+  - BufferedReader 
+  - CharArrayReader 
+  - FilterReader 
+  - InputStreamReader 
+    - FileReader
+  - PipedReader 
+  - StringReader 
+
+- Writer
+  - BufferedWriter 
+  - CharArrayWriter 
+  - FilterWriter 
+  - OutputStreamWriter
+    - FileWriter
+  - PipedWriter 
+  - StringWriter 
+  - PrintWriter
+
+* TODO När det går fel
+* Testing for Runtime Errors
+- Compile-time errors covered previously:
+  - Syntax Errors
+    - the compiler tells you what you have written wrong
+    - Read the compiler errors
+  - Logical Errors
+    - the compiler does not know this is wrong
+    - Use Unit Testing to capture this.
+    - Debugger
+
+- Runtime errors :
+  - Input Testing
+    - Ensure that user enters "correct" information
+  - Exception handling
+    - runtime exceptions
+    - e.g. "file not found", "divide by zero", \dots
+* Handling Runtime Errors
+- Handling compile-time errors is done during development
+- Handling errors caught by automated tests is done during development
+- Handling runtime errors /have to be/ handled during runtime!
+* A Software Tester Walks into a Bar\dots
+A Software Tester walks into a bar and orders a beer. Then they orders:
+- -1 beers
+- 999999999 beers
+- a duck
+- 0 beers
+- sdlkfjhkjsdhgfk
+- null
+
+So far, so good. Then they:
+- Orders 3 friends to come over for some fun.
+- Unhooks the tap and orders a beer.
+- Breaks all the glassware and orders a beer.
+- Sets the bar on fire and orders a beer.
+- Orders someone else a beer.
+- Has everyone order a beer.
+- Orders in russian.
+- Orders a beer for later.
+- Orders every beer.
+- Walks into the bar backwards.
+- Runs into the bar.
+- Sits at the bar overnight doing nothing to see what happens.
+- Tries to sell a beer.
+- Quickly orders a second beer before the first is served.
+- Interrupts the order midway and walks out.
+- Orders a beer in IE6.
+- Orders 1 ; select * from liquors; — beers.
+- Orders an apostrophe and walks out without paying the bill.
+- Waits for someone else to order, stands between them and the bartender, takes the drink.
+
+... then sends them all back.
+* Detecting the Error
+- Defensive Programming
+  - Balance between checking everything and put reasonable trust in the program.
+
+- Anticipating and avoiding the error 
+- Detecting the error state
+- Deciding what to do about the error
+- Deciding how much to report to the user
+* A Brief Word on Input Sanitisation
+- Never ever /ever/ assume that input is correct
+  - User input
+  - Command line parameters
+  - File contents
+  - Socket traffic
+  - Fetched data (e.g., html, xml, json)
+  - HTTP header
+  - Properties/Config files
+  - \dots
+  - https://github.com/kuronpawel/big-list-of-naughty-strings
+
+- Java is safer than C++, but can still be really dangerous.
+  - What do you do with the input?
+    - Pass it on as a field to the database?
+    - Display it in a web browser?
+    - Use it as a script and interpret it?
+  - What do you do if not all data is present?
+  - What do you do if the data is of the wrong type?
+* Method Input: Parameters
+- Are the parameters to a method within bounds?
+- Are the parameters not null?
+  - Are there good defaults to use instead?
+- Will the method complete even with incorrect parameters?
+- Will the result be meaningful?
+* Error Reporting (to the user)
+- Is the error quietly fixable?
+- Should the user be /informed/ , or /warned/
+- Should the program /exit/?
+- Write to a log to facilitate debugging
+
+#+begin_src java :imports java.util.logging.*
+  int x = 10;
+  Logger l = Logger.getLogger("se.bth.example.system.Test");
+  l.entering("Main","main()");
+
+  l.setLevel(Level.ALL);
+  l.info("Current log level " + l.getLevel());
+
+  l.config("Using default configuration");
+  l.info("Starting...");
+
+  l.log(Level.FINE, "Still here...");
+  l.fine("Also still here");
+
+  l.warning("Not sure how to proceed here");
+
+  l.exiting("Main", "main()");
+#+end_src
+* Error Reporting (within program)
+- Magic return value that indicates error
+  - ~null~
+  - ~-1~
+  - ~false~
+- Throw an Exception
+- Set an error flag somehwere
+- \dots
+* Error Handling
+- Check for magic error number
+- Catch Exception
+- Check error flags
+
+- Deal with the error if possible
+  - Maybe return some indication that there was an error
+  - Log the error
+- Maybe re-try the same operation
+  - How many times?
+  - Delay between each try?
+- When all fails: re-throw exception
+
+- *Always* clean up when you detect an error!
+  - If you tried to open a file, try to close it
+  - If you had an open database connection, close it
+  - \dots
+
+* TODO Sammanfattning
+* TODO Nästa Föreläsning
+* TODO Övning: 
+* Outline
+   - Text Based I/O
+   - Java Swing
+   - [ ] *Exercises* Java
+     - Some input/output class
+     - Implement and connect a Swing dialogue or two
+Bygg vidare på Ponies, nu med ett gränssnitt för att visa PonyStatistics som de implementerade i förra övningen.
+
+
