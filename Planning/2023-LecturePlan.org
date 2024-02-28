@@ -112,7 +112,8 @@ CLOSED: [2024-02-19 mån 14:14]
      - Use code
      - use java standard library
      - Example: If the code contains a ~List<>~, iterate over the elements .
-* TODO Week 3 - Java
+* DONE Week 3 - Java
+CLOSED: [2024-02-28 ons 14:20]
 ** DONE W3: A Compiled Language: Java
 CLOSED: [2024-02-20 tis 13:59]
    - Quick run-down of
@@ -126,32 +127,15 @@ CLOSED: [2024-02-20 tis 13:59]
    - [ ] *Exercises* Java
      - Some class that implements an existing interface
      - Some iteration, some if-statements
-** TODO W3: User Interfaces in Java
+** DONE W3: User Interfaces in Java
+CLOSED: [2024-02-28 ons 14:20]
    - Text Based I/O
    - Java Swing
    - [ ] *Exercises* Java
      - Some input/output class
      - Implement and connect a Swing dialogue or two
-* TODO Week 4 - JavaScript
-** TODO W4: An Interpreted Language: JavaScript/node.js
-   - Classes, objects, methods, functions
-   - Modules, exports
-   - ~nodemon~ to restart app on changes
-   - [ ] *Exercises* JavaScript
-     - pull small project
-     - implement some simple classes
-** TODO W4: Client and Server Applications in JavaScript
-   - nodegui https://docs.nodegui.org/ (Maybe not, seems more trouble than its worth right now)
-   - yue https://github.com/yue/yue ?
-   - electron (bloated!)
-   - https://github.com/sudhakar3697/awesome-electron-alternatives
-   - express.js
-   - a node.js test framework ~mocha/chai~
-   - [ ] *Exercises* JavaScript Server && Frontent
-     - implement some simple frontend
-     - implement a simple web service
 * TODO Week 5 - Containers && Microservices
-** TODO W5: Virtual Machines and Containers
+** TODO Virtual Machines and Containers
    - Overview of Virtual Machines (Re-use from PA2577)
    - Overview of Light-weight containers
    - Software to Install
@@ -164,7 +148,7 @@ CLOSED: [2024-02-20 tis 13:59]
    - [ ] *Exercises* Containers
      - Install Software
      - docker pull, docker build, docker run, docker compose, edit running container (bind mounts)
-** TODO W5: Application Building, Microservices
+** TODO Application Building, Microservices
     - Microservice Architectures (from PA2577 Applied Cloud Computing And Big Data)
     - ch 6 : Concurrency
       - topic 33 Breaking Temporal Coupling
@@ -174,6 +158,24 @@ CLOSED: [2024-02-20 tis 13:59]
     - REST API
     - [ ] *Exercises* Microservices
       - Docker Compose: Write a yaml to deploy and launch replicas
+* TODO Week 5 - JavaScript
+** TODO An Interpreted Language: JavaScript/node.js
+   - Classes, objects, methods, functions
+   - Modules, exports
+   - ~nodemon~ to restart app on changes
+   - [ ] *Exercises* JavaScript
+     - pull small project
+     - implement some simple classes
+** TODO Client and Server Applications in JavaScript
+   - nodegui https://docs.nodegui.org/ (Maybe not, seems more trouble than its worth right now)
+   - yue https://github.com/yue/yue ?
+   - electron (bloated!)
+   - https://github.com/sudhakar3697/awesome-electron-alternatives
+   - express.js
+   - a node.js test framework ~mocha/chai~
+   - [ ] *Exercises* JavaScript Server && Frontent
+     - implement some simple frontend
+     - implement a simple web service
 * TODO Week 6 - Databases
 ** TODO W6: Introduction to Databases
     - Overview: SQL, NoSQL, Graph

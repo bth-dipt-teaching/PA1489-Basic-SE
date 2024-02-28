@@ -10,11 +10,12 @@
 #+BEAMER_THEME: BTH_msv
 
 
-* TODO Introduktion
+* Introduktion
 - Användargränssnitt i Java
   - textbaserade gränssnitt
   - Grafiska gränssnitt med Java AWT/Swing
 - Enkel filhantering i Java
+- Felhantering, =try-catch=, felrapportering
 * Gränssnitt
 - /Gränssnitt/ är en något överanvänd term
   - Komponenter erbjuder /programmeringsgränssnitt/ som man använder när man skriver kod
@@ -51,7 +52,6 @@ Nackdelar:
 - Svårare att "upptäcka" hur de fungerar
 - Kräver lite mer tanke för att konstruera för att de skall bli enkla
 - Begränsat med information som får plats på 80x25 tecken
-* TODO In- och utmatning i Java
 * Grafiska Användargränssnitt
 #+begin_src plantuml :file gui-ex.png
 @startsalt
@@ -101,6 +101,33 @@ Please motivate your answer:
   - Din utvecklingsmiljö kan mycket väl använda ~gdb~ internt
   - Den använder också nästan säkert kommandorads- ~git~ undertill
 
+* In- och utmatning i Java
+- Klassen ~System~ är alltid tillgänglig
+- I synnerhet ~System.out.print()~ och ~System.out.println()~ 
+- ~System.out~ är en ~PrintStream~ som normalt hänvisar till standard output (terminalen)
+- Läs mer om ~PrintStream~ i java-dokumentationen:
+  - https://docs.oracle.com/en/java/javase/20/docs/api/index.html
+  - https://docs.oracle.com/en/java/javase/20/docs/api/java.base/java/io/PrintStream.html
+
+- ~System.in~ är en ~InputStream~, men den är svårare att använda
+- Använd hellre ~Console~ , som du får tag i genom att anropa ~System.console()~.
+
+#+begin_src java
+  import java.io.*;
+  Console con = System.console();
+
+  System.out.print("Enter your name: ");
+  String name = con.readLine();
+  System.out.println("Hello " + name);
+
+  // Or, shorter
+  name = con.readLine("Please enter your name again: ");
+  System.out.println("Hello again, " + name);
+
+  // We can complicate things
+  String lastname = con.readLine("What is your lastname, %s? ", name);
+  con.printf("Greetings, %s %s!\n", name, lastname);
+#+end_src
 * Grafiska Gränssnitt i Java
 - Två generationer: =java.awt= och =java.Swing=
   - AWT är äldre, men byggt specifikt för varje platform/operativsystem   
@@ -197,7 +224,7 @@ JCheckBox, JRadioButton -> JToggleButton
     g.dispose()										// Var snäll och "släpp" Graphics-objektet efter dig, så vet Java att det inte blir mer ritat.
   }
 #+end_src
-* TODO EventListerners
+* EventListerners
 - En ~Component~ kan skapa olika typer av /Händelser/ (Events), till exempel:
   - Focus
   - Key
@@ -248,9 +275,21 @@ Olika lösningar:
       public void actionPerformed(ActionEvent evt) {
         someText.setText("");
       } });
+
+  // MouseListener har fler metoder, alltså finns det en MouseAdapter också...
+  myCanvas.addMouseListener(new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent evt) {
+          if (null == myWindow) {
+            myWindow = new PonyWindow(myPony);
+            myWindow.setVisible(true);
+          } else {
+            myWindow.toggleVisible();
+          }
+        } });
 #+end_src
 
-* TODO File Output in Java
+* File Output in Java
 - Use ~java.io.FileWriter~ 
 - There are many other ways, e.g. ~java.io.PrintWriter~
 - Careful about the character set, åäö may trip you up.
@@ -421,8 +460,7 @@ out o-- fileout
   - StringWriter 
   - PrintWriter
 
-* TODO När det går fel
-* Testing for Runtime Errors
+* When Things Go Wrong: Testing for Runtime Errors
 - Compile-time errors covered previously:
   - Syntax Errors
     - the compiler tells you what you have written wrong
@@ -535,7 +573,7 @@ So far, so good. Then they:
   - ~null~
   - ~-1~
   - ~false~
-- Throw an Exception
+- Throw an Exception (Will it be caught ⁉️)
 - Set an error flag somehwere
 - \dots
 * Error Handling
@@ -556,15 +594,175 @@ So far, so good. Then they:
   - If you had an open database connection, close it
   - \dots
 
-* TODO Sammanfattning
-* TODO Nästa Föreläsning
-* TODO Övning: 
-* Outline
-   - Text Based I/O
-   - Java Swing
-   - [ ] *Exercises* Java
-     - Some input/output class
-     - Implement and connect a Swing dialogue or two
-Bygg vidare på Ponies, nu med ett gränssnitt för att visa PonyStatistics som de implementerade i förra övningen.
+* Sammanfattning
+- Användarinteraktion kan göras i olika nivåer
+  - start-parametrar och utskrifter
+  - in- och utmatning i en konsol
+  - text-baserat UI
+  - Grafiska gränssnitt
+  - web-applikationer
+
+- =Java.Swing= för att bygga grafiska gränssnitt i Java
+  - Finns naturligtvis verktyg för detta, men är ganska enkelt att skriva själv
+- =EventListeners= för att binda samman GUI-kod med din applikation
+
+- In-och utmatning till filer
+- Felhantering, =try-catch=, felrapportering
+* Nästa Föreläsning
+- Virtuella Maskiner och Containers
+- Utveckla i en Container
+- Utvecklingsprocess för Kompilerade respektive Tolkade programspråk
+* Övning: Mera Pony-Statistik
+- I projektet JavaPonies finns en branch =PonyStatistics= där interfacet från tidigare föreläsningar implementeras.
+- Checka ut JavaPonies på ett nytt ställe (om du vill spara din implementation) och byt branch:
+  - ~git clone https://codeberg.org/mickesv/JavaPonies.git~
+  - ~cd JavaPonies && git checkout PonyStatistics~
+- Kontrollera vad som ändrats: ~git diff origin/main~
+** En Ny Main
+1. Skriv en ny klass ~JavaPonyStatistics extends JavaPonies~
+  (att ärva från JavaPonies gör att du kan spara mycket av uppstarten från JavaPonies).
+2. Skriv en ny ~main()~ - funktion i ~JavaPonyStatistics~ :
+#+begin_src java
+	public static void main(String[] args) {
+		JavaPonyStatistics ps = new JavaPonyStatistics();
+		ps.printStatistics();
+	}
+#+end_src
+1. Implementera metoden ~JavaPonyStatistics.printStatistics() så att den:
+   - itererar över alla Ponies (du hittar dem via ~myPonies.findAll()~ ), och 
+   - skriver ut Categories, Behaviour Groups, Behaviours, Effects, Interactions, och Speakig Lines:
+
+#+begin_verse
+Printing Statistics for Apple Bloom
+Categories:
+Behaviour Groups:
+Behaviours: stand, walk, follow_aj, spin_me_right_round, workout, aww, CMC, dance
+Effects:
+Interactions:
+Speaking lines:
+- CUTIE MARK CRUSADER DESKTOP PONIES!!!
+- Did I get my cutie mark? Did I? Did I!?
+- Scoot-Scootalooo!
+- Aww!
+- Aren't you gonna stay for brunch?
+- But I want it now!
+- I am a big pony!
+- I'm not a baby, I can take care of myself!
+- Likely story.
+- Not the cupcakes!
+- Some pony needs to put this thing out of its misery.
+- You're not using power tools, are you?
+- Scootaloo! Scoot-Scootaloo!
+- Trust me.
+- What a thing to say!
+#+end_verse
+** Bara en enda Pony
+Notera signaturen för main: ~public static void main(String [] args)~
+- public :: så att man kommer åt den utanför klassen
+- static :: så att man inte behöver först skapa ett objekt
+- void :: man kan inte returnera något
+- main :: så att runtime-java vet vilken metod den skall leta efter
+- String [] args :: Här kommer alla kommandorads-parametrar.
+
+Dags att lägga till lite interaktivitet:
+1. Om ~(0 == args.length)~ , lista statistik för alla ponies (som tidigare)
+2. Annars, hitta alla ponies som innehåller ~arg[0]~.
+   - Du kommer vilja se till att allting är antingen stora eller små bokstäver: ~String::toLowerCase()~ .
+   - Det räcker att veta om ponnyns namn /innehåller/ strängen, använd ~String::contains()~ .
+   - ~pony.getName().toLowerCase().contains(arg[0].toLowerCase())~
+   - Extra utmaning: gör en fuzzy match och stöd för bigram eller trigram.
+** Ett Grafiskt Gränssnitt
+1. Skriv en ny klass ~view/PonyStatisticsViewer~ som skapar en JFrame enligt nedan.
+2. Skriv en funktion för att fylla listan med namnen på alla tillgängliga Ponies.
+3. Skriv kod så att när man har valt en Pony och trycker på knappen "View Statistics", så visas statistiken till höger.
+4. Vänta med "Save to file..." - knappen.
+
+#+begin_src plantuml :file PonyStatsViewer.png
+@startsalt
+!theme bluegray
+
+{^
+{
+<b>Pony Statistics Viewer
+}
+{^"Available Ponies"
+{SI
+Rainbow Dash
+Pinkie Pie
+<b>Applejack
+Twilight
+.
+.
+.
+.
+.
+.
+"                              "
+}
+[View Statistics] 
+} | {^"Pony Statistics"
+ Name |             "Applejack           "
+ Behaviour Groups | "                    "
+ Behaviours |       "stand, walk, gidd..."
+ Effects |          "Apple Drop, tree_..."
+ Interactions |     "                    "
+ .
+ Speaking Lines | {SI
+  Hey there, Sugarcube!
+  Howdy, Partner!
+  I better get buckin' soon.
+  Yeee...
+  Haw!
+}
+. | [Save to file...]
+}
+}
 
 
+
+#+end_src
+
+#+RESULTS:
+[[file:PonyStatsViewer.png]]
+
+** Save to File...
+Nu är det dags att implementera "Save to file...":
+
+1. När man trycker på knappen skall en ~javax.swing.JFileChooser~ öppnas.
+2. Statistiken om den valda Ponyn skall sedan skrivas till den angivna filen.
+3. Kontrollera att filen har rätt innehåll genom att öppna den (eller visa den i din terminal)
+
+*** MWE for Save to File
+#+begin_src java
+import javax.swing.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.filechooser.FileSystemView;
+
+public class FiCH {
+
+public static void main(String [] args) {
+	JFrame f = new JFrame("FiCH");
+	f.setSize(500, 500);
+	f.setVisible(true);
+	JLabel l = new JLabel("no file selected");
+
+	JButton button1 = new JButton("save");  
+  button1.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent evt) {
+				JFileChooser j = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+				int result = j.showSaveDialog(f);
+				if (result == JFileChooser.APPROVE_OPTION) {
+					l.setText(j.getSelectedFile().getAbsolutePath());
+				} else {
+					l.setText("the user cancelled the operation");
+        }
+			} });
+ 
+	JPanel p = new JPanel();
+	p.add(button1);
+	p.add(l);
+	f.add(p);	
+}
+}
+#+end_src
