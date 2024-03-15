@@ -90,6 +90,7 @@ Resubmissions:
 Examples of Development Environments:
 - BlueJ https://www.bluej.org/
 - IntelliJ https://www.jetbrains.com/idea/
+- VS Codium https://vscodium.com/
 - Emacs https://www.gnu.org/software/emacs/
 - \dots
 - Vim https://www.vim.org/
@@ -158,7 +159,7 @@ Examples of UML Modelling tools
 - *\sum Kommunikationen fungerar inte*
 
 ** Entropi
-- Minnes i gymnasiefysiken?
+- Minnens i gymnasiefysiken?
 - I mjukvara: /software rot/
   - Tecnical debt :: Snabbfix nu, vi lovar oss själva att fixa senare
   - Architecture erosion / architecture decay :: Vi glömmer den ursprungliga tanken och börjar ta genvägar

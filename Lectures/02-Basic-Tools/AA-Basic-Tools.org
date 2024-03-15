@@ -49,7 +49,7 @@ Moderna Alternativ
 - IntelliJ
 - Eclipse
 - Atom
-- VS Code
+- VS Code / VS Codium
 
 Det viktiga är inte vilken du väljer
 - Skall kunna använda flera olika miljöer
@@ -682,8 +682,8 @@ Lär dig mantrat: /"If it's not committed, it does not exist!"/
 - Thomas & Hunt: *Kapitel 7: While you are Coding*
 - Thomas & Hunt: Kapitel 3; topic 20: Debugging
 - Thomas & Hunt: Kapitel 9; topic 51: Pragmatic Starter Kit
-* Övning: Kom igång med IntelliJ IDEA :Practice:
-- Starta =IntelliJ IDEA=
+* Övning: Kom igång med din IDE :Practice:
+- Starta =IntelliJ IDEA= eller den IDE du har valt (e.g. =VS Code= eller =VS Codium=) .
 - Skapa ett Projekt =New Project=
   - Name: =TestProjekt=
   - Language: =Java=
@@ -709,6 +709,15 @@ IntelliJ försöker hela tiden ge dig ledtrådar på vad du kan skiva.
 - Hur ser detta ut?
 - Vad får du för hjälp?
 - Hjälper det faktiskt, eller är det i vägen?
+
+#+begin_src java
+public class Main {
+
+    public static void main(String[] args) {
+        System.out.printf("Hello and welcome!");
+    }
+}
+#+end_src
 ** Hjälp
 - Ställ dig någonstans där det står ~println~ och tryck =ctrl-Q=
   - Du kan också komma åt detta via =View= -menyn. Vad mer kan du hitta där?
