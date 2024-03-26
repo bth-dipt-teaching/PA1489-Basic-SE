@@ -1,3 +1,5 @@
+#+STARTUP: OVERVIEW
+#+TODO: TODO(t) | DONE(d!) WAIT(w!) INFO(i) MORT(m)
 
 * INFO Outline
 Vecka 1: Konfigurationshantering, Bli vän med din IDE 
@@ -134,8 +136,17 @@ CLOSED: [2024-02-28 ons 14:20]
    - [ ] *Exercises* Java
      - Some input/output class
      - Implement and connect a Swing dialogue or two
-* TODO Week 5 - Containers && Microservices
-** TODO Virtual Machines and Containers
+* DONE Week 5 - Containers && Microservices
+CLOSED: [2024-03-26 tis 11:37]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2024-03-26 tis 11:37]
+:END:
+
+** DONE Virtual Machines and Containers
+CLOSED: [2024-03-15 fre 13:36]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2024-03-15 fre 13:36]
+:END:
    - Overview of Virtual Machines (Re-use from PA2577)
    - Overview of Light-weight containers
    - Software to Install
@@ -148,7 +159,11 @@ CLOSED: [2024-02-28 ons 14:20]
    - [ ] *Exercises* Containers
      - Install Software
      - docker pull, docker build, docker run, docker compose, edit running container (bind mounts)
-** TODO Application Building, Microservices
+** DONE Application Building, Microservices
+CLOSED: [2024-03-26 tis 11:37]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2024-03-26 tis 11:37]
+:END:
     - Microservice Architectures (from PA2577 Applied Cloud Computing And Big Data)
     - ch 6 : Concurrency
       - topic 33 Breaking Temporal Coupling
