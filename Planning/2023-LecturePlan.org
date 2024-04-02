@@ -174,7 +174,11 @@ CLOSED: [2024-03-26 tis 11:37]
     - [ ] *Exercises* Microservices
       - Docker Compose: Write a yaml to deploy and launch replicas
 * TODO Week 5 - JavaScript
-** TODO An Interpreted Language: JavaScript/node.js
+** DONE An Interpreted Language: JavaScript/node.js
+CLOSED: [2024-04-02 tis 12:11]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2024-04-02 tis 12:11]
+:END:
    - Classes, objects, methods, functions
    - Modules, exports
    - ~nodemon~ to restart app on changes
@@ -187,10 +191,18 @@ CLOSED: [2024-03-26 tis 11:37]
    - electron (bloated!)
    - https://github.com/sudhakar3697/awesome-electron-alternatives
    - express.js
+   - nodemon?
+   - Kan man komma åt node inuti en körande container?
    - a node.js test framework ~mocha/chai~
    - [ ] *Exercises* JavaScript Server && Frontent
      - implement some simple frontend
      - implement a simple web service
+---
+- Mer om applikationsutveckling i JavaScript
+- Skrivbordsapplikationer
+- Klient-Server-applikationer
+- Testning
+
 * TODO Week 6 - Databases
 ** TODO W6: Introduction to Databases
     - Overview: SQL, NoSQL, Graph
