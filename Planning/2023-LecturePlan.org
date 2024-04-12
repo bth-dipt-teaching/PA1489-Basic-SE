@@ -136,7 +136,7 @@ CLOSED: [2024-02-28 ons 14:20]
    - [ ] *Exercises* Java
      - Some input/output class
      - Implement and connect a Swing dialogue or two
-* DONE Week 5 - Containers && Microservices
+* DONE Week 4 - Containers && Microservices
 CLOSED: [2024-03-26 tis 11:37]
 :LOGBOOK:
 - State "DONE"       from "TODO"       [2024-03-26 tis 11:37]
@@ -185,7 +185,11 @@ CLOSED: [2024-04-02 tis 12:11]
    - [ ] *Exercises* JavaScript
      - pull small project
      - implement some simple classes
-** TODO Client and Server Applications in JavaScript
+** DONE Client and Server Applications in JavaScript
+CLOSED: [2024-04-12 fre 10:58]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2024-04-12 fre 10:58]
+:END:
    - nodegui https://docs.nodegui.org/ (Maybe not, seems more trouble than its worth right now)
    - yue https://github.com/yue/yue ?
    - electron (bloated!)
@@ -202,7 +206,6 @@ CLOSED: [2024-04-02 tis 12:11]
 - Skrivbordsapplikationer
 - Klient-Server-applikationer
 - Testning
-
 * TODO Week 6 - Databases
 ** TODO W6: Introduction to Databases
     - Overview: SQL, NoSQL, Graph
@@ -220,6 +223,11 @@ CLOSED: [2024-04-02 tis 12:11]
     - [ ] *Exercises* SQL Databases
       - Set up a simple database through adminer interface
       - connect small node.js app to db and query
+---
+- Introduktion till Persistent Lagring av Data och Databaser
+  - Relationsdatabaser
+  - NoSQL-databaser
+  - Andra typer av databaser
 ** TODO W6: Introduction to NoSQL Databases
     - MongoDB: Databases, collections, documents
     - json
@@ -233,7 +241,10 @@ CLOSED: [2024-04-02 tis 12:11]
     - [ ] *Exercises* BurgerOrder
       - set up docker-compose file
       - Get menus/menuitems from database and create in-memory objects (according to given interface)
-** TODO W7: Runtime Edits
+** MORT W7: Runtime Edits
+CLOSED: [2024-04-05 fre 10:54]
+<2024-04-05 fre> Already covered at length
+
     - Difference between deployments: local development, test, production
     - How to edit running container
 * TODO Week 8 - ??
@@ -271,3 +282,20 @@ nodegui: fix package.json:
   - ett antal obligatoriska punkter
   - ett antal frivilliga
   - *reflekterande text om varje punkt (5-10 meningar).*
+* Lost Puppies
+** WAIT Input från terminalen
+https://nodejs.org/en/learn/command-line/accept-input-from-the-command-line-in-nodejs
+https://github.com/SBoudrias/Inquirer.js
+#+begin_src javascript
+const readline = require('node:readline');
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+
+rl.question(`What's your name?`, name => {
+  console.log(`Hi ${name}!`);
+  rl.close();
+});
+#+end_src
