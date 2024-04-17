@@ -173,7 +173,12 @@ CLOSED: [2024-03-26 tis 11:37]
     - REST API
     - [ ] *Exercises* Microservices
       - Docker Compose: Write a yaml to deploy and launch replicas
-* TODO Week 5 - JavaScript
+* DONE Week 5 - JavaScript
+CLOSED: [2024-04-17 ons 11:51]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2024-04-17 ons 11:51]
+:END:
+
 ** DONE An Interpreted Language: JavaScript/node.js
 CLOSED: [2024-04-02 tis 12:11]
 :LOGBOOK:
@@ -206,8 +211,17 @@ CLOSED: [2024-04-12 fre 10:58]
 - Skrivbordsapplikationer
 - Klient-Server-applikationer
 - Testning
-* TODO Week 6 - Databases
-** TODO W6: Introduction to Databases
+* DONE Week 6 - Databases
+CLOSED: [2024-04-17 ons 11:52]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2024-04-17 ons 11:52]
+:END:
+
+** DONE W6: Introduction to Databases
+CLOSED: [2024-04-17 ons 11:51]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2024-04-17 ons 11:51]
+:END:
     - Overview: SQL, NoSQL, Graph
     - Relational Databases (Tables and relations)
     - Example in e.g. mysql https://www.w3schools.com/nodejs/nodejs_mysql.asp
@@ -228,7 +242,10 @@ CLOSED: [2024-04-12 fre 10:58]
   - Relationsdatabaser
   - NoSQL-databaser
   - Andra typer av databaser
-** TODO W6: Introduction to NoSQL Databases
+** MORT W6: Introduction to NoSQL Databases
+CLOSED: [2024-04-17 ons 11:52]
+Skip this; Theory is included in "Introduction", and previous exercises have already included mongodb.
+
     - MongoDB: Databases, collections, documents
     - json
     - dangers of no structure - no heads-up-design
