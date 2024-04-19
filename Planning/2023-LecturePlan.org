@@ -289,16 +289,14 @@ nodegui: fix package.json:
     "@nodegui/nodegui": "^0.59.0"
   },
   ---
-* TODO Inlämningsuppgifter
-1. Git && Collaboration
-2. Debug & Test (in Containers)
-3. Implement & Document
-
-*TODO* Låna friskt från dbwebb, t.ex. https://dbwebb.se/kurser/js-v2/kmom10
-- Projekt i slutet "intelligenstest"
-  - ett antal obligatoriska punkter
-  - ett antal frivilliga
-  - *reflekterande text om varje punkt (5-10 meningar).*
+* DONE Inlämningsuppgifter
+CLOSED: [2024-04-19 fre 11:10]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2024-04-19 fre 11:10]
+:END:
+1. (2.5hp; A-F) Git && Collaboration
+2. (2.5hp; A-F) Implement & Document
+3. (2.5hp; A-F) Debug & Test (in Containers)
 * Lost Puppies
 ** WAIT Input från terminalen
 https://nodejs.org/en/learn/command-line/accept-input-from-the-command-line-in-nodejs
