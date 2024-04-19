@@ -773,7 +773,7 @@ Första raden av utskriften blir: =Hello and welcome!Is Number: 10 smaller than 
   - https://github.com/signup eller https://education.github.com/pack
   - https://gitlab.com/users/sign_up
   - https://www.atlassian.com/software/bitbucket/bundle
-  - https://codeberg.org/user/cbrgp/9hnjXJs
+  - https://codeberg.org/
 
 - Github är fortfarande väldigt stort för open source-projekt
   - Lite i blåsväder för hur de använder koden som du laddar upp dit
@@ -786,7 +786,7 @@ Första raden av utskriften blir: =Hello and welcome!Is Number: 10 smaller than 
 - Lättast att börja i webgränssnittet
 - Döp projektet till något kreativt, t.ex. =gitexempel=
 - När du är klar bör du kunna hitta en länk, t.ex. under =<> Code= som du kan använda för att klona projektet
-  - ~git clone https://codeberg.org/mickesv/gitex.git~
+  - till exempel: ~git clone https://codeberg.org/mickesv/gitex.git~
   - Det här sätter up =remote/origin= mm. åt dig.
 ** Skapa lite git-historia
 1. Skapa några filer

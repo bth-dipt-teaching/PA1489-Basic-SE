@@ -622,13 +622,15 @@ So far, so good. Then they:
 1. Skriv en ny klass ~JavaPonyStatistics extends JavaPonies~
   (att ärva från JavaPonies gör att du kan spara mycket av uppstarten från JavaPonies).
 2. Skriv en ny ~main()~ - funktion i ~JavaPonyStatistics~ :
+
 #+begin_src java
 	public static void main(String[] args) {
 		JavaPonyStatistics ps = new JavaPonyStatistics();
 		ps.printStatistics();
 	}
 #+end_src
-1. Implementera metoden ~JavaPonyStatistics.printStatistics() så att den:
+
+3. [@3] Implementera metoden ~JavaPonyStatistics.printStatistics() så att den:
    - itererar över alla Ponies (du hittar dem via ~myPonies.findAll()~ ), och 
    - skriver ut Categories, Behaviour Groups, Behaviours, Effects, Interactions, och Speakig Lines:
 
@@ -670,7 +672,6 @@ Dags att lägga till lite interaktivitet:
    - Du kommer vilja se till att allting är antingen stora eller små bokstäver: ~String::toLowerCase()~ .
    - Det räcker att veta om ponnyns namn /innehåller/ strängen, använd ~String::contains()~ .
    - ~pony.getName().toLowerCase().contains(arg[0].toLowerCase())~
-   - Extra utmaning: gör en fuzzy match och stöd för bigram eller trigram.
 ** Ett Grafiskt Gränssnitt
 1. Skriv en ny klass ~view/PonyStatisticsViewer~ som skapar en JFrame enligt nedan.
 2. Skriv en funktion för att fylla listan med namnen på alla tillgängliga Ponies.

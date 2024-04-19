@@ -458,7 +458,7 @@ Med /god disciplin/ kan man programmera på det här viset i JavaScript också.
      - startar applikationen med =ENTRYPOINT ["npm", "run", "dev"]=.
   2. En =package.json= som minst:
      - deklarerar =Express ^4.19.1= som ett beroende
-     - har ett =dev= - script som startar applikationen med hjälp av odemon.
+     - har ett =dev= - script som startar applikationen med hjälp av nodemon.
   3. En fil ~src/index.js~ som startar upp en express-webapplikation med två routes
      - =GET /= som levererar en sida enligt nedan
      - =GET /greet= som lägger till en rad =Hello, Firstname Lastname!=.
