@@ -96,7 +96,7 @@ Diskutera i små grupper: Hur skall ni göra för att få färre konflikter?
   - Bubble Sort: =O(n²)= jämför varje element med alla andra och byt plats på alla element som inte redan är ordnade.
 ** Kom igång med övningen
 1. Klona SorterTool till din dator: https://codeberg.org/mickesv/SorterTool.git
-2. Öppna projektet i din IDE (IntelliJ IDEA). Studera följande filer:
+2. Öppna projektet i din IDE. Studera följande filer:
    - ~src/Main.java~ för att snabbt kunna köra programmet
    - ~src/Sorter.java~ implementerar de olika sorteringsalgoritmerna.
    - ~Tests/SorterTest.java~ testar ~Sorter~.
