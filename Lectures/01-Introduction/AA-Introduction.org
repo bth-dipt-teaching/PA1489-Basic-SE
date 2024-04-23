@@ -43,65 +43,150 @@ Följande Lärandemål examineras i kursen:
 
 *Värderingsförmåga och förhållningssätt* 	Efter genomförd kurs ska studenten kunna:
 - Skriftligt reflektera över sina lösningar och sitt användande av utvecklingsverktyg.
-* TODO Struktur på Kursen
-  - Modules
-    - Readings
-    - Lectures
-      - Video Lectures
-      - Classroom Lectures
-    - Things to do
-  - Assignments
+* Mål med Kursen I
+- Ni har precis börjat er väg till att bli Programvaruutvecklare
+- Under de närmaste åren kommer ni fördjupa er i en stor mängd teorier, principer, och teknologier.
+  - Ni kommer bygga upp er egen /verktygslåda/
 
-OH-bilderna använder sig av en blandning av språk (svenska, engelska)
-och programspråk. Språket och språken är verktyg som du kommer använda
-dig av på olika vis under hela din studietid och din karriär. Övning
-börjar nu.
+- Den här kursen ger en översikt över vissa viktiga grunder i denna verktygslåda
+- Tekniker
+  - konfigurationshantering
+  - enhetstestning
+  - kod-dokumentation
+  - olika programmeringsspråk
+  - utveckling i och med virtuella maskiner
+  - \dots
+- Men också en grundläggande filosofi:
+  - En Pragmatisk Mjukvaruutvecklare
+  - /Använd de verktyg som är dig givna, och gör dem till dina egna/
+* Mål med Kursen II
+- Kursen kommer /inte/ hinna gå på djupet om mjukvaruutveckling eller någon enskild teknik.
+  - ni har tre (plus två) år på er för detta
+
+Målet är att ni skall:
+- få upp ögonen för vad som finns tillgängligt
+- få en insikt i hur olika teorier, principer, och teknologier passar ihop
+- få /viss/ övning i att använda de mest grundläggande teknologierna
+
+Cave!
+- Mycket kommer verka svårt
+- Du kommer kanske inte hinna lära dig allt
+- Du kommer kanske inte hinna göra alla övningar
+
+Det är ok. Det är tänkt så.
+
+Min förhoppning:
+- Kom ihåg att teknologierna /finns/, så att du kan använda dem senare, /när du behöver dem/
+- Försök etablera /några/ goda, pragmatiska vanor redan nu, och bygg på efter hand.
+- Kom tillbaka till det här kursmaterialet om något år (när du behöver) och använd det som referensmaterial.
+* Om Föreläsningarna
+- Föreläsningarna använder sig av en blandning av språk (svenska, engelska) och programspråk.
+- Språket och språken är verktyg som du kommer använda dig av på olika vis under hela din studietid och din karriär.
+
+| id | Innehåll                                 |
+|----+------------------------------------------|
+|  1 | Introduktion                             |
+|  2 | Översikt över Utvecklingsmiljön          |
+|  3 | Testning och Debuggning                  |
+|  4 | Dokumentation av Källkod                 |
+|  5 | Ett Kompilerat Språk: Java               |
+|  6 | Användargränssnitt i Java                |
+|  7 | Virtuella Maskiner och Containers        |
+|  8 | Applikationsutveckling med Microservices |
+|  9 | Ett Tolkat Språk: JavaScript             |
+| 10 | Applikationsutveckling med JavaScript    |
+| 11 | Introduktion till Databaser              |
+| 12 | --Buffert--                              |
+| 13 | --Buffert--                              |
+| 14 | --Buffert--                              |
+| 15 | --Buffert--                              |
+| 16 | --Buffert--                              |
+|----+------------------------------------------|
+* Struktur på Kursen
+- Lärplatform :: Canvas
+- Föreläsningar :: ger en översikt över ämnet och teorin.
+- Läsanvisningar :: inför vissa föreläsningar, I andra fall bara ett ämne som ni kan förbereda er fritt på.
+- Övningar :: om innehållet i varje föreläsning, går på djupet med det praktiska hantverket
+- Inlämningsuppgifter :: sätter samman hantverket till en helhet.
+- /Ingen tenta/
+
+Varje vecka:
+- 2 föreläsningar à 2h
+- 1 laboration à 2h
+- *Enskilt arbete* på egen hand eller i grupp.
 * Kursliteratur
 D. Thomas, A. Hunt, The Pragmatic Programmer, 20th Anniversary Edition, 2020. ISBN-10: 0-13-595705-2
 
 #+ATTR_ORG: :width 400
 [[./Thomas-Hunt-2020-Pragmatic-Programmer.png]]
 
-* TODO Inlämningsuppgifter
-Two main themes:
-1. Design (using Design Patterns)
-2. Implement (according to a design and (some) standard libraries)
+* Inlämningsuppgifter
+- Tre inlämningsuppgifter om vardera 2.5hp:
+  - Konfigurationshantering
+  - Implementation och Dokumentation
+  - Testning och Debuggning
+- Lös uppgifterna i grupper om 3--5 studenter
+- Uppgifterna går hand i hand -- ni måste jobba med alla tre samtidigt
+- Arbetet sker kontinuerligt under hela kursen med en stor inlämning i slutet av kursen.
 
-Delivered as a series of (more than two) assignments. */Some/ but not all are graded.*
+Kompletteringar:
+- Inom två veckor efter att kursen slutar
+- Januari, Juni, eller när kursen ges nästa gång.
+* Övningar, Inlämningsuppgifter och Föreläsningar
+- Mycket av det som behövs för att komma igång med inlämningsuppgifterna gås igenom tidigt i kursen.
+  - I synnerhet inlämningsuppgift 1 och 3.
+  - ... Men tyvärr inte allt: till Inlämningsuppgift 2 behöver ni fler verktyg i er verktygslåda.
+- /Börja med vad ni kan/
+  - Lös vad ni redan kan lösa, planera resten.
 
-Submissions:
-- Submit your work in groups of 3-5 students.
-- Deadlines on Canvas
+- Använd övningarna för att lära er hur ni skall lösa inlämningsuppgifterna.
+- Ni kommer inte hinna bli världsbäst på de teknologier som behövs
+  - Kopiera och anpassa i stället.
+  - Men *förstå* vad ni kopierar!
+* Några ord om AI
+*"Who's the more foolish? The fool or the fool who follows it?"*
+-- Obi Wan Kenobi
 
-Resubmissions:
-- Within two weeks after course ends.
-- Same dates as the re-exams
-* TODO Verktyg
-- You will need a Java Development Kit
-  - e.g. OpenJDK https://openjdk.org/ .
-- You may also wish to install a C/C++ compiler
-  - e.g. gcc https://gcc.gnu.org/
-- Make sure that the Java version you install is compatible with your IDE
-  - e.g., BlueJ requires Java 11+.
-- For the lazy, this is as good an opportunity as any to getting to know a ~make~ tool.
+- Det går säkert få en bra början på inlämningsuppgifterna från en AI.
+- Vad vinner ni på detta? Lär ni er något? Hur vet ni att AI:n gör rätt?
+- Det här är er framtida karriär, det är det yrke ni själva har valt.
+  - Vill /ni/ ha en utbildning, eller vill ni hellre ge den till en AI någonstans?
+- Övningarna lämnas inte in, betygssätts inte, utan är /bara/ till för att ni skall ha en chans att lära er något.
+- Inlämningsuppgifterna har fokus på era lärdomar och reflektioner och kan komma att kompletteras med muntlig genomgång.
+
+Dessutom:
+- Framtiden kommer kräva /fler/ utvecklare med en /gedigen/ kunskap om programvaruutveckling, inte färre.
+- Man sätter inte en junior programmerare på att granska kod
+- Företag kommer behöva folk som förstår vad AIn spottar ur sig, vilka säkerhetsbrister den har, och vad man skall göra åt det. /Det här är ni/
+* Verktyg
+I den här kursen behöver du ha installerat:
+
+- /Java/ , t.ex. OpenJDK https://openjdk.org/ 
+- Någon Utvecklingsmiljö:
+  - IntelliJ https://www.jetbrains.com/idea/
+  - VS Codium https://vscodium.com/
+  - Emacs https://www.gnu.org/software/emacs/
+  - \dots
+  - Vim https://www.vim.org/
+- Ett Konfigurationshanteringsverktyg; Git https://git-scm.com/downloads
+  - Gärna något gränssnitt för git också
+- Något verktyg för att arbeta med lättvikts-containrar
+  - Podman https://podman.io/
+  - Docker https://www.docker.com/
+
+
+Du kanske också vill installera:
+- /node.js/ lokalt: https://nodejs.org/en
+- någon C/C++-kompilator, t.ex. gcc https://gcc.gnu.org/
+- ett byggverktyg, såsom =make=
   - https://www.gnu.org/software/make/
   - https://cmake.org/ 
-
-Examples of Development Environments:
-- BlueJ https://www.bluej.org/
-- IntelliJ https://www.jetbrains.com/idea/
-- VS Codium https://vscodium.com/
-- Emacs https://www.gnu.org/software/emacs/
-- \dots
-- Vim https://www.vim.org/
-
-Examples of UML Modelling tools
-- PlantUML http://plantuml.com/
-- IntelliJ https://www.jetbrains.com/help/idea/class-diagram.html
-- StarUML: http://staruml.io/
-- VisualParadigm https://www.visual-paradigm.com/
-- \dots
-
+- något verktyg för att modellera programvarudesign:
+  - PlantUML http://plantuml.com/
+  - IntelliJ https://www.jetbrains.com/help/idea/class-diagram.html
+  - StarUML: http://staruml.io/
+  - VisualParadigm https://www.visual-paradigm.com/
+  - \dots
 * En Pragmatisk Mjukvaruutvecklare
 ** En Pragmatisk Filosofi
 [Thomas & Hunt, Kapitel 1]
