@@ -19,12 +19,12 @@ The course consists of [Lectures](#lectures), [Exercises](#exercises), and [Writ
 3. **Värderingsförmåga och förhållningssätt**; Efter genomförd kurs ska studenten kunna:
    1. Skriftligt reflektera över sina lösningar och sitt användande av utvecklingsverktyg.
 
-## Course Book
+## Course Book {#book}
 D. Thomas, A. Hunt, The Pragmatic Programmer, 20th Anniversary Edition, 2020. ISBN-10: 0-13-595705-2
 
 ![Pragmatic Programmer](Lectures/01-Introduction/Thomas-Hunt-2020-Pragmatic-Programmer.png)
 
-## Lectures
+## Lectures {#lectures}
 
 1. [Introduction](Lectures/01-Introduction/AA-Introduction.org)
 2. [Overview of the Development Environment](Lectures/02-Basic-Tools/AA-Basic-Tools.org)
@@ -38,7 +38,7 @@ D. Thomas, A. Hunt, The Pragmatic Programmer, 20th Anniversary Edition, 2020. IS
 10. [Application Development with JavaScript](Lectures/10-JavaScript-Application-Development/AA-JavaScript-Application-Development.org)
 11. [Introduction to Databases](Lectures/11-Databases-Introduction/AA-Databases-Introduction.org)
 
-## Exercises
+## Exercises {#exercises}
 The Exercises are not part of the grading. The intention is to offer hands on experience with the principles and technologies introduced through the lectures. Each lecture has some exercises associated with it.
 
 - [Summary of the Exercises](Assignments/PA1489-Exercises.org)
@@ -53,7 +53,7 @@ The exercises make use of various projects as starting points:
 - [Craic chat](https://codeberg.org/mickesv/craic.git)
 - [Insert Statements for Pony Trading Cards Database](https://codeberg.org/mickesv/gists/raw/branch/main/TradingCards_insert.sql)
 
-## Written Assignments
+## Written Assignments {#assignments}
 The Written Assignments are the examined parts of the course:
 
 | Assignment           | Size   | Description                                |
