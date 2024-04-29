@@ -12,6 +12,98 @@
 * Introduction
 This document summarises the /non-graded/ exercises introduced in each lecture.
 
+* Get Started with your IDE
+- Start the IDE you have chosen (e.g. ~VS Code~ or ~VS Codium~)
+- Create a Project =New Project= (Might not be available in =VS Code=)
+  - Name: =TestProject=
+  - Language: =Java=
+  - =Create=
+
+What do you see in your IDE?
+What do you see in the code window?
+What do the ▶️🛑💡⚠️ symbols mean?
+
+How do you run the program?
+What happens?
+
+How do you run the program in debug mode?
+
+What happens?
+** Edit Main.Java
+- Add a method in the class, =public static int addTen(int x)=
+  - Write the method above the =main()= function.
+  - The method should add 10 to the parameter =x= and return this.
+- Add the line ~System.out.println("i+10 = " + addTen(i));~
+- Run the program. What happens?
+
+IntelliJ (or VS code) always tries to give you clues what to write.
+- How does this look?
+- What type of help are you getting?
+- Is this actually helping or does it get in the way?
+
+#+begin_src java
+public class Main {
+
+    public static void main(String[] args) {
+        System.out.printf("Hello and welcome!");
+    }
+}
+#+end_src
+** Help in IntelliJ
+- Place yourself somewhere on a =println= and press =ctrl-Q= ("Quick Documentation" in IntelliJ)
+  - You can also reach this via the =View= menu. What more can you find there?
+
+- Can you find the corresponding action in VSCode?
+- Hur gör du motsvarande i VSCode?
+
+** Add a New Class
+- =File/New/Java Class= or =File/New File=
+- Name: =Nummer=
+- Add the following code:
+
+#+begin_src java
+public class Nummer {
+  private int myNumber=0;
+
+  public Nummer(int x) {
+    myNumber = x;
+  }
+
+  public boolean smallerThan(int x) {
+    return (myNumber < x);
+  }
+
+  public int get() {
+    return myNumber;
+  }
+
+  public String toString() {
+    return "Number: " + myNumber;
+  }
+}
+#+end_src
+** Use the New Class
+- Switch back to =Main.java= and add the following code in the =main()= function:
+#+begin_src java
+  Nummer num = new Nummer(10);
+  System.out.println("Is "+ num + " smaller than 12: " + num.smallerThan(12));
+#+end_src
+
+What "help" are you offered as you write this?
+How can you run the program without using the mouse?
+
+The first line printed is =Hello and welcome!Is Number: 10 smaller than 12: true=
+- How can you fix this so you get a new line after "welcome!"?
+- What can you do to just write the number 10 and not "Number: 10"?
+** Make the Editor yours
+- Does everything have to be vissibkle all the time? How do you hide things?
+- Are you ok with the colour scheme? How do you change it?
+
+- There are plenty of plugins/extensions. 
+  - Which do you want to install? Which are already installed?
+** Find the Terminal
+- There is a built in command line terminal. Where?
+- What can you do with this?
 * Get Started with Git
 ** Register an account
 - Register an account at some git server:

@@ -11,6 +11,95 @@
 
 * Introduktion
 Det här dokumentet sammanfattar de /icke betygsgivande/ övningsuppgifter som introduceras under varje föreläsning.
+* Kom igång med din IDE
+- Starta =IntelliJ IDEA= eller den IDE du har valt (e.g. =VS Code= eller =VS Codium=) .
+- Skapa ett Projekt =New Project= (Finns kanske inte som ett val i =VS Code=) 
+  - Name: =TestProjekt=
+  - Language: =Java=
+  - =Create=
+
+Vad ser du nu? 
+Vad ser du i kod-fönstret?
+Vad betyder symbolerna? ▶️🛑💡⚠️
+
+Hur kör du programmet?
+Vad händer?
+
+Hur kör du programmet i debug-läge?
+Vad händer nu? Hur går du vidare?
+** Redigera Main.java
+- Lägg till en metod i klassen, =public static int addTen(int x)=
+  - Skriv metoden ovanför main-funktionen (mellan rad 3 och 4)
+  - Den skall lägga till 10 till =x= och returnera detta
+- Lägg till raden ~System.out.println("i+10 = " + addTen(i));~
+- Kör programmet nu. Vad händer?
+
+IntelliJ försöker hela tiden ge dig ledtrådar på vad du kan skiva. 
+- Hur ser detta ut?
+- Vad får du för hjälp?
+- Hjälper det faktiskt, eller är det i vägen?
+
+#+begin_src java
+public class Main {
+
+    public static void main(String[] args) {
+        System.out.printf("Hello and welcome!");
+    }
+}
+#+end_src
+** Hjälp i IntelliJ
+- Ställ dig någonstans där det står ~println~ och tryck =ctrl-Q= ("Quick Documentation" i IntelliJ)
+  - Du kan också komma åt detta via =View= -menyn. Vad mer kan du hitta där?
+
+- Hur gör du motsvarande i VSCode?
+** Lägg till en ny klass
+- =File/New/Java Class= eller =File/New File=
+- Name: =Nummer=
+- Skriv in följande kod efter rad 1:
+#+begin_src java
+public class Nummer {
+  private int myNumber=0;
+
+  public Nummer(int x) {
+    myNumber = x;
+  }
+
+  public boolean smallerThan(int x) {
+    return (myNumber < x);
+  }
+
+  public int get() {
+    return myNumber;
+  }
+
+  public String toString() {
+    return "Number: " + myNumber;
+  }
+}
+#+end_src
+
+** Använd den nya klassen
+- Byt tillbaka till =Main.java= och lägg till följande kod efter rad 12:
+#+begin_src java
+  Nummer num = new Nummer(10);
+  System.out.println("Is "+ num + " smaller than 12: " + num.smallerThan(12));
+#+end_src
+
+Vilken "hjälp" får du när du skriver detta?
+Hur kan du köra det här programmet utan att sträcka dig efter musen?
+
+Första raden av utskriften blir: =Hello and welcome!Is Number: 10 smaller than 12: true=
+- Hur kan du fixa så att du får en ny rad efter "welcome!"?
+- Vad kan du göra för att bara skriva ut siffran 10 och inte "Number: 10"?
+** Gör editorn din
+- Måste allt synas samtidigt? Hur gömmer du undan saker?
+- Gillar du inte färgschemat? Hur byter du?
+
+- Det finns gott om plugins. =File/Settings/Plugins=
+  - Vilka vill du installera? Vilka är redan installerade?
+** Hitta Terminalen
+- Det finns en inbyggd kommandoradstolk. Var då?
+- Vad kan du göra med den?
 
 * Kom Igång med Git
 ** Registrera ett Konto
