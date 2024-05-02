@@ -352,6 +352,10 @@ Exempel på vad man kan göra:
   - Relationsdatabaser
   - NoSQL-databaser
   - Andra typer av databaser
+
+Två resurser för en översikt om databaser och vad SQL är för något:
+- https://www.sql-easy.com/learn/what-is-a-database/
+- https://www.programiz.com/sql/database-introduction
 * Övning: Craic -- ett enkelt chat-program
 ** Introduktion
 - I den här uppgiften skall vi arbeta med ett enkelt chat-program: /Craic/.

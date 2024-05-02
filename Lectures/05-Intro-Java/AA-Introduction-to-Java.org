@@ -815,6 +815,8 @@ while (/<condition>/) {
   - textbaserade gränssnitt
   - Grafiska gränssnitt med Java AWT/Swing
 - Enkel filhantering i Java
+
+- En introduktionsserie om Java Swing på Youtube: https://youtube.com/playlist?list=PL3bGLnkkGnuV699lP_f9DvxyK5lMFpq6U&si=q1T4lnI0RJXuEB_p
 * Övning: Mera Ponies
 - Vi fortsätter med JavaPonies.
 - MLP-fansen har beställt ett utökat gränssnitt där man kan få reda på mer data om varje Ponny.

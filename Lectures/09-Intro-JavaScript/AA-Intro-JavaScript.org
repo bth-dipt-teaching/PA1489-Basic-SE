@@ -444,6 +444,9 @@ Med /god disciplin/ kan man programmera på det här viset i JavaScript också.
 - Skrivbordsapplikationer
 - Klient-Server-applikationer
 - Testning
+
+- Curses, ett klassiskt ramverk för textbaserade gränssnitt: https://en.wikipedia.org/wiki/Curses_%28programming_library%29
+- Introduktion till testramverket Mocha för JavaScript: https://javascript.info/testing-mocha
 * Övning: Kom igång med JavaScript
 ** Introduktion till Övningen
 - Den här gången skall vi börja från grunden med ett helt nytt projekt.

@@ -385,6 +385,10 @@ Ett begrepp till: /Database Sharding/
 Vi har väntat med detta för att kunna utveckla inuti en container
 - Vanlig målplatform för node.js - applikationer idag
 - Vi slipper installera mer programvara
+
+Två resurser för att få en överblick över JavaScript och node.js:
+- https://javascript.info/
+- https://www.freecodecamp.org/news/the-definitive-node-js-handbook-6912378afc6e/
 * Övning: Microservices
 ** Introduktion: PonyVoter
 - Vi stannar i Equestria, men med en enkel röstningsapp den här gången.

@@ -343,6 +343,8 @@ Verktyg:
 - Självdokumenterande kod
 - Struktur som dokumentation
 - Dokumentera din arbetsprocess
+
+- https://www.archbee.com/blog/how-to-write-code-documentation
 * Övning: Test och Debug :Practice:
 ** Introduktion till SorterTool
 - https://codeberg.org/mickesv/SorterTool.git
