@@ -1,0 +1,58 @@
+
+* Introduktion
+Hej och välkommen till kursen PA1489 Grundläggande Mjukvaruutveckling. Syftet med den här kursen är att ge en grundläggande förståelse för ett urval av de verktyg och tekniker som ingår i en modern mjukvaruutvecklingsmiljö för att kunna utveckla, felsöka, och driftsätta en mjukvaruapplikation. Kursen ger också en grundläggande introduktion till konfigurationshantering för att möjliggöra samarbete i utvecklingsgrupper.
+
+| Översikt      |                         |
+|---------------+-------------------------|
+| Kursplatform  | Canvas                  |
+| Kursansvarig  | Mikael.Svahnberg@bth.se |
+| Examinator    | Mikael.Svahnberg@bth.se |
+| Övriga Lärare |                         |
+|---------------+-------------------------|
+
+* Kursmaterial och Literatur
+Kursboken är D. Thomas, A. Hunt, The Pragmatic Programmer, 20th Anniversary Edition, 2020. ISBN-10:0-13-595705-2.
+
+Föreläsningsmaterial och övningsmaterial finns tillgängligt på Kursplatformen.
+
+Länkar till kompletterande material kan förekomma i föreläsnings- och övningsmaterialet; detta material tillhandahålls antingen av institutionen eller kan ladddas ner kostnadsfritt via internet.
+
+Kursplanen finner ni här: https://bth.azure-api.net/plan/api/kursplan?kurskod=PA1489&revision=1&lang=sv
+
+Schema hittar ni på TimeEdit: https://cloud.timeedit.net/bth/web/sched1/riq66Q09688Z6YQy7Q76Z0Z66QZ110453Yo3Y5gQ50og767X6qQ5.html
+
+* Kursplanering och Läsanvisningar
+Kursen består av föreläsningar, övningar, och examinerade inlämningsuppgifter.
+
+Föreläsningarna introducerar viktiga koncept inom grundläggande mjukvaruutveckling, övningar på de introducerade koncepten, samt läsanvisningar inför nästa föreläsning.
+
+Övningarna examineras inte, utan erbjuder i stället konkret färdighetsträning på de introducerade koncepten; de består ofta av att först förstå ett givet datorprogram, och sedan komplettera med ytterligare programkod.
+
+De examinerade inlämningsuppgifterna kombinerar de introducerade koncepten till ett sammanhållet utvecklingsprojekt.
+* Examination och Omexamination
+Kursen har tre examinationsmoment, vv. se kursplanen. Betygsskalan är A Utmärkt, B Mycket bra, C Bra, D Tillfredsställande, E Tillräckligt, FX Underkänd, något mer arbete krävs, F Underkänd. För att få ett godkänd betyg på kursen måste alla moment vara godkända. Kursbetyget räknas som det vägda medelvärdet av alla examinationsmoment.
+
+Inlämningsuppgifterna beskrivs i dokumentet PA1489-Assignment-Descriptions.pdf (Engelsk Version). Alla uppgifterna löper över hela kursen, och ni behöver arbeta parallellt med dem (de hjälper och stödjer varandra). Läs igenom hela dokumentet först och planera för hur ni skall kunna arbeta med alla tre inlämningsuppgifterna under hela projektets gång.
+
+Uppgifterna består av tre perspektiv på ett sammanhållet utvecklingsprojekt. Inlämningsuppgift 1 fokuserar på samarbete och konfigurationsghantering, inlämningsuppgift 2 på implementation och dokumentation, och inlämningsuppgift 3 på testning och felsökning.
+
+Datum för inlämningsuppgifter publiceras på kursplatformen. Omexamination sker under kursen, inom två veckor efter kursens slut, eller i samband med nästa kurstillfälle.
+
+Uppgifterna lämnas in på Kursplatformen. Vid omexamination, vänligen markera och diskutera de gjorda förändringarna.
+* Generell Information för alla Kurser
+Vänligen använd din fulla namn som i Ladok i all kommunikation med BTH och anger namnet och eller koden till kursen du refererar till. Vi föredrar också om du använder din BTH-student email-adress. Att använda andra eller t.o.m. varierande email-adresser kan leda till problem som BTH eller lärarna inte kan ansvara för.
+
+- Skrivguiden http://skrivguiden.se
+- Antiplagieringsguiden http://refero.lnu.se/
+- Overleaf https://www.overleaf.com/edu/bth
+- Tentatider https://studentportal.bth.se/page/kommande-tentamina
+- Terminstider https://studentportal.bth.se/genomfor-studierna/lasar-och-terminstider
+* Arbetsmiljö och brandinformation
+Som student hittar du information om högskolans rutiner och instruktioner som gäller arbetsmiljö och brandinformation på högskolans webbportal för studenter. 
+
+Vad gäller information om arbetsmiljöfrågor såsom t.ex., diskriminering och trakasserier, personskadeförsäkring, krisstöd etc. finns detta på Studenthälsans webbsida: https://studentportal.bth.se/genomfor-studierna/studentstod/ 
+
+Vad gäller brandinformation finns information om brandskydd på följande webbsida: https://studentportal.bth.se/startsida/kontakt-och-service/om-nagot-hander/
+
+Om du som student identifierar eventuella risker och hot ska dessa rapporteras till prefekten som har det övergripande ansvaret för aktuell kurs eller till studentarbetsmiljöombud, mailto:arbetsmiljo@bthstudent.se 
+
