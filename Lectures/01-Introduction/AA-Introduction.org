@@ -1,12 +1,13 @@
-#+Title: PA1489 Grundläggande Mjukvaruutveckling -- Introduction
+#+Title: PA1489 Grundläggande Mjukvaruutveckling 
+#+Subtitle: Introduction
 #+Author: Mikael Svahnberg
 #+Email: Mikael.Svahnberg@bth.se
-#+Date: 2023-11-20
+#+Date: 2024-05-27
 #+EPRESENT_FRAME_LEVEL: 1
-#+OPTIONS: email:t <:t todo:t f:t ':t H:2
+#+OPTIONS: email:t <:t todo:t f:t ':t H:1 toc:nil
 #+STARTUP: beamer
 
-#+LATEX_CLASS_OPTIONS: [10pt,t,a4paper]
+#+LATEX_CLASS_OPTIONS: [10pt,a4paper]
 #+BEAMER_THEME: BTH_msv
 
 * Introduktion
@@ -15,7 +16,7 @@
 - En Pragmatisk Ansats
 - Kort om exekverande program
 * About Me: Mikael Svahnberg
-#+ATTR_LATEX: :height 6cm
+#+ATTR_LATEX: :height 2cm
 #+ATTR_ORG: :width 300
 [[file:~/Documents/Personal/avatar.png]]
 
@@ -30,6 +31,10 @@
     Software Product Lines, Software Reuse, Empirical Research Methodology,
     Software Engineering Decision Support, Static Code Analysis, Software Architecture Reconstruction
 * Diskutera: Kursplan PA1489 :Discussion:
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
 Följande Lärandemål examineras i kursen:
 
 *Kunskap och Förståelse* Efter genomförd kurs ska studenten kunna:
@@ -60,6 +65,10 @@ Följande Lärandemål examineras i kursen:
   - En Pragmatisk Mjukvaruutvecklare
   - /Använd de verktyg som är dig givna, och gör dem till dina egna/
 * Mål med Kursen II
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
 - Kursen kommer /inte/ hinna gå på djupet om mjukvaruutveckling eller någon enskild teknik.
   - ni har tre (plus två) år på er för detta
 
@@ -73,13 +82,16 @@ Cave!
 - Du kommer kanske inte hinna lära dig allt
 - Du kommer kanske inte hinna göra alla övningar
 
-Det är ok. Det är tänkt så.
-
+** Det är ok. Det är tänkt så.
 Min förhoppning:
 - Kom ihåg att teknologierna /finns/, så att du kan använda dem senare, /när du behöver dem/
 - Försök etablera /några/ goda, pragmatiska vanor redan nu, och bygg på efter hand.
 - Kom tillbaka till det här kursmaterialet om något år (när du behöver) och använd det som referensmaterial.
 * Om Föreläsningarna
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
 - Föreläsningarna använder sig av en blandning av språk (svenska, engelska) och programspråk.
 - Språket och språken är verktyg som du kommer använda dig av på olika vis under hela din studietid och din karriär.
 
@@ -117,6 +129,7 @@ Varje vecka:
 * Kursliteratur
 D. Thomas, A. Hunt, The Pragmatic Programmer, 20th Anniversary Edition, 2020. ISBN-10: 0-13-595705-2
 
+#+ATTR_LATEX: :height 5cm
 #+ATTR_ORG: :width 400
 [[./Thomas-Hunt-2020-Pragmatic-Programmer.png]]
 
@@ -144,6 +157,10 @@ Kompletteringar:
   - Kopiera och anpassa i stället.
   - Men *förstå* vad ni kopierar!
 * Några ord om AI
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
 *"Who's the more foolish? The fool or the fool who follows it?"*
 -- Obi Wan Kenobi
 
@@ -157,8 +174,14 @@ Kompletteringar:
 Dessutom:
 - Framtiden kommer kräva /fler/ utvecklare med en /gedigen/ kunskap om programvaruutveckling, inte färre.
 - Man sätter inte en junior programmerare på att granska kod
-- Företag kommer behöva folk som förstår vad AIn spottar ur sig, vilka säkerhetsbrister den har, och vad man skall göra åt det. /Det här är ni/
+- Företag kommer behöva folk som förstår vad AIn spottar ur sig, vilka säkerhetsbrister den har, och vad man skall göra åt det.
+
+/Det här är ni/
 * Verktyg
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
 I den här kursen behöver du ha installerat:
 
 - /Java/ , t.ex. OpenJDK https://openjdk.org/ 
@@ -187,8 +210,7 @@ Du kanske också vill installera:
   - StarUML: http://staruml.io/
   - VisualParadigm https://www.visual-paradigm.com/
   - \dots
-* En Pragmatisk Mjukvaruutvecklare
-** En Pragmatisk Filosofi
+* En Pragmatisk Mjukvaruutvecklare / En Pragmatisk Filosofi
 [Thomas & Hunt, Kapitel 1]
 
 - /It's Your Life/ :: It's your career. Your choice. Be good at it. Improve.
@@ -200,11 +222,12 @@ Du kanske också vill installera:
   - Communicate with your team.
   - Keep your code tidy and improve it.
   - Fight the inevitable decay.
-** Åtagandekultur: Gruppen och Du
+* Åtagandekultur: Gruppen och Du
 *Gruppens åtagande är ditt åtagande -- alla behövs*
 
+#+ATTR_LATEX: :height 5cm
 [[file:./IDogsleigh.jpg]]
-** Åtagande / Commitment Culture
+* Åtagande / Commitment Culture
  - *Gruppen* har åtagit sig att leverera en produkt eller artefakt
    - Med en viss funktionalitet
    - Inom en viss budget
@@ -212,8 +235,9 @@ Du kanske också vill installera:
    - Med en viss kvalitet
  - Som medlem i gruppen har *du* gjort samma åtagande!
 
+#+ATTR_LATEX: :height 4cm
  [[file:./IKennedy-AskNot.jpg]]
-** Teamwork och Individens Ansvar
+* Teamwork och Individens Ansvar
  - Åtagandekultur
    - Gemensam förståelse för uppgiften
    - Individens åtagande mot gruppen
@@ -222,7 +246,11 @@ Du kanske också vill installera:
  - Förutsättningar
    - Har du nödvändig kunskap om uppgiften?
    - Har du förmåga och vilja att ta på dig ansvaret?
-** Delaktighet
+* Delaktighet
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
 - Gemensamma mål
 - Tillgång till nödvändig information -- i tid
 - Förståelse för sammanhanget, individens bidrag till målen
@@ -243,7 +271,11 @@ Du kanske också vill installera:
 - Beslut kommuniceras inte
 - *\sum Kommunikationen fungerar inte*
 
-** Entropi
+* Entropi
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
 - Minnens i gymnasiefysiken?
 - I mjukvara: /software rot/
   - Tecnical debt :: Snabbfix nu, vi lovar oss själva att fixa senare
@@ -267,7 +299,7 @@ Fundamentalt för att motarbeta mjukvaruröta: *Fixa det som är trasigt*
 - Visa för resten av teamet att det spelar roll
 - Visa i projektplanen att det tar tid och kostar
 - Ta inte sönder saker när du bygger nytt. *Testa din kod*
-** Fortsätt Utvecklas
+* Fortsätt Utvecklas
 - Programvaruteknik förändras ständigt
   - Nya verktyg, nya teknologier, nya ramverk, nya programspråk
 - Sluta inte lära dig när du tar examen
@@ -282,7 +314,11 @@ Fundamentalt för att motarbeta mjukvaruröta: *Fixa det som är trasigt*
   - Kan detta stämma?
   - Vad är källan?
   - "Fem varför"
-** Kommunikation
+* Kommunikation
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
 - Ditt karriärval handlar om att kommunicera
   - Kommunicera med en dator
   - Kommunicera med dig själv
@@ -299,11 +335,12 @@ Prat et al, "Relating Natural Language Aptitude to Individual
 Differences in Learning Programming Languages". Scientific Reports,
 2020.  https://www.nature.com/articles/s41598-020-60661-8
 
-TL;DR: A study showing that the most important skills that facilitates
+** TL;DR:
+A study showing that the most important skills that facilitates
 learning programming are short term memory and problem solving
 (explaining 34% of the variance), and in second place language aptitude
 (17%). Math skills was quite irrelevant (2%).
-** Kommunikation
+* Kommunikation
 Det här är viktigt, så ett citat till:
 
 #+begin_quote
@@ -320,6 +357,7 @@ beings what we want a computer to do.
 * En Pragmatisk Ansats
 [Thomas & Hunt, Kapitel 2]
 
+#+ATTR_LATEX: :height 2cm
 #+ATTR_ORG: :width 400
 [[./arne01.png]]
 
@@ -379,8 +417,7 @@ Det finns en stor risk att du upprepar gammal kod bara för att du inte hittar d
 
 *En stor del av kursen kommer handla om inkapsling i olika former*
 
-* Overview of an Executing Program
-** Important Parts of the Computer
+* An Executing Program: Important Parts of the Computer
 #+begin_src ditaa :file Computer-Parts.png
   /----------+  +-----------------+  +----------------+
   | CPU      |  | RAM (Memory)    |  | Hard Disk      |
@@ -399,6 +436,7 @@ Det finns en stor risk att du upprepar gammal kod bara för att du inte hittar d
                 \-----------------/
 #+end_src
 
+#+ATTR_LATEX: :height 3cm
 #+RESULTS:
 [[file:Computer-Parts.png]]
 
@@ -407,7 +445,11 @@ Det finns en stor risk att du upprepar gammal kod bara för att du inte hittar d
   - It may need to first fetch the code from storage (hard drive, disk, ~C:~, network drive, \dots)
   - It may output data to a drive, or to the display.
 - Other inputs: keyboard, mouse, sensors, network packets, \dots
-** The Operating System
+* The Operating System
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
 #+begin_src ditaa :file OperatingSystem.png
   +-------------+    +-------------+    +-------------+    +-------------+
   | User        |    | User        |    | User        |    | User        |
@@ -440,7 +482,7 @@ The /Operating System/ is responsible for:
   - Filesystem Management :: Reads and Writes from/to Disk
   - Network Management :: Reads and Writes from/to Network
 
-** An Executing Program
+* An Executing Program
 #+begin_src ditaa :file Executing.png
 
          /---------+
@@ -466,7 +508,11 @@ Courtesy of the operating system, the executing program
 - Appears that it alone has access to of all the memory
 - /Encapsulation/ is an important design principle.
 - *Process* == Executing Program
-** From Humans to Computers
+* From Humans to Computers
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
 Three main cases:
 1) Compile directly to executable program for your computer platform (e.g. C++)
    - 😄 *Write* Source Code and save to disk
@@ -491,7 +537,7 @@ Three main cases:
    - 💻 *Execute* program
      - Load source code into memory
      - Read each instruction, translate to your computer platform, and execute
-** Readable source code
+* Readable source code
 - *The source code is the only artefact intended to be readable by humans.*
   - It is read and modified often, so we should take care when writing it.
 - We can use low-level languages, close to how the computer sees the world
@@ -504,7 +550,7 @@ Three main cases:
   - Some programming paradigms are more common in compiled languages, others are more common in interpreted languages
 - We can use any text editor to write our program
   - We /should/ use an editor and development environment that help us write /and read/ our program.
-** Summary
+* Summary
 #+begin_verse
 A *process* is an application that runs on a *processor* (or *CPU*).
 A *processor* reads, executes, and writes to and from *memory* (or *RAM*).
