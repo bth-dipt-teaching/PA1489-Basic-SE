@@ -22,6 +22,8 @@ The course consist of the following assignments:
 |----------------------+--------+--------------------------------------------|
 
 All the assignments span the entire duration of the course, and you need to work in parallel with them (the assignments help and support each other). /Read this entire document first/ and plan how you are going to work on all three written assignments during the entirety of the project.
+
+Some parts of the project are individual; updating your engineering diary, and to conduct a debug session. There is a separate submission for this on Canvas. These parts of the project are assessed individually, and you need to pass this submission in order to pass the course.
 * Assignment at a glance: BurgerOrderer
 You and your colleagues have been contacted by a company that wants a system to order hamburgers. They want a web client where customers can roder and tailor their hamburgers, and they also want a second client where the kitchen can see which hamburgers are currently on order and need to be cooked.
 
@@ -88,11 +90,10 @@ Copy the text and submit it on Canvas for assessment. Please see further instruc
 ** Assessment
 The follwing is part of the assessment, and is weighed together to a grade on the assignment:
 
-- Regular Contributions :: (individual assessment) actively contributes with commits to at least one part of the project
-- Diary Reflections :: (individual assessment) maintains regular and relevant notes and reflections about working with configuration management tools.
+- Regular Contributions :: Students actively contributes with commits to at least one part of the project
 - Well Described Commits :: Almost all commits have well formed commit messages that describe the content and intent of the commit.
 - Branches :: The team actively works with branches in their development.
-- Reflective Practice :: The work is well summarised with reflections about improvement opportunities.
+- Reflective Practice :: Summary and reflections on how the team has collaborated and worked with configuration management.
 * Written Assignment 2: Implementation and Documentation
 The company has provided an overall architecture for you to adhere to:
 
@@ -192,7 +193,7 @@ The follwing is part of the assessment, and is weighed together to a grade on th
   4. /List Orders/ =KitchenView= receives the orders and prints them.
   5. /Adjust Order/ The customer can remove items from their order before it is sent to =KitchenView=
   6. /Tailor Items/ The customer can tailor items on their order before it is sent to =KitchenView=
-- Reflective Practice :: The work is well summarised with reflections about improvement opportunities in the collective report as well as in the individual engineering diaries.
+- Reflective Practice :: The work with implementation and documentation is well summarised with reflections about improvement opportunities in the collective report as well as in the individual engineering diaries.
 * Written Assignment 3: Testing and Debugging
 The company, finally, expects the project and product to maintain high quality. In this assignment you focus primarily on two criteria for this:
 
@@ -267,10 +268,16 @@ The follwing is part of the assessment, and is weighed together to a grade on th
 
 - Test Plan :: It is documented what to test, how to test, how often, and what to do if any test fails.
 - Tested Functionality :: Unit tests have been written that test some part of some functionality in the system.
-- Working Unit Tests :: The unit tests can successfully be run by following a description from the test plan.
-- Follows the Test Plan :: The tested functionality follows the test pöan.
-- Documented Experience of Debugging :: (individual assessment) documentation and reflections from a conducted debug session.
-- Reflective Practice :: The work is well summarised with reflections about improvement opportunities in the collective report as well as in the individual engineering diaries.
+- Reflective Practice :: The work with testing and debugging is well summarised with reflections about improvement opportunities in the collective report as well as in the individual engineering diaries.
+* Individual Assessment
+** Submission
+Use Canvas to submit a link to your engineering diary in the project's git repository. Please see further instructions on Canvas about submission dates etc.
+** Assessment
+The following items are assessed individually into a complete/incomplete grade:
+
+- Frequency of Engineering Diary Updates :: Regular updates to the individual engineering diary.
+- Engineering Diary Contents :: Contents in the engineering diary with respect to (a) collaboration, (b) configuration management, (c) implementation and documentation, and (d) testing and debugging.
+- Documented Experience of Debugging :: Documentation and reflections from a debug session.
 * Conclusion
 "Any Questions?"
 
@@ -282,4 +289,4 @@ The company representative leans forward and looks down in their notebook. They 
 
 "Are you sure that you have pushed all the commtis and uploaded all three reports on Canvas?"
 
-... which of course you have.
+... which of course you have. Including the individual subnission.

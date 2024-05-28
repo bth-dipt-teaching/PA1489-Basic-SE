@@ -22,6 +22,8 @@ Följande uppgifter ingår:
 |---------------------+------------+---------------------------------------|
 
 Alla uppgifterna löper över hela kursen, och ni behöver arbeta parallellt med dem (de hjälper och stödjer varandra). /Läs igenom hela dokumentet först/ och planera för hur ni skall kunna arbeta med alla tre inlämningsuppgifterna under hela projektets gång.
+
+Vissa delar av projektet är individuella; att uppdatera din ingenjörsdagbok, och att genomföra en debug-session. Det finns en separat inlämning för dessa på Canvas. Dessa delar av projektet bedöms individuellt och du behöver få godkänt på denna inlämning för att få godkänt på kursen.
 * Övergripande Uppgift: BurgerOrderer
 Du och dina kollegor har blivit kontaktad av ett företag som vill ha ett system för att beställa hamburgare. Det skall dels finnas en web-klient där man kan beställa och anpassa sina hamburgare, dels skall en andra klient utvecklas där köket kan se vilka hamburgare som skall tillagas.
 
@@ -87,12 +89,10 @@ Kopiera texten och skicka in den på Canvas för bedömning. Se vidare instrukti
 ** Bedömning
 Följande ingår i bedömningen, och vägs samman till ett betyg på inlämningsuppgiften:
 
-- Regelbundna bidrag :: (Bedöms enskilt) bidrar aktivt med commits till minst en del av projektet.
-- Dagboksreflektioner :: (Bedöms enskilt) har regelbundna och relevanta anteckningar och reflektioner om att arbeta med konfigurationshanteringsverktyg.
+- Regelbundna bidrag :: Studenterna bidrar aktivt med commits till minst en del av projektet.
 - Välbeskrivna commits :: Så gott som alla commits har commit-meddelanden som väl beskriver bidraget.
 - Förgreningar :: Gruppen arbetar aktivt med separata förgreningar (branches) i utvecklingen.
-- Reflekterande Praktik :: Arbetet är väl sammanfattat med reflektioner om förbättringsmöjligheter.
-
+- Reflekterande Praktik :: Sammanfattning och reflektioner om hur teamet samarbetar och arbetar med konfigurationshantering.
 * Inlämningsuppgift 2: Implementation och Dokumentation
 Beställaren har gett er en övergripande arkitektur som ni skall förhålla er till:
 
@@ -192,7 +192,7 @@ Följande ingår i bedömningen, och vägs samman till ett betyg på inlämnings
   4. /Visa beställningar/ =KitchenView= tar emot beställningarna och skriver ut dem.
   5. /Justera Beställning/ Kunder kan plocka bort varor från sin beställning innan de skickas till =KitchenView=
   6. /Anpassa beställda varor/ Kunder kan anpassa sina beställda varor innan de skickas till =KitchenView=
-- Reflekterande Praktik :: Arbetet är väl sammanfattat med reflektioner om förbättringsmöjligheter. Både gemensamt och i individuella ingenjörsdagböcker.
+- Reflekterande Praktik :: Arbetet med implementation och dokumentation är väl sammanfattat med reflektioner om förbättringsmöjligheter. Både gemensamt och i individuella ingenjörsdagböcker.
 * Inlämningsuppgift 3: Testning och Debugning
 Slutligen begär beställaren att projektet skall hålla hög kvalitet. I den här inlämningsuppgiften fokuserar ni främst på två kriterier för detta:
 
@@ -267,11 +267,17 @@ Följande ingår i bedömningen, och vägs samman till ett betyg på inlämnings
 
 - Testplan :: Det är dokumenterat vad som skall testas, hur det skall testas, hur ofta, och vad som skall göras om något test misslyckas.
 - Funktionalitet Testad :: Det finns enhetstester som testar någon del av någon funktionalitet i systemet.
-- Fungerande Enhetstester :: Enhetstesterna går framgångsrikt att köra genom att följa beskrivning från testplanen-
-- Följer Testplanen :: Den testade funktionaliteten följer testplanen.
-- Dokumenterad Erfarenhet av Debugging :: (bedöms enskilt) dokumentation och reflektioner från en genomförd debug-session.
-- Reflekterande Praktik :: Arbetet är väl sammanfattat med reflektioner om förbättringsmöjligheter. Både gemensamt och i individuella ingenjörsdagböcker.
+- Reflekterande Praktik :: Arbetet med testning och debugning är väl sammanfattat med reflektioner om förbättringsmöjligheter. Både gemensamt och i individuella ingenjörsdagböcker.
 
+* Individuell Bedömning
+** Inlämning
+Använd Canvas för att skicka in en länk till din ingenjörsdagbok i projektets git-repository. Se vidare instruktioner på Canvas om inlämningsdatum mm.
+** Bedömning
+Följande ingår i den individuella bedömningen och sammanfattas till ett "complete/incomplete"-betyg.
+
+- Uppdateringsfrekvens av ingenjörsdagboken :: Regelbundna uppdateringar till den individuella ingenjörsdgboken.
+- Ingenjörsdagbokens innehåll :: Innehåll med avseende på (a) samarbete, (b) konfigurationshantering, (c) implementation och dokumentation, och (d) testning och debugning.
+- Dokumenterad Erfarenhet av Debugging ::  Dokumentation och reflektioner från en debugsession.
 * Avslutning och Sammanfattning
 "Några frågor?"
 
@@ -283,6 +289,5 @@ Beställaren lutar sig framåt och tittar ner i sin anteckningsbok. De harklar s
 
 "Är ni säkra på att ni har pushat alla commits och laddat upp alla tre rapporterna på Canvas?"
 
-... och självklart har ni ju det.
-
+... och självklart har ni ju det. Den individuella inlämningen också.
 
