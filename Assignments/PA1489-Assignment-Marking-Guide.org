@@ -1,0 +1,158 @@
+#+Title: PA1489 Assignment Marking Guide
+#+Author: Mikael Svahnberg
+#+Email: Mikael.Svahnberg@bth.se
+#+Date: 2024-05-27
+#+EPRESENT_FRAME_LEVEL: 1
+#+OPTIONS: email:t <:t todo:t f:t ':t H:2 toc:nil
+#+STARTUP: beamer
+
+#+LATEX_CLASS_OPTIONS: [10pt,t,a4paper]
+#+BEAMER_THEME: BTH_msv
+
+* General Instructions on Marking
+Since this course employs a "big bang" delivery at the end of the course for all assignments, it is paramount that the students are able to get continuous feedback before time. Please spend some time during the lab sessions to discuss the assignments with the students and make sure that they understand how to meet the criteria.
+
+When marking the assignments, I want to favour feedback over failure. We should only fail students if they clearly have not met the minimum expectations. Even then, we should ransack ourselves to ensure that we have communicated the requirements for passing clearly enough. When marking, focus on explaining in the comments how the students could have further improved their submission. This is especially important when they do not meet the minimum requirements; I would like a summary comment that describes the minimum steps required to pass the assignment, e.g. starting with the text "IN ORDER TO PASS, please ..."
+
+Some of the criteria are assessed for each individual and not for the group. These are marked in a separate assignment on Canvas as complete/incomplete.
+* Written Assignment 1: Collaboration and Configuration Management
+** General Instructions shared with the students
+The follwing is part of the assessment, and is weighed together to a grade on the assignment:
+
+- Regular Contributions :: Students actively contributes with commits to at least one part of the project
+- Well Described Commits :: Almost all commits have well formed commit messages that describe the content and intent of the commit.
+- Branches :: The team actively works with branches in their development.
+- Reflective Practice :: Summary and reflections on how the team has collaborated and worked with configuration management.
+** Detailed Instructions / Rubric
+- Regular Contributions :: Students actively contributes with commits to at least one part of the project.
+  - 3 points :: At least 40% of the team (=more than one) have made more than one commit to at least one part of the project.
+  - 1 points (minimum level) :: All students have made at least one commit each to some part of the project.
+  - 0 points :: Students have not made any commits.
+  - COMMENT :: There is intentionally no "2 points"; if they have made more than one commit it is worth 3 points.
+  - COMMENT :: This is marked as a group activity in order to encourage collaboration.
+  - COMMENT :: If the team shows that they have tried but failed to get a team member to create a commit, they should be assessed without that individual. Please communicate this (and the name of the student) to the course examiner.
+
+- Well Described Commits :: Commits have well formed commit messages that describe the content and intent of the commit.
+  - 2 points :: Almost all commits have well formed commit messages that describe the content and intent of the commit.
+  - 1 points (minimum level) :: Some commits have a descriptive commit message that describes the intent of the commit.
+  - 0 points :: Commit messages at most only describe which files have been updated.
+  - COMMENT :: lean towards giving 2 points, if at all possible.
+  - COMMENT :: "Intent of the commit" is a summmary of the goals achieved with a commit (e.g. "implements X", "fixes #y", "add support for y", "diary update on command W", ...) rather than the default "Updates README.md".
+
+- Branches :: The team actively works with branches in their development.
+  - 1 points :: The team have used configuratiion management branches for at least some part of their development.
+  - 0 points :: The team does not use branches in their development.
+  - COMMENT :: This is a binary choice. If they have tried to use branches somewhere, they should get the point.
+
+- Reflective Practice :: Summary and reflections on how the team has collaborated and worked with configuration management.
+  - 3 points :: There is a descriptive summary of how the team has collaborated. There is a descriptive summary of how the team has worked with configuration management tools. Some improvement opportunities are identified and discussed.
+  - 1 points (minimum level) :: There is a brief summary of how the project has collaborated. There is a brief summary of how the project has worked with configuration management.
+  - 0 points :: There is no summary of how the project has collaborated or worked with configuration management.
+  - COMMENT :: There is no "2 points", if they have tried to reason about improvement opportunities, it is worth 3 points.
+** Suggestions for Resubmissions
+- Student creates a repository or reuse an existing, and make several commits to their individual engineering diary.
+- Teacher creates an issue on the project, the student fixes the issue in one or several commits.
+- The student identifies a number of commits where the commit message can be improved, and describe the improvements.
+- Student updates their engineering diary with common configuration management commands and descriptions of what they do.
+* Written Assignment 2: Implementation and Documentation
+** General Instructions shared with the students
+The follwing is part of the assessment, and is weighed together to a grade on the assignment:
+
+- Documented Code :: All containers are documented. Almost all methods are documented.
+- Documented Startup :: It is well documented or automated how to run the project.
+- Implemented Functionality :: The following is implemented (in increasing order of difficulty):
+  1. /List Types of Goods/ The customer can see all different types of goods, as retreived from the =MenuStore= database.
+  2. /Searchable Database/ =MenuStore= contains information about the different types of goods and is being used by =BurgerOrderer=
+  3. /Order Items/ Customers can order items and they are sent to =KitchenView=
+  4. /List Orders/ =KitchenView= receives the orders and prints them.
+  5. /Adjust Order/ The customer can remove items from their order before it is sent to =KitchenView=
+  6. /Tailor Items/ The customer can tailor items on their order before it is sent to =KitchenView=
+- Reflective Practice :: The work is well summarised with reflections about improvement opportunities in the collective report as well as in the individual engineering diaries.
+** Detailed Instructions /Rubric
+- Documented Code :: Documentation of Containers, Documentation of Methods.
+  - 3 points :: There is a description of what every container does. Most methods have comments that can be used to generate documentation for the source code.
+  - 1 points (minimum level) :: There is a description of what every container does. Some methods have comments that can be used to generate source code documentation.
+  - 0 points :: No container is described. No methods have comments that can be used to generate source code documentation.
+  - COMMENT :: There is no "2 points", if the documentation is there at all, it is worth 3 points.
+
+- Documented Startup :: It is well documented or automated how to run the project.
+  - 3 points :: There is a single command to run the project. This command is described in the project documentation.
+  - 1 points (minimum level) :: There is a description in the project documentation how to run the project.
+  - 0 points :: There is no description how to run the project.
+  - COMMENT :: There is no "2 points".
+  - COMMENT :: A single command may mean a makefile, a bash script, or a ~docker compose~ command, as long as it is also documented.
+
+- Implemented Functionalty :: The amount of functionality implemented.
+  - from >1 to 6 points :: There are six features mentioned in the general instructions; award one point for each implemented and working feature.
+  - 1 points (minimum level) :: At least one feature is implemented and working.
+  - 0 points :: Nothing is implemented, or nothing works.
+
+- Reflective Practice :: Summary and reflections on how the implementation and documentation has been done.
+  - 3 points :: There is a descriptive summary of how the implementation and documentation has been done. Some improvement opportunities are identified and discussed.
+  - 1 points (minimum level) :: There is a brief summary of how the implementation and documentation has been done.
+  - 0 points :: There is no summary of how the implementation and documentation has been done.
+  - COMMENT :: There is no "2 points", if they have tried to reason about improvement opportunities, it is worth 3 points.
+** Suggestions for Resubmissions
+- Document the containers
+- Add code comments to at least some methods
+- Add brief description of how to run the project.
+- Make sure the implementation of at least one feature is mostly working.
+- Briefly describe the implementation work; what did they do first, what challenges did they encounter, etc.
+* Written Assignment 3: Testing and Debugging
+** General Instructions shared with the students
+The follwing is part of the assessment, and is weighed together to a grade on the assignment:
+
+- Test Plan :: It is documented what to test, how to test, how often, and what to do if any test fails.
+- Tested Functionality :: Unit tests have been written that test some part of some functionality in the system.
+- Reflective Practice :: The work is well summarised with reflections about improvement opportunities in the collective report as well as in the individual engineering diaries.
+** Detailed Instructions / Rubric
+- Test Plan :: It is documented what to test, how to test, how often, and what to do if any test fails.
+  - 1 points :: It is documented what and how to test. There exist some documentation on what to do if any test fails.
+  - 0 poäng :: There is no documentation on testing.
+  - COMMENT :: Binary assessment, some documentation is sufficient.
+
+- Tested Functionality :: Unit tests have been written that test some part of some functionality in the system.
+  - 3 points :: Unit tests have been written that test some part of some functionality in the system.
+  - 0 points :: There are no unit tests.
+  - COMMENT :: Binary assessment but with more points. At least one unit test is sufficient.
+
+- Reflective Practice :: Summary and reflections on how the testing and debugging has been done.
+  - 3 points :: There is a descriptive summary of how the testing has been planned and executed. Some improvement opportunities are identified and discussed.
+  - 1 points (minimum level) :: There is a brief summary of how the testing has been planned and executed.
+  - 0 points :: There is no summary of how the testing has been planned or executed.
+  - COMMENT :: There is no "2 points", if they have tried to reason about improvement opportunities, it is worth 3 points.
+** Suggestions for Resubmissions
+- Write a brief summary about what and how to test.
+- Implement one working unit test for some method in the system.
+- Briefly describe how the team worked with testing (manual and automated, ad-hoc and planned), and any challenges encountered.
+* Individual Assignment
+** General Instructions shared with the students
+The following items are assessed individually into a complete/incomplete grade:
+
+- Frequency of Engineering Diary Updates :: Regular updates to the individual engineering diary.
+- Engineering Diary Contents :: Contents in the engineering diary with respect to (a) collaboration, (b) configuration management, (c) implementation and documentation, and (d) testing and debugging.
+- Documented Experience of Debugging :: Documentation and reflections from a debug session.
+** Detailed Instructions / Rubric
+- Frequency of Engineering Diary Updates :: Regular updates to the individual engineering diary.
+  - 1 points :: The student have made more than one commit to their engineering diary.
+  - 0 points :: The student have not made regular updates to their individual engineering diary.
+  - COMMENT :: Only one commit is not a regular update, so 0 points.
+
+- Engineering Diary Contents :: Contents in the engineering diary with respect to (a) collaboration, (b) configuration management, (c) implementation and documentation, and (d) testing and debugging.
+  - 3 points :: The engineering diary contain summaries of the work that has been done since the last update. The engineering diary contain insightful reflections and identifies opportunities for improvements.
+  - 1 point (minimum level) :: The engineering diary contain summaries of the work that has been done since the last update.
+  - 0 points :: There is no relevant content in the engineering diary.
+  - COMMENT :: A simple bullet list "since the last commit of the engineering diary I have ..." is sufficient for 1 points.
+  - COMMENT :: The contents should be at least somewhat relevant to the listed topics.
+
+- Documented Experience of Debugging :: Documentation and reflections from a debug session.
+  - 3 points :: A debug session is documented with details on what is being debugged, the breakpoints used, the variables monitored and how these change during the debug session. There are reflections on what went well (or not), with identified opportunities for improvements.
+  - 1 points (minimum level) :: A debug session is documented with details on what is being debugged, the breakpoints used, and the variables monitored.
+  - 0 points :: There is no documentation on any debug session.
+  - COMMENT :: Please see the assignment description for further details of what may be expected here for 3 points.
+** Suggestions for Resubmissions
+- Add at least one more commit with updates to the individual engineering diary that reflects on the project as a whole, the course, or the futility of engineering diaries.
+- Add at least one more commit with an update to the individual engineering diary that describes the students' contribution to the project. If the student admits to not having contributed, they should be separated from the group and assessed individually. Please notify the course examiner.
+- Debug some function and summarise the process.
+- Individual assessment: Teacher creates an issue on the project, the student fixes the issue in one or several commits.
+
