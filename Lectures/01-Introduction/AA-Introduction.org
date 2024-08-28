@@ -144,7 +144,7 @@ D. Thomas, A. Hunt, The Pragmatic Programmer, 20th Anniversary Edition, 2020. IS
 
 Kompletteringar:
 - Inom två veckor efter att kursen slutar
-- Januari, Juni, eller när kursen ges nästa gång.
+- När kursen ges nästa gång.
 * Övningar, Inlämningsuppgifter och Föreläsningar
 - Mycket av det som behövs för att komma igång med inlämningsuppgifterna gås igenom tidigt i kursen.
   - I synnerhet inlämningsuppgift 1 och 3.
@@ -332,8 +332,9 @@ Fundamentalt för att motarbeta mjukvaruröta: *Fixa det som är trasigt*
 - Det visar sig att färdighet i /språk/ är viktigare än färdighet i matte för att bli en bra programmerare.
 
 Prat et al, "Relating Natural Language Aptitude to Individual
-Differences in Learning Programming Languages". Scientific Reports,
-2020.  https://www.nature.com/articles/s41598-020-60661-8
+Differences in Learning Programming Languages". Scientific Reports, 2020.
+
+ https://www.nature.com/articles/s41598-020-60661-8
 
 ** TL;DR:
 A study showing that the most important skills that facilitates
