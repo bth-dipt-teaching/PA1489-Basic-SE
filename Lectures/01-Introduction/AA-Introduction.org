@@ -369,7 +369,7 @@ beings what we want a computer to do.
   - Sikta mot det Osäkra :: Utvärdera så mycket av designen som möjligt i varje cykel.
 - Prototyper :: Billig utvärdering av din design
 - Estimat :: Hur lång tid kommer det ta? Hur svårt är det? Vad behöver jag veta för att avgöra detta?
-** Easier to Change
+* Easier to Change
 
 #+begin_quote
 *Bra Design är lättare att ändra än Dålig Design*
@@ -386,7 +386,11 @@ Grundläggande designprinciper, Objektorienterade designprinciper hjälper:
 - Low Coupling
 - High Cohesion
 - \dots
-** Don't Repeat Yourself
+* Don't Repeat Yourself
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
 - Mjukvara byggs inte i en sittning.
 - Det är inte ett vackert planerat och fint broderat lapptäcke.
 - Snarare en hög med blöta kökstrasor som har slängts i en hög under 40 år.
@@ -406,7 +410,7 @@ Det finns en stor risk att du upprepar gammal kod bara för att du inte hittar d
 - Lösning av samma problem
 - Dokumentation
   - även dokumentation av koden (kommentarer i koden, Doxygen, osv.)
-** Inkapsling
+* Inkapsling
 - Isolera delsystem, komponenter, klasser, mm. från varandra
 - Isolera funktionalitet från varandra
 

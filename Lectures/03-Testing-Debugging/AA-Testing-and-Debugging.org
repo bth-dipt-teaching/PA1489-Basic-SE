@@ -3,7 +3,7 @@
 #+Email: Mikael.Svahnberg@bth.se
 #+Date: 2023-12-08
 #+EPRESENT_FRAME_LEVEL: 1
-#+OPTIONS: email:t <:t todo:t f:t ':t H:2
+#+OPTIONS: email:t <:t todo:t f:t ':t H:2 toc:nil
 #+STARTUP: beamer
 
 #+LATEX_CLASS_OPTIONS: [10pt,t,a4paper]
@@ -346,7 +346,7 @@ Verktyg:
 
 - https://www.archbee.com/blog/how-to-write-code-documentation
 * Övning: Test och Debug :Practice:
-** Introduktion till SorterTool
+* Introduktion till SorterTool
 - https://codeberg.org/mickesv/SorterTool.git
 - /SorterTool/ implementerar och testar ett par olika sorteringsalgoritmer.
 - Det finns många olika sätt att sortera listor på som är olika snabba.
@@ -361,7 +361,7 @@ Verktyg:
     2. se till att alla till vänster är mindre och alla till höger större
     3. upprepa för vänster och höger.
   - Bubble Sort: =O(n²)= jämför varje element med alla andra och byt plats på alla element som inte redan är ordnade.
-** Kom igång med övningen
+* Kom igång med övningen
 1. Klona SorterTool till din dator: https://codeberg.org/mickesv/SorterTool.git
 2. Öppna projektet i din IDE. Studera följande filer:
    - ~src/Main.java~ för att snabbt kunna köra programmet
@@ -369,7 +369,7 @@ Verktyg:
    - ~Tests/SorterTest.java~ testar ~Sorter~.
 3. Kör alla tester. Vad händer?
 4. Kör specifikt testet för ~bubbleSort()~
-** Skaffa mer information
+* Skaffa mer information
 
 *Läs meddelandet*
 
@@ -380,20 +380,20 @@ Nej, allvarligt! *Läs meddelandet!*
 - Vad står det på den raden?
   - Räcker detta för att förstå vad som gick fel?
   - Hur kan du ta reda på mer informaiton?
-** Använd Debuggern
-1. I filen ~SorterTest.java~, klicka på radnummret =49=; Det borde bytas till en liten stopp-skylt 🛑
+* Använd Debuggern
+1. I filen ~SorterTest.java~, klicka till höger om radnummret =56= ( =assertTrue(isOrdered(out))= ); Det borde bytas till en liten stopp-skylt 🛑
 2. Kör nu testet för ~bubbleSort()~ i "Debug"-läge.
 
 Vad ser du nu i:
 - kodfönstret?
 - fönstret nedanför koden?
 
-** Debug-fönstret
+* Debug-fönstret
 [[./Debugging-annotated.png]]
 - Här kan vi se varför testet misslyckas, men inte vad i koden som orsakade felet.
 - /Ledtråd:/ Titta på arrayen ~out~ och alla värden där. Kan du se något mönster?
-** Stega genom koden
-1. Flytta break-punkten fråmn rad =49= till rad =47=.
+* Stega genom koden
+1. Flytta break-punkten fråmn rad =56= till rad =54= ( ~int [] out = srt.bubbleSort(testArray)~ ).
 2. Kör testet för ~bubbleSort()~ igen i Debug-läge (Starta om testet när du får frågan).
 
 Viktiga verktyg för att stega genom koden:
@@ -415,10 +415,10 @@ Stämmer detta? (Det gör det inte. Vad borde hända?)
 Rätta till felet och fortsätt debugga.
 - Som du märker verkar inte ändringen fungera.
 - Du måste /starta om/ testet för att det skall ta effekt.
-** Kör om alla tester
+* Kör om alla tester
 - När du nu har fixat felet så borde alla tester bli gröna.
 - Varför blir både ~sort()~ och ~bubbleSort()~ gröna? Du har ju bara fixat ~bubbleSort()~\dots
-** Lek vidare på egen hand
+* Lek vidare på egen hand
 - Kan du använda debuggern för att förstå hur sorteringsalgoritmerna fungerar?
 - Skriv din egen sorteringsalgoritm och testa den.
 - Just nu finns det ett test för varje metod. Kan du ha fler tester för varje metod?

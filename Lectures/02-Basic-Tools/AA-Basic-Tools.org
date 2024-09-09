@@ -3,7 +3,7 @@
 #+Email: Mikael.Svahnberg@bth.se
 #+Date: 2023-11-21
 #+EPRESENT_FRAME_LEVEL: 1
-#+OPTIONS: email:t <:t todo:t f:t ':t H:2
+#+OPTIONS: email:t <:t todo:t f:t ':t H:1 toc:nil
 #+STARTUP: beamer
 
 #+LATEX_CLASS_OPTIONS: [10pt,t,a4paper]
@@ -38,6 +38,10 @@
     - ditt arbete
     - dator-administrativ bråte?
 * Att Välja en Utvecklingsmiljö
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
 Klassiskt /Editor War/: Vi or Emacs
 - Båda har fokus på en sak: /Redigera text/
 - Allting annat fick man förr lösa utanför
@@ -59,6 +63,10 @@ Det viktiga är inte vilken du väljer
  - eller -
 /Med den här filen vill jag göra XX/
 * Datorprogram är Text
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
 - Den pragmatiska ansatsen: /Datorprogram är text/
 - Alltså fungerar vilken texteditor som helst. Inklusive Notepad++
 
@@ -88,6 +96,10 @@ Exempel på shell:
 - powershell
 - git bash
 * Shell för att arbeta med datorn
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
 - Utforska filsystemet
 - Leta efter filer
 - Öppna, flytta, ta bort filer.
@@ -110,7 +122,11 @@ Exempel på shell:
     - ~tr -s ' '~ byt ut alla blanksteg till ett enda
     - ~cut -d ' ' -f 2~ använd blanksteg som kolumnseparator, spara fält #2
 
-** Lite blandade shell-kommandon
+* Lite blandade shell-kommandon
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
 | Aktivitet                                | Unix          | Ms-DOS   |
 |------------------------------------------+---------------+----------|
 | *Hjälp om ett kommando*                    | man <command> | help     |
@@ -141,6 +157,10 @@ Exempel på shell:
 |------------------------------------------+---------------+----------|
 
 * Att arbeta med Text
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
 Saker som din utvecklingsmiljö redan kan, men vet du hur?
 
 - Hoppa till nästa ord, rad, stycke.
@@ -157,10 +177,15 @@ Saker som din utvecklingsmiljö redan kan, men vet du hur?
 - Visa kompileringsfel
 - Köra tester
 
-Välj din utvecklingsmiljö så att det här blir enkelt för dig.
-Välj din utvecklingsmiljö så att du själv kan lägga till och justera hur den fungerar.
-Välj din utvecklingsmiljö så att du kan göra det här utan pekdon!
+Välj din utvecklingsmiljö så att
+- det här blir enkelt för dig.
+- du själv kan lägga till och justera hur den fungerar.
+- du kan göra det här utan pekdon!
 * Förändra Text
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
 Exempel på behov:
 - Byt ut alla kommatecken mot semikolon i en csv-fil
 - Byt ut alla förekomster av "Mikael Svahnberg" till "the author" i 500 filer.
@@ -194,6 +219,10 @@ echo "... and use awk to sum this up"
 find ../01-Introduction -name "*.png" -printf "%s\n" | awk 'BEGIN{print "Size is:"}{t+=$1}END{print t/1024 " kB"}'
 #+end_src
 * Ingenjörens Dagbok
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
 - Vad sade ni under det senaste designmötet?
 - Har du pratat med kunden? Vad sade ni?
 - Har du löst ett knivigt problem?
@@ -270,6 +299,10 @@ find ../01-Introduction -name "*.png" -printf "%s\n" | awk 'BEGIN{print "Size is
 * Samarbete i ett Repository
 [[./git-example1.png]]
 * Flera Förgreningar/Branches
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
 Man kan ha hur många förgreningar man vill, och skapa dem av vilka anledningar som helst.
 
 Ett strukturerat exempel på hur man kan arbeta är /Git Flow/-modellen:
@@ -313,6 +346,10 @@ diff first.txt second.txt
 : 3a4
 : > ddd
 * Three-Way Merge
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
 - Använder ett gemensamt ursprung för att avgöra om förändringar är nya eller inte.
 - Skapar ibland lite nya problem
   - Vad händer t.ex. i figuren nedan om "GG" använder sig av "AA"?
@@ -340,9 +377,13 @@ git merge feature1
 - Varning: Det här blir krångligt
 - Merge-konflikter kommer hända
 - Det är lika bra ni får ser vad man gör åt dem.
-** Samma exempel som innan
+* Samma exempel som innan
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
 [[./threewaymerge.png]]
-** ... I olika grenar
+* ... I olika grenar
 =base= ligger i grenen =master=, =source= ligger i =src=, och =target= i =trg=:
 
 #+begin_src bash
@@ -353,7 +394,7 @@ $ git log --all --graph --abbrev-commit --decorate --oneline
  * 107e415 (master) base
 #+end_src
 
-** Försök med en merge
+* Försök med en merge
 #+begin_src bash
 $ git status
 On branch trg
@@ -366,7 +407,11 @@ Automatic merge failed; fix conflicts and then commit the result.
 #+end_src
 
 Vi kan alltid ge upp: ~git merge --abort~, men hur kul är det?
-** Git markerar förändringarna
+* Git markerar förändringarna
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
 Låt oss se vad git har gett oss:
 #+begin_src bash
 $ cat c.txt
@@ -393,7 +438,7 @@ Blä! Vi behöver (önskar) ett verktyg för att kunna arbeta med detta:
 #+begin_src bash
 git mergetool --tool=kdiff3
 #+end_src
-** Lös konflikter
+* Lös konflikter
 #+ATTR_ORG: :width 600
 [[./kdiff-screenshot.png]]
 
@@ -413,7 +458,7 @@ $ git log --all --graph --abbrev-commit --decorate --oneline
 #+end_src
 
 * Grundläggande kommandon
-** git init -- Starta ett tomt repository
+* git init -- Starta ett tomt repository
 Helt nytt och enbart lokalt:
 
 #+begin_src bash :session gitex :results output
@@ -421,7 +466,7 @@ mkdir git-example
 cd git-example
 git init
 #+end_src
-** git clone -- klona ett existerande repository
+* git clone -- klona ett existerande repository
 Hämta ett existerande projekt:
 
 #+begin_src bash :results output
@@ -429,7 +474,7 @@ Hämta ett existerande projekt:
   ls -l /tmp/ms
 #+end_src
 
-** git status -- Var är jag, vad behöver göras?
+* git status -- Var är jag, vad behöver göras?
 #+begin_src bash :session gitex :results output
 echo "hello" > h.txt
 echo "world" > w.txt
@@ -457,7 +502,7 @@ Untracked files:
 
 nothing added to commit but untracked files present (use "git add" to track)
 #+end_example
-** git add -- Skapa en Commit, steg 1: The staging area
+* git add -- Skapa en Commit, steg 1: The staging area
 - Staging area är ett område där man kan "plocka ihop" allting som man vill skall hänga ihop i en commit
 - Man kan göra ganska komplexa saker här (lägga till en del av en fil, t.ex.)
 - oftast handlar det bara om att man skall välja ut filerna.
@@ -486,7 +531,7 @@ Untracked files:
   (use "git add <file>..." to include in what will be committed)
 	w.txt
 #+end_example
-** git commit -- Skapa en Commit, steg 2
+* git commit -- Skapa en Commit, steg 2
 - Nu är vi redo att committa allt som vi har i vår staging area.
 
 #+begin_src bash :session gitex :results output
@@ -504,7 +549,11 @@ git status
 : 	w.txt
 : 
 : nothing added to commit but untracked files present (use "git add" to track)
-** git log -- Kolla Loggen
+* git log -- Kolla Loggen
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
 #+begin_src bash :results output
 cd /tmp/ms
 git log --all | cat -
@@ -531,7 +580,11 @@ Date:   Fri Oct 30 08:00:50 2020 +0100
 
     most of the scaffolding in place
 #+end_example
-** git stash -- Lägg åt sidan när du blir avbruten
+* git stash -- Lägg åt sidan när du blir avbruten
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
 #+begin_src bash :session gitex :results output
 # Jag vill jobba med task 1
 git branch task1
@@ -568,6 +621,10 @@ git commit -m "task1 klar"
 #+end_src
 
 * Arbeta mot en Server
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
 - Git är konstruerat för att vara distribuerat
 - I praktiken arbetar man nästan alltid mot en server ändå
 - /merge with origin:master/ har sitt eget kommando: ~git push~
@@ -575,7 +632,7 @@ git commit -m "task1 klar"
   - I det här fallet så /trycker/ man (push) upp til servern.
 
 [[./git-example1.png]]
-** Arbetsflöde
+* Arbetsflöde
 #+begin_src bash
 # Download the project
 git clone https://codeberg.org/mickesv/gitex.git
@@ -594,7 +651,7 @@ git merge testar
 # push to server
 git push
 #+end_src
-** När git push inte funkar
+* När git push inte funkar
 - t.ex. när någon annan gjort en push under tiden
 
 #+begin_src bash
@@ -605,7 +662,11 @@ To https://codeberg.org/mickesv/gitex.git
  ! [rejected]        main -> main (fetch first)
 error: failed to push some refs to 'https://codeberg.org/mickesv/gitex.git'
 #+end_src
-** git fetch -- hämta vad som är nytt från =origin=
+* git fetch -- hämta vad som är nytt från =origin=
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
 #+begin_src bash
 # Hämta allt nytt men gör ingenting annat
 $ git fetch
@@ -632,7 +693,7 @@ $ git branch --all
 - Ungefär en =fetch= följt av en =merge=
 - Löser nästan alla problem -- men inte alltid
 - ~git fetch~ ger dig möjlighet att verifiera att allt kommer bli rätt.
-** Resultat av git fetch/git merge
+* Resultat av git fetch/git merge
 #+begin_src bash
 $ git log --all --graph --abbrev-commit --decorate --oneline
  *   e644bdf (HEAD -> main, origin/main) Merge remote-tracking branch 'origin/main'
@@ -648,6 +709,10 @@ $ git log --all --graph --abbrev-commit --decorate --oneline
 - Du /vet/ inte förrän du faktiskt gör din ~git push~ 
 - Det här kan bli ett problem om branchen är väldigt aktiv.
 * Fork av ett projekt
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
 - Specifikt för vissa github-servrar
 - När man vill bidra till ett projekt så börjar man med att skapa sin egen kopia, en =fork=
 - Man arbetar sedan som vanligt.
@@ -656,6 +721,10 @@ $ git log --all --graph --abbrev-commit --decorate --oneline
 - Båda två kan fortsätta arbeta med sina respektive kopior av projektet. De behöver inte förena dem.
 [[./git-fork.png]]
 * Sammanfattning
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
 *Allt är Text*
 - Att programmera handlar om att skriva text
 - Att arbeta med en dator handlar om att ge den kommandon
@@ -683,6 +752,10 @@ Lär dig mantrat: /"If it's not committed, it does not exist!"/
 - Thomas & Hunt: Kapitel 3; topic 20: Debugging
 - Thomas & Hunt: Kapitel 9; topic 51: Pragmatic Starter Kit
 * Övning: Kom igång med din IDE :Practice:
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
 - Starta =IntelliJ IDEA= eller den IDE du har valt (e.g. =VS Code= eller =VS Codium=) .
 - Skapa ett Projekt =New Project=
   - Name: =TestProjekt=
@@ -698,11 +771,27 @@ Vad händer?
 
 Hur kör du programmet i debug-läge?
 Vad händer nu? Hur går du vidare?
-** Redigera Main.java
+** Om du använder VSCode/VSCodium
+- "New Project" finns inte; bara new file
+- Skapa en fil =main.java=, lägg den i någon lämplig katalog
+- Klistra in:
+
+#+begin_src java
+public class Main {
+    public static void main(String[] args) {
+        System.out.printf("Hello and welcome!");
+
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("i = " + i);
+        }
+    }
+}
+#+end_src
+* Redigera Main.java
 - Lägg till en metod i klassen, =public static int addTen(int x)=
-  - Skriv metoden ovanför main-funktionen (mellan rad 3 och 4)
+  - Skriv metoden ovanför main-funktionen
   - Den skall lägga till 10 till =x= och returnera detta
-- Lägg till raden ~System.out.println("i+10 = " + addTen(i));~
+- Lägg till raden ~System.out.println("i+10 = " + addTen(i));~ inuti main-funktionen.
 - Kör programmet nu. Vad händer?
 
 IntelliJ försöker hela tiden ge dig ledtrådar på vad du kan skiva. 
@@ -710,18 +799,16 @@ IntelliJ försöker hela tiden ge dig ledtrådar på vad du kan skiva.
 - Vad får du för hjälp?
 - Hjälper det faktiskt, eller är det i vägen?
 
-#+begin_src java
-public class Main {
+* Hjälp
+- IntelliJ
+  - Ställ dig någonstans där det står ~println~ och tryck =ctrl-Q= (Quick Documentation)
+    - Du kan också komma åt detta via =View= -menyn. Vad mer kan du hitta där?
+- VSCodium: =Ctrl-Shift-P=
+* Lägg till en ny klass
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
 
-    public static void main(String[] args) {
-        System.out.printf("Hello and welcome!");
-    }
-}
-#+end_src
-** Hjälp
-- Ställ dig någonstans där det står ~println~ och tryck =ctrl-Q=
-  - Du kan också komma åt detta via =View= -menyn. Vad mer kan du hitta där?
-** Lägg till en ny klass
 - =File/New/Java Class=
 - Name: =Nummer=
 - Skriv in följande kod efter rad 1:
@@ -745,11 +832,12 @@ public class Main {
   }
 #+end_src
 
-** Använd den nya klassen
+* Använd den nya klassen
 - Byt tillbaka till =Main.java= och lägg till följande kod efter rad 12:
 #+begin_src java
-  Nummer num = new Nummer(10);
-  System.out.println("Is "+ num + " smaller than 12: " + num.smallerThan(12));
+   Nummer num = new Nummer(10);
+   System.out.println("Is "+ num + " smaller than 12: "
+                      + num.smallerThan(12));
 #+end_src
 
 Vilken "hjälp" får du när du skriver detta?
@@ -758,17 +846,17 @@ Hur kan du köra det här programmet utan att sträcka dig efter musen?
 Första raden av utskriften blir: =Hello and welcome!Is Number: 10 smaller than 12: true=
 - Hur kan du fixa så att du får en ny rad efter "welcome!"?
 - Vad kan du göra för att bara skriva ut siffran 10 och inte "Number: 10"?
-** Gör editorn din
+* Gör editorn din
 - Måste allt synas samtidigt? Hur gömmer du undan saker?
 - Gillar du inte färgschemat? Hur byter du?
 
 - Det finns gott om plugins. =File/Settings/Plugins=
   - Vilka vill du installera? Vilka är redan installerade?
-** Hitta Terminalen
+* Hitta Terminalen
 - Det finns en inbyggd kommandoradstolk. Var då?
 - Vad kan du göra med den?
 * Övning: Kom igång med Git :Practice:
-** Registrera ett Konto
+* Registrera ett Konto
 - Måste tyvärr börja med att registrera ett konto på någon server.
   - https://github.com/signup eller https://education.github.com/pack
   - https://gitlab.com/users/sign_up
@@ -782,13 +870,13 @@ Första raden av utskriften blir: =Hello and welcome!Is Number: 10 smaller than 
   - Brukade vara väldigt generösa för studenter och universitet (numera vet jag inte)
 - Codeberg.org är specifikt fokuserat på open-source-projekt
 
-** Skapa och klona ett Repository
+* Skapa och klona ett Repository
 - Lättast att börja i webgränssnittet
 - Döp projektet till något kreativt, t.ex. =gitexempel=
 - När du är klar bör du kunna hitta en länk, t.ex. under =<> Code= som du kan använda för att klona projektet
   - till exempel: ~git clone https://codeberg.org/mickesv/gitex.git~
   - Det här sätter up =remote/origin= mm. åt dig.
-** Skapa lite git-historia
+* Skapa lite git-historia
 1. Skapa några filer
 2. Lägg till dem till stashen och committa
 3. Ändra någon av filerna; lägg till och committa igen
@@ -800,12 +888,12 @@ Första raden av utskriften blir: =Hello and welcome!Is Number: 10 smaller than 
 9. Kolla status
 10. Pusha till servern
 11. Kolla status
-** Forka en kollegas repository
+* Forka en kollegas repository
 1. Leta rätt på en kollegas konto (på samma server)
 2. Välj ett repository och forka det (Lämpligen exempel-kontot som ni nyss skapade)
 3. Klona ner det till din dator och skapa lite mer git-historia
 4. När du har pushat allt till din fork, skapa en =pull request= hos deras repository (via webben)
-** Hantera en pull request
+* Hantera en pull request
 När din kollega har skapat en pull request mot ditt repo, hantera den:
 - Inspektera commit för commit vad som är ändrat
 - Går den att merga automatiskt? Det borde stå någonstans.
@@ -814,7 +902,7 @@ När din kollega har skapat en pull request mot ditt repo, hantera den:
 Skapa några fler commits i era respektive forkar
 - Skapa en ny pull request
 - Den här gången skall ni /neka/ pull requesten.
-** Fler deltagare i samma projekt
+* Fler deltagare i samma projekt
 - Dela in er i grupper om ca 5 personer
 - Välj en kollegas repository
 - Gå till =Settings/Collaborators= och lägg till fler av er på samma projekt.
