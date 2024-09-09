@@ -203,7 +203,7 @@ Nej, allvarligt! *Läs meddelandet!*
   - Räcker detta för att förstå vad som gick fel?
   - Hur kan du ta reda på mer informaiton?
 ** Använd Debuggern
-1. I filen ~SorterTest.java~, klicka på radnummret =49=; Det borde bytas till en liten stopp-skylt 🛑
+1. I filen ~SorterTest.java~, klicka på radnummret =56= ( =assertTrue(isOrdered(out))= ) Det borde bytas till en liten stopp-skylt 🛑
 2. Kör nu testet för ~bubbleSort()~ i "Debug"-läge.
 
 Vad ser du nu i:
@@ -215,7 +215,7 @@ Vad ser du nu i:
 - Här kan vi se varför testet misslyckas, men inte vad i koden som orsakade felet.
 - /Ledtråd:/ Titta på arrayen ~out~ och alla värden där. Kan du se något mönster?
 ** Stega genom koden
-1. Flytta break-punkten fråmn rad =49= till rad =47=.
+1. Flytta break-punkten fråmn rad =56= till rad =54=  ( ~int [] out = srt.bubbleSort(testArray)~ ).
 2. Kör testet för ~bubbleSort()~ igen i Debug-läge (Starta om testet när du får frågan).
 
 Viktiga verktyg för att stega genom koden:

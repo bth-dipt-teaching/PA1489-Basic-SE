@@ -205,7 +205,7 @@ No, seriously. *Read the message!*
   - Is this sufficient to understand what went wrong?
   - How can you find more information?
 ** Use the Debugger
-1. In the file =SorterTest.java=, click on the line number =49=; a small stop-sign should appear 🛑
+1. In the file =SorterTest.java=, click on the line number =56= ( =assertTrue(isOrdered(out))= ); a small stop-sign should appear 🛑
 2. Now run the test for =bubblesort()= in "debug"-mode.
 
 Now, what can you see
@@ -216,7 +216,7 @@ Now, what can you see
 - This shows why the test failed, but not what in the code that caused the error.
 - /Clue:/ Look at the array =out= and all the values there. Can you find any pattern?
 ** Step through the code
-1. Move the break point from line =49= to line =47=.
+1. Move the break point from line =56= to line =54= ( ~int [] out = srt.bubbleSort(testArray)~ )..
 2. Run the test for =bubbleSort()= again in Debug-mode (Restart the test when asked).
 
 Important tools to step through the code
