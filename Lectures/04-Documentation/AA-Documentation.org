@@ -3,7 +3,7 @@
 #+Email: Mikael.Svahnberg@bth.se
 #+Date: 2024-01-12
 #+EPRESENT_FRAME_LEVEL: 1
-#+OPTIONS: email:t <:t todo:t f:t ':t H:2
+#+OPTIONS: email:t <:t todo:t f:t ':t H:2 toc:nil
 #+STARTUP: beamer
 
 #+LATEX_CLASS_OPTIONS: [10pt,t,a4paper]
@@ -58,7 +58,7 @@ Boktips:
   - Returvärden
   - Referenser till annan relevant dokumentation
 * JavaDoc Exempel
-#+begin_src Java :tangle Circle.java
+#+begin_src java :tangle Circle.java
 /**
  * Represents a Circle that is defined by a framing rectangle.
  * 
@@ -404,7 +404,7 @@ cljdetector/
 [[./Java-for-the-reluctant.png]]
 
 * Övning: Dokumentation
-** Introduktion till JavaPonies
+* Introduktion till JavaPonies
 - /Desktop Ponies/ är en urgammal mono-applikation (liknar Visual Basic) som låter My Little Ponies springa runt på skärmen.
 - /Java Ponies/ är "min" version av detta program  
   - https://codeberg.org/mickesv/JavaPonies.git
@@ -416,14 +416,14 @@ cljdetector/
     - PONIES
 
 [[./fly_rainbow_right.gif]]
-** Kom igång med övningen
+* Kom igång med övningen
 1. Klona projektet till din dator: https://codeberg.org/mickesv/JavaPonies.git
 2. Öppna projektet i din IDE och studera programmet så att du förstår vad det gör.
    - ~src/JavaPonies.java~ startar programmet
    - ~src/model/Pony.java~ Implementerar en klass som instantieras för varje ponny
    - ~src/model/PonyBehaviour.java~ representerar ett enskilt beteende som en ponny kan ha
    - ~src/view/PonyWindow.java~ Sköter visning och uppdatering av en viss ponny som är aktiv på skärmen.
-** Skapa dokumentationen
+* Skapa dokumentationen
 - Från en terminal: ~javadoc src/*.java src/model/*.java src/view/*.java -d doc~
 - Från IntelliJ: =Tools/Generate JavaDoc=, fyll i att dokumentationen skall hamna i katalogen ~doc~
   (Resultatet öppnas i din webläsare)
@@ -433,13 +433,13 @@ Inspektera dokumentationen:
 - Vad finns med? Vad finns inte med?
 - När du skapade dokumentationen fick du många varningar. Vad beror de på?
 
-** Uppdatera JavaDoc
+* Uppdatera JavaDoc
 Filen ~src/model/PonyBehaviour.java~ saknar JavaDoc-kommentarer.
 
 1. Skriv dessa kommentarer så att du inte längre får några javadoc-varningar från ~PonyBehaviour.java~.
 2. Ökade detta användbarheten av dokumentationen? Varför / Varför inte?
 3. Ökade detta läsbarheten av koden? Varför/Varför inte?
-** Skapa en Issue
+* Skapa en Issue
 Notera:
 - Om du har ett konto på Codeberg.org kan du skapa en issue direkt mot JavaPonies-projektet
 - Om du inte har eller inte vill ha ett konto kan du skriva din issue direkt i en textfil.
@@ -455,7 +455,7 @@ Att Göra:
    - Förväntat resultat
    - Faktiskt resultat
    - Övrig information (om relevant)
-** Förbättra en metod
+* Förbättra en metod
 1. Välj en metod eller attribyt som du tycker är otydlig och genomför en /Refactoring/ så att den blir tydligare.
    - IntelliJ har en hel meny för Refactor; utforska den för att se vad som finns där och hur det fungerar
 
