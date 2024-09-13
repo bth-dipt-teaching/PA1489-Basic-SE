@@ -381,7 +381,7 @@ Nej, allvarligt! *Läs meddelandet!*
   - Räcker detta för att förstå vad som gick fel?
   - Hur kan du ta reda på mer informaiton?
 * Använd Debuggern
-1. I filen ~SorterTest.java~, klicka till höger om radnummret =56= ( =assertTrue(isOrdered(out))= ); Det borde bytas till en liten stopp-skylt 🛑
+1. I filen ~SorterTest.java~, klicka till höger om radnummret =56= ( =assertTrue(isOrdered(out))= ) Det borde bytas till en liten stopp-skylt 🛑
 2. Kör nu testet för ~bubbleSort()~ i "Debug"-läge.
 
 Vad ser du nu i:
