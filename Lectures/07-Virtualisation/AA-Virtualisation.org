@@ -3,8 +3,8 @@
 #+Email: Mikael.Svahnberg@bth.se
 #+Date: 2024-02-28
 #+EPRESENT_FRAME_LEVEL: 1
-#+OPTIONS: email:t <:t todo:t f:t ':t H:2
-#+STARTUP: beamer
+#+OPTIONS: email:t <:t todo:t f:t ':t H:2 toc:nil
+#+STARTUP: beamer num
 
 #+LATEX_CLASS_OPTIONS: [10pt,t,a4paper]
 #+BEAMER_THEME: BTH_msv
@@ -86,7 +86,7 @@ Där:
 
 - Idag räcker ofta en container.
 - Containers är särskilt användbara för utveckling av /microservices/
-* Kom igång med Qemu
+* Kom igång med Qemu :Overview:
 - Installera program:
   - /Qemu/ och /libvirt/
   - /virt-manager/ https://virt-manager.org/
@@ -116,7 +116,7 @@ Där:
                      -vga virtio -display sdl,gl=on\
                      -drive file=xfce-manjaro-disk
 #+end_src
-* Vagrant och Automatisk Provisionering
+* Vagrant och Automatisk Provisionering :Overview:
 - /Provisionering/ kallar man steget när man installerar den programvara man behöver på en maskin.
   - Steget /"Installera från ISO"/ är inte automatiskt!
   - Man måste manuellt installera all programvara man vill använda.
@@ -359,7 +359,7 @@ services:
 * Compose-filen
 - Services :: Vilka microservices (containers) skall startas, hur många, osv.
   - Innehåller en lista med services, ex. "app" och "textstore"
-  - xx/image :: Namnet på containern
+  - xx/image :: Namnet på containern, ex. =textstore/image=
   - xx/ports :: Portar som skall öppnas från värden till gästen
   - xx/expose :: Portar som skall vara tillgängliga till andra services.
   - xx/volumes :: Filsystem som skall mappas. /Här kan man göra mycket, återkommer till det/

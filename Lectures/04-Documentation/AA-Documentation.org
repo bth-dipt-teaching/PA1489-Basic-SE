@@ -4,7 +4,7 @@
 #+Date: 2024-01-12
 #+EPRESENT_FRAME_LEVEL: 1
 #+OPTIONS: email:t <:t todo:t f:t ':t H:2 toc:nil
-#+STARTUP: beamer
+#+STARTUP: beamer num
 
 #+LATEX_CLASS_OPTIONS: [10pt,t,a4paper]
 #+BEAMER_THEME: BTH_msv
@@ -90,6 +90,9 @@ public boolean move(int xPosition, int yPosition) {
   javadoc -d DocExample Circle.java 
   xdg-open DocExample/index.html
 #+end_src
+
+#+RESULTS:
+
 * Exempel på inbyggd dokumentation
 #+begin_src emacs-lisp
   (defun emacs-version (&optional here)
@@ -107,6 +110,24 @@ public boolean move(int xPosition, int yPosition) {
            ))))
 #+end_src
 
+Funkar liknande i Python; första statementet blir en /docstring/
+
+#+begin_src python
+  def get_frobnicator():
+      """Returns the current frobnicator"""
+      pass
+
+  def complex(real=0.0, imag=0.0):
+      """Form a complex number.
+
+      Keyword arguments:
+      real -- the real part (default 0.0)
+      imag -- the imaginary part (default 0.0)
+      """
+      if imag == 0.0 and real == 0.0:
+          return complex_zero
+      ...
+#+end_src
 * Att använda sig av Kod-dokumentation
 - Finns mycket online, men jag rekommenderar att ha dokumentationen lokalt.
   - Alltid tillgängligt
@@ -229,7 +250,7 @@ Bra/Dåligt?
 * Mindre och Enklare Metoder
 - Bryt isär flerstegsmetoder till separata metoder istället.
   - Var och en med ett tydligt namn.
-- Så få parametrar som möjligt (Uncle Bob: /Helst inga parametrar alls. Någonsin!/ )
+- Så få parametrar som möjligt (Uncle Bob: /Helst inga parametrar alls. Någonsin!/ (Jag håller inte med))
 - Undvik sidoeffekter (föredra rena matematiska funktioner); det blir lättare att förstå
 - Undvik att förändra inparametrarna -- föredra ~return~ i stället.
   - Gör kanske något på objektet i stället: ~fancyObject.applySomeDecoration()~ 
@@ -355,6 +376,7 @@ cljdetector/
   - Credits, information om utvecklingsteamet, andra källor, mm.
   - Instruktioner om hur läsaren kan bidra
   - Licens
+- Läs mer om /Markdown/-formattering: https://www.markdownguide.org/
 * Dokumentera Buggar
 - Idag använder man ofta en /Issue Tracker/ integrerat i arbetsflödet
   - Hitta ett problem eller förbättringsförslag \rightarrow Skapa en issue

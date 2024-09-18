@@ -4,7 +4,7 @@
 #+Date: 2024-09-13
 #+EPRESENT_FRAME_LEVEL: 1
 #+OPTIONS: email:t <:t todo:t f:t ':t H:2 toc:nil
-#+STARTUP: beamer
+#+STARTUP: beamer num
 
 #+LATEX_CLASS_OPTIONS: [10pt,t,a4paper]
 #+BEAMER_THEME: BTH_msv
@@ -41,13 +41,13 @@
   - =/= är en "API-ändpunkt": Den här delen av adressen berättar vad man vill att BurgerOrderer skall göra.
     - Det här kan ni planera nu, exempel:
 
-| API                       | Beskrivning                                |
-|---------------------------+--------------------------------------------|
-| =/=                         | Visa förstasidan. Lista alla hamburgare.   |
-| =/burger/name=              | Visa en viss hamburgare                    |
-| =/buy/name=                 | Köp en viss hamburgare                     |
-| =/buy/name?cfg=extraBacon= | Köp en viss konfiguration av en hamburgare |
-|---------------------------+--------------------------------------------|
+| API                  | Beskrivning                                |
+|----------------------+--------------------------------------------|
+| =/=                    | Visa förstasidan. Lista alla hamburgare.   |
+| =/info/name=           | Visa en viss hamburgare                    |
+| =/buy/name=            | Köp en viss hamburgare                     |
+| =/buy/name?extraBacon= | Köp en viss konfiguration av en hamburgare |
+|----------------------+--------------------------------------------|
 
 Exempelkod: https://codeberg.org/mickesv/BO-py.git
 
@@ -144,7 +144,7 @@ Exempel
 #+begin_src python
   def renderFrontpage():
     pg = '<h1>Welcome!</h1>'
-    pg += '<p>lite mer text'
+    pg += '<p>lite mer text</p>'
     return pg
 
   @app.route('/')

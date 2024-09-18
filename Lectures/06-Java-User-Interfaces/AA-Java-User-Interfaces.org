@@ -3,8 +3,8 @@
 #+Email: Mikael.Svahnberg@bth.se
 #+Date: 2024-02-20
 #+EPRESENT_FRAME_LEVEL: 1
-#+OPTIONS: email:t <:t todo:t f:t ':t H:2
-#+STARTUP: beamer
+#+OPTIONS: email:t <:t todo:t f:t ':t H:2 toc:nil
+#+STARTUP: beamer num
 
 #+LATEX_CLASS_OPTIONS: [10pt,t,a4paper]
 #+BEAMER_THEME: BTH_msv
@@ -480,37 +480,6 @@ out o-- fileout
 - Handling compile-time errors is done during development
 - Handling errors caught by automated tests is done during development
 - Handling runtime errors /have to be/ handled during runtime!
-* A Software Tester Walks into a Bar\dots
-A Software Tester walks into a bar and orders a beer. Then they orders:
-- -1 beers
-- 999999999 beers
-- a duck
-- 0 beers
-- sdlkfjhkjsdhgfk
-- null
-
-So far, so good. Then they:
-- Orders 3 friends to come over for some fun.
-- Unhooks the tap and orders a beer.
-- Breaks all the glassware and orders a beer.
-- Sets the bar on fire and orders a beer.
-- Orders someone else a beer.
-- Has everyone order a beer.
-- Orders in russian.
-- Orders a beer for later.
-- Orders every beer.
-- Walks into the bar backwards.
-- Runs into the bar.
-- Sits at the bar overnight doing nothing to see what happens.
-- Tries to sell a beer.
-- Quickly orders a second beer before the first is served.
-- Interrupts the order midway and walks out.
-- Orders a beer in IE6.
-- Orders 1 ; select * from liquors; — beers.
-- Orders an apostrophe and walks out without paying the bill.
-- Waits for someone else to order, stands between them and the bartender, takes the drink.
-
-... then sends them all back.
 * Detecting the Error
 - Defensive Programming
   - Balance between checking everything and put reasonable trust in the program.
@@ -630,7 +599,7 @@ So far, so good. Then they:
 	}
 #+end_src
 
-3. [@3] Implementera metoden ~JavaPonyStatistics.printStatistics() så att den:
+3. [@3] Implementera metoden ~JavaPonyStatistics.printStatistics()~ så att den:
    - itererar över alla Ponies (du hittar dem via ~myPonies.findAll()~ ), och 
    - skriver ut Categories, Behaviour Groups, Behaviours, Effects, Interactions, och Speakig Lines:
 

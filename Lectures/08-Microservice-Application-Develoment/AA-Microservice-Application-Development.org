@@ -3,8 +3,8 @@
 #+Email: Mikael.Svahnberg@bth.se
 #+Date: 2024-03-15
 #+EPRESENT_FRAME_LEVEL: 1
-#+OPTIONS: email:t <:t todo:t f:t ':t H:2
-#+STARTUP: beamer
+#+OPTIONS: email:t <:t todo:t f:t ':t H:2 toc:nil
+#+STARTUP: beamer num
 
 #+LATEX_CLASS_OPTIONS: [10pt,t,a4paper]
 #+BEAMER_THEME: BTH_msv

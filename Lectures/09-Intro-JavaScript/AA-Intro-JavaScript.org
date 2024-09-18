@@ -3,8 +3,8 @@
 #+Email: Mikael.Svahnberg@bth.se
 #+Date: 2024-03-26
 #+EPRESENT_FRAME_LEVEL: 1
-#+OPTIONS: email:t <:t todo:t f:t ':t H:2
-#+STARTUP: beamer
+#+OPTIONS: email:t <:t todo:t f:t ':t H:2 toc:nil
+#+STARTUP: beamer num
 
 #+LATEX_CLASS_OPTIONS: [10pt,t,a4paper]
 #+BEAMER_THEME: BTH_msv
@@ -46,11 +46,11 @@ Vi har väntat med detta för att kunna utveckla inuti en container
   console.log(a.name);						// 'pinkie pie'
   console.log(a.handle);					// undefined
   a = Math.sqrt(-1);							// NaN
-  a.sort()												// Uncaught TypeError: a.sort is not a function
-  a = [3,2,5] 										// [3, 2, 5]
-  a.sort()												// [2, 3, 5]
+  a.sort();												// Uncaught TypeError: a.sort is not a function
+  a = [3,2,5]; 										// [3, 2, 5]
+  a.sort();												// [2, 3, 5]
   a = function(x) { return x+1; }	// [Function: a]    // funktioner är också objekt
-  a(1)														// 2
+  a(1);														// 2
 #+end_src
 * Prototyp-baserad objektorientering
 - Behöver inte skriva en klass, som i Java eller C++
@@ -296,7 +296,7 @@ Bakgrund -- Olika /programmeringsparadigmer/
 #+begin_src c++
   // ex 1
   for (int i = 0; i < 10; i++) {
-    myArray[i] = myArray[i] + 20;    
+    myArray[i] = myArray[i] + 10;    
   }
 
   // ex 2
@@ -385,8 +385,8 @@ Bakgrund -- Olika /programmeringsparadigmer/
 
 #+begin_src javascript
   // ex 1 (med Promise)
-  let result = readFile(filename);
-  result.then( result => processData(result) )
+  let result = readFile(filename)
+      .then( result => processData(result) )
       .then( result => filterWithDatabase(result) )
       .catch( err => { /* ... */ } )
       .finally( result => { /* ... */ } );
