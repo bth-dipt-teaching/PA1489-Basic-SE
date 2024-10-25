@@ -16,6 +16,9 @@
   - Klasser, Objekt, Attribut
   - Vilkor, Iterationer
   - Paket
+- Fokus är egentligen inte Java i sig.
+  - De flesta objektorienterade / starkt typade språk beter sig i stort sett likadant
+  - Arbetssätten och tankesätten runtomkring är det viktiga.
 
 - Titta gärna på Youtube-serien "Java for the Reluctant"
   - https://www.youtube.com/playlist?list=PLRyU9jMTRIX7QUrxZF9HNLbdXtiv6F9MT
@@ -527,11 +530,12 @@ Skolbuss <|-- Bil
 - Shown in Class Diagrams:
 
 #+begin_src plantuml :file CD-Collection.png
-Customer - "*" Ticket
+Customer -- "*" Ticket
 #+end_src
 
 #+RESULTS:
 [[file:CD-Collection.png]]
+
 * Fixed or Flexible Size
 - /Sometimes/ the collection has a fixed size
   - Or at least a fixed upper bound
