@@ -1,0 +1,250 @@
+#+Title: Utvecklingsmiljön
+#+Author: Mikael Svahnberg
+#+Email: Mikael.Svahnberg@bth.se
+#+Date: 2023-11-21
+#+EPRESENT_FRAME_LEVEL: 1
+#+OPTIONS: email:t <:t todo:t f:t ':t H:1 toc:nil
+#+STARTUP: beamer num
+
+#+LATEX_CLASS_OPTIONS: [10pt,t,a4paper]
+#+BEAMER_THEME: BTH2025
+
+
+* Introduktion
+- Thomas & Hunt; Kapitel 3: The Basic Tools
+
+\sum /Allt är text!/
+* Vikten av Rätt Verktyg
+- Det här är din karriär. Ditt liv. Gör det bekvämt för dig.
+
+- Grundläggande ergonomi
+  - Sitter du rätt?
+  - Har du rätt avstånd till skärmen?
+  - Tar du pauser tillräckligt ofta? Tillräckligt långa?
+
+- På samma sätt: Vilka datorprogram använder du?
+  - Manualer?
+  - Informationssökning?
+  - Samarbetsytor?
+  - Kommunikation?
+  - *Programmering*?
+
+- Går det att använda dessa program effektivt?
+  - Hjälper de dig, eller är de i vägen?
+  - Är de tangenbordsstyrda eller behöver du ett pekdon?
+  - Hur stor andel av skärmen tillägnas till
+    - ditt arbete
+    - dator-administrativ bråte?
+* Att Välja en Utvecklingsmiljö
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
+Klassiskt /Editor War/: Vi or Emacs
+- Båda har fokus på en sak: /Redigera text/
+- Allting annat fick man förr lösa utanför
+  - e.g. kompilator, byggsystem, debugger, mm.
+  - Idag finns det stöd i utvecklingsmiljön för att använda de externa verktygen.
+  - Men det är ofta bekvämt att använda en terminal
+
+Moderna Alternativ
+- IntelliJ
+- Eclipse
+- Atom
+- VS Code / VS Codium
+
+Det viktiga är inte vilken du väljer
+- Du skall kunna använda flera olika miljöer
+- Du skall kunna se förbi utvecklingsmiljön till det du faktiskt utvecklar
+
+/Med VSCode vill jag skriva ett program/
+ - eller -
+/Med den här filen vill jag göra XX/
+* Datorprogram är Text
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
+- Den pragmatiska ansatsen: /Datorprogram är text/
+- Alltså fungerar vilken texteditor som helst. Inklusive Notepad++
+
+- Text förklarar för dig själv och andra utvecklare vad du vill att datorn skall göra.
+- Text kommer alltid vara tillgängligt och läsbart
+- Text kan vara strukturerat
+  - HTML / XML
+  - JSON
+  - CSV
+  - YAML
+  - C++ / Java
+  - Lisp
+- Text kan vara mer eller mindre enkelt att filtrera och arbeta med på datorn.
+  - /find all files that mention X/
+  - /find all rows where the seventh column contains the following datum/
+  - /find all entries where the social security number is XXX/
+  - \dots
+* Bli vän med ditt shell
+- En terminal är ett program som kör ett shell.
+  - Kan vara ett GUI-fönster
+  - Kan vara inbäddad i din utvecklingsmiljö
+  - Kan också vara textbaserat, t.ex. ~tmux~ , ~screen~ , eller ~ssh~
+
+Exempel på shell:
+- ~/bin/sh~ , ~/usr/bin/bash~
+- ~cmd.exe~
+- powershell
+- WSL
+- git bash
+* Shell för att arbeta med datorn :Demo:
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
+- Utforska filsystemet
+- Leta efter filer
+- Öppna, flytta, ta bort filer.
+- Enkel filredigering
+- Kompilera och länka din programkod
+- Skapa och köra små program ( /shell scripts/ ) för att upprepa arbetsflöden
+
+- Koppla upp dig mot andra datorer
+- Testa så du t.ex. får rätt svar från en webserver
+- Inspektera filer så att de innehåller rätt information
+- Installera program
+- Hantera vilka processer som körs
+
+- /Länka ihop många små program för att lösa en större uppgift/
+  - unix /pipes/: ~producer | consumer~
+  - Exempel: ~ps -ef | grep emacs | grep -v grep | tr -s ' ' | cut -d ' ' -f 2~
+    - ~ps -efc~ lista alla processer
+    - ~grep emacs~ visa bara rader där det står ~emacs~
+    - ~grep -v grep~ ta bort alla rader där det står ~grep~
+    - ~tr -s ' '~ byt ut alla blanksteg till ett enda
+    - ~cut -d ' ' -f 2~ använd blanksteg som kolumnseparator, spara fält #2
+
+* Lite blandade shell-kommandon
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
+| Aktivitet                                | Unix          | Ms-DOS   |
+|------------------------------------------+---------------+----------|
+| *Hjälp om ett kommando*                    | man <command> | help     |
+|                                          | info          |          |
+|                                          |               |          |
+| lista filer                              | ls            | dir      |
+| lista filer med mer information          | ls -l         |          |
+| byt katalog                              | cd            | cd       |
+| byt katalog, lägg nuvarande på stacken   | pushd         |          |
+| byt tillbaka till förra katalogen        | popd          |          |
+| skapa en ny katalog                      | mkdir         | mkdir    |
+| ta bort en (tom) katalog                 | rmdir         | rmdir    |
+| visa namnet på nuvarande katalog         | pwd           |          |
+|                                          |               |          |
+| visa en fil                              | cat/more/less | type/?/? |
+| visa början/slutet på en fil             | head/tail     |          |
+| kopiera en fil                           | cp            | copy     |
+| flytta en fil                            | mv            | move     |
+| ta bort en fil                           | rm            | del      |
+| skapa en tom fil (eller uppdatera datum) | touch         |          |
+| byt rättigheter på en fil                | chmod         |          |
+|                                          |               |          |
+| Sök efter en viss fil                    | find          | find     |
+| Sök efter ett visst innehåll             | grep          |          |
+|                                          |               |          |
+| visa alla miljövariabler                 | env           |          |
+| skriv ut text                            | echo          | echo     |
+|------------------------------------------+---------------+----------|
+
+* Att arbeta med Text
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
+Saker som din utvecklingsmiljö redan kan, men vet du hur?
+
+- Hoppa till nästa ord, rad, stycke.
+- Hoppa till nästa syntaktisk struktur (sexp, block, ...)
+- Indentera raden automatiskt
+- Kommentera/avkommentera ett kodblock med ett enda kommando
+- Ångra kommandon, ångra ångringen
+- Dela fönstret i flera delar och hoppa mellan dem.
+- Gå till en viss rad.
+- Sortera rader
+- Söka efter strängar och reguljära uttryck
+  - Upprepa senaste sökningen / ersättningen
+- Skapa flera markörer baserat på vald text och redigera på flera ställen samtidigt
+- Visa kompileringsfel
+- Köra tester
+
+Välj din utvecklingsmiljö så att
+- det här blir enkelt för dig.
+- du själv kan lägga till och justera hur den fungerar.
+- du kan göra det här utan pekdon!
+* Förändra Text
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
+Exempel på behov:
+- Byt ut alla kommatecken mot semikolon i en csv-fil
+- Byt ut alla förekomster av "Mikael Svahnberg" till "the author" i 500 filer.
+- Räkna alla förekomster av ordet "kibo" i 500 filer. Summera värdet i kolumnen efter.
+- Bryt upp alla filer i block om X rader.
+  - Gör om varje block till md5-summor, och
+  - lista bara de block som förekommer mer än en gång.
+
+Man /kan/ lösa mycket av detta i sin editor
+- särskilt om den stödjer makros
+- det är sällan smidigt eller skalbart
+
+I stället: /Tillbaks till ditt shell/
+- ~find~ , ~grep~ , ~cut~ , ~sed~ , ~awk~ 
+
+** Exempel på sed :Demo:
+#+begin_src bash :results output
+echo "---------- Bara för att visa att det finns en rad med ordet 'Introduktion'"
+grep -HnC 3 Introduktion AA-Basic-Tools.org | head -6
+echo "---------- Nu byter vi ut det mot något annat"
+cat AA-Basic-Tools.org | sed "s/Introduktion/Översikt/" | head -20 | tail -10
+
+#+end_src
+** Exempel på awk :Demo:
+#+begin_src bash :results output
+pwd
+echo "Find all png files in the first lecture and print their sizes"
+find ../01-Introduction -name "*.png" -printf "%s\n"
+
+echo "... and use awk to sum this up"
+find ../01-Introduction -name "*.png" -printf "%s\n" | awk 'BEGIN{print "Size is:"}{t+=$1}END{print t/1024 " kB"}'
+#+end_src
+* Ingenjörens Dagbok
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
+- Vad sade ni under det senaste designmötet?
+- Har du pratat med kunden? Vad sade ni?
+- Har du löst ett knivigt problem?
+- Har du en idé på hur du skall lösa ett knivigt problem?
+- Påminn dig om något som måste göras
+- Tvinga dig att reflektera över vad du faktiskt gör eller har gjort.
+  - Använd helst papper och penna; det sänker farten och gör det möjligt att reflektera
+  - ... och illustrera.
+
+- Den varken behöver eller skall vara snygg och städad: Det är en förlängning av din hjärna.
+
+- Jämför med lab-boken i Kemi/Fysik: /In case of fire: Save the Notebook!/
+- Gamla tiders naturvetare, se utdrag ur Charles Darwin's anteckningsböcker nedan:
+
+#+ATTR_ORG: :width 300
+[[./IDarwin-Notebook-1.jpg]][[./IDarwin-Notebook-0.jpg]]
+* Sammanfattning
+*Allt är Text*
+- Att programmera handlar om att skriva text
+- Att arbeta med en dator handlar om att ge den kommandon
+- Att arbeta effektivt med en dator handlar om att kunna automatisera arbetsflöden
+  - Alltså skriva små program
+  - Alltså att skriva text
+- Många gånger har man inte ens tillgång till mer än en textbaserad kommandorads-tolk
+- \sum Lär dig hantera text!
+- \sum Välj en utvecklingsmiljö som gör det enkelt att hantera text.
