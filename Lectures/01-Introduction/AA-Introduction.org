@@ -2,13 +2,13 @@
 #+Subtitle: Introduction
 #+Author: Mikael Svahnberg
 #+Email: Mikael.Svahnberg@bth.se
-#+Date: 2024-05-27
+#+Date: 2025-03-25
 #+EPRESENT_FRAME_LEVEL: 1
 #+OPTIONS: email:t <:t todo:t f:t ':t H:1 toc:nil
 #+STARTUP: beamer
 
-#+LATEX_CLASS_OPTIONS: [10pt,a4paper]
-#+BEAMER_THEME: BTH_msv
+#+LATEX_CLASS_OPTIONS: [10pt,t,a4paper]
+#+BEAMER_THEME: BTH2025
 
 * Introduktion
 - Om Kursen
@@ -87,7 +87,27 @@ Min förhoppning:
 - Kom ihåg att teknologierna /finns/, så att du kan använda dem senare, /när du behöver dem/
 - Försök etablera /några/ goda, pragmatiska vanor redan nu, och bygg på efter hand.
 - Kom tillbaka till det här kursmaterialet om något år (när du behöver) och använd det som referensmaterial.
-* Om Föreläsningarna
+* TODO Struktur på Kursen
+- Lärplatform :: Canvas
+- Föreläsningar :: ger en översikt över ämnet och teorin.
+- Läsanvisningar :: inför vissa föreläsningar, I andra fall bara ett ämne som ni kan förbereda er fritt på.
+- Övningar :: om innehållet i varje föreläsning, går på djupet med det praktiska hantverket
+- Examinerade Uppgifter :: sätter samman hantverket till en helhet.
+- /Ingen tenta/
+
+Varje vecka:
+- 2 föreläsningar à 2h
+- 1 praktisk föreläsning à 2h
+- 1 laboration à 4h
+- *Enskilt arbete* på egen hand eller i grupp.
+* Kursliteratur
+D. Thomas, A. Hunt, The Pragmatic Programmer, 20th Anniversary Edition, 2020. ISBN-10: 0-13-595705-2
+
+#+ATTR_LATEX: :height 5cm
+#+ATTR_ORG: :width 400
+[[./Thomas-Hunt-2020-Pragmatic-Programmer.png]]
+
+* TODO Föreläsningar
 :PROPERTIES:
 :BEAMER_OPT: shrink=5
 :END:
@@ -114,48 +134,27 @@ Min förhoppning:
 | 15 | --Buffert--                              |
 | 16 | --Buffert--                              |
 |----+------------------------------------------|
-* Struktur på Kursen
-- Lärplatform :: Canvas
-- Föreläsningar :: ger en översikt över ämnet och teorin.
-- Läsanvisningar :: inför vissa föreläsningar, I andra fall bara ett ämne som ni kan förbereda er fritt på.
-- Övningar :: om innehållet i varje föreläsning, går på djupet med det praktiska hantverket
-- Inlämningsuppgifter :: sätter samman hantverket till en helhet.
-- /Ingen tenta/
+* TODO Uppgifter i Kursen
+- Tre Examinerade uppgifter om vardera 2.5hp:
+  1. Konfigurationshantering, Containers, Testning och Debuggning  (Redovisas i labsal)
+  2. Implementation och Dokumentation (Redovisas i labsal)
+  3. Ingenjörsdagbok (Lämnas in på Canvas)
 
-Varje vecka:
-- 2 föreläsningar à 2h
-- 1 laboration à 2h
-- *Enskilt arbete* på egen hand eller i grupp.
-* Kursliteratur
-D. Thomas, A. Hunt, The Pragmatic Programmer, 20th Anniversary Edition, 2020. ISBN-10: 0-13-595705-2
+- Uppgifterna är /individuella/ 
+  - Ni får väldigt gärna samarbeta när ni arbetar.
+  - Uppgift 1 redovisas individuellt.
+  - Uppgift 2 får redovisas tillsammans (som mest 5 studenter per grupp)
+  - Uppgift 3, Ingenjörsdagboken, lämnas in individuellt.
 
-#+ATTR_LATEX: :height 5cm
-#+ATTR_ORG: :width 400
-[[./Thomas-Hunt-2020-Pragmatic-Programmer.png]]
+- Kompletteringar:
+  - Inom två veckor efter att kursen slutar
+  - När kursen ges nästa gång.
 
-* Inlämningsuppgifter
-- Tre inlämningsuppgifter om vardera 2.5hp:
-  - Konfigurationshantering
-  - Implementation och Dokumentation
-  - Testning och Debuggning
-- Lös uppgifterna i grupper om 3--5 studenter
-- Uppgifterna går hand i hand -- ni måste jobba med alla tre samtidigt
-- Arbetet sker kontinuerligt under hela kursen med en stor inlämning i slutet av kursen.
-
-Kompletteringar:
-- Inom två veckor efter att kursen slutar
-- När kursen ges nästa gång.
-* Övningar, Inlämningsuppgifter och Föreläsningar
-- Mycket av det som behövs för att komma igång med inlämningsuppgifterna gås igenom tidigt i kursen.
-  - I synnerhet inlämningsuppgift 1 och 3.
-  - ... Men tyvärr inte allt: till Inlämningsuppgift 2 behöver ni fler verktyg i er verktygslåda.
-- /Börja med vad ni kan/
-  - Lös vad ni redan kan lösa, planera resten.
-
-- Använd övningarna för att lära er hur ni skall lösa inlämningsuppgifterna.
-- Ni kommer inte hinna bli världsbäst på de teknologier som behövs
+- *Ni kommer inte hinna bli världsbäst på de teknologier som behövs!*
   - Kopiera och anpassa i stället.
-  - Men *förstå* vad ni kopierar!
+  - Men /förstå/ vad ni kopierar!
+  - /Börja med vad ni kan/
+    - Lös vad ni redan kan lösa, planera resten.
 * Några ord om AI
 :PROPERTIES:
 :BEAMER_OPT: shrink=5
@@ -176,40 +175,37 @@ Dessutom:
 - Man sätter inte en junior programmerare på att granska kod
 - Företag kommer behöva folk som förstår vad AIn spottar ur sig, vilka säkerhetsbrister den har, och vad man skall göra åt det.
 
-/Det här är ni/
+* TODO Introduktion till Uppgifterna
 * Verktyg
 :PROPERTIES:
 :BEAMER_OPT: shrink=5
 :END:
 
-I den här kursen behöver du ha installerat:
+*OBS* Det är /du/ som är ansvarig för vad du installerar på /din/ dator!
 
+I den här kursen behöver du:
+- Någon utvecklingsmiljö (Du har troligen redan VSCode installerat)
+- Konfigurationshanteringsverktyg;
+  - Git https://git-scm.com/downloads
+  - Gärna något grafiskt gränssnitt, t.ex. Github Desktop https://github.com/apps/desktop
+- Något verktyg för att arbeta med containers; Docker https://www.docker.com/
+
+
+Till senare kurser kanske du vill ha:
 - /Java/ , t.ex. OpenJDK https://openjdk.org/ 
-- Någon Utvecklingsmiljö:
-  - IntelliJ https://www.jetbrains.com/idea/
-  - VS Codium https://vscodium.com/
-  - Emacs https://www.gnu.org/software/emacs/
-  - \dots
-  - Vim https://www.vim.org/
-- Ett Konfigurationshanteringsverktyg; Git https://git-scm.com/downloads
-  - Gärna något gränssnitt för git också
-- Något verktyg för att arbeta med lättvikts-containrar
-  - Podman https://podman.io/
-  - Docker https://www.docker.com/
-
-
-Du kanske också vill installera:
-- /node.js/ lokalt: https://nodejs.org/en
 - någon C/C++-kompilator, t.ex. gcc https://gcc.gnu.org/
+- /node.js/ lokalt: https://nodejs.org/en
 - ett byggverktyg, såsom =make=
   - https://www.gnu.org/software/make/
   - https://cmake.org/ 
 - något verktyg för att modellera programvarudesign:
   - PlantUML http://plantuml.com/
-  - IntelliJ https://www.jetbrains.com/help/idea/class-diagram.html
-  - StarUML: http://staruml.io/
-  - VisualParadigm https://www.visual-paradigm.com/
-  - \dots
+
+Det finns också open-source-alternativ:
+- VSCode \to VS Codium https://vscodium.com/ 
+- Docker \to Podman https://podman.io/
+- Emacs https://www.gnu.org/software/emacs/
+- Vim https://www.vim.org/
 * En Pragmatisk Mjukvaruutvecklare / En Pragmatisk Filosofi
 [Thomas & Hunt, Kapitel 1]
 
@@ -336,8 +332,7 @@ Differences in Learning Programming Languages". Scientific Reports, 2020.
 
  https://www.nature.com/articles/s41598-020-60661-8
 
-** TL;DR:
-A study showing that the most important skills that facilitates
+*TL;DR* A study showing that the most important skills that facilitates
 learning programming are short term memory and problem solving
 (explaining 34% of the variance), and in second place language aptitude
 (17%). Math skills was quite irrelevant (2%).
@@ -422,168 +417,17 @@ Det finns en stor risk att du upprepar gammal kod bara för att du inte hittar d
 
 *En stor del av kursen kommer handla om inkapsling i olika former*
 
-* An Executing Program: Important Parts of the Computer
-#+begin_src ditaa :file Computer-Parts.png
-  /----------+  +-----------------+  +----------------+
-  | CPU      |  | RAM (Memory)    |  | Hard Disk      |
-  | cGRE     |  |                 |  |                |
-  +----------/  |                 |  |                |
-                |                 |  |                |
-                |                 |  |                |
-                |                 |  |                |
-                |           cBLU  |  | {s} cBLU       |
-                +-----------------+  +----------------+
-
-                /-----------------\
-                | Display  cPNK   |
-                |                 |
-                |                 |
-                \-----------------/
-#+end_src
-
-#+ATTR_LATEX: :height 3cm
-#+RESULTS:
-[[file:Computer-Parts.png]]
-
-- The CPU Executes all code
-- The CPU reads the code from RAM
-  - It may need to first fetch the code from storage (hard drive, disk, ~C:~, network drive, \dots)
-  - It may output data to a drive, or to the display.
-- Other inputs: keyboard, mouse, sensors, network packets, \dots
-* The Operating System
-:PROPERTIES:
-:BEAMER_OPT: shrink=5
-:END:
-
-#+begin_src ditaa :file OperatingSystem.png
-  +-------------+    +-------------+    +-------------+    +-------------+
-  | User        |    | User        |    | User        |    | User        |
-  | Application |    | Application |    | Application |    | Application |
-  |             |    |             |    |             |    |             |
-  |             |    |             |    |             |    |             |
-  | cGRE        |    | cGRE        |    | cGRE        |    | cGRE        |
-  +-------------+    +-------------+    +-------------+    +-------------+
-                                                               
-  +----------------------------------------------------------------------+
-  |                     Operating System                                 |
-  |                                                             cBLU     |
-  +----------------------------------------------------------------------+
-                                                                  
-  +----------------------------------------------------------------------+
-  |                     Hardware                                cBLK     |
-  +----------------------------------------------------------------------+
-#+end_src
-
-#+RESULTS:
-[[file:OperatingSystem.png]]
-
-The /Operating System/ is responsible for:
-- Hardware Abstraction / Resource Management :: Provides an easy-to-use interface to all hardware.
-- Interruption Management :: Handles interruptions, e.g. timer, disk, network, keyboard, mouse, etc.
-- Process Management :: Divides the CPU time fairly across all user applications
-- Memory Management :: Makes sure the executing program is available in RAM
-  - Security :: Contains data so that other applications can not read it
-- Device Management :: Reads and Writes from/to Devices, e.g.
-  - Filesystem Management :: Reads and Writes from/to Disk
-  - Network Management :: Reads and Writes from/to Network
-
-* An Executing Program
-#+begin_src ditaa :file Executing.png
-
-         /---------+
-         | CPU     |
-         |    cGRE |
-         +---------/
-            ^ Read, Execute and Write to/from RAM
-            |
-  +---------|--------------------------------------------------+
-  | RAM     v                                                  |
-  |     +--------------------------------------------------+   |
-  |     | 1001110100110110110101001001001011100100110...   |   |
-  |     +--------------------------------------------------+   |
-  |                                                            |
-  +------------------------------------------------------------+
-#+end_src
-
-#+RESULTS:
-[[file:Executing.png]]
-
-Courtesy of the operating system, the executing program
-- Appears to be alone on the CPU
-- Appears that it alone has access to of all the memory
-- /Encapsulation/ is an important design principle.
-- *Process* == Executing Program
-* From Humans to Computers
-:PROPERTIES:
-:BEAMER_OPT: shrink=5
-:END:
-
-Three main cases:
-1) Compile directly to executable program for your computer platform (e.g. C++)
-   - 😄 *Write* Source Code and save to disk
-   - 💻 *Compile* to =runnable binary=
-     - Load source code into memory
-     - Translate to your computer platform
-     - Save to disk as a binary
-   - 💻 *Execute* program
-     - Load binary into memory
-     - execute instruction by instruction
-2) Compile to =bytecode=, i.e. a made-up computer platform (e.g. Java, Clojure)
-   - 😄 *Write* Source Code and save to disk
-   - 💻 *Compile* to =bytecde=
-     - Load source code into memory
-     - Translate to your computer platform
-     - Save to disk as a binary
-   - 💻 *Execute* program
-     - Load bytecode into memory
-     - Read each instruction, translate to your computer platform, and execute
-3) Interpret program code directly (e.g. lisp, JavaScript, PHP)
-   - 😄 *Write* Source Code and save to disk
-   - 💻 *Execute* program
-     - Load source code into memory
-     - Read each instruction, translate to your computer platform, and execute
-* Readable source code
-- *The source code is the only artefact intended to be readable by humans.*
-  - It is read and modified often, so we should take care when writing it.
-- We can use low-level languages, close to how the computer sees the world
-  - e.g. Assembly language, C/C++
-- We can use higher-level languages, closer to what we want the computer to perform
-  - e.g. Java, JavaScript, Clojure, lisp
-- We can use /compiled/ or /interpeted/ languages
-  - Compiled languages /usually/ execute faster
-  - Interpreted languages are /usually/ easier to edit on the fly (while they are running)
-  - Some programming paradigms are more common in compiled languages, others are more common in interpreted languages
-- We can use any text editor to write our program
-  - We /should/ use an editor and development environment that help us write /and read/ our program.
-* Summary
-#+begin_verse
-A *process* is an application that runs on a *processor* (or *CPU*).
-A *processor* reads, executes, and writes to and from *memory* (or *RAM*).
-A *thread* executes program code; there can be many *threads* in a *process*.
-*Threads in a process* share the same memory.
-*Processes* are (generally) not able to share memory with other *processes*.
-The *operating system* safeguards the *hardware* and shares resources fairly to all *software*
-The *operating system* allows the *process* to pretend like it is *alone on the computer*.
-
-An *application* may consist of many processes and threads, running on one or several computers.
-A *system* may also include other types of hardware, and even humans.
-#+end_verse
 * Sammanfattning
-D. Thomas, A. Hunt, The Pragmatic Programmer, 20th Anniversary Edition, 2020. ISBN-10: 0-13-595705-2
+Kursen handlar om att /reservera plats/ i din framtida verktygslåda.
+- Allt är nytt just nu; allt känns svårt.
+- Du lär dig om verktyg som du /kommer/ använda
 
+Dagens "teori": D. Thomas, A. Hunt, The Pragmatic Programmer, 20th Anniversary Edition, 2020. ISBN-10: 0-13-595705-2
 - Kaptiel 1: En Pragmatisk Filosofi
 - Kapitel 2: En Pragmatisk Ansats
 
-- Åtagandekultur
 - Du arbetar i ett team
+- Åtagandekultur
 - Designa för förändring
 - Minska risker genom att sikta mot det osäkra
-
-- Vad är det egentligen vi har att arbeta med?
-  - Mjukvarukod som exekveras i en isolerad process
-  - /Inkapsling/
-* Nästa Föreläsning: Utvecklingsmiljön
-- Thomas & Hunt; Kapitel 3: The Basic Tools
-- Grunderna i Konfigurationshantering
-- Installera och bli vän med din utvecklingsmiljö
 
