@@ -1,0 +1,406 @@
+#+Title: Configuration Management
+#+Author: Mikael Svahnberg
+#+Email: Mikael.Svahnberg@bth.se
+#+Date: 2025-04-02
+#+EPRESENT_FRAME_LEVEL: 1
+#+OPTIONS: email:t <:t todo:t f:t ':t H:1
+#+STARTUP: beamer num
+
+#+LATEX_CLASS_OPTIONS: [10pt,t,a4paper]
+#+BEAMER_THEME: BTH2025
+
+* Introduction
+- Grunderna i Konfigurationshantering
+- Thomas & Hunt; Kapitel 3: The Basic Tools
+
+\sum Allt är text. /Allt skall Konfigurationshanteras!/
+* Konfigurationshantering
+- /Versionshantering/ kontra /Konfigurationhantering/
+- Versionshantering:
+  - En gigantisk undo-knapp för en hel fil.
+  - Automatiskt skött, inte en massa idioti med att döpa om filerna efter vem som har ändrat dem.
+- Konfifurationshantering sköter dessutom
+  - Vilka versioner av filer fungerar ihop?
+  - I vilka filer implementerar vi /feature X/
+  - I vilka filer löser vi /issue Y/ (Bug/feature request/\dots )?
+  - Vilka versioner av alla filer är det som kör hos /Kund Z/?
+  - Stöd för (semi-) automatisk /merge/ om flera har ändrat filen
+  - Stöd för att utveckla samma fil samtidigt för olika features.
+
+- Kända verktyg (idag)
+  - Subversion ::
+    - Klassiskt server-orienterat: all CM sker på en och samma server
+  - Git ::
+    - Används av de flesta idag
+    - I teorin distribuerat; i praktiken också server-orienterat
+  - Mercurial ::
+    - Liknar git, men anses av många vara lite enklare
+* Hela projektet skall alltid konfigurationshanteras
+- Källkod
+- Designdokumentation
+- Dokumentation
+- Script för att bygga applikationen
+- Script för att ställa i ordning utvecklingsmiljön / testmiljön / produktionsmiljön
+- Script för att starta applikationen
+
+* Använd Alltid Konfigurationshantering
+- Även om det är ditt eget hobbyprojekt
+- Inklusive konfigurationsfiler för att ställa i ordning din dator och utvecklingsmiljö
+  - Svårt om allt ligger i windows registry
+  - Lätt (och självklart) om allt finns i .rc-filer i din användarkatalog
+
+*If it's not comitted, it does not exist!*
+* Det börjar med en Branch...
+#+begin_src dot :file branch1.png
+  digraph G {
+          rankdir="LR";
+          bgcolor="transparent";
+          node[width=0.15, height=0.15, shape=point, color=black];
+          edge[weight=2, arrowhead=none, color=darkgray];
+          node[group=master];
+          1 -> 2 -> 3 -> 4 -> 5;
+          node[group=branch];
+          //2 -> 6 -> 7 -> 4;
+  }
+#+end_src
+
+#+RESULTS:
+[[file:branch1.png]]
+
+- Kärnan i all konfigurationshantering är att inse att du /alltid/ arbetar på en gren
+  - Du arbetar med filerna på en delad nätverkskatalog
+  - Du kopierar projektet till din dator
+  - Du klonar projektet
+  - Du skapar en ny gren för att implementera en ny feature
+
+- Utmaningen blir alltid att kombinera förgreningar med en /merge/
+  - Om du är den enda som har redigerat en viss fil
+  - Om du är den enda som har redigerat en viss del av en fil
+  - Om ni är flera som har redigerat samma del av en viss fil
+  - Om du har redigerat en fil som någon annan har tagit bort
+
+#+begin_src dot :file branch2.png
+  digraph G {
+          rankdir="LR";
+          bgcolor="transparent";
+          node[width=0.15, height=0.15, shape=point, color=black];
+          edge[weight=2, arrowhead=none, color=darkgray];
+          node[group=master];
+          1 -> 2 -> 3 -> 4 -> 5;
+          node[group=branch];
+          2 -> 6 -> 7 -> 4;
+  }
+#+end_src
+
+#+RESULTS:
+[[file:branch2.png]]
+
+* Commit
+[[./branch2.png]]
+
+- Ofta behöver man redigera flera filer för att lösa en uppgift
+- Paketera alla redigerade filer i en =commit=
+- En commit har också ett meddelande som berättar vad man gjort.
+  - Ofta länkat med krav-databasen eller issue-databasen
+  - T.ex. Meddelandet ~Fixes #222~ kommer länka denna commit med issue #222.
+- Den senaste committen kallas för /head/
+
+*Meddelandet skall vara kort men beskrivande*
+- inte bara "redigerade x.txt", utan /varför/, t.ex. "bakgrund om glasstilverkning.", eller "Implementerar krav #23"
+- en commit == ett syfte. Flera syften, flera commits.
+* Arbeta Lokalt
+- Det går att använda konfigurationshantering lokalt, bara för dig och din dator
+- Sparar gamla versioner -- lokal backup
+- Håll isär varje projekt -- en filsystemskatalog för varje
+  - Program du vill skriva
+  - Rapport du arbetar med
+  - Kurs du går
+  - Laboration i Kurs
+- Samla och beskriv ändringar/framsteg
+  - Varje commit är ett helt meningsfullt bidrag
+  - En viss commit innehåller alla filer som ändrades i det bidraget
+  - \dots med automatiskt versionsnummer
+
+** Exempel -- Så Arbetar Jag
+- I huvudsak tre kataloger:
+  - =~/Documents/Personal=
+  - =~/Documents/Research=
+  - =~/Documents/Teaching=
+- Under dessa har jag projekt
+  - En katalog per projekt
+  - Varje katalog är konfigurationshanterad
+
+#+ATTR_ORG: :width 1024px
+#+begin_src dot :file mydir.png
+   digraph G {
+           rankdir="LR"; 
+           bgcolor="transparent";
+           node[width=3, height=0.4, shape=folder, fontsize=12.0, color=black, fontcolor=black];
+           edge[weight=2, arrowhead=none, color=darkgray];
+           "📂 ~/Documents/" -> "📂 Personal"
+           "📂 ~/Documents/" -> "📂 Research"
+           "📂 ~/Documents/" -> "📂 Teaching"
+           "📂 Teaching" -> "⎇ PA1458-OODesign"
+           "📂 Teaching" -> "⎇ PA1461-Intro-ICT"
+           "📂 Teaching" -> "⎇ PA1482-Applied-OO-Design"
+           "📂 Teaching" -> "⎇ PA1489-Basics-SE"
+           "📂 Teaching" -> "⎇ PA2534-Thesis"
+           "📂 Teaching" -> "⎇ PA2577-Cloud"
+           "📂 Teaching" -> "⎇ PAAPT"
+           "📂 Teaching" -> "⎇ GuestLectures"
+           "⎇ PA1489-Basics-SE" -> "🗎 Readme.md"
+           "⎇ PA1489-Basics-SE" -> "📂 Assignments"
+           "⎇ PA1489-Basics-SE" -> "📂 Evaluations"
+           "⎇ PA1489-Basics-SE" -> "📂 Formalia"
+           "⎇ PA1489-Basics-SE" -> "📂 Lectures"
+           "⎇ PA1489-Basics-SE" -> "📂 Planning"
+           "⎇ PA1489-Basics-SE" -> "📂 Results"
+  }
+#+end_src
+
+#+ATTR_ORG: :width 800px
+#+RESULTS:
+[[file:mydir.png]]
+* Flera Användare
+- För att samarbeta i ett projekt underlättar det om man använder en /server/
+- Du arbetar fortfarande lokalt på din egen kopia, din /branch/
+- Det gör dina kollegor också.
+- Ni kommunicerar genom att ladda upp och ner till severn.
+
+/Det här skiljer sig från vad ni är vana vid/
+- Med Teams, Google Drive, OneDrive, \dots arbetar ni alla mot /samma/ fil, /samtidigt/ på en server.
+  - I en del program syns det att flera redigerar samtidigt
+  - I många fall så blir det ett /race-condition/ om vem som sparar först/sist
+  - Den som sparar senast skriver över alla andras ändringar
+
+#+begin_src dot :file sever-collab.png
+  digraph G {
+          rankdir="LR";
+          bgcolor="transparent";
+          node[width=0.15, height=0.15, shape=point, fontsize=10.0 color=black, fontcolor=black];
+          edge[weight=2, arrowhead=none, color=darkgray];
+          node[group=main];
+          1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7;
+          node[group=branch1];
+          2 -> a -> b -> c -> d -> 5;
+
+          1[shape=box,label="main"];
+          a[shape=box,label="din kopia"];
+
+          node[group=branch2];
+          2 -> aa -> bb -> cc -> 6;
+          aa[shape=box,label="din kompis kopia"];
+  }
+
+#+end_src
+
+#+RESULTS:
+[[file:sever-collab.png]]
+
+* Flera Förgreningar/Branches
+:PROPERTIES:
+:BEAMER_OPT: shrink=30
+:END:
+
+Man kan ha hur många förgreningar man vill, och skapa dem av vilka anledningar som helst.
+
+#+begin_src dot :file collab-branching.png
+  digraph G {
+          rankdir="LR";
+          bgcolor="transparent";
+          node[width=0.15, height=0.15, shape=point, fontsize=10.0, color=black, fontcolor=black];
+          edge[weight=2, arrowhead=none, color=darkgray];
+
+          node[group=main];
+          1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7;
+          1[shape=box,label="main"];
+
+          node[group=branch1];
+          2 -> a -> b -> c -> d -> 5;
+          a[shape=box,label="din kopia"];
+
+          node[group=branch2];
+          2 -> aa -> bb -> cc -> dd -> ee -> ff -> gg -> 6;
+          aa[shape=box,label="din kompis kopia"];
+          cc[shape=box,label="Feature 1"];
+
+          node[group=branch3];
+          bb -> aaa -> bbb -> ccc -> gg;
+          aaa[shape=box,label="Feature 2"];
+  }
+
+#+end_src
+
+#+RESULTS:
+[[file:collab-branching.png]]
+
+** Git Flow :Extra:
+Ett strukturerat exempel på hur man kan arbeta är /Git Flow/-modellen:
+- main :: Håller bara "stabila" releaser. Man arbetar inte på den här förgreningen.
+- develop :: Integration av features. Ingen nyutveckling här, utan bara merge-arbete.
+- feature :: En per feature man arbetar med. Ny feature == ny förgrening.
+- release :: Fixa det sista innan man kan släppa nästa större release.
+- hotfix :: Om man absolut måste fixa något /just nu/ i den senaste produkten.
+[[./git-example-git-flow.png]]
+
+* Publicera Ändringar: Merge
+[[file:collab-branching.png]]
+
+- Varje gång som två linjer går ihop i grafen:
+  - "din kopia" går ihop med "main"
+  - "Feature 2" går ihop med "Feature 1"
+  - "Feature 1" går ihop med "main"
+- Det här kallas en *Merge* och går ut på att man
+  1. byter till "förälder-förgreningen"  (ex. =byt till "main"=)
+  2. hämtar förändringarna (ex. =hämta filerna från "din kopia"=)
+  3. committar förändringarna (ex. =commit fil a,b till "main"=)
+- Den nya committen är sedan tillgänglig till alla andra som använder den förgreningen.
+  - \dots så snart de har hämtat den!
+  - I exemplet ovan, så måste din kompis hämta från "main" och sedan kombinera ändringarna i main med sin förgrening
+* Att Hantera Merge
+#+begin_src dot :file collab-branching-merge.png
+  digraph G {
+  rankdir="LR";
+  bgcolor="transparent";
+  node[width=0.15, height=0.15, shape=point, fontsize=10.0, color=black, fontcolor=black];
+  edge[weight=2, arrowhead=none, color=darkgray];
+
+  node[group=main];
+  1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7;
+  1[shape=box,label="main"];
+
+  node[group=branch1];
+  2 -> a -> b -> c -> d -> 5;
+  a[shape=box,label="din kopia"];
+
+  node[group=branch2];
+  2 -> aa -> bb -> cc -> dd -> ee -> ff
+  aa[shape=box,label="din kompis kopia"];
+  cc[shape=box,label="Feature 1"];
+  5 -> ff -> gg [color=darkred, arrowhead=normal];
+
+  node[group=branch3];
+  bb -> aaa -> bbb -> ccc;
+  aaa[shape=box,label="Feature 2"];
+  ccc -> gg -> 6 [color=darkred, arrowhead=normal];
+  }
+
+#+end_src
+
+#+RESULTS:
+[[file:collab-branching-merge.png]]
+
+
+- Att kombinera olika förgreningar är svårt.
+- Moderna konfigurationshanteringsverktyg har slutat försöka.
+  - De varnar användaren och vägrar fortsätta tills dess konflikten är fixad.
+- Strategi 1 :: Ha en egen förgrening, t.ex. för en viss feature, där färre utvecklare är inblandade.
+- Strategi 2 :: Ha en egen förgrening av feature-förgreningen (local branch).
+
+Men till slut räcker inte detta, utan du behöver kombinera grenarna.
+- Din lokala gren med gruppens
+- Feature-grenen med utvecklingsgrenen
+- Utvecklingsgrenen med main-grenen
+- I distribuerade CM-verktyg som =git= kan du också hämta en förgrening från en annan utvecklare.
+
+*Förr eller senare kommer du då behöva hantera konflikter mellan grenarna.*
+* diff -- Vad Skiljer sig åt?
+#+begin_src bash :results output
+  cd /tmp
+  echo "aaa" > first.txt ; echo "aaa" > second.txt
+  echo "bbb" >> first.txt; echo "BBB" >> second.txt
+  echo "ccc" >> first.txt; echo "ccc" >> second.txt
+  echo "ddd" >> second.txt
+
+  cat first.txt
+  echo "----------"
+  cat second.txt
+  echo "----------"
+  diff first.txt second.txt
+#+end_src
+
+#+RESULTS:
+#+begin_example
+aaa
+bbb
+ccc
+----------
+aaa
+BBB
+ccc
+ddd
+----------
+2c2
+< bbb
+---
+> BBB
+3a4
+> ddd
+#+end_example
+
+- Hur läser vi detta?
+- Helst inte; det finns bra verktyg för det.
+
+#+begin_src bash :results none
+meld /tmp/first.txt /tmp/second.txt
+#+end_src
+** Att läsa en diff :Extra:
+#+begin_verse
+CHANGE-COMMAND
+< FROM-FILE-LINE
+< FROM-FILE-LINE...
+---
+> TO-FILE-LINE
+> TO-FILE-LINE...
+#+end_verse
+
+Där CHANGE-COMMAND är:
+- =LaR= : Add the lines in range R of the second (right) file after line L in the first (left) file.
+- =LcR= : Change the lines in range L of the first (left) file with the lines in range R of the second (right) file.
+- =LdR= : Delete the lines in range L of the first (left) file, line R is where they would have appeared in the second (right) file.
+
+* Three-Way Merge
+:PROPERTIES:
+:BEAMER_OPT: shrink=30
+:END:
+
+- Använder ett gemensamt ursprung för att avgöra om förändringar är nya eller inte.
+- Skapar ibland lite nya problem
+  - Vad händer t.ex. i figuren nedan om "GG" använder sig av "AA"?
+  - t.ex. en ~#include~ , eller en referens i text /"som tidigare nämnt"/
+- När båda filerna ändrats så måste användaren besluta (t.ex. =f or fff?= )
+[[./threewaymerge.png]]
+
+** 3-way
+#+begin_src bash :results none
+meld ./3way/base ./3way/source ./3way/target -o ./3way/merged
+#+end_src
+** 2-way
+#+begin_src bash :results none
+meld ./3way/source ./3way/target
+#+end_src
+* Fork av ett projekt
+:PROPERTIES:
+:BEAMER_OPT: shrink=20
+:END:
+
+- Specifikt för vissa github-servrar
+- När man vill bidra till ett projekt så börjar man med att skapa sin egen kopia, en =fork=
+- Man arbetar sedan som vanligt.
+- När man är nöjd skapar man en =pull request= i originalprojektet
+- Ägaren av originalprojektet kan då inspektera förändringarna och (om de godkänner dem) göra en =merge= med sitt projekt.
+- Båda två kan fortsätta arbeta med sina respektive kopior av projektet. De behöver inte förena dem.
+[[./git-fork.png]]
+* TODO Sammanfattning
+*Konfigurationshantering*
+- Att programmera är att samarbeta
+- Man utvecklar inte linjärt. Man gör fel, man vill gå tillbaka, man vill prova olika vägar.
+- Det krävs kraftfulla verktyg för att hänga med när alla i ett projekt utvecklar icke-linjärt.
+  - Verktyg för konfigurationshantering
+- Vanligast idag: =git=
+- Största utmaningen:
+  - Att ostört kunna arbeta i din egen förgrening
+  - Att kunna jämka samman din kod med resten av projektet med hjälp av en =merge=.
+
+*Använd Alltid Konfigurationshantering. Använd Konfigurationshantering till Allt.*
+Lär dig mantrat: /"If it's not committed, it does not exist!"/
