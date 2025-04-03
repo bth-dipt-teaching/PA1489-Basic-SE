@@ -1,0 +1,273 @@
+#+Title: Practical: Development Environment
+#+Author: Mikael Svahnberg
+#+Email: Mikael.Svahnberg@bth.se
+#+Date: 2025-04-01
+#+EPRESENT_FRAME_LEVEL: 1
+#+OPTIONS: email:t <:t todo:t f:t ':t H:1
+#+STARTUP: beamer num
+
+#+LATEX_CLASS_OPTIONS: [10pt,t,a4paper]
+#+BEAMER_THEME: BTH2025
+
+* Introduction
+- Walkthrough of your computer and your developmment environment
+- What needs to be installed
+* Software already on your Computer
+- File Browser
+  - Windows: Explorer
+  - MacOS: Finder
+  - Linux: Thunar, Dolphin, Files, \dots
+- Web Browser
+  - Edge (Windows), Safari (MacOS)
+  - Firefox, LibreWolf, Chrome, Vivaldi, \dots
+  - Lynx, curl, wget, \dots
+** Show and Tell :Demo:noexport:
+(Notes for msv)
+- File browser (Dolphin)
+- Structure of filesystem
+- /My/ structure of /home/msv 
+- Command line
+  - cd, ls
+  - cat, less, more
+  - man
+  - lynx
+  - curl
+* Package Manager
+- Command Line tool to install and manage your software
+- (Usually) non-interactive install - run and be done
+- "Curated" collection of programs
+  - *Caution* It is still your computer and your responsibility!
+
+- Examples
+  - Linux: Distro dependent: pacman, rpm, \dots
+  - MacOS: Homebrew https://brew.sh/
+  - Windows: Chocolatey https://community.chocolatey.org/
+** Example installs
+#+begin_src bash
+pamac install librewolf-bin vscodium git
+
+brew install git
+brew install --cask librewolf vscodium
+
+choco install librewolf vscodium git
+#+end_src
+** Common things to do
+- =install=
+- =uninstall= (maybe =remove=)
+- =search=
+- =info=
+- =list=
+- =upgrade=
+** Show and Tell :Demo:noexport:
+(Notes for msv)
+- pamac
+
+- Boot up winbox
+- install chocolatey
+- install firefox and vscodium
+* Development Environment
+- Where you will do most of your programming
+- IDE, or /Integrated/ Development Environment
+  - all the tools you need in one place
+- Sometimes you need to install additional support to make it work, e.g.
+  - plugins to display files in particular programming language
+  - compilers
+  - external tools
+- Examples
+  - Emacs
+  - Vim
+  - Kate
+  - VSCodium
+  - VSCode
+  - IntelliJ
+
+- /You mostly only need one/, but you should be aware of the others.
+- /Try out different IDEs/ , vscode might not be your favourite.
+** Show and Tell :Demo:noexport:
+- vscodium && kate
+- Emacs and terminal together
+  - By habit and custom, I prefer this even if I can run terminal inside emacs
+* Development Tools
+- Interpreters and Compilers: =python=, =nodejs=, =gcc=, =openjdk=, \dots
+- Compilation helpers: =make=, =cmake=, =ant=, =maven=, \dots
+- Package Managers for your Programming Language
+  - (may come as a part of the "main package" for the programming language
+  - =pip=, =npm=
+- Documentation Browser
+  - =zeal= (Windows, Linux)
+  - =dash= (MacOS)
+- Configuration Management
+  - =git=, along with a graphical user interface (=git gui= comes together with the main package for git)
+  - In the long run it is better to learn the command line interface
+  - Your development environment may have git support built in.
+** Show and Tell :Demo:noexport:
+
+- Open a file (in Emacs, in Kate): file+emacs:/home/msv/Documents/Play/Tornsvala/src/Tornsvala.java
+- Contrast with the compiled file:
+
+#+begin_src bash :results output
+hexdump -C /home/msv/Documents/Play/Tornsvala/out/Tornsvala.class | head -20
+#+end_src
+
+#+RESULTS:
+#+begin_example
+00000000  ca fe ba be 00 00 00 43  00 60 0a 00 02 00 03 07  |.......C.`......|
+00000010  00 04 0c 00 05 00 06 01  00 10 6a 61 76 61 2f 6c  |..........java/l|
+00000020  61 6e 67 2f 4f 62 6a 65  63 74 01 00 06 3c 69 6e  |ang/Object...<in|
+00000030  69 74 3e 01 00 03 28 29  56 07 00 08 01 00 13 6a  |it>...()V......j|
+00000040  61 76 61 2f 75 74 69 6c  2f 41 72 72 61 79 4c 69  |ava/util/ArrayLi|
+00000050  73 74 0a 00 07 00 03 09  00 0b 00 0c 07 00 0d 0c  |st..............|
+00000060  00 0e 00 0f 01 00 09 54  6f 72 6e 73 76 61 6c 61  |.......Tornsvala|
+00000070  01 00 0b 6d 79 53 69 67  68 74 69 6e 67 73 01 00  |...mySightings..|
+00000080  10 4c 6a 61 76 61 2f 75  74 69 6c 2f 4c 69 73 74  |.Ljava/util/List|
+00000090  3b 08 00 11 01 00 1b 53  75 70 65 72 6d 61 72 69  |;......Supermari|
+000000a0  6e 65 20 53 70 69 74 66  69 72 65 20 47 2d 43 46  |ne Spitfire G-CF|
+000000b0  47 4a 0b 00 13 00 14 07  00 15 0c 00 16 00 17 01  |GJ..............|
+000000c0  00 0e 6a 61 76 61 2f 75  74 69 6c 2f 4c 69 73 74  |..java/util/List|
+000000d0  01 00 03 61 64 64 01 00  15 28 4c 6a 61 76 61 2f  |...add...(Ljava/|
+000000e0  6c 61 6e 67 2f 4f 62 6a  65 63 74 3b 29 5a 08 00  |lang/Object;)Z..|
+000000f0  19 01 00 1a 4d 65 73 73  65 72 73 63 68 6d 69 74  |....Messerschmit|
+00000100  74 20 42 47 31 30 39 20  44 2d 46 57 4d 45 08 00  |t BG109 D-FWME..|
+00000110  1b 01 00 18 4a 75 6e 6b  65 72 20 4a 55 2d 39 37  |....Junker JU-97|
+00000120  20 53 74 75 6b 61 20 52  49 2d 4a 4b 12 00 00 00  | Stuka RI-JK....|
+00000130  1d 0c 00 1e 00 1f 01 00  17 6d 61 6b 65 43 6f 6e  |.........makeCon|
+#+end_example
+* This Week's Lab
+1. Install a Package Manager
+2. Install an IDE if you have not already
+3. *Explore* your IDE
+4. Figure out WSL, if needed
+5. Explore your computer and your filesystem.
+6. (maybe) Install =git= and get started with it.
+* Install a Package Manager
+- MacOS: Homebrew https://brew.sh/
+- Windows: Chocolatey https://community.chocolatey.org/
+
+- If you do not already have an IDE installed, then install one
+  - easiest to do using the package manager
+* Get Started with your IDE
+- Start the IDE you have chosen
+- Create a New Project
+  - a Project may be the same as a Filesystem Directory
+  - Name: =TestProject=
+- Create a file in your project, =hello.py=
+
+#+begin_src python :results output
+def hello():
+    print('Hello World');
+if __name__ == "__main__":
+    hello()
+#+end_src
+
+- What do you see in your IDE?
+- What do you see in the code window?
+- What do the ▶️🛑💡⚠️ symbols mean?
+- How do you run the program?
+  - What happens?
+- How do you run the program in debug mode?
+  - What happens?
+* Keep Editing
+1. Add a method in the class, =def addTen(int x)=
+   - Write the method above the ~__main__~ incantation.
+   - The method should add 10 to the parameter =x= and return this.
+2. Add a line at the end that calls the method =print addTen(i)=
+3. Run the program. What happens?
+4. *Read the Error Message* -- This contains all the clues you need to correct the mistage
+
+While typing, you may get clues what to write.
+- How does this look?
+- What type of help are you getting?
+- Is this actually helping or does it get in the way?
+* Add a New Class
+- Create a new file with the name =nummer.py=
+- Add the following code:
+
+#+begin_src python
+class Nummer:
+    def __init__(self, x):
+        self.myNumber = x
+
+    def smallerThan(self,x):
+        return self.myNumber < x
+
+    def get(self):
+        return self.myNumber
+
+    def __str__(self):
+        return f"Nummer {self.get()}"
+#+end_src
+
+- How may you test this code already now?
+- Can you run it?
+- What do you expect as output if you do run it?
+* Use the New Class
+- Switch back to your =hello.py=
+  - Can you view both files at the same time?
+- Add this as the first line ~from nummer import Nummer~
+- Add this as the last lines:
+
+#+begin_src python
+    n = Nummer(2)
+    print(n)
+#+end_src
+
+- What "help" are you offered as you write this?
+- How can you run the program without using the mouse?
+- What can you do to just write the number 10 and not "Nummer 2"?
+* Make the Editor yours
+- Does everything have to be visible all the time? How do you hide things?
+- Are you ok with the colour scheme? How do you change it?
+
+- There are plenty of plugins/extensions. 
+  - Which do you want to install? Which are already installed?
+* Find the Terminal
+- There is a built in command line terminal. Where?
+- What can you do with this?
+
+For Windows users:
+- You have (at least) three different types of terminals:
+  - Powershell
+  - Command Prompt
+  - WSL (Debian or Ubuntu)
+- It seems to me that WSL is the better option for software development, despite Microsoft not making this easy.
+* Windows WSL
+Cave! I am mostly basing this on heresay; I have no personal experience. Nor do I seek any.
+
+- Windows Subsystem for Linux
+- Needs to be installed and configured before use: https://learn.microsoft.com/en-us/windows/wsl/
+- For VSCode you may also need to install a "Remote Development extension pack"
+- WSL will create its own sanboxed filesystem
+  - It's a PiTA to find this through your normal explorer
+    - better to launch explorer from a WSL terminal: ~explorer.exe .~
+    - (same as when you want to launch vscode: ~code .~  ; The dot '.' means the current directory )
+  - "Linux" path: ~\\wsl$\<DistroName>\home\<UserName>\Project~ to this sandbox.
+* Explore your Computer
+- Where are applications installed?
+- Where is your home directory located?
+- Do you have different home directories e.g. in WSL?
+- How do you want to structure your home directory?
+* Install Git
+- Git is a tool for Configuration Management
+- Will talk more about this next week
+- https://git-scm.com/
+
+Installation:
+- Windows WSL
+  - Install git on each WSL you have installed (!)
+  - May be pre-installed
+  - ~sudo apt-get install git~
+- Windows, OSX, Linux:
+  - Easiest to install via your package manager
+
+Configuration:
+#+begin_src bash
+git config --global user.name "Your Name"
+git config --global user.email "youremail@domain.com"
+git config --global core.autocrlf input
+#+end_src
+
+Go Online:
+- Create an online account, e.g. on Github or Codeberg
+  - https://education.github.com/pack
+  - https://codeberg.org/
+
