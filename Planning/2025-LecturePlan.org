@@ -1,0 +1,214 @@
+#+STARTUP: OVERVIEW
+#+TODO: TODO(t) | DONE(d!) WAIT(w!) INFO(i) MORT(m)
+
+
+* From CourseEval [0/18]
+- [ ] Vi utökar den schemalagda laborationstiden där ni kan få tillgång till hjälp och svar på frågor
+- [ ] Vi inför en extra föreläsning per vecka med ett mer praktiskt fokus inför veckans laborationstid.
+- [ ] Strukturen på inlämningsuppgifterna ses över så att de får tydligare steg och inte kräver att man läser hela dokumentet först.
+- [ ] Övningsuppgifterna integreras tydligare med inlämningsuppgifterna.
+- [ ] Föreläsningarna ses över och får ett ökat fokus på de praktiska teknologier som skall användas.
+- [ ] "Verktygslådan" och hur ni skall arbeta med den under och efter kursen introduceras tydligare.
+
+1. [ ] Write instructions on what to install and how to get going with the tools. (Chocolatey, vscode, venv?, git, docker, docker-compose)
+2. [ ] Extend the lab time to four hours per week and use student TA's.
+3. [ ] Merge Assignment 3 (Testing & Debugging) and the individual assignment into one individual assignment.
+4. [ ] Give Assignment 1 (Collaboration and git) a deadline and get it out of the way early.
+5. [ ] Restructure the assignments altogether so that they have smaller and clearer steps, direct the exercises towards this, 
+6. [ ] and align the lectures accordingly.
+7. [ ] Add one more lecture per week with a practical focus on the lab series.
+8. [ ] Fewer exercises in other programming languages (but keep some of it in the lectures)
+9. [ ] Better Overview of how the pieces fit together into the "project"
+10. [ ] Further stress the "reserve space in toolbox" aspect in intro lecture; also when introducing course book.
+11. [ ] Make Assignment Reviews by TA's during lab times.
+12. [ ] Clarify that other courses teaches how to code; this course discuss /good/ code.
+---
+Should we keep team work? How shall we not keep it?
+- Keep Assignment 1 (collaboration and config management) as a team exercise, but with individual report.
+- Individual submissions for A1, A2, and A3.
+
+From Mario
+1. (already partially done) We could use tutorials from YouTube or the OReilly Learning Platform (not sure if it is available to the students).
+2. (no; discussed my reasons with MUU and TFR) Making lab sessions mandatory to attend.
+* Outline
+:LOGBOOK:
+- State "DONE"       from "WAIT"       [2025-03-26 ons 13:00]
+- State "WAIT"       from "INFO"       [2025-03-26 ons 13:00]
+:END:
+- Vecka 1-2: Konfigurationshantering, Bli vän med din IDE
+- Vecka 3-4: Microservices
+- Vecka 4-5: Utveckling, Debugging, 
+- Vecka 6-7: Testning, Dokumentation
+** Weekly Format
+1. Lecture 1 (2h)
+2. Lecture 2 (2h)
+3. Practical Lecture (2h)
+4. Lab Time (4h)
+* Examination
+- Inlämningsuppgift 1 2.5hp *A-F*
+- Inlämningsuppgift 2 2.5hp *A-F*
+- Inlämningsuppgift 3 2.5hp *A-F*
+Kursen: A-F
+
+1. Git, Getting started with Containers, Testing/Debugging
+2. Implementation and Documentation
+3. Engineering Diary
+** From 2024
+| Assignment           | Size   | Description                                |
+|----------------------+--------+--------------------------------------------|
+| Written Assignment 1 | 2.5 hp | Collaboration and Configuration Management |
+| Written Assignment 2 | 2.5 hp | Implementation and Documentation           |
+| Written Assignment 3 | 2.5 hp | Testing and Debugging                      |
+|----------------------+--------+--------------------------------------------|
+Plus individual diary to get final grade.
+** Kursplan -- Lärandemål
+Kunskap och förståelse
+- Visa grundläggande kunskaper i modern mjukvaruutveckling och containerbaserad mjukvaruutveckling genom att skriftligt beskriva och sammanfatta erfarenheter och observationer från övningar och projekt.
+
+Färdighet och förmåga
+- Utifrån en specifikation utveckla, dokumentera, och presentera ett mjukvaruprojekt som exekverar på ett fåtal kommunicerande containers.
+- Felsöka ett program med hjälp av testkod och en debugger.
+- Samarbeta runt ett gemensamt utvecklingsprojekt med hjälp av konfigurationsverktyg.
+- Hantera de verktyg och utvecklingsmiljöer som används vid utveckling och felsökning med containerbaserad mjukvaruutveckling.
+
+Värderingsförmåga och förhållningssätt
+- Skriftligt reflektera över sina lösningar och sitt användande av utvecklingsverktyg.
+* TODO Assignment Parts
+Assessments:
+1. Git, Getting started with Containers, Testing/Debugging
+2. Implementation and Documentation
+3. Engineering Diary
+
+Parts:
+1. Work with Git; *show TA while you:*
+   1. Create directory
+   2. Create files in directory
+   3. Open files in editor; edit; save.
+   4. Close editor and find files via explorer.
+   5. Git clone from online repo to a new directory.
+   6. Edit files in editor.
+   7. Git add/git commit.
+   8. Find files in explorer.
+   9. Show files in online repo.
+2. Microservices / Containers
+   1. Clone git repo
+   2. Run with docker compose; test via web browser.
+   3. Edit one image/container
+   4. Run again & test effect of edit
+   5. *Show TA:* 
+      1. Describe each container
+         - Which containers are there
+         - When is each container "invoked" in the log output?
+         - What does each container do?
+         - What is the difference between image and container?
+      2. Show your edit
+      3. Run with docker compose
+      4. Show you using app via web browser.
+3. Testing and Debug Session
+   1. Clone project
+   2. Run unit-tests
+   3. Add some unit tests
+   4. Run unit-tests again
+   5. *Show TA* while you:
+      1. Run tests
+      2. Set a Breakpoint and run application
+      3. Use the functions Step over, step in, step out, continue.
+      4. Inspect the value of a variable
+4. Implementation and Documentation; *Show TA:*
+   1. Start application
+   2. Demo application in web browser
+   3. Talk through code
+   4. Code is well documented. Docstrings and comments.
+5. Engineering Diary
+   1. Specific Questions to answer!
+   2. Submit on Canvas
+* TODO Lecture Plan
+** Week 1 [3/4]
+1. [ ] Lecture: Introduction
+2. [X] Lecture: Datorn och dess Beståndsdelar
+3. [X] Practical: Utvecklingsmiljön - filer, editor, kompilator, mm.
+4. [X] Lab: Se till att utvecklingsmiljön fungerar.
+** Week 2 [4/4]
+1. [X] Lecture: Basic Tools - Editor and Console
+2. [X] Lecture: Configuration Management
+3. [X] Practical: Work with Git
+4. [X] Lab: Work with Git (*Show to TA*)
+** Week 3
+1. Lecture: Virtualisering och Containers (lect 06)
+2. Lecture: Microservice Application Development (lect 12)
+3. Practical: Docker, Docker Compose
+4. Lab: Docker and Docker Compose (*Show to TA*)
+** Week 5
+1. Lecture: Testing and Debugging
+2. Lecture: Documentation of Code
+3. Practical: Debugging
+4. Lab: Testing and Debugging  (*Show to TA*)
+** Week 4
+1. Lecture: User Interfaces (Text, Java, Web)
+2. Lecture: More about HTML
+3. Practical: Developing a small web service
+4. Lab: Develop a new microservice I (one microservice, simple web UI)
+** Week 6
+1. Lecture: Läsa och skriva till Konsollen
+2. Lecture: Läsa och skriva till filer
+3. Practical: Vi skriver en Konsol-app (gissa djuret?)
+4. Lab: Develop a new microservice II (one microservice, simple web UI)
+** Week 7
+1. Lecture: Introduktion till Java
+2. Lecture: Introduktion till JavaScript
+3. Practical: Ett enkelt Java-GUI program
+4. Lab: Develop a new microservice III (one microservice, simple web UI) (*Show to TA*)
+** Week 8
+1. Lecture: Databases Introduction
+2. Lecture: Buffer
+3. Practical: Get Started with Databases
+4. Lab: Buffer
+* TODO Update Lectures
+- All Lectures delete "Nästa Föreläsning"
+- Lecture 1: Föreläsningsordning, struktur på kursen, inlämningsuppgifter, övningsuppgifter
+- Lecture 1: Verktyg
+- Lecture 1: Flytta "An Executing Program" till Lektion 2 "Datorn och dess beståndsdelar"
+- Lecture "Virtualisation" -- make it more hands-on.
+* TODO Develop Lectures
+- Datorn och dess beståndsdelar
+- Practical: Utvecklingsmiljön
+- Practical: Work with Git
+- Virtualisation and Containers
+- User Interfaces: Text, Java, Web
+- More about HTML
+- Practical: Developing a small web service
+- Tip: JavaScript Application Development har en del om testramverk
+- Introduktion till Java
+  - Kompilerat
+  - Typat
+  - Objektorienterat
+
+- Lab: Microservices/Containers; suitable project for first container lab.
+- Lab: Microservices/Containers; suitable project for develop a microservice lab.
+- Lab Suggestion: Då-net
+* TODO Write Assignment Descriptions
+* TODO Write Assignment Code
+* TODO Which Development Environment?
+- Chocolatey
+- vscode, so that it works with Java as well as Python.
+- git; in vscode if necessary
+- docker / docker-compose
+* TODO Läsanvisningar på Canvas i stället
+* TODO Övningar till föreläsningarna
+* TODO Get OOE to write instructions for DevEnv
+* TODO Update Course Plan §6
+"... tekniker och metoder inom +objektorienterad design och programmering+ ... " \rarr "... tekniker och metoder inom _grundläggande mjukvaruutveckling_ ... "
+* TODO Assignment Introduction Lecture
+* TODO Course Modules
+- Topic
+  - Brief Introduction
+  - Theory
+    - Lecture XX
+    - Lecture YY
+    - Things to Read (chapters per lecture, other)
+  - Practice
+    - Practical Lecture XX
+    - Exercises
+  - Examination
+    - What to do, when to do it.
+    - Marking guides
