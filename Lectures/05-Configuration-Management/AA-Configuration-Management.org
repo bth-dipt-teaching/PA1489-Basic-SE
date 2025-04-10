@@ -391,7 +391,7 @@ meld ./3way/source ./3way/target
 - Ägaren av originalprojektet kan då inspektera förändringarna och (om de godkänner dem) göra en =merge= med sitt projekt.
 - Båda två kan fortsätta arbeta med sina respektive kopior av projektet. De behöver inte förena dem.
 [[./git-fork.png]]
-* TODO Sammanfattning
+* Sammanfattning
 *Konfigurationshantering*
 - Att programmera är att samarbeta
 - Man utvecklar inte linjärt. Man gör fel, man vill gå tillbaka, man vill prova olika vägar.
