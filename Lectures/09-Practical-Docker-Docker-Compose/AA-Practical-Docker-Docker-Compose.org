@@ -1,0 +1,272 @@
+#+Title: Practical: Docker and Docker Compose
+#+Author: Mikael Svahnberg
+#+Email: Mikael.Svahnberg@bth.se
+#+Date: 2025-04-08
+#+EPRESENT_FRAME_LEVEL: 1
+#+OPTIONS: email:t <:t todo:t f:t ':t H:1
+#+STARTUP: beamer num
+
+#+LATEX_CLASS_OPTIONS: [10pt,t,a4paper]
+#+BEAMER_THEME: BTH2025
+
+* Introduction
+- Build a small containerised application
+- Assignment Instructions: Show the TA that you can build a small system with Docker.
+* Application Introduction
+- Based on "Is it Pokemon or Big Data?" ( https://pixelastic.github.io/pokemonorbigdata/ )
+- just /IsItPokemon/
+  1. Enter a word, get a reply saying if it is a Pokémon or not.
+  2. Enter the name of a Pokémon, get info about it.
+  3. Get a list of all the Pokémons in the app.
+
+Comments:
+- We /could/ implement this as a regular console app (e.g. ~input("Enter a word: ")~ )
+  - This would bind us to always use the console
+  - We would have to build a menu system to select the right function (e.g. ~input("Select action (1--3): ")~)
+  - Output is restricted to text-only
+  - We would not learn anything
+
+- We /could/ implement this as a local flask app
+  - All API endpoints are available simultaneously, and we would decide which one we want in our request.
+  - We will learn slightly more
+  - We will have python all over our computer.
+
+- We /will/ implement it as a flask app enclosed in a Container
+  - Encapsulated, nice, tidy.
+* Setup: Install Docker
+- chocolatey: ~choco install docker-desktop~ 
+- homebrew: ~brew install docker~
+- linux, install =docker= and =docker-compose= separately
+
+(For the adventurous there is the open source =Podman= instead of =Docker=.)
+* Overall Process
+1. Create a Project Directory
+2. Create =Dockerfile= (Copy from previous project and edit if needed)
+3. Create =requirements.txt= (Copy from previous project and edit if needed)
+4. Decide on API endpoints (Write function =def='s)
+5. flask-ify API endpoint
+   - also, add default '/' that lists the endpoints
+6. Continue coding / testing
+
+#+begin_example API endpoints
+  1. Enter a word, get a reply saying if it is a Pokémon or not.
+  2. Enter the name of a Pokémon, get info about it.
+  3. Get a list of all the Pokémons in the app.
+#+end_example
+* Build and Run Image
+Buld and Run:
+#+begin_src bash
+docker buildx build -t isitpokemon .
+docker run -p 5000:5000 isitpokemon
+#+end_src
+
+Test:
+
+#+begin_src bash :results output
+echo "GET /" | nc localhost 5000
+#+end_src
+
+Other ways to test
+- telnet ~telnet localhost 5000~
+- wget ~wget -O - localhost:5000/~
+- curl ~curl localhost:5000/~
+- web browser
+* Continue Coding
+1. Read some (json) data from a file
+   - I'll be using the data from the Pokemon or Big Data repo: https://github.com/pixelastic/pokemonorbigdata/blob/main/app/questions.json
+2. Filter and only keep elements that are pokemons ~"type" == 1~
+3. Implement the =/list/= endpoint
+
+*Challenge:* Testing now implies
+1. rebuilding the image
+2. restarting the container
+3. calling the program with the right input.
+
+We'll get to (3), but 1 and 2 can be taken care of now.
+
+* ~compose.yaml~
+1. Create the file =compose.yaml= as below
+2. Run with the command ~docker compose up --watch~
+   - (no need to specify name of the yaml-file if we name it "compose.yaml")
+3. Notes:
+   - Docker Compose is more important when we have several collaborating containers
+   - Rebuild from the current directory ( =.= ) when needed ~build: .~
+   - Bind current directory ( =.= ) on the host to =/app= inside the container
+     - /bind mount/
+     - changes made on the host will be visible inside the container
+   - =develop/watch= will restart the container if anything changes in the current directory =path: .= 
+
+#+begin_src yaml :file compose.yaml
+  services:
+    isitpokemon:
+      image: isitpokemon
+      build: .
+      ports:
+        - 5000:5000
+      volumes:
+        - .:/app
+      develop:
+        watch:
+          - action: restart
+            path: .
+#+end_src
+
+* =check= and =info=
+1. Remaining now are the =/check/<word>= and =/info/<name>= endpoints
+   - These are quite similar
+     1. filter the list to find all elements where ~name == word~
+     2. pick the first element
+     3. Return something
+2. Make it case-insensitive
+* Write a makefile
+- Yes, it is relatively easy to start the app now, but we can make it easier still
+- Assumes you have =make= installed
+- Keeps an executable record of all commands you need
+- Note the =test= rule, this takes care of /"3. calling the program with the right input."/ from before.
+
+#+begin_src makefile
+appname = isitpokemon
+
+run:
+	docker compose up --watch
+
+build: 
+	docker compose build
+
+overview:
+	docker images
+	docker ps -a
+
+clean:
+	docker compose down
+
+test:
+	@echo "GET /" | nc localhost 5000 && echo ""
+	@echo "GET /list" | nc localhost 5000 && echo ""
+	@echo "GET /check/Titan" | nc localhost 5000 && echo ""
+	@echo "GET /check/titan" | nc localhost 5000 && echo ""
+	@echo "GET /check/Pippi" | nc localhost 5000 && echo ""
+	@echo "GET /info/Titan" | nc localhost 5000 && echo ""
+
+deepclean: clean
+	docker rmi -f $(appname)
+#+end_src
+* Summary
+- /Encapsulation/ in the form of containers
+- Scalable development process
+  - Repeatable -- Works the same for all developers
+  - Replicatable -- Works the same on all machines
+  - Deployable -- One step away from running the application live
+- Step by step development process:
+  1. Setup project/component infrastructure (=Dockerfile=, =requirements.txt=, =compose.yaml=, tests, (=makefile=), \dots )
+  2. Define inputs and outputs for each component (Define the API)
+  3. Build placeholder code for the API
+  4. /Minimum Viable Product/ -- Which functionality will exercise most of the structure in this component?
+  5. /Encapsulated/ -- Focus on the inputs and outputs of /this/ component, ignore the rest of the application
+  6. /Iterate/ -- Implement one part, then implement the rest.
+
+Also:
+- Docker Compose will be even more useful once we build bigger apps:
+  - More containers
+  - Replicated containers
+  - third party components (e.g. database, load generators, test APIs, etc.)
+
+* The Lab This Week :Info:
+1) Get Started:
+   1. Make sure Docker is installed
+   2. (Optional) The official tutorials are quite good:
+      - Docker https://docs.docker.com/get-started/
+      - Docker with node.js  https://docs.docker.com/language/nodejs/
+      - Docker with python https://docs.docker.com/guides/python/
+   3. Clone the /PonyVoter/ project https://codeberg.org/mickesv/PonyVoter.git
+2) Inspect and Test
+3) Modify
+4) *Show the TA*
+* PonyVoter :Info:
+- PonyVoter presents two options and you vote by clicking on one of them
+- The votes are registered in a database so that you can keep track of which pony is the most popular.
+
+#+ATTR_ORG: :width 300
+[[./PonyVoter-Screenshot.png]]
+** Technical Overview
+- PonyVoter consists of three containers and a database
+  - PonyVoter :: the "front page" of the application that serves web pages to the users
+  - VoteCounter :: registers votes and stores them to the database
+  - StatsPresenter :: calculates how many votes each pony has, and summarises this
+  - MongoDB :: the database where the votes are stored.
+
+- PonyVoter is hopelessly over-designed and at the same time under-implemented:
+  - =VoteCounter= and =StatsPresenter= are extremely simple and probably did not need to be separate containers.
+  - Many things are hard coded.
+  - To keep things simple, no rendering engine (e.g. =Pug=) is used to generate the HTML code.
+  - To keep the project small, there are only six ponies to choose between.
+  - Completeness? Only the bare necessities are implemented.
+  - Scalability? What happens when the total number of votes increases?
+  - Bugs! Of course there are bugs.
+  - Security?
+
+Think about:
+1. What containers should be made available to the user?
+2. How do you ensure that these become available?
+3. How can you start all the containers with a single command?
+* Inspect and Test
+- Study the file =ponyvoter.yaml=
+  - Which /Services/ are launched?
+  - Where can you find the source code for each of these?
+  - What is specified for each container?
+  - Can you see how to access each container (e.g. which network ports to use)?
+- Study the file =makefile=
+  - How do you build the project?
+  - How do you run the project?
+
+Run the project:
+1. Start the application (using =make= or =docker compose -f ponyvoter.yaml up=)
+1. Visit http://localhost:8080 and test the application
+   - Keep an eye on the terminal while running. What is printed?
+2. Abort by pressing =Ctrl-C= in the terminal.
+   - What happens?
+   - Check with =docker images= what images you have
+   - Check with =docker ps -a= what container are running or no longer running
+3. Start again (same command)
+   - What happens?
+   - Note that the statistics are not reset despite all containers being restarted.
+     - Why not?
+     - How can you find out more information about this?
+* Modify
+Your task is to build a new StatsPresenter, =newStats=
+
+- =votecounter= has an API endpoint =/listVotes= that returns a json object with all votes currently cast.
+  - Call this in order to get an updated list of all votes (instead of querying the database)
+- Your new API will consist of:
+  - =/listponies=  returns an array with the names of all ponies (see example below)
+  - =/stats/<ponyname>= returns a json object (see example below)
+  - =/= is kept for historical reasons and will always return an empty array.
+- Make sure that there is console output in each of these functions so that you can see what they do in the log output.
+
+#+begin_example Examples of results
+/listpoinies    returns  ["applejack", "pinkiepie", "rainbow"]
+/stats/rainbow  returns  {_id: "rainbow", count: 2, name: "rainbow"}
+/               returns  []
+#+end_example
+
+Tasks
+1. Modify =ponyvoter.yaml=
+   - add the service =newStats= with appropriate configuration
+   - modify =services/ponyvoter/environment/STATSPRESENTER_HOST= to point towards =newStats=
+     (If applicable, change the port number too)
+2. Implement =newStats= (Run and Test as needed)
+3. You will have to make one change in the =PonyVoter= container: replace calls to ~createStatistics()~ with ~newStatistics()~ .
+* Show the TA :Assignment:
+Show the TA the following:
+
+1. A local clone of the PonyVoter repository
+2. Start the system using =docker compose=
+3. Test the system via a web browser.
+4. Describe each Container
+   - Which containers are there
+   - When is each container "invoked" in the log output?
+   - What does each container do?
+   - What is the difference between image and container?
+5. Show and explain your edited =ponyvoter.yaml=
+6. Show and explain the code for your =newStats= container
+7. Show that you are indeed using the =newStats= container (i.e. that =PonyVoter= is calling =newStatistics()= )
