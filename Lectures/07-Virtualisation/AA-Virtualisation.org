@@ -1,0 +1,466 @@
+#+Title: Virtualisation and Containers
+#+Author: Mikael Svahnberg
+#+Email: Mikael.Svahnberg@bth.se
+#+Date: 2025-04-03
+#+EPRESENT_FRAME_LEVEL: 1
+#+OPTIONS: email:t <:t todo:t f:t ':t H:2 toc:nil
+#+STARTUP: beamer num
+
+#+LATEX_CLASS_OPTIONS: [10pt,t,a4paper]
+#+BEAMER_THEME: BTH_msv
+
+
+* Introduktion
+- Virtual Machines
+- Lightweight Containers
+- Developing inside a Container
+* Virtual Machines
+1. Bare Metal
+   - No virtualisation
+   - When more resources are needed \rarr buy more machines / more memory / more CPUs
+   - May be co-located in shared data centres.
+2. Virtual Machines
+   - Run a guest operating system on /emulated hardware/ on top of a host OS
+   - Host :: Where you want to run your virtual machies
+   - Guest :: A virtual machine running on a host
+3. Lightweight virtual machines (Linux Containers, LXC, Containers)
+   - Makes extensive use of the host os, but emulate the "last bit"
+   - Contained sandbox: What happens inside the container stays inside the container.
+   - Separate filesystem, separate network interfaces...
+   - More or less equivalent with =chroot= in unix.
+   - In your python programming course, you will be introduced to =venv=; this is a hack to pretend that you are achieving the same.
+
+\dots furthermore:
+4. [@4] Interpreted programs in a sandboxed runtime environment (e.g. Java)
+   - Separate memory
+   - Seemingly alone on the CPU
+   - Shared Disk
+5. Processes
+   - Separate memory
+6. Threads
+7. Co-routines
+8. Lexographic vs Dynamic biding in programming languages
+9. \dots
+
+\sum Different levels of /encapsulation/; different abilities to scale (from expensive to cheap)
+* Why use Virtual Machines
+- Stable development environment which is different from your test/production environment.
+- Ability to reset environment (and everything installed) to a known starting point.
+- Reduce the gap between development, test, and production environment.
+- Split the application into smaller, independent, and encapsulated units (/microservices/)
+- Use different systems and programming languages for different tasks.
+- /Prepare for deployment to the cloud./
+* Virtualisation and Cloud Computing
+Rosenberg & Mateos (2010):
+1. Virtualised Computing Resources
+2. Automatic creation and deletion of new VM's
+3. Elastic Scaling up or down
+4. Pooled Computing Resources
+5. Resource usage billed only as used
+
+Where
+- 1,2,3 are a technical solution that enables 4 and 5
+* Hypervisors
+#+ATTR_ORG: :width 400px
+[[./FVirtualMachines.png]]
+
+
+- A /Hypervisor/ acts as a layer between the host and the guests.
+- Can be a program that reads and executes everything from the guest OS
+- Can be a program that takes over /some/ of the resources, but let the host OS and bare metal do the heavy lifting.
+- Examples:
+  - VMWare - old in the game, many offerings, also work on Mac M1/M2 chips
+  - Virtualbox - Easily accessible, but /watch the license!/
+  - Qemu - Open source, somewhat challenging to setup but worth it.
+  - Hyper-V - already installed on Windows computers, but requires some setup to get started with.
+  - Parallels - for mac computers, expensive
+- \dots but also
+  - Docker - The go-to for lightweight containers. /Watch the license!/
+  - Podman - Open source equivalent of Docker, somewhat challenging to setup but free.
+  - KVM - Is what enables lightweight containers such as Docker on a Linux machine.
+* Virtual Machines or Containers
+- A Virtual Machine gives you a whole computer -- including (if wanted) a virtual screen.
+  - You log in, run programs, etc. /just as you normally would/
+- A Container is (usually) aimed at running one particular task.
+  - Once the task (process) is completed, the container ends.
+  - You /can/ log in (while the process is running), but usually to a limited environment.
+
+- Today, you can mostly get away with a container
+- Containers are particularly useful for development of /microservices/
+  - One microservice \equiv one process \equiv one container
+* Provisioning and Orchestration
+- /Provisioning/ is the step when you install the software you need on a machine.
+- /Orchestration/ is when you set up an environment consisting of several (virtual) machines
+
+We want to /automate/ these steps!
+- One script to provision
+- One script to deploy a particular orchestration
+
+Automated as scripts mean:
+- Repeatable deployment -- same setup every time you launch, everywhere you launch
+- Always get the same software (and software versions) installed
+- Updates are /tested/ before they go live
+- The scripts are Configuration Managed
+- No "messy fingers" that risk breaking things
+- Run-and-be-done - no further interaction required in order to get to a working state
+* Provisioning a Virtual Machine
+- We /can/ install a virtual machine from an ISO file and install programs manually on it.
+  - /This is not repeatable./
+- Instead, we want to base ourself of a nearly-ready machine and /tell/ it what it should setup/install.
+  - c.f. Package Managers.
+- /Vagrant/ is one such tool that can be used to script the provisioning (and orchestration) of virtual machines.
+  - Provisioning is specified in a text file =Vagrantfile= (actually a Ruby script)
+  - There are also dedicated /Provisioning Tools/ such as Chef, Puppet, or Ansible for provisioning.
+** Rant -- Installing Windows
+- ℹ️   I want GB English, but with a Swedish time and currency format, and a swedish keyboard.
+- 🆗   Install now, if you please.
+- ✖️   No, I don't have a license key
+- ℹ️😠 There is only one hard disk available, and yes that is where I want to install Windows.
+- 🕥   ok, I guess I'll wait while you install this now.
+- ✅😠 Yes, I am still in Sweden
+- ✅😠 Yes, I do still have a Swedish keyboard and no other keyboards.
+- 🕥😠 I just waited like forever, what is taking so long to set up now?
+- ✖️   No, I don't want to use a microsoft account, so I'll use the button "Domain join instead" to /not/ join a domain.
+- ℹ️   This is my username and password. Yes, this is the password.
+- 🧙😠 These are the three 🪄spells I will use for unspecified security reasons. Do I need to click my heels as I say them?
+- ✖️😠 No, I don't want location services.
+- ✖️😠 No, I really don't.
+- ✖️😠 No, just send what diagnostic data you must. Actually, don't send anything but that's not an option.
+- ✖️😠 No, don't use my data.
+- ✖️😠 No, don't collect data just to show me junk I don't want to see.
+- ✖️😠 No, I don't care how good your ads can become, I don't want to see them at all.
+- 🕥😠 None of the questions I have answered should take this long to process, why am I waiting now?
+- 👋😠 Hi! Do you think it will make the wait easier if you try to befriend me while I wait?
+- 🕥😠 I say, is there any indication of how long I am expected to wait?
+- 🪟🙂 Oh, hello there, desktop. Does this mean I can start working with you now?
+- 😠   I guess not, because you have /two years/ worth of updates that you need to get through first.
+- 🕥   I'll just let you sit here for a couple of hours then, before I try to do anything meaninful.
+- 🕷️   All done? No? Good. I now want to start Edge to download chocolatey so I can start installing /my/ stuff
+- ✖️   No, I don't want to sign in anywhere, I just want to browse the web.
+- ✖️😠 No, I don't want to enhance my browser experience by allowing you to track me.
+- ✖️😠 No, I really don't.
+- ✖️😠 No, I still really don't.
+- 🕥😠 Why are things so slow? Oh, are you still using all of my computer to run updates?
+- 🕥😠 You know, those animations would be mighty pretty if they were running at anything like normal speed.
+- 😠   Besides, I distinctly remember clicking the "skip" button, so why am I now in some sort of "next"-clicking hell?
+
+Here is how it should have gone:
+
+#+begin_src bash
+vagrant init generic/freebsd14
+vagrant up
+vagrant ssh
+#+end_src
+
+** Vagrant Commands
+#+BEGIN_SRC bash
+# The most common commands:
+vagrant init  # Create default configuration
+vagrant up    # Start your VM or VMs
+vagrant ssh   # Log in to your VM
+vagrant halt  # Power down your VM
+vagrant destroy # Destroy your VM so you can start from scratch
+
+# Variants
+vagrant ssh «machine-name»  # if you have more than one machine specified in your vagrantfile
+vagrant up --provider «provider-name» 
+#+END_SRC
+
+- The ~--provider~ - flag is especially important
+  - Examples: virtualbox, libvirt, /google/, /aws/, \dots
+  - Same provisioning, same orchestration, deploy to different places with one CLI flag!
+** Vagrantfile
+- https://www.vagrantup.com/docs
+
+#+BEGIN_SRC ruby
+  Vagrant.configure("2") do |config|
+    config.vm.box = "generic/freebsd14"
+
+    config.vm.define "test_machine" do |node|
+      node.vm.network :private_network, ip: "10.10.10.11"
+      node.vm.network :forwarded_port, guest: 22, host: 24011, auto_correct: true
+    end
+
+    # Open up some ports between host and guest:
+    config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
+
+    # Configuration specific for a particular provider:
+    config.vm.provider "virtualbox" do |vb|
+      vb.memory = "1024"
+    end
+
+      # Simple shell-based provisioning:
+    config.vm.provision "shell", inline: <<-SHELL
+        pkg bootstrap
+        pkg update
+        pkg install curl git
+    SHELL
+  end
+#+END_SRC
+
+* Lightweight Containers with Docker
+- Docker uses two shortcuts:
+  1. It uses lightweight containers; less overhead to run = faster.
+  2. It uses an already provisioned machine image; no boot time, no provisioning each startup.
+- A /Dockerfile/ specifies the required provisioning
+- The Dockerfile is used to build an /Image/
+- The Image is used to start one or more /Containers/
+  - The =ENTRYPOINT= from the Dockerfile is launched in the Container; this starts your application
+
+#+begin_src ditaa :file IDocker-outline.png :cmdline -b F9F5D7
+                 +------------+
+                 | Docker hub |
+                 +-----+------+
+                       ^
+                       |
+                       v
+  +------------+   +-------+   +-----------+
+  | Dockerfile +-->| Image +-->| Container |
+  |       cBLU |   | cBLU  |   | cBLU      |
+  +------------+   +-------+   +-----------+
+  | ENTRYPOINT |                    ^
+  +-------+----+                    |
+          |                         |
+          +-------------------------+
+#+end_src
+
+#+RESULTS:
+[[file:IDocker-outline.png]]
+
+* Dockerfile
+#+begin_src Dockerfile
+FROM node:18-alpine
+RUN npm install -g nodemon
+EXPOSE 3000
+WORKDIR /app
+COPY . .
+RUN npm install
+ENV DEBUG='qfapp:*'
+ENTRYPOINT ["npm", "run", "dev"]
+#+end_src
+
+- FROM :: which base image should be used as a starting point
+- RUN :: executes a command, is typically used to install programs (provisioning)
+- EXPOSE :: announce that containers based on this image will listen to network port 3000
+- WORKDIR :: Set the working directory during the image build and in the future containers.
+- COPY :: copy files from the host computer to the image being built.
+- ENV :: set environment variables inside the image
+- ENTRYPOINT :: Usually last in the Dockerfile; this is the command to run when a container is started.
+* Docker Commands
+#+begin_src bash
+# Help and further information
+docker --help
+docker -h | less
+man docker
+info docker
+
+# Image management
+docker build -t targetname sourcedir
+docker image ls
+docker image --help
+
+# Container management
+docker run
+docker container ps
+docker container ls
+docker ps
+docker container rm <container-id>
+#+end_src
+* Docker run
+- =docker run= takes different parameters
+| Short     | Long          |                                                                                                   |
+| Parameter | Parameter     | Description                                                                                       |
+|-----------+---------------+---------------------------------------------------------------------------------------------------|
+| -d        | --detach      | Run the container in the background without any console interaction                               |
+| -p        | --publish     | List the ports that should be exposed from inside the container to a specific port on the host OS |
+| -e        | --env         | Set environment variables inside the container                                                    |
+| -v        | --volume      | Mount a volume (or directory) from the host into the container                                    |
+|           | --name        | Give the running container a specific name                                                        |
+|           |               |                                                                                                   |
+| -i        | --interactive | Run the container as an interactive console application. Usually together with -t                 |
+| -t        | --tty         | Allocate a terminal (console). Usually together with -i                                           |
+|-----------+---------------+---------------------------------------------------------------------------------------------------|
+
+- Common combinations:
+  - =docker run -dp 8080:3000=
+  - =docker run -it=
+
+* Orchestration with Docker Compose
+- /Orchstration/ is the process of setting up several collaborating containers (or VM's)
+- Just as with provisioning, we want automation support
+- ~docker compose~ to orchestrate containers locally
+- ~Kubernetes~ is the cloud-oriented big brother to ~docker compose~ (will not be covered in this course)
+  - Develop locally using ~docker compose~, deploy to cloud using ~Kubernetes~.
+- ~docker compose~ use a /YAML/-file to specify the orchestration.
+- Example (launches two containers; =app= and =textstore=):
+#+begin_src yaml
+version: "3.8"
+services:
+  app:
+    image: qfstandalone
+    ports:
+      - 8080:3000
+    volumes:
+      - ./Containers/Version1/QFStandalone/src:/app/src
+    environment:
+      TEXTSTORE_HOST: textstore
+  textstore:
+    image: mongo
+    command: --quiet --syslog
+    expose:
+      - "27017"
+#+end_src
+* The Docker Compose file
+- Services :: Services (containers) to start, how many of each, etc.
+  - contains a list of services, e.g. /app/ and /textstore/
+  - xx/image :: The name of a container, ex. =textstore/image=
+  - xx/ports :: Network ports that should be opened from the host to the guest
+  - xx/expose :: Network ports that should be made available to other services
+  - xx/volumes :: Directories that should be mapped from host to guest. /Can do plenty here!/
+  - xx/environment :: Environment variables to set inside the container
+  - xx/command :: The command to run
+- Networks :: Different (private) networks that can be used. All Containers need not be connected to the same network.
+- Volumes :: Persistent storage that survives rebootes, e.g. used for databases.
+* Volumes
+- The /volumes/ under ~xx/volumes~ can either refer to a volume as defined in the ~Volumes~ section
+  - These will be managed automatically and internally by docker (unless otherwise specified)
+- Or (and this is useful), you can use this to map a directory on your host computer to the guest
+  - Called a /bind mount/ and connects a running container to your local filesystem
+  - Enables you to develop locally (in your regular development environment)
+  - You may setup the container to restart when you save a file
+    - This means you do not need to rebuild your =image= and restart your =container= for every change.
+
+#+begin_src yaml
+version: "3.8"
+services:
+  app:
+    image: qfapp
+    ports:
+      - 8080:3000
+    volumes:
+      - ./Containers/Version2/QFApp/src:/app/src  # This is a bind mount
+    environment:
+      REDIS_HOST: messagequeue
+      TEXTSTORE_HOST: textstore
+ textstore:
+    image: mongo
+    restart: always
+    command: --quiet --syslog
+    expose:
+      - "27017"
+    volumes:
+      - textstore-data:/data/db # This mounts the volume textstore-data (defined below) to /data/db inside the container
+      - mongo-config:/data/configdb
+
+volumes:
+  textstore-data:
+  mongo-config:
+#+end_src
+* The point: Encapsulation
+- What runs inside a container /stays/ inside the container
+  - Installed software
+  - Required packages
+  - Compiled binaries
+  - Downloaded resources
+- Replace complex installation process with one entry in a docker compose file
+  - E.g. Databases, Web Servers, LLM training data, technology stacks, \dots
+- /Keep your machine clean/, uninstall is as easy (and complete) as the install.
+* More on YAML syntax :extra:
+#+begin_src yaml
+  ---                          # Every new YAML node starts with three hyphens. 
+                               # You can often include many nodes in the same file.
+
+  Name: "Arthur Dent"          # Something with the key "Name" has the 
+                               # (string) value "Arthur Dent"
+  Age: 42                      # Integers and floats are also supported.
+  Active: true                 # ... as are booleans (true or false)
+  Friends: null                # ... and null values.
+  Inventory:                   # The value of the inventory key is a list.
+    - Tea
+    - No Tea
+    - Towel
+    - Babelfish
+  Desires: [ House, Clothes ]   # Lists can also be inlined
+  Address:                      # A Mapping (or a dictionary) is a set of 
+                                # key/value pairs, where each key is unique.
+    Street: "Vogon Intergalactic Bypass #47111"
+    City: "What do you mean city? We work with the whole Universe!"
+    HouseNumber: 0
+  Contacts:                     # A list of mappings
+    - Name: "Ford Prefect"
+      Address: "Anywhere, really. Just wave!"
+    - Name: "Trillian"
+      Address: "Heart of Gold"
+    - Name: "Marvin"
+      Address: "Everywhere, eventually."
+  Appearances:                  # Inlined mappings
+    - {Title: "The Hitchhiker's Guide to the Galaxy", Year: 1979}
+    - {Title: "The Restaurant at the End of the Universe", Year: 1980}
+    - {Title: "Life, the Universe and Everything", Year: 1982}
+    - {Title: "So Long, and thanks for All the Fish", Year: 1984}
+    - {Title: "Mostly Harmless", Year: 1992}
+  FavouritePoem: |             # Multi-line contents.
+    Oh freddled gruntbuggly,
+    Thy micturations are to me, (with big yawning)
+    As plurdled gabbleblotchits, in midsummer morning
+    On a lurgid bee,
+    That mordiously hath blurted out,
+    Its earted jurtles, grumbling
+    Into a rancid festering confectious organ squealer.
+       [drowned out by moaning and screaming]
+  ...     # Formally, a YAML ends with three dots. Can often be left out.
+#+end_src
+* Summary
+- A /Virtual Machine/ simulates a whole computer inside your host computer
+  - A "sandbox" for testing and development
+  - An environment with access to more computers than you physically have
+  - Enables dividing your application to several modular units
+
+- A /Container/ is a lightweight virtual machine
+  - Focus on running one specific component
+
+- \sum Encapsulation: Modular code == maintainable code
+  - Modular Development :: Methods, Classes, Files, Packages, Components, \dots
+  - Modular Execution :: Components, Binaries, Microservices, Applications, (Virtual) Machines, \dots
+* Lost Puppies :noexport:
+** Kompilerade eller Tolkade Programspråk
+- /Kompilerade/ språk vs /Interpreterade/ (tolkade) språk
+  - Tillkommer /Enhetstester/
+
+- Kompilatorn kontrollerar /hela/ programmet:
+  - Använder du variabler som finns?
+  - Använder du rätt typer i alla attribut (egentilgen en egenskap av /typade/ språk, inte nödvändigtvis kompilerade)
+  - Finns alla klasser tillgängliga? Når du alla paket?
+  - Har du stängt alla =for=-loopar, kommit ihåg alla semikolon?
+  - Returnerar alla metoder rätt saker?
+
+- *Tolkade språk kontrollerar bara de delar som körs.*
+  - Enhetstester blir /ännu/ viktigare, de "motionerar" koden -- där du tänkt på det.
+** Programspråk och Utvecklingsprocess
+- Kompileringen tar lite tid: man vänjer sig att skriva och granska koden först, kompilera sedan.
+  - Tolkad kod kan enklare utvärderas kontinuerligt.
+- Kompilerad kod packas "lätt" ihop till en delbar binär. =exe= , =elf= , =lib= , =JAR=, eller en =DLL=.
+  - Lätt att vänja sig vid separata utvecklinsgteam, ansvariga för sin komponent.
+  - Enhetstester av varje komponent.
+  - Separata repositories?
+  - Kan spridas till andra team som en binär; behåller full kontroll över koden.
+    - I praktiken görs detta ofta inte, man bygger om hela projektet.
+    - Hel vetenskap om utvecklingsorganisationerna och vem och hur man accepterar förändringar i koden från.
+
+- Tolkad kod
+  - Lätt att ändra och direkt se förändringarna
+  - Kräver mer disciplin att bara hålla sig till sin egen kod
+  - Kräver mer disciplin att skriva bra testfall
+  - Ofta mer lättrörlig; man behöver inte en lång kompileringscykel innan man kan testa.
+    - Innebär också att man är mer benägen att testa hela tiden vilket kan sänka utvecklingsfarten.
+  - Koden synlig för användaren (om de vet var de skall leta)
+    - Svårare att hålla saker hemliga
+    - Svårare att hindra klåfingriga användare
+
+- Lansering av kod som /microservices/
+  - Koden körs i Containers
+  - Applikationen byggs upp av samarbetande containers
+  - Samma idé som kompilerade binärer;
+    - behåller full kontroll över koden
+    - Varje team kan välja sitt eget programspråk
+  - Inte lämpat för "skrivbordsapplikationer"
