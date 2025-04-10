@@ -1,0 +1,365 @@
+#+Title: Development with Containers
+#+Author: Mikael Svahnberg
+#+Email: Mikael.Svahnberg@bth.se
+#+Date: 2025-04-07
+#+EPRESENT_FRAME_LEVEL: 1
+#+OPTIONS: email:t <:t todo:t f:t ':t H:1
+#+STARTUP: beamer num
+
+#+LATEX_CLASS_OPTIONS: [10pt,t,a4paper]
+#+BEAMER_THEME: BTH2025
+
+* Introduction
+- Thomas & Hunt: Kapitel 5, Bend or Break
+  - Topic 28 Decoupling
+  - Topic 29 Juggling the Real World
+  - Topic 30 Transforming Programming
+  - (Topic 31 Inheritance Tax)
+  - Topic 32 Configuration
+- Thomas & Hunt: Kapitel 6, Concurrency
+  - Topic 33 Breaking Temporal Coupling
+  - Topic 34 Shared State is Incorrect State
+  - Topic 35 Actors and Processes
+  - Topic 36 Blackboards
+
+- Microservice Architectures
+- Communicating Microservices; REST APIs
+* Software Architectures
+- A /Software Architecture/ is the overall structure of a system
+  - Compare with a building's architecture
+- With the software architecture we primarily design for a blend of /Quality Attributes/
+  - e.g. Efficiency, Scalability, Portability, Maintainability, Security, Safety, \dots
+
+- A Software Architecture for a /Distributed System/ address:
+  - /Maintainability/ with separate modules, each being independently developed
+  - /Scalability/ with separate execution units, that can be replicated upon need
+  - /Reliability/ with separate execution units that can "take over" when needed
+* Cloud Computing
+For Developers:
+- The illustion of infinite resources: Easy to scale up to as much as you need.
+- Elastic scaling: Scale up or down as needed -- quickly and automatically
+- Metered Billing: Only pay for what you are using
+  - /Cave!/ This may /seem/ cheap, but it isn't.
+- Automated: Tool support to scale automatically.
+
+For a Cloud Provider
+- Shared Resources: Make better use of the existing hardware
+- Virtualisation: Enables shared resources
+- Commodity Hardware: Cheap off-the-shelf hardware
+  - Will break more often than specialised units but you can afford more of them
+
+Note
+- the first principles /enable/ cloud applications
+- the latter /restrict/ the solutions
+- scaling is cheap, but you need to address fault tolerance yourself.
+* The Layered Architecture
+- Most applications you build has a /Layered/ architecture style
+- The /User Interface/'s responsibility is /only/ to display things and get user input
+- The /Business Logic/ may in fact consist of many components
+  - this is where the bulk of your application is built.
+- The /Storage/ layer keeps your data between sessions
+  - Can be files or a database
+
+#+begin_src plantuml :file layered.png
+skinparam BackgroundColor #F9F5D7
+[User Interface] -- [Business Logic]
+database "Storage"
+[Business Logic] -- Storage
+#+end_src
+
+#+RESULTS:
+[[file:layered.png]]
+
+* The Distributed Layered Architecture
+#+begin_src plantuml :file layered-dist.png
+skinparam BackgroundColor #F9F5D7
+cloud {
+ [Client]
+}
+
+node "OpenServer" {
+[Client] <-> [Frontend]
+}
+
+node "HiddenServer1" {
+[Frontend] <--> [Business Logic Service 1]
+}
+
+node "HiddenServer2" {
+[Frontend] <--> [Business Logic Service 2]
+}
+
+node "HiddenServer..." {
+[Frontend] <--> [Business Logic Service n]
+}
+
+node "Database" {
+[Business Logic Service 1] <--> [Database Application]
+[Business Logic Service 2] <--> [Database Application]
+database "Storage"
+[Database Application] <--> "Storage"
+}
+
+#+end_src
+
+#+RESULTS:
+[[file:layered-dist.png]]
+
+- This is still a /Layered/ architecture
+- This can still be built as a desktop application, with all services in the same binary
+- The database can be deployed locally (but usually isn't, because what's the point?)
+- The Business Logic Services may communicate directly with each other.
+  - /We need a good communication language between services/
+- The /Client/ is usually a web browser
+  - The /Frontend/ creates web pages and serve them to the client
+- If we do things right, *only the =frontend= service should be accessible*
+  - Things like =CORS (Cross Origin Resource Sharing)= should be avoided until necessary!
+* Communicating Components
+- Inside the same application: =import= followed by function calls
+- But what if the application is distributed? Function calls will not work.
+- /Network Communication/ is required.
+** Network Communication in One Slide
+- A computer may open any number of network /ports/
+  - ports > 1024 is userland; below is system
+  - Some ports are by tradition reserved to specific services
+    - https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml
+    - Port 22 for ssh communication,
+    - port 25 for smtp mail,
+    - port 80 for www (http)
+    - port 443 for https
+    - port 993 for imap (TLS encrypted)
+  - To each port, you can bind a /socket/, that will accept calls and data over the port.
+
+- An application will
+  1. /bind/ itself to a socket/port (Tell the OS that the port is "taken")
+  2. /listen/ for calls on the socket
+  3. /accept/ calls on the socket
+     - Solve the request quickly so that you can ~accept()~ the next call
+
+- Communication is a /data stream/
+  - You need to define a communication protocol to make sense of this data
+  - You need to implement error handling, etc.
+* Different Types of Network Communication
+1. Socket Programming (raw data stream)
+
+2. Remote Procedure Calls
+   - Support from programming language
+   - Makes network calls look almost like regular function calls.
+   - /Protocol/ and /error handling/ built on top of sockets.
+
+3. Open internet protocols
+   - FTP, SMTP, HTTP, SSH, IRC, \dots
+   - Also /Protocol/ and /error handling/ built on top of sockets.
+   - Often text-based (commands are plaintext, response is mostly text)
+
+4. REST protocols (or REST-API)
+   - /Representational State Transfer/
+   - Actually not a single standard, but has converged towards using /HTTP/ and /JSON/
+   - Stateless: Each request/connection is handled individually
+   - Loosely coupled
+     - Clients only need to know the address of the server (and the port number)
+     - The Server does not know anything about the clients
+     - Every request is a new connection
+   - Single direction: =Client= \to =Server=  (one request + one answer)
+
+5. Communication via third party
+   - e.g. Message queue, Filesystem, Database
+   - Common if you have slow jobs; do not want to lock the client waiting for an answer
+   - The entire application knows how to find the database -- use it as a shared noticeboard.
+   - Communication between =client= and =third party= is still done using any of the above.
+   - Communication between =server= and =third party= is also still done using any of the above.
+* HTTP and REST APIs
+- Good programming support, e.g. =flask= in Python, =express= in NodeJS/JavaScript
+- Hides the gory details of /HTTP/, but keeps the four types of calls
+  1. *GET* -- Fetch a resource (a file, a page, an object)
+  2. *POST* -- Send something
+  3. *PUT* -- Update something
+  4. *DELETE* -- Delete something
+- HTTP has a well defined protocol for replies, e.g.
+  - =200 OK=,
+  - =403 Forbidden=,
+  - =404 Not Found=,
+  - =418 I'm a teapot=,
+  - =500 Internal Server Error=,
+  - =503 Service Unavailable=
+
+Note:
+- /what/ you get/post/put/delete is up to you, as long as it is HTTP:ish
+- what you return can be anything
+- Many important topics such as sessions, pagination, etc. will not be covered in this course.
+* Examples of Addresses
+- Example: ~http://www.zombo.com:8080/Path/to/Resource?param1=value1&Param2=value2~
+  - ~http://~ the protocol we use
+  - ~www.zombo.com~ server address
+  - ~:8080~ port number
+  - ~/Path/to/Resource~ this part of the URL is normally more static (un-changing)
+  - ~?~ parameters follow
+  - ~param1=value1~ parameter =param1= will have the value "value1"
+  - ~&~ one more parameter follows
+  - ~param1=value1~ parameter =param2= will have the value "value2"
+- Same address may have different functions:
+  - GET https://www.zombo.com/Users/1011
+  - POST https://www.zombo.com/Users/1011
+  - This is not seen in the URL, has to be specified in other ways
+* Example of a Listening Application
+#+begin_src python
+from flask import Flask
+from flask import request
+app = Flask(__name__)
+
+@app.route('/')
+def frontpage():
+    return 'Please specify a burger to buy';
+
+@app.route('/buy/<burgerName>', methods=['get'])
+def buy(burgerName):
+    print('One ' + burgerName + ' ordered with the following options:')
+    for arg in request.args:
+        print(' - ' + arg)
+    return "ok"
+
+if __name__ == "__main__":
+    app.run(debug=True, host="0.0.0.0", port=5000)
+#+end_src
+* Example of a Calling Application
+#+begin_src python
+import requests # 'requests' is a separate package from 'flask/request'
+import os
+
+baseURL='http://' + os.getenv('KITCHENVIEW_HOST', 'localhost:5000')
+
+def __makeURL(burgerName):
+    return baseURL + '/buy/' + burgerName
+
+def __addOptions(url, args):
+    if 0!=len(args):
+        url += '?'
+        for arg in args:
+            url += arg + '&'
+    return url
+
+def send(burgerName, args):
+    requrl = __makeURL(burgerName)
+    requrl = __addOptions(requrl, args)
+    print('Using KitchenView URL: ' + requrl)    
+    return requests.get(requrl);  # GET is the easiest to work with
+
+# This will compose something like 'http://kitchenview:5000/buy/McGrease?ExtraBacon&MoreFat&LayerOfLard'
+#+end_src
+* JSON and REST APIs
+- JSON -- a text-based data object
+- Can be created by hand, but languages have support for it
+  - https://docs.python.org/3/library/json.html
+  - NodeJS has it builtin, ~JSON~
+- JSON allows for complex objects
+  - The =GET= slug gets complicated quickly
+  - Send a full json object with a =POST= instead
+  - Catch it on the listening side and continue working with it directly.
+- Debuggable (since it is plaintext)
+
+#+begin_src json
+  {
+      field: "value",
+      "other field": 42,
+      nested: {
+          anInt: 1,
+          aFloat: 1.2
+      }
+      anArray: ["First", "Second", { val: "third" }],
+  }
+#+end_src
+
+* Listening for a JSON object
+#+begin_src python
+  from flask import Flask
+  from flask import request
+  app = Flask(__name__)
+  defaultRet = { "string": "Default", "number": 42,
+                 "list": ["apple", "orange", "pear"]}
+
+  @app.route('/')
+  def defaultReturn():
+      return defaultRet           # Python will JSONify automatically
+
+  @app.route('/add')
+  def addToReturn():              # I can build up my response in normal code
+      ret = dict(defaultRet)
+      for arg, val in request.args.items():
+          ret[arg]=val
+      return ret
+
+  @app.route('/accept', methods=['POST'])
+  def acceptSomething():          # When POST is used, there is a dict in the request
+      received = request.form
+      print(received['number'])
+      return "ok"
+
+  if __name__ == "__main__":
+      app.run(debug=True, host="0.0.0.0", port=5000)
+#+end_src
+* Sending and receiving a JSON object
+#+begin_src python
+  import os
+  import requests
+
+  listenerURL='http://'+ os.getenv('LISTENER_HOST', 'localhost:5000')
+
+  def callListener():             # get something back, convert from json to a dict
+      retval = requests.get(listenerURL)
+      print(retval.json())
+      return retval.json()
+
+  def callAgain():                # receiving another json object; convert from json and then use as a normal dict
+      url = listenerURL + '/add?firstKey=fancyValue&secondKey=otherVal'
+      retval = requests.get(url)
+      retval = retval.json()
+      print(retval['firstKey'])
+
+  def callAndSend():              # send a json object
+      val = callListener()
+      url = listenerURL + '/accept'
+      requests.post(url, data=val)
+
+  if __name__ == "__main__":
+      callListener()
+      callAgain()
+      callAndSend()
+#+end_src
+* Summary of Communicating Components
+- =REST= usually mean =HTTP= and =JSON=
+- =HTTP= may be familiar to you, but /remember that the response may be anything/ (not just html)
+
+Each component can now:
+- =print= to its local console (which you may or may not see); useful for debugging but not much more
+- accept calls /almost/ as if they were function calls.
+  - function parameters can be sent as part of the URL (=GET=), or as a payload (=POST=)
+  - (There is one more trick here: =@app.route('/<variable-name>')= )
+- =return= data -- as text or as =JSON=, which is a text representation of an object
+
+Each component:
+- Is encapsulated in its own mini-computer with its own CPU, RAM, networks, and disks.
+- Can be replicated in order to deal with increased load
+- Can fail without the rest of the application failing
+- Does not know anything about the other components it is calling
+- \sum can be developed in isolation \Rightarrow easier to change and maintain
+
+What we cannot (yet) do:
+- Graphical User Interfaces
+- Debug-step through the code and follow execution from one component to another
+* Summary
+- *Thomas & Hunt: Kapitel 5, Bend or Break*
+  - Topics 28, 29, 30, och 32: Decoupling, Juggling the Real World, Transforming Programming, and Configuration
+  - /Loosely connected components/ are easier to maintain
+    - Containers and distributed architectures are very loosely coupled
+    - /Microservice/-architectures is at the far end of the spectrum; each /task/ is a separate container.
+  - Let components /react to a request/ rather than /looking for work/
+    - Use a well defined interface (e.g. REST) to access components.
+
+- *Thomas & Hunt: Kapitel 6, Concurrency*
+  - Topics 33--36 Breaking Temporal Coupling, Shared State is Incorrect State, Actors and Processes, och Blackboards
+  - Manage /state/ carefully. We cannot control the order in which our beautiful API is called.
+    - Write the program such that any order is ok.
+  - Every Container has the impression that it is running on its own CPU and its own memory and disk.
+    - Write the program so that it /can/ be deployed in parallell.
+    - /Avoid sharing state/ -- build each container so that it only depends on its own input.
+    - /Do not share state/ -- avoid situations were several containers need to update the same data at the same time.
