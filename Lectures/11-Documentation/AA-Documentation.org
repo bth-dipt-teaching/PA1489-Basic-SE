@@ -1,0 +1,468 @@
+#+Title: Dokumentation av Källkod
+#+Author: Mikael Svahnberg
+#+Email: Mikael.Svahnberg@bth.se
+#+Date: 2024-01-12
+#+EPRESENT_FRAME_LEVEL: 1
+#+OPTIONS: email:t <:t todo:t f:t ':t H:2 toc:nil
+#+STARTUP: beamer num
+
+#+LATEX_CLASS_OPTIONS: [10pt,t,a4paper]
+#+BEAMER_THEME: BTH_msv
+
+
+* Introduktion
+Fortsätter med 5S för mjukvara
+- *Shine*, lättförstådd kod
+
+Fokus idag:
+- Dokumentera din kod
+- Självdokumenterande kod
+- Använda Struktur som dokumentation
+- Dokumentera din arbetsprocess
+
+Boktips:
+ - R. Martin /Clean Code -- A Handbook of Agile Software Craftmanship/, Pearson, 2008. 
+ - S. McConnell /Code Complete: A Practical Handbook of Software Construction/, 2nd Edition, Microsoft Press, 2004.
+* Syftet med Dokumentation av Källkod
+- Kommunicera med dig själv
+  - Vad behöver jag göra i den här metoden för att komma från input till rätt output?
+  - Vad heter den här variablen? metoden? Var skrev jag den?
+- Kommunicera med ditt framtida själv
+  - Hur tänkte jag här?
+  - Hur lägger jag till den här funktionaliteten?
+  - Har jag redan skrivit detta?
+- Kommunicera inom ditt team
+  - Hur tänkte =NN= här?
+  - Hur lägger jag till den här funktionaliteten?
+  - Hur använder man paketet/klassen/metoden?
+- Kommunicera med andra utvecklingsteam
+  - Hur använder man paketet/klassen/metoden?
+- Kommunicera med din chef
+  - Vi är till =x %= klara med den här metoden
+  - Alla enhetstester är gröna, alltså är koden tillräckligt testad.
+* Dokumentation av Kod
+- Hur man /använder/ klassen/metoden, inte hur den är implementerad.
+- "Kontrakt" mellan utvecklaren och användaren.
+- Verktygsstöd:
+  - javadoc    
+  - doxygen
+  - 
+- Ibland stöd redan i programspråket
+  - eg. Clojure/Lisp, Python
+
+- /Dokumenterad kod/ != /Kommenterad kod/
+  - Dokumentationen beskriver hur man använder koden.
+  - Kommentarer förklarar vad koden gör.
+* Docstrings
+- En del språk har inbyggt stöd för dokumentation av kod
+- Kan sedan nås med ex. ~help()~, ~(describe-function )~
+  - /Eller/ genom att generera separat dokumentation, e.g. =Doxygen=.
+
+
+#+begin_src python
+  def get_frobnicator():
+      """Returns the current frobnicator"""
+      pass
+
+  def complex(real=0.0, imag=0.0):
+      """Form a complex number.
+
+      Keyword arguments:
+      real -- the real part (default 0.0)
+      imag -- the imaginary part (default 0.0)
+      """
+      if imag == 0.0 and real == 0.0:
+          return complex_zero
+      ...
+#+end_src
+
+#+begin_src emacs-lisp
+  (defun emacs-version (&optional here)
+    "Display the version of Emacs that is running in this session.
+  With a prefix argument, insert the Emacs version string at point
+  instead of displaying it.
+  If called from Lisp, by default return the version string; but
+  if the optional argument HERE is non-nil, insert the string at
+  point instead.
+
+  Don't use this function in programs to choose actions according
+  to the system configuration; look at `system-configuration' instead."
+    (interactive "P")
+    (let (( ; ...
+           ))))
+#+end_src
+* JavaDoc Exempel
+- Inte alla språk har dokumentationen som en intern, levande del av språket
+- Kompilerade språk i synnerhet har mindre användning av detta
+- I stället används en separat syntax, och separata verktyg
+
+#+begin_src java :tangle Circle.java
+/**
+ * Represents a Circle that is defined by a framing rectangle.
+ * 
+ * This class acts as a superclass of all shapes vaguely round.
+ * 
+ * @author Mikael Svahnberg
+ * @version 1.0
+ */
+public class Circle {
+
+/**
+ * Sets the location of the Shape
+ * 
+ * @param xPosition the X coordinate of the upper-left corner of the framing rectangle.
+ * @param yPosition the Y coordinate of the upper-left corner of the framing rectangle.
+ * 
+ * @return true if it was possible to move the Shape.
+ * 
+ * @see java.awt.geom.Ellipse2D
+ */
+public boolean move(int xPosition, int yPosition) {
+}
+
+}
+#+end_src
+
+#+begin_src bash
+  mkdir -p DocExample
+  javadoc -d DocExample Circle.java 
+  xdg-open DocExample/index.html
+#+end_src
+
+#+RESULTS:
+
+* Råd för Dokumentation
+- Kortfattat vad metoden/klassen gör
+- Inkludera /Exempel/
+- Edge Cases
+- Vilka alternativ som finns. Särskilt om man förbättrar något som egentligen finns inbyggt i språket.
+- För klasser:
+  - Författare, version, mm.
+  - Om nödvändigt, en lite längre text.
+- För metoder:
+  - Paramterar, och hur man använder dem.
+  - Returvärden
+  - Referenser till annan relevant dokumentation
+* Att använda sig av Kod-dokumentation
+- Finns mycket online, men jag rekommenderar att ha dokumentationen lokalt.
+  - Alltid tillgängligt
+  - Även på resande fot (30 000 fot upp i luften till exempel)
+  - Även bakom företags brandväggar
+
+- Lär dig hur dokumentationen är strukturerad så du vet vad du kan hitta.
+  - Bli snabb på att hitta rätt \rightarrow bli snabb på att återvända till koden.
+
+(Visa exempel från:)
+- JavaDoc, (ex. något från Java Standard Library)
+- Info, (ex. ~info info~ )
+- man (ex. ~man fprint~ )
+* Kritik mot JavaDoc och liknande ramverk
+- Bra för ett publikt API som skall användas av andra
+- Tar tid att skriva och tillför lite för interna klasser/metoder som bara skall ses internt i projektet
+- Kostar att hålla uppdaterade tillsammans med koden
+- Om man skriver javadoc-kommentarer så förväntas man vara konsekvent och /alltid/ skriva dem.
+  - Även när metoden, parametrarna, och/eller returvärdet är uppenbara.
+
+- Använd hellre (säger kritikerna) :
+  - /Mindre metoder/ med ett små och tydliga ansvarsområden
+  - /Rätt namn på metoden/ så att man av namnet tydligt ser vad den gör
+  - /Rätt namn på parametrar/ Tillsammans med metodnamnet ger de ofta tillräckligt med ledtrådar
+  - /Undvik överraskningar/ Var konsekvent i parameterordning och returvärden
+
+Tänk på:
+- Dokumentationen kan användas /utan/ att man behöver läsa koden
+- Kan ibland publiceras som en separat leverans i ett projekt
+- Medelvägen är kanske bäst: *Använd rätt namn på metoden /och/ dokumentera den tillräckligt mycket.*
+* Kommenterad Kod
+- Påminner: /Dokumenterad kod/ != /Kommenterad kod/
+
+- De finns de (t.ex. Robert "Uncle Bob" Martin) som hävdar att man bör undvika kommentarer i koden.
+  - /"kod-kommentarer är ett misslyckande [...] att skriva läsbar kod"/
+  - Fel använt tillför de ingenting
+  - Kommentarer glider ofta "isär" från koden de gäller efter hand som man skriver mer kod.
+  - Koden uppdateras, kommentaren står kvar och blir mer och mer fel.
+* Kommentarer som Arbetsredskap
+Använd kommentarer som ett /arbetsredskap/
+- En skiss över vad du vill göra
+- Steg för steg hur algoritmen borde gå till
+- en byggnadsställning att skriva koden runt.
+
+När du är färdig tar du bort byggnadsställningen (kommentarerna)
+- Om det nu är otydligt vad metoden gör, /Refactor/
+  - Rätt namn på klassen/metoden?
+  - Rätt namn på variablerna?
+  - Bryt isär till fler metoder?
+    - Ofta blir var och en av dina första kommentarer en lagom stor metod.
+- Om det fortfarande är otydligt, lägg till kommentarer som förklarar /vad du menar/.
+  - /Inte/ vad kompilatorn gör.
+* Acceptabla Kommentarer
+- Copyright-information och vilken licens som koden lanseras med
+- Förklara varför du valt en viss algoritm
+- Förtydliga en bit krånglig kod som du misslyckas med att skriva enklare
+  - t.ex. exempel för ett reguljärt uttryck
+  - Specialfall för returvärden som annars skulle kunna överraska
+- Varningar
+- TODO-kommentarer
+* Dåliga Kommentarer
+- Obegripliga :: kanske fanns en tanke bakom dem en gång i tiden?
+- Överflödiga :: framgår t.ex. redan av metodnamnet.
+- Felaktiga :: stämmer inte med vad koden faktiskt gör.
+- Obligatoriska :: oavsett om de tillför något eller inte.
+- Journalanteckningar :: syns ändå i konfigurationshanteringsverktyget.
+- Passivt eller Aktivt Aggressiva :: skrik åt kaffebryggaren i stället för i kod-kommentarer.
+- Bortkommenterad kod :: är i vägen men ingen vågar radera; de bygger upp över tid
+- Mötesprotokoll :: som kanske förklarar ett designbeslut men inte tillför koden något.
+- Information långt bortifrån :: kommentaren skall handla om vad som är här och nu.
+* Literate Programming
+- Vänder ut och in på idén med kommentarer.
+- Skriv prosa först, och programkod sedan.
+- Tidigare nämnt i kursen:
+
+#+begin_quote
+Let us change our traditional attitude to the construction of
+programs: Instead of imagining that our main task is to instruct a
+computer what to do, let us concentrate rather on explaining to human
+beings what we want a computer to do.
+  -- Donald Knuth, 1084.
+#+end_quote
+
+- Programmera som om du skriver en lärobok för ditt program.
+  - Exempel: https://howardism.org/Technical/LP/introduction.html
+- Börja med att skriva prosa om vad du vill åstadkomma
+- Ge exempel
+- Illustrera med design-diagram
+- Sist, skriv den faktiska koden.
+
+Bra/Dåligt?
+- Det här liknar en ingenjörsdagbok
+- Personligen använder jag LP mer för DevOps än för vanlig programmering
+  - Explorativt
+  - Skriver läroboken för mig själv
+  - Lätt att söka och hitta med rubriker som i en vanlig text.
+  - Det finns inte alltid en övergripande ordning i vilken saker skall göras.
+    - Om det gör det, skriver jag hellre ett script.
+  - Det är jag själv som skall manuellt "exekvera" de olika blocken
+* Självdokumenterad kod: Namn som Dokumentation
+- Namnet på en variabel/metod/klass/... skall tillräckligt beskriva vad entiteten gör.
+  - Kräver att entiteten har ett litet och väl avgränsat ansvarsområde.
+- Det är ok med långa namn: Hellre ~elapsedTimeInDays~ än ~d~
+- Kanske i omkastad ordning ~daysElapsed~ 
+  - Ifall företagspolicy tillåter det
+  - Ifall det blir lättare att använda tab-complete på det ena eller det andra sättet.
+  - Ifall du är konsekvent och /alltid/ döper dina variabler på det viset.
+- Använd konstanter i stället för magiska tal
+  - ~if (200 == x) {}~
+  - blir till ~if (STATUS_OK == returnStatus) {}~
+- Använd uttalbara namn
+  - du läser koden som text och skall också kunna prata om den
+  - det är också lättare att komma ihåg
+  - de blir indirekt också /sökbara/
+* Namn på Klasser och Metoder
+- Namn på klasser är troligen /Substantiv/
+- Namn på metoder innehåller troligen /Verb/
+  - Kanske kombinerat med ett substantiv
+  - ... om inte det är uppenbart att det är på klassen den verkar
+
+#+begin_src java
+  Figure currentFigure = getSelectedFigure();
+
+  currentFigure.setPosition(100, 100);
+  currentFigure.show();
+#+end_src
+* Stor eller liten bokstav, =snake_case= eller =CamelCase=
+- Namnet på en klass: Stor Initial Bokstav
+- Namnet på en variabel eller funktion: liten initial bokstav
+
+Flera ord i namnet:
+- Java-programmerare föredrar =camelCase=
+- C++ -programmerare föredrar =snake_case=
+- Python-programmerare föredrar också =snake_case= (för det mesta)
+- Lisp-programmerare föredrar =dash-case=
+
+Var konsekvent!
+- De som använder din kod skall inte behöva gissa
+* Inuti metoden: Mindre och Enklare Metoder
+- Bryt isär flerstegsmetoder till separata metoder istället.
+  - Långa metoder är svåra att överblicka.
+  - Var och en med ett tydligt namn.
+  - Kommentarer blir gamla, låt den faktiska koden förklara i stället.
+- Så få parametrar som möjligt (Uncle Bob: /Helst inga parametrar alls. Någonsin!/ (Jag håller inte med))
+  - Parametrar innebär att man måste förstå hur en metod skall användas
+- Undvik sidoeffekter
+  - (föredra rena matematiska funktioner)
+  - lättare att förstå: Rak linje mellan indata och utdata
+- Undvik att förändra inparametrarna -- föredra ~return~ i stället.
+  - Gör kanske något på objektet i stället: ~fancyObject.applySomeDecoration()~
+* Metodanrop som dokumentation
+- Algoritmer kan dokumenteras med hjälp av metodanrop. Exempel:
+
+#+begin_src java
+  private int partition(int[] arr, int leftIdx, int rightIdx) {
+  	int pivot = arr[Math.floorDiv((leftIdx + rightIdx), 2)]; // Pick an element somewhere in the middle
+
+  	while (leftIdx <= rightIdx) {
+  		// "sneak up" on the middle from both ends; keep going
+  		// as long as the elements are already smaller/bigger than the pivot
+  		while (arr[leftIdx] < pivot) { leftIdx++; }
+  		while (arr[rightIdx] > pivot) { rightIdx--; }
+
+  		// If they're not, and we still have elements to go
+  		// swap the two values that are out of order and keep going
+  		if (leftIdx <= rightIdx) {
+  			int tmp = arr[leftIdx];
+  			arr[leftIdx] = arr[rightIdx];
+  			arr[rightIdx] = tmp;
+
+  			leftIdx++;
+  			rightIdx--;
+  		}
+  	}
+
+  	return leftIdx; // This is the final pivot point
+  }
+#+end_src
+
+Kan förtydligas till:
+
+#+begin_src java
+  private int partition(int[] inputArray, int leftIndex, int rightIndex) {
+    int pivotValue = getPivotValue(inputArray, leftIndex, rightIndex);
+
+    while (!isSortingDone(leftIndex, rightIndex)) {
+      leftIndex = findNextElement(inputArray, leftIndex, GREATER_THAN, pivotValue);
+      rightIndex = findNextElement(inputArray, rightIndex, SMALLER_THAN, pivotValue);
+
+      if (!isSortingDone(leftIndex, rightIndex)) {
+        swapValues(inputArray, leftIndex, rightIndex);
+        leftIndex++; // No need to look at these values again
+        rightIndex--;
+      }
+    }
+
+    return leftIndex; // This is the point in the array where we were done sorting.
+  }
+#+end_src
+
+Det går att göra mer med den här koden. *Diskutera*
+- parametrar
+- ~isSortingDone()~
+- ~(maybe-swap left right)~
+* Struktur är också Dokumentation
+- Paket och Moduler syns ofta i filsystemet som kataloger
+  - Lätt att navigera till rätt klass/paket
+  - Paketnamnet ger information om sammanhanget
+  - ~Cowboy.Gun.draw()~ är något helt annat än ~Cliparts.Gun.draw()~
+- Namespace ger möjlighet att förenkla namnen på klasser och metoder
+  - Jämför med emacs-lisp, där allt ligger i ett globalt namespace.
+    - Vanlig struktur på funktionsnamn ~(author-package-filename-method)~
+
+#+begin_src bash
+$ tree cljdetector/
+cljdetector/
+├── CHANGELOG.md
+├── doc
+│   └── intro.md
+├── Dockerfile
+├── LICENSE
+├── project.clj
+├── README.md
+├── resources
+├── src
+│   └── cljdetector
+│       ├── core.clj
+│       ├── process
+│       │   ├── expander.clj
+│       │   └── source_processor.clj
+│       └── storage
+│           └── storage.clj
+├── target
+    [...]
+└── test
+    ├── cljdetector
+    │   └── core_test.clj
+    └── data
+        ├── A.java
+        └── B.java
+
+17 directories, 15 files
+#+end_src
+
+* Konfigurationshantering är också Dokumentation
+- Radera kod i stället för att kommentera bort den
+  - Det är ok att kommentera bort kod under tiden du arbetar /men/ ta bort den innan commit.
+- När du raderat kod: /commit/ 
+- När du committar:
+  - Beskriv i meddelandet vad du gjort
+  - Länka till Issues (kan stänga en issue automatiskt från commiten /"Fixes issue #222"/ )
+* Dokumentera Projektet: README
+- Använd /minst/ en =README= - fil för att dokumentera projektet
+- Det finns verktyg för att skapa en grundläggande =README=
+- =README.md= ligger ofta i root-katalogen på ett projekt
+- Innehåll
+  - Projektnamn
+  - Beskrivning
+    - Vad handlar projektet om
+    - Skärmdump eller annan illustration
+    - Vilket problem löser det
+    - Vilka teknologier har du använt
+    - Särskilda utmaningar du har eller hoppas ta hand om.
+  - Innehållsförteckning (om lång README)
+  - Instruktioner (kanske separata sidor)
+    - Instruktioner för att Installera och Köra Projektet
+    - Instruktioner för att använda projektet
+    - Instruktioner för hur man kan anpassa projektet
+    - Instruktioner för hur man testar projektet
+  - Credits, information om utvecklingsteamet, andra källor, mm.
+  - Instruktioner om hur läsaren kan bidra
+  - Licens
+- Läs mer om /Markdown/-formattering: https://www.markdownguide.org/
+* Dokumentera Buggar
+- Spara information om lösta buggar
+  - Hjälp vid snarlika problem
+  - Dokumentation om varför man /inte/ löst ett visst problem
+  - Dokumentation om varför man löst eller inte löst problemet på ett visst sätt
+  - Hjälp för att identifiera särskilt fel-benägna delar av koden
+  - Hjälp för att identifiera användargrupper med många synpynkter
+* Dokumentera bugar: Issue Tracker
+- Idag använder man ofta en /Issue Tracker/ integrerat i arbetsflödet
+  - Hitta ett problem eller förbättringsförslag \rightarrow Skapa en issue
+  - Diskutera issuen
+  - Klassificera Issues (e.g. Bug, Förbättring, Dokumentation, Fråga, \dots )
+  - Prioritera Issues, planera när du skall arbeta med dem
+  - Tilldela till utvecklare
+  - Lös med en =commit=
+
+- Olika projekt har olika förväntningar, men en bra issue innehåller oftast:
+  - Kort men innehållsrik titel
+  - Förbättringsförslag? \rightarrow Beskrivande Text
+  - Bug?
+    - Version av Programvaran och kringliggande teknologier (e.g. version på programtolken, databas, ...)
+    - Steg för att provocera fram buggen
+      (minsta möjliga / enklaste stegen för att provocera)
+    - Förväntat Resultat
+    - Faktiskt Resultat (med log-utskrifter och skärmdumpar)
+    - Övrig information
+* Dokumentera Arbetsprocessen
+- En arkitektur / design består främst av de /beslut/ som är fattade.
+- Undvik att behöva återskapa dessa:
+  - Dokumentera beslut.
+  - Dokumentera design och arkitektur.
+- När och Hur skapar man en ny branch?
+- När och Hur skapar man en testmiljö?
+- Vem och Hur lanserar man produkten (deployment)?
+- Lika viktigt är dina egna lärdomar. \rightarrow /ingenjörsdagboken/ .
+* Sammanfattning
+- Dokumentation på /rätt/ sätt förklarar där det behövs
+- Dokumentation på /fel/ sätt är i vägen, oftast felaktig, och kostar arbetstid.
+- Dokumentation utanför koden
+- Dokumentation från koden (t.ex. javadoc)
+- Dokumentation inuti koden
+- Självdokumenterande kod.
+
+/Börja nu/ med att:
+- Skriva en docstring för varje funktion.
+- Ta ett steg tillbaka och titta på funktionen du just skrivit
+  - Förklarande kommentarer?
+  - Tydligt namn? Tydliga variabelnamn? Konsekvent med resten av kodbasen?
+  - Lagom lång? Kan du bryta ut något?
+  - Rätt ställe i filen? Rätt fil? Rätt paket?
