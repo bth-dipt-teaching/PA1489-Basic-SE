@@ -1,0 +1,304 @@
+#+Title: Practical: Testing and Debugging
+#+Author: Mikael Svahnberg
+#+Email: Mikael.Svahnberg@bth.se
+#+Date: 2025-04-14
+#+EPRESENT_FRAME_LEVEL: 1
+#+OPTIONS: email:t <:t todo:t f:t ':t H:1
+#+STARTUP: beamer num
+
+#+LATEX_CLASS_OPTIONS: [10pt,t,a4paper]
+#+BEAMER_THEME: BTH2025
+
+* TODO Introduction
+- Automated Testing
+- Debugger
+- Assignment Instructions: Show the TA that you can build a small system with Docker.
+
+* Automated Testing
+- /Unit Testing/
+  - What is the Unit? Function? Class? Component? Use Case? User Story?
+  - For now, /each function should be unit tested/
+
+- Automated tests builds /confidence/
+  - You /know/ it works, you have the tests to prove it.
+
+- Already now, ask yourself /can I automate this test?/
+  - Building software is often /cumulative/ 
+    - you add and test A, then you add and test AB, then ABC, \dots
+  - You /really/ do not want to type this by hand all the time.
+
+#+begin_verse
+There was an old lady who swallowed a fly,
+I don't know why she swallowed a fly – perhaps she'll die!
+
+There was an old lady who swallowed a spider
+That wriggled and jiggled and tickled inside her;
+She swallowed the spider to catch the fly;
+I don't know why she swallowed a fly – perhaps she'll die!
+
+*Lots of verses where she swallows one new absurd thing for each verse*
+
+There was an old lady who swallowed a cow;
+I don't know how she swallowed a cow!
+She swallowed the cow to catch the goat,
+She swallowed the goat to catch the dog,
+She swallowed the dog to catch the cat,
+She swallowed the cat to catch the bird,
+She swallowed the bird to catch the spider
+That wriggled and jiggled and tickled inside her,
+She swallowed the spider to catch the fly;
+I don't know why she swallowed a fly – perhaps she'll die!
+
+There was an old lady who swallowed a horse...
+She's dead, of course!
+#+end_verse
+* Test Frameworks
+- Many, many different examples:
+  - Java Junit: https://junit.org/junit5/
+  - JavaScript Mochajs: https://mochajs.org/
+  - Python Pytest https://docs.pytest.org/en/stable/
+  - C++: cxxtest, cpptest, Boost.Test, Unit++, catch, \dots
+
+- Usually two parts, sometimes split into two libraries
+  1. Run the test suite
+  2. Perform the actual evaluations/assertions
+
+- Test frameworks often follow the /behaviour driven software engineering/ philosophy
+  - The test is first and foremost described in natural language
+  - Only when needed does it get into the nitty gritty details of connecting to source code.
+
+- *Test \ne Test Run* You need to work with both unit tests and actually running the code regularly.
+* Example of Mocha/chai
+- Test frameworks for node.js / Javascript
+- An example of behaviour driven software engineering tests
+- Several tests inside one suite (~describe()~ -- these can also be nested)
+- A selection of different "test languages" (from Chai https://www.chaijs.com/ )
+  - ~expect~, ~assert~, ~should~
+  - (As always, pick one and be consistent)
+- Note the describing texts -- these will be part of test printouts
+  - the method names are also part of the description of a test
+    - You can use either ~describe()~ or ~context()~
+    - You can use either ~it()~ or ~specify()~
+    - You also have ~before()~, ~after()~, ~beforeEach()~, and ~afterEach()~
+  - If you prefer, there is also ~suite()~, ~test()~, ~suiteSetup()~, ~suiteTeardown()~, ~setup()~, and ~teardown()~
+
+#+begin_src javascript
+  describe('Pinkie Pie', function() {
+      it('should be able to say something', function() {
+          let said = pinkiepie.speak();
+          expect( said ).to.be.a.('string');
+          expect( said ).to.not.equal('');
+      });
+
+      it('should only move left to right', function() {
+          let [xPos, yPos] = pinkiepie.getPosition();
+          pinkiepie.move();
+          let [newXPos, newYPos] = pinkiepie.getPosition();
+
+          assert.equal(newYPos, yPos, 'Pinkie Pie moved up or down');
+          assert.notEqual(newXPos, xPos, 'Pinke Pie did not move left to right');
+      });
+
+      it('should stay on the screen', function() {
+          pinkiepie.setPosition(0, 0);
+          pinkiepie.move(-1, 0);
+          let [newXPos, newYPos] = pinkiepie.getPosition();
+				
+          newXPos.should.be.at.least(0);
+          newYPos.should.equal(0);
+      });
+  });
+#+end_src
+* PyTest
+- Not behaviour driven -- Focus is on the tests, for and by the developer.
+  - Can still be /used/ for BDD, but you have to do it.
+
+- Installed via pip ~pip install pytest~
+- Run with ~pytest~ or ~pytest -v~ (for more verbose output)
+  - (personally, I prefer ~pytest -v --tb=no~ to not get all the test source code in the output)
+- Looks for files ~test_*.py~ or ~*_test.py~ in current dir
+- Function names that start with ~test~ are executed.
+
+Other features
+- ~@pytest.fixture~ before a function def (any function name)
+  - Set up something before a test is run
+  - Especially if similar setups are expected for many tests
+  - The fixture function is passed as a parameter to the ~test~ function
+- Separate file ~conftest.py~ if e.g. fixtures should be used in many test-files.
+- ~@pytest.mark.parametrize()~ to enter many different test values into the same test function
+- ~@pytest.mark.xfail~ execute but do not count as passed or failed
+- ~@pytest.mark.skip~ do not run this test right now.
+
+** Explain SorterTool :noexport:Demo:
+https://codeberg.org/mickesv/SorterTool
+** Write some tests :noexport:Demo:
+file+emacs:/home/msv/Documents/Play/SorterTool/Python
+
+Commands that may need to be run:
+#+begin_src bash
+source .venv
+pip install pytest
+pytest -v --tb=no
+#+end_src
+
+Some tests to implement
+#+begin_src python
+import pytest
+from sorter import Sorter
+
+@pytest.fixture
+def generate_array():
+    return [33, 624, 591, 712, 58, 338, 652, 734]
+
+def test_length(generate_array):
+    s = Sorter()
+    arr = generate_array
+    out = s.quickSort(arr)
+    assert len(arr) == len(out)
+
+def test_sorted(generate_array):
+    s = Sorter()
+    arr = generate_array
+    out = s.quickSort(arr)
+    assert not [x for x in range(0,len(out)-1) if out[x]>out[x+1]]
+    
+def test_same(generate_array):
+    s = Sorter()
+    arr = generate_array
+    out = s.quickSort(arr)
+    reference = s.bubbleSort(arr)
+    same = len(out) == len([x for x in range(0,len(out)) if reference[x]==out[x]])
+    assert True==same
+#+end_src
+* Assertions
+- The test framework run the tests, but does not actually evaluate anything.
+- For this, we have =assertions=
+
+- Built into many programming languages: ~assert~ 
+  - ~assert «condition»~ or ~assert «condition», "error message"~
+  - example: ~assert pinkiepie.speak(), "Pinkie Pie should always have something to say"~
+- Assert has many uses
+  - Debugging (Fail early, fail hard) -- but I find logging to be more useful
+  - Verify critical assumptions (fail if assumptions do not hold) -- but try-except means the program does not fail
+  - Testing, of course.
+
+- In the javascript example, we also used =should= and =expect=
+** Add error messages to asserts :noexport:Demo:
+* Testing Best Practices
+- One test-file per regular file
+  - Further group related tests into classes
+- Use =fixtures= to setup before tests and teardown after the tests
+  1. setup
+  2. ~yield~ instead of return
+  3. cleanup
+- Re-use the same fixture for a series of tests.
+- Each test is independent
+  - Tests may be run in any order
+  - A single test should be runnable independently of other tests
+- The name of the test should be readable: ~def test_Pinkie_Pie_should_always_speak():~
+- Tests should be deterministic -- always return the same result given the same conditions
+- Tests should verify behaviour, not implementation
+- A single ~assert~ per test
+  - (which I immediately broke in my previous examples -- why?)
+- Remember to test security vulnerabilities
+
+- *Work actively on your tests!*
+  - Write them together with your code
+  - Can you immediately automate testing instead of manually typing the same thing?
+  - Can you write a test instead of logging some value with ~print~ ?
+
+* Debugging
+- Pen and paper
+- =print= - statements in your code
+- Separate tools (for example, start with ~python -m pdb~ )
+- Part of your development environment
+
+With a debugger you can:
+- follow the program execution; line by line or statement by statement
+- inspect the current values of variables
+- run until a specific function is called, or a variable contains a specific value
+
+The debugger
+- is a good learning tool to understand program execution
+- is =1337= ; many experienced programmers rarely remember to use it
+- is ephemeral; no accidental log printouts are left behind
+- is ephemeral; no log printouts are left for future bug-tracing
+- should be augmented with tests:
+  1. Identify error
+  2. Capture error with automated tests
+  3. understand error with debugger
+  4. Make your understanding permanent with tests
+  5. Fix error and ensure that all tests turn green
+** Add Breakpoint :noexport:Demo:
+1. Start vscodium on =SorterTool=
+2. Run/Debug from ~main.py~
+3. in =sorter.py=, add a breakpoint /after/ the line ~def bubbleSort()~ - line (near line 19)
+4. Run/Debug from ~main.py~
+5. Find the tiny window: [[./Debug-Controls.png]]
+   - Discuss each of these symbols
+6. Look at the watches etc. on the left hand side
+   - Variables
+7. Step a couple of times
+   - note how ~arr~ indicates it has been changed.
+* Debug commands
+- Continue :: Run until you [hit the next breakpoint, a watch becomes true, program ends]
+- Step over :: Run the current line but stay in the current function
+- Step into :: Follow the execution into any function calls
+- Step out :: Complete the current function, return to the calling function, and stop
+- Restart, Stop :: \dots
+* Watch-expessions
+- A =watch= is an executable expression
+  - Anything you want to keep an extra eye on
+- Edit a breakpoint (right click on the breakpoint) and add an expression
+  - continue until expression evaluates to =True= at the point of that breakpoint
+* The Lab This Week :Info:
+We continue working with /SorterTool/, and the tasks are to:
+- Run and understand the project
+- Run the existing tests and understand the test output
+- Write more tests
+- Use the debugger to (a) learn how it works and (b) figure out what is wrong with the program.
+* Tasks to Get Started
+1. Clone the project https://codeberg.org/mickesv/SorterTool
+2. Read the source code and make sure you understand it.
+3. Make sure that ~pytest~ is installed: ~pip install pytest~
+   - (You may need to set up a python venv before this)
+4. Run the existing tests: ~pytest -v~
+   - Read the output and make sure you understand it.
+   - One test fails. Why? How can you find out more information?
+
+#+begin_src bash
+git clone https://codeberg.org/mickesv/SorterTool
+cd SorterTool/Python
+
+python -m venv .venv
+source .venv/bin/activate
+
+pip install pytest
+#+end_src
+* Write More Tests
+Only one algorithm is currently tested, i.e. QuickSort, and only with a hard-coded array of numbers.
+1. *TODO:* Write tests for BubbleSort and InsertionSort
+2. *TODO:* Generate a new array of random length (between 5--20) containing random numbers (between 1--1000) for each test.
+
+Tip:
+- You can write separate tests for each algorithm, or you can use the same tests and use ~@pytest.mark.parametrize()~
+* Use the Debugger
+1. Add a breakpoint on the first line in the ~bubbleSort~ method
+2. Debug the program and try to understand how the bubblesort algorithm works
+   (Tip: /Sorting out Sorting/ : https://youtu.be/HnQMDkUFzh4?si=xMEF8GgU_4fXxxB6 )
+3. *Practice* using /breakpoints/, /step over/, /step in/, and /step out/
+4. Add a =watch= expression and continue debugging until you see it change value
+
+Fix the error:
+- Can you now figure out why one of the initial tests failed?
+- Can you fix the code so that it passes?
+  - If so, please fix the error and re-run the tests.
+* Show the TA :Assignment:
+Show and explain to the TA the following:
+
+1. Which tests have you added? Show them and explain what they do.
+2. Run ~pytest -v~ . If any tests still fail, explain why.
+3. Show while you run the debugger on the =quickSort= method
+   - Show while you use /breakpoints/, /step over/, /step in/, and /step out/
+   - Show the current values of local variables
+
