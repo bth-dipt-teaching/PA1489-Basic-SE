@@ -1,0 +1,362 @@
+#+Title: User Interfaces
+#+Author: Mikael Svahnberg
+#+Email: Mikael.Svahnberg@bth.se
+#+Date: 2025-04-23
+#+EPRESENT_FRAME_LEVEL: 1
+#+OPTIONS: email:t <:t todo:t f:t ':t H:1
+#+STARTUP: beamer num
+
+#+LATEX_CLASS_OPTIONS: [10pt,t,a4paper]
+#+BEAMER_THEME: BTH2025
+
+* Introduction
+- Different types of User Interfaces
+  - Text
+  - Graphics
+  - Files
+  - Network/Web (mostly next lecture)
+* Different Interfaces
+Swedish: /Gränssnitt/
+
+- Components offer a /programming interface/  
+  - API :: Application Programming Interface
+  - classes and functions
+  - Used by /programmers/ to access and use the component
+- Classes offer a /public interface/
+  - Public methods and attributes that are available on all objects
+
+A program has other interfaces
+- /User Interface/ with which users can access and interact with the application
+- /File formats/ that the program understand how to read and write
+- /Network interfaces/ that the program provides
+  - HTTP/HTML is one particular type of network interface
+* User Interfaces
+A User Interface (UI) can be more or less advanced:
+1. Command Line Parameters
+2. Printouts in a terminal
+3. Input/output to a terminal
+4. /TUI/ - Text-based User Interface
+5. /GUI/ - Graphical User Interface
+* Text-based User Interfaces
+- Most unix-commands accept parameters and output text
+  - e.g. ~ls -al~, ~curl https://www.zombo.com~
+- Some start an interactive enviromment
+  - e.g. ~python~, ~gdb~
+- Some create a text based UI
+  - e.g. ~mc~, ~vi , or ~emacs -nw~
+
+Advantages:
+- Always work
+- Always work even when run remotely (e.g. via ~ssh~)
+- Always work even when the window enviromment does not start
+
+Disadvantages:
+- More difficult to discover and learn how they work
+- More difficult to construct such that they are simple to use
+- Can only show a limited amount of information at the time (80x25 characters)
+* Graphical User Interfaces
+- Regular desktop applications
+- Familiar to most users
+- Can be arbitrarily complex or (hopefully) simple
+
+- Built with the help of different frameworks
+  - e.g. Qt, Gnome, Java Swing/Java AWT
+  - (Also as locally running web applications, e.g. /Electron/)
+
+#+begin_src plantuml :file gui-ex.png
+@startsalt
+!theme bluegray
+
+{
+{* File | Edit | Tools }
+.
+{/ <b>Selection | Execution | Result }
+{+
+{
+Will you answer "No" to this question:
+() Yes
+() No
+}
+{
+Please motivate your answer:
+{SI
+ .
+ .
+ "                              "
+}
+}
+}
+{ [Submit] | [Cancel] }
+}
+@endsalt
+#+end_src
+
+#+RESULTS:
+[[file:gui-ex.png]]
+
+* One application - several interfaces
+The same application may have many interfaces
+- May have several GUIs for different types of users
+- May have a text-based UI for power users
+- May accept command line parameters
+- May be accessible over a network connection
+- Will probably read and write specific file formats
+* Swappable UI's
+- UI code should be located in separate components/classes/files:
+  - GUI / TUI -code
+  - input/output code
+  - parameter parsing
+- Separate /Logic/ from /Presentation/
+- Cleaner software design -- easier to maintain
+
+Sometimes a "pretty" UI uses a "simpler" UI underneath (called a /porcelain/)
+- Your development environment uses command line tools but hides it from you.
+- for examle: ~git~, ~python~, ~gdb~, \dots
+- /You can replace the pretty UI and keep the logic/
+* Text Input/Output
+- Mostly built-in in most programming languages
+  - Python: ~print~, ~input~
+  - Java: ~System.out.println()~, ~System.console().readLine()~
+  - C++: ~cout~ and ~cin~
+  - C: ~printf()~, and ~scanf()~
+  - Node.js/JavaScript: ~console.log()~, but no easy input function
+
+#+begin_src python
+print('How much wood would a woodchuck chuck if a woodchuck would chuch wood?')
+
+amount = input()
+wouldit = input('If a woodchuck would chuck wood, would a woodchuck chuck wood?')
+
+print(amount, wouldit)
+#+end_src
+* Graphical User Interface Frameworks
+- Builtin for Java, but commonly you need separate packages
+- Python: PyQt, PySide, Tkinter, Kivy, \dots
+  - Mostly recommended: ~PyQt6~ or ~PySide6~ (different licenses)
+  - Both use =Qt=: https://www.qt.io/product/framework
+  - Sometimes builtin: ~Tkinter~
+
+Key concepts:
+- A /Widget/ is something you want to show (window, button, \dots )
+  - Widgets are often recursively composable.
+- An /Event/ is some user interaction (push a button, press a key, \dots )
+- The /Event Loop/ is handled internally by the GUI framework
+  1. Wait for an event
+  2. Act on the event (call a function)
+  3. Goto (1)
+* PySide (or PyQt)
+- Many widgets: https://doc.qt.io/qtforpython-6/overviews/qtwidgets-widget-classes.html#widgets-classes
+- Inherit ~QMainWindow~ to create your own window.
+- Widgets emit /Signals/
+  - The documentation lists the signals a specific widget may emit
+  - You may need to look at its superclasses to see all possible signals.
+- You provide a function to receive a signal, called a /slot/
+
+
+#+begin_src python
+from PySide6.QtWidgets import QMainWindow, QApplication, QPushButton
+import sys
+
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Hello World")
+        button = QPushButton("My simple app.")
+
+        # on the object "button"
+        # with the signal "clicked" (or pressed, released, or toggled)
+        # connect the slot "self.button_clicked"
+        button.clicked.connect(self.button_clicked)
+        
+        self.setCentralWidget(button)
+        self.show()
+
+    def button_clicked(self):
+        print('Button was clicked')
+        self.close()
+
+app = QApplication(sys.argv)
+w = MainWindow()
+app.exec()
+#+end_src
+* Add more stuff
+1. Create a ~Layout~ object
+   - =QBoxLayout=, =QHBoxLayout=, =QVBoxLayout=, =QFormLayout=, =QGridLayout=, \dots
+2. Add Widgets to this layout object
+3. Create a container of the type ~QWidget~
+4. Give the layout object to this container
+5. Add the container to the ~MainWindow~
+
+#+begin_src python
+        edit = QLineEdit("write something here")
+        label = QLabel("some text here")
+
+        layout = QVBoxLayout()
+        layout.addWidget(edit)
+        layout.addWidget(label)
+
+        container = QWidget()
+        container.setLayout(layout)
+        self.setCentralWidget(container)
+#+end_src
+
+*Note*:
+- As you make increasingly complex user interfaces, this ~init~ method is going to get very long and intricate.
+  - *Break it up* into smaller functions.
+  - Think about logical divisions in your UI, have at least one method to initiate each of them.
+- If you want to reach a widget later (e.g. to update its contents), you need to save a reference to it (e.g. ~self.editBox=QLineEdit()~)
+* Use a GUI Builder
+- Tools for building GUIs
+- Drag and drop, connect signals to slots, write the code & go
+- Examples
+  - Qt Designer: https://www.pythonguis.com/installation/install-qt-designer-standalone/
+  - Qt Creator && Qt Design Studio: https://www.qt.io/product/development-tools
+  - Android Studio: https://developer.android.com/studio/install
+  - You /may/ also have some GUI builder in your IDE -- or as an extension.
+
+I prefer to "program" my UIs as above
+  - less focus on pixel-perfect alignment -- trust the layout managers to do a good enough job.
+  - more control over where & how references to widgets are stored and connected
+  - no context-switching 
+    - e.g. "I need a new button":
+      1. write the slot function to receive events
+      2. switch to GUI builder, add button, connect the right signals to the slot
+      3. switch back to editor and continue coding.
+      4. Realise you made a mistake, go back to GUI builder; rinse, repeat.
+  - easier to generate repeated elements (e.g. with a =for=-loop )
+  - - You /can/ program your user intefaces like above
+  - \dots I am also an old bear who doesn't like to learn new tricks.
+* When Things Go Wrong: Testing for Runtime Errors
+- Compile-time errors:
+  - Syntax Errors
+    - the compiler tells you what you have written wrong
+    - Read the compiler errors
+  - Logical Errors
+    - the compiler does not know this is wrong
+    - Use Unit Testing to capture this.
+    - Debugger
+
+- Runtime errors :
+  - Input Testing
+    - Ensure that user enters "correct" information
+  - Exception handling
+    - runtime exceptions
+    - e.g. "file not found", "divide by zero", \dots
+* Handling Runtime Errors
+- Handling compile-time errors is done during development
+- Handling errors caught by automated tests is done during development
+- Handling runtime errors /have to be/ handled during runtime!
+* Detecting the Error
+- Defensive Programming
+  - Balance between checking everything and put reasonable trust in the program.
+
+- Anticipating and avoiding the error 
+- Detecting the error state
+- Deciding what to do about the error
+- Deciding how much to report to the user
+* A Brief Word on Input Sanitisation
+- Never ever /ever/ assume that input is correct
+  - User input
+  - Command line parameters
+  - File contents
+  - Socket traffic
+  - Fetched data (e.g., html, xml, json)
+  - HTTP header
+  - Properties/Config files
+  - \dots
+  - https://github.com/kuronpawel/big-list-of-naughty-strings
+  - https://www.kalzumeus.com/2010/06/17/falsehoods-programmers-believe-about-names/
+
+- Java is safer than C++, but can still be really dangerous.
+  - What do you do with the input?
+    - Pass it on as a field to the database?
+    - Display it in a web browser?
+    - Use it as a script and interpret it?
+  - Currently in Python: =t-strings= instead of =f-strings=
+  - What do you do if not all data is present?
+  - What do you do if the data is of the wrong type?
+
+[[./exploits_of_a_mom.png]]
+(Source: https://xkcd.com/327 )
+* Method Input: Parameters
+- Are the parameters to a method within bounds?
+- Are the parameters not null?
+  - Are there good defaults to use instead?
+- Will the method complete even with incorrect parameters?
+- Will the result be meaningful?
+* Error Reporting (to the user)
+- Is the error quietly fixable?
+- Should the user be /informed/ , or /warned/
+- Should the program /exit/?
+- Write to a log to facilitate debugging
+
+#+begin_src java :imports java.util.logging.*
+  int x = 10;
+  Logger l = Logger.getLogger("se.bth.example.system.Test");
+  l.entering("Main","main()");
+
+  l.setLevel(Level.ALL);
+  l.info("Current log level " + l.getLevel());
+
+  l.config("Using default configuration");
+  l.info("Starting...");
+
+  l.log(Level.FINE, "Still here...");
+  l.fine("Also still here");
+
+  l.warning("Not sure how to proceed here");
+
+  l.exiting("Main", "main()");
+#+end_src
+* Error Reporting (within program)
+- Magic return value that indicates error
+  - ~null~
+  - ~-1~
+  - ~false~
+- Throw an Exception (Will it be caught ⁉️)
+- Set an error flag somehwere
+- \dots
+* Error Handling
+- Check for magic error number
+- Catch Exception
+- Check error flags
+
+- Deal with the error if possible
+  - Maybe return some indication that there was an error
+  - /Do not/ blame the user, e.g. "Your name contains an invalid character!" \to "We cannot process this character"
+  - Log the error
+- Maybe re-try the same operation
+  - How many times?
+  - Delay between each try?
+- When all fails: re-throw exception
+
+- *Always* clean up when you detect an error!
+  - If you tried to open a file, try to close it
+  - If you had an open database connection, close it
+  - \dots
+* Summary
+- Different types of User Interaction
+  - Startup parameters and printouts
+  - Console input/output
+  - Text-based UI
+  - Graphical UI
+  - Web applications (next lecture)
+
+- Constructing a GUI:
+  - Widgets containing other Widgets
+  - \dots that emit /Signals/ when certain events occur.
+
+- Keep UI Code separate
+- Use a GUI builder if you prefer
+- Never trust user input
+
+#+begin_src plantuml :file widget-tree.png
+Widget - "*" Widget
+Widget -- "*" Signal
+Signal - YourCode
+YourCode : +slot_function()
+Signal : +emit()
+#+end_src
+
+#+RESULTS:
+[[file:widget-tree.png]]
