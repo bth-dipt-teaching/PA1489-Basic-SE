@@ -1,0 +1,348 @@
+#+Title: User Interfaces: Web and HTML
+#+Author: Mikael Svahnberg
+#+Email: Mikael.Svahnberg@bth.se
+#+Date: 2025-04-25
+#+EPRESENT_FRAME_LEVEL: 1
+#+OPTIONS: email:t <:t todo:t f:t ':t H:1
+#+STARTUP: beamer num
+
+#+LATEX_CLASS_OPTIONS: [10pt,t,a4paper]
+#+BEAMER_THEME: BTH2025
+
+* Introduction
+- Software development today often leads towards web apps, e.g.
+  - Cloud Computing
+  - Cross-platform development
+  - Frameworks such as /Electron/, /React Native/, /Flutter web/, \dots
+  - REST APIs, as we started with in the /isItPokemon/ and /PonyVoter/ apps
+* Recap: Network-Based User Interface
+- /Connect/ to a =port= on a =server=
+- /Input/ your request, formatted depending on the /protocol/ you use
+- /Receive/ a result, according to the used /protocol/
+- For some protocols, the connection is now closed, for others you can continue sending requests.
+
+Examples of protocols, as embedded in an URL/URI:
+- web: =http://= , =https://=
+- file transfer: =ftp://=
+- mail: SMTP, =imap://=
+- news: =nntp://=
+- chat: =irc://=
+
+* Recap: HTTP
+- Most common for modern apps
+- Mostly stateless (although this can be fixed)
+- GET/POST/PUT/DELETE to a resource URI, get /something/ back.
+  - reply code + optional data payload
+  - Common returns: =json=, =html=, plaintext
+  - Can also be other text formats, e.g. =js=, =css=
+  - Can be other /mime-types/: =image/jpeg=, =image/png=, =application/msword=, =application/zip=, =application/pdf=, \dots
+* HTML documents
+- The specific mime-type is =text/html=
+- HyperText Markup Language
+  - To be precise, HTML is one document grammar in XML (eXtensible Markup Language)
+- Instructions to your web browser how a document should be displayed.
+  - "This is a heading", "This is a paragraph", "This should be written in /italics/, \dots
+- Hierarchically constructed; top-level document objects contain lower-level objects
+  - Each object has a start tag and an end tag: =<tag>= (contents here) =</tag>=
+
+#+begin_src dot :file html-hierarchy.png
+    digraph G {
+      rankdir="LR";
+      bgcolor="transparent";
+      node[width=0.15, height=0.15, shape=box, fontsize=10.0 color=black, fontcolor=black];
+      edge[weight=2, arrowhead=none, color=darkgray];
+
+      html -> head, body
+      head -> title, style, link
+
+      body -> headers, paragraph, lists, formatting, image, href
+
+      headers[label="headers <h1>, <h2>, ..., <h6>"]
+      paragraph[label="paragraph <p>"]
+      lists[label="lists <ul>, <ol>"]
+      lists -> listitem
+      listitem[label="list item <li>"]
+      formatting[label="formatting <b>, <i>, <pre>, <em>, ..."]
+      image[label="image link <img src=\"...\">"]
+      href[label="link <a href=\"...\">"]
+      
+  }
+#+end_src
+
+#+RESULTS:
+[[file:html-hierarchy.png]]
+* Example HTML Document
+#+begin_src html :tangle html-example.html
+  <html>
+  <head>
+    <title>This is a very small example web page</title>
+  </head>
+
+  <body>
+  <h1>Top level Heading</h1>
+  <h2>Sub-heading</h2>
+  <p>A paragraph</p>
+
+  <ol> <!-- Ordered Bullet list -->
+  <li>Item One
+  <li>Item two -- do note that you do not need to keep count yourself.
+  </ol>
+
+  Some random text containing <i>italics</i> and <b>bold text</b>. 
+
+  Your browser will mostly remove empty lines and       extra    spaces,
+  and make all of this (including what comes below), into one long
+  running paragraph.
+
+  <a href="/buy/heartstopperBurger">A clickable link</a> (Please look at the URL and think about whither it points)
+  <a href="https://zombo.com/">A link to some other web page</a>
+
+  You can also insert images into the text: <img src="/images/flower.png">
+
+  Your web browser will try to fetch this image from the same server using the given URI,
+  so you need to make sure that your web server knows what to do with the uri /images/flower.png .
+
+  <p>A small paragraph just to end matters.</p>
+  </body>
+  </html>
+#+end_src
+
+file:./html-example.html
+* Make it Pretty
+- Your web browser can display plain text (e.g. your =print= statements in your python labs)
+- It can also make a decent job of simple HTML
+  - So if you add some =<tags>= to your strings, your browser will happily format the text accordingly.
+- There are many ways of improving the output
+  - Use special tags to position text
+  - Use a =style sheet= to tell the browser how to display each document element
+    - position
+    - font, font size
+    - colour, background colour
+    - boxes around the text, relation to other texts, \dots
+  - Mix images with text
+- /You can spend a lifetime on this/, but it will not add one iota of functionality to your program
+* From Text to HTML
+From /isItPokemon/, the following code gave us the output below:
+#+begin_src python
+@app.route('/')
+def usage():
+    s = """
+    Usage:
+    GET /check/<word> To check if word is a Pokémon
+    GET /info/<name> To get more info about a single Pokémon
+    GET /list To get a list of the known Pokèmons
+    """
+    return s
+#+end_src
+
+Output:
+#+begin_src bash
+$ echo "GET /" | nc localhost 5000
+
+    Usage:
+    GET /check/<word> To check if word is a Pokémon
+    GET /info/<name> To get more info about a single Pokémon
+    GET /list To get a list of the known Pokèmons
+#+end_src
+
+Let's modify the method:
+#+begin_src python
+@app.route('/')
+def usage():
+    s = """
+    <h2>Usage:</h2>
+    <ul>
+    <li>GET <i>/check/&lt;word&gt;</i> To check if word is a Pokémon
+    <li>GET <i>/info/&lt;name&gt;</i> To get more info about a single Pokémon
+    <li>GET <i>/list</i> To get a list of the known Pokèmons
+    </ul>
+    """
+    return s
+#+end_src
+
+output now:
+#+begin_src bash
+echo "GET /" | nc localhost 5000
+
+    <h2>Usage:</h2>
+    <ul>
+    <li>GET <i>/check/&lt;word&gt;</i> To check if word is a Pokémon
+    <li>GET <i>/info/&lt;name&gt;</i> To get more info about a single Pokémon
+    <li>GET <i>/list</i> To get a list of the known Pokèmons
+    </ul>
+#+end_src
+
+in the web browser:
+file:isitpokemon-usage.html
+
+* Make it interactive: Clickable links
+- So far, we have requested one resource at the time(e.g. =GET /=, or =GET /list=)
+- Let us modify the code again and introduce links.
+  - As you notice, there is only one of these that will work in your web browser
+    - =/check/= and =/info/= needed a word added that it could use as a function parameter.
+    - This was never intended to be an interactive web app
+    - This was only ever intended as a REST API
+    - ... where you can dynamically program the right URLs.
+
+#+begin_src python
+@app.route('/')
+def usage():
+    s = """
+    <h2>Usage:</h2>
+    <ul>
+    <li><a href="/check/"> To check if word is a Pokémon</a>
+    <li><a href="/info/"> To get more info about a single Pokémon</a>
+    <li><a href="/list"> To get a list of the known Pokèmons</a>
+    </ul>
+    """
+    return s
+#+end_src
+* User input on a web page - the <form> tag
+- To get user input, we use =<form>=
+- may contain several =<input>= tags, together with e.g. =<label>=, =<textarea>=, \dots
+- ~<input type="text">~ , type can be e.g.: =radio=, =checkbox=, =submit=, =reset=, =button=, \dots
+- An =input= tag has an =id= (used within the page), and a =name= (sent to the server).
+
+- Note the similarity to how you build graphical user interfaces using /widgets/
+- Note also the difference that you can not as easily connect signals to slots
+  - You /can/ act on events, however:
+  - your browser is not running together with the rest of your app -- it can't just call any function.
+  - your /slot/-functions have to be loaded and executed by the web browser, in /javascript/.
+
+#+begin_src html
+<form action="/check">
+<label for="pokename">Enter a word:</label>
+<input type="text" id="pokename" name="word">
+<br>
+<input type="reset"><input type="submit">
+</form>
+#+end_src
+
+When you click the "Submit" button, you browser will try to GET: ~http://localhost:5000/check?word=titan~ 
+- it assumes =http://=
+- it keeps the same server and port =localhost:5000=
+- it adds the =action= from the =form= tag: =check=
+- it stacks the inputs after a question mark, e.g. ~?input1=value&input2=value2~ or ~?word=titan~ in this case.
+* Code to accept form input
+Previously:
+- added as a part of the URI
+- given as a parameter to the function
+
+#+begin_src python
+  @app.route('/check/<word>')
+  def check(word):
+    global pokemons
+    find = next((item for item in pokemons if word.lower() ==item["name"].lower()), 0)
+    out = word + " is a Pokémon"
+    if 0==find:
+        out = word + " is not a Pokémon"
+    return out
+#+end_src
+
+Now:
+- sent as a set of parameters to the call, but not the python function
+- =from flask import request= , parameters can be fetched from the =args= attribute
+- Need error handling if the parameter is not used!
+- Note that the two API endpoints can co-exist
+- Note that the functions are almost identical -- refactor to a separate method!
+
+#+begin_src python
+@app.route('/check')
+def check_parameters():
+    word = request.args['word']
+    global pokemons
+    find = next((item for item in pokemons if word.lower() ==item["name"].lower()), 0)
+    out = word + " is a Pokémon"
+    if 0==find:
+        out = word + " is not a Pokémon"
+    return out
+#+end_src
+* Form action fetches a new page
+- Remember that your browser will fetch a completely new page with ~<form action="/check">~
+- /You/ need to program this page to (for example):
+  - includes a "go back" link, or
+  - repeats the =<form>= so that the user can input a new word
+
+A /Render Template/ can help you to:
+- Avoid the mess of mixing html and python code
+- Add standard headers and footers to all pages
+- Nicely format any output
+- Read more:
+  - https://flask.palletsprojects.com/en/stable/quickstart/#rendering-templates
+  - https://jinja.palletsprojects.com/en/stable/templates/
+- (As usual, there are many alternatives depending on which framework you use)
+
+More complicated:
+- A dynamic page that use javascript to fetch data and replace some existing contents.
+
+* Dynamic and Static Resources
+- /Dynamic/ resources change depending on some context
+  - These are the pages you need to /create/ with your program
+    - You may use render templates (see earlier), but you still need to (examples):
+      - Store and or fetch data e.g. from a database
+      - Transform and format data
+      - Calculate things
+
+- /Static/ resources are the same for everyone
+  - No programming is necessary -- or even desired
+  - e.g. the front page of your app, css-files, javascript-files, images, \dots
+  - With python/flask, any files in in the directory ~./static/~ are directly available
+
+(note to self, you may need to show this: file:~/Documents/Play/isitpokemon )
+* Client-side and Server-side
+- Web applications have many different components that work together -- difficult to get an overview.
+- Everything is /stored/ on a server, but only /some/ code is executed by the server
+
+#+begin_src plantuml :file webapp.png
+actor User
+component "Web Browser" as wb
+cloud Internet
+node Server {
+component "Frontend" as fe
+collections "Other Services" as os
+}
+database Storage
+
+User - wb
+wb - Internet
+Internet - fe
+fe -- os
+os - Storage
+#+end_src
+
+#+RESULTS:
+[[file:webapp.png]]
+
+The /client/ (a web browser):
+- Need some content to work with, so it /requests/ it from the server
+- It /displays/ the contents, and if it is a =html= page it looks for
+  - links to e.g. =css= files: request these from the server and use them to display the page
+  - =javascript= code (or links to =js= files), and executes this code
+
+The /server/ (e.g. your python Flask app):
+- Takes care of incoming /requests/:
+- If is it a request for a =static= resource, return the resource
+- If there is an ~@app.route()~, call this function and serve its return as a resource
+- If there is no route, return a "404 - Not Found" message
+
+Thus, to build a rich web app you need:
+- =html= files for each "view" or "window" in your application
+- =css= files for additional instructions on how to display the =html= instructions
+- client-side =javascript= code to fetch parts of pages and to handle forms interactively.
+- server-side code to e.g.
+  - handle user authentication
+  - decide the process /workflow/, i.e. which page to display next.
+  - decide what contents to serve one particular user
+  - interact with a database
+- Once data is fetched from the server, there may be additional client-side code to further process and format it.
+* Summary
+- You can get a long way with only a little HTML knowledge
+- HTML is just text with instructions on how to display it
+- Your browser knows how to parse and display it
+- Think of it as just another way of doing a =print()=, but across a network
+
+- /In my opinion:/
+  - Life is to short to spend time on prettifying web pages.
+  - You are not a programmer just because you write HTML code.
+  - Web pages /may/ and /should/ use stylesheets for formatting, but not /depend/ on them.
+  - I rarely see the need for bloated frameworks (e.g. /react/, /angular/, \dots)
