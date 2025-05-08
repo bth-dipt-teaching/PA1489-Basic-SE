@@ -1,0 +1,315 @@
+#+Title: Practical: A Console App
+#+Author: Mikael Svahnberg
+#+Email: Mikael.Svahnberg@bth.se
+#+Date: 2025-04-28
+#+EPRESENT_FRAME_LEVEL: 1
+#+OPTIONS: email:t <:t todo:t f:t ':t H:1
+#+STARTUP: beamer num
+
+#+LATEX_CLASS_OPTIONS: [10pt,t,a4paper]
+#+BEAMER_THEME: BTH2025
+
+* Introduction
+- We write a console app and embellish it from there
+- Introduction to the lab this week and the coming weeks
+* The Lab This Week :Info:
+- This week you are going to start implementing a small web app.
+- You will continue with this app during the rest of the lab sessions in the course.
+- When you are done, you will demo your app to the TA.
+- The focus this week /does not have to be/ a web app
+  - A console app is a good start to get things into place.
+  - *This week* you will focus on getting the data structure in place.
+* Introducing the App :Info:
+- *Backup Organiser* is an app to keep track of your data and when you last did a backup.
+- For now, it is self-reported by manually updating the information for a data collection when a new backup is created.
+
+A /data collection/ consists of:
+  - name (text)
+  - description (text)
+  - creation date (text; managing actual dates require more logic!)
+  - last modified date (text)
+  - still-updated (boolean flag)
+  - a list of /backup entries/
+A /backup entry/ consists of:
+  - name (text)
+  - date (text)
+  - location (text)
+
+Functionality
+- Create:
+  - Collection :: Add a data collection
+- Read:
+  - Overview :: Overview of all data collections -- displaying name and the date of the latest backup entry
+  - List :: Detailed list of all data collections -- displaying all information about all data collections
+  - Info :: Detailed information about a single data collection
+  - Search :: Find all data collections where the name contains the search term (display name and the date of the latest backup entry)
+- Update:
+  - Backup :: Add a backup to a data collection
+  - Edit :: Change the last modified date or the still-updated flag of a data collection
+- Delete:
+  - Delete :: Delete a specific data collection
+  - Unbackup :: remove a specific backup from a specific data collection
+
+Notes:
+- This is a typical /CRUD/ (create-read-update-delete) - pattern
+- The names of the functionalities are chosen to be as unique as possible, as early as possible. This will make it easier to create an UI.
+- You do not need to save any data between sessions, but it will help you during testing (and actually make the application usable).
+* This week
+0. [@0] Create the project /BackupOrganiser/ so that you are ready to start coding.
+1. Create a class =DataCollection= that contains attributes as listed earlier
+2. Create a class =CollectionManager=:
+   - This class contains a list of =DataCollection= objects.
+   - It contains /at least/ the following methods:
+     - =add_collection(name, description, creation_date, modification_date, updated)= creates a =DataCollection= object and adds it to its list.
+     - =overview()= returns an array containing lists of strings, one list per =DataColection= object
+       - Tip: call =info()= for each =DataCollection= object you have.
+     - =list()= returns an array containing lists of strings, one list per =DataColection= object
+       - Tip: create a method =DataCollection.brief_str()= to generate the list of strings.
+     - =info(collection_name)= returns a list of strings that represent a single =DataCollection= object
+       - Tip: create a method =DataCollection.full_str()= to generate the list of strings.
+     - =get(collection_name)= returns a =DataCollection= object
+     - You may wait with: =search=, =edit=, and =delete=
+3. Create a class =BackupManager= that /at least/ contains:
+   - =add_backup(collection_object, backup_name, backup_date, backup_location)= modifies the =DataCollection= object it was given and appends a new Backup entry
+     - Tip: Call =CollectionManager.get()= to find the =collection_object=
+   - You may wait with =unbackup=
+4. Create a =main()= function that
+   - Creates one =CollectionManager= and one =BackupManager= object.
+   - Tests each of the methods above on those two objects.
+5. You /may/ create a class =ConsoleInterface= to help you with this.
+
+*Remember*
+- One class per file
+- Document your methods. Use the docstring.
+- Create new methods if/when you need to.
+- Take a step back and look at the code you have written -- can you improve it?
+- Keep all the =print()= functionality in one place and /not/ in the classes =DataCollection=, =CollectionManager=, or =BackupManager=.
+* Next Week
+1. Create a class =RESTInterface= where you implement a http interface to your app.
+   - =POST /Collection= add a new collection
+   - =GET /Overview= get a JSON object with an overview of all data collections
+   - =GET /List= get a JSON object with a detailed list of all data collections
+   - =GET /Info?name=data-collection-name= get a JSON object with details for one specific data collection
+   - =POST /Backup?name=data-collection-name= add a backup
+   - You may wait with: =GET /Search?name=text=
+   - You may wait with: =POST /Edit?name=data-collection-name=
+   - You may wait with: =DELETE /Delete?name=data-collection-name=
+   - You may wait with: =POST /Unbackup?name=data-collection-name&backup=backup-name=
+
+*Note*
+- This is why we separated all =print()= statements into a single place; it is now "easy" to create a new frontend.
+
+*Tips:*
+- create a method =DataCollection.full_json()= to generate a JSON object for a single DataCollection object.
+- similarly, you want to add methods =overview_json()=, =list_json()=, and =info_json()=  in your =CollectionManager= class.
+* Next Next Week
+1. Make a web interface to use the =RESTInterface= entrypoints you made.
+2. Add a =Dockerfile= and a =compose.yaml= so you can start your application using Docker.
+3. Complete the remaining functionalities
+* Show the TA :Assignment:
+Eventually (not this week) you are expected to show a TA when you:
+
+1. Start the application as a docker container =docker compose up=
+2. Demo the application in a web browser
+   - show each of the functionalities listed earlier
+3. Present your implementation and be ready to answer questions from the TA.
+
+The TA will look at:
+- The exent to which your app is working and supports all the listed functionalities
+- The structure of your source code
+- How well documented your source code is
+- Your understanding of the source code
+
+* Guess the Animal
+- David H. Ahl, /"101 BASIC Computer Games"/, Digital Equipment Corporation, Maynard MA, 1975.
+- https://archive.org/details/101basiccomputer0000davi/page/18/mode/2up
+- One of the games is /"Guess the Animal"/
+  - TL;DR: You think of an animal, the computer tries to guess it.
+  - The computer learn new animals
+  - Loads and saves data to disk
+
+#+begin_example
+Play "Guess the Animal"
+Think of an animal and the computer will try to guess it
+
+Are you thinking of an animal? yes
+Does it swim? yes
+Is it a fish? no
+The animal you were thinking of was a ? seal
+Please type in a question that would distinguish a seal from a fish ? Does it have flippers
+For a seal the answer would be? yes
+
+Are you thinking of an animal? 
+
+...
+Are you thinking of an animal? save
+Saving...
+
+Are you thinking of an animal? list
+Animals I already know are
+seal      elephant    dog    cat    tiger
+cow       bird        goat   fish   whale
+#+end_example
+* Data Structure I
+- Quite often, the /Data Structure/ is the part that requires planning
+- In this case, the input/output is simple once we understand the data structure.
+- The questions form a /tree/ , with only the leaf nodes representing animals.
+- Let's look at two examples to see what happens:
+
+#+begin_src dot :file data-structure-start.png
+  digraph G {
+    rankdir="LR";
+    label="Starting Point"
+    bgcolor="transparent";
+    node[width=0.15, height=0.15, fontsize=10.0 color=black, fontcolor=black];
+    edge[weight=2, color=darkgray, fontsize=10.0, fontcolor=darkgray];
+    
+    // Questions
+    q1[label="Does it swim?"]
+
+    // Animals
+    node[width=0.15, height=0.15, fontsize=10.0 color=black, fontcolor=white, style=filled, fillcolor=darkgreen];
+
+    a1[label="fish"]
+    a2[label="bird"]
+
+
+    // Edges
+    q1->a1 [label="yes"]
+    q1->a2 [label="no"]
+  }
+#+end_src
+
+#+RESULTS:
+[[file:data-structure-start.png]]
+
+
+#+begin_src dot :file data-structure-oneIn.png
+  digraph G {
+    rankdir="LR";
+    label="Added 'seal'"
+    bgcolor="transparent";
+    node[width=0.15, height=0.15, fontsize=10.0 color=black, fontcolor=black];
+    edge[weight=2, color=darkgray, fontsize=10.0, fontcolor=darkgray];
+    
+    // Questions
+    q1[label="Does it swim?"]
+    q2[label="Does it have flippers?"]
+
+    // Animals
+    node[width=0.15, height=0.15, fontsize=10.0 color=black, fontcolor=white, style=filled, fillcolor=darkgreen];
+
+    a1[label="fish"]
+    a2[label="bird"]
+    a3[label="seal"]
+
+    // Edges
+    q1->q2 [label="yes"]
+    q1->a2 [label="no"]
+    q2->a3 [label="yes"]
+    q2->a1 [label="no"]
+  }
+#+end_src
+
+#+RESULTS:
+[[file:data-structure-oneIn.png]]
+
+* Data Structure II
+- We clearly have two types of /nodes/, i.e. /questions/ and /animals/
+- The /root node/ (starting node) is a =Question=
+  1. =get_question()= to get the question to ask
+  2. =answer()= to pass in the given answer (~true \equal yes~ and ~false \equal no~)
+  3. We get a =Node= reference back, so we repeat with =get_question()= \dots
+- The =Animal= node will have some extra logic to the =answer()= method.
+  - If the returned =Node= is a =this= (=self= in Python) reference, the computer managed to guess the animal.
+  - If the returned =Node= is =null= (=None= in Python), then the player wins; we need to add a new node.
+  - This is not ideal, but we repurpose =get_question()= to return the species name.
+    - (*TODO* Refactor this method name to something generic)
+
+#+begin_src plantuml :file data-structure-tree.png
+abstract class Node {
+  -Node yes_node
+  -Node no_node
+  +string get_question() {abstract}
+  +Node answer(boolean theAnswer) {abstract}
+  +insert(boolean theAnswer, Node newNode)
+}
+
+Node <|-- Question
+Node <|-- Animal
+Node -- "0..2" Node
+
+Question : -string question
+Question : +string get_question()
+Question : +Node answer(boolean theAnswer)
+
+Animal : -string species_name
+Animal : +string get_question()
+Animal : +Node answer(boolean theAnswer)
+#+end_src
+
+#+RESULTS:
+[[file:data-structure-tree.png]]
+* Adding a Node
+Looking at the earlier example again:
+
+[[./data-structure-start.png]] \to [[./data-structure-oneIn.png]]
+We need to:
+- Create a new =Animal=
+- Create a new =Question=
+- Connect the =Question= to the =Animal=;
+  - if the answer to the question is "yes", we bind the =yes_node=
+  - if the answer to the question is "no", we bind the =no_node=
+- Connect the =Question= to the /current node/ (which was the animal the computer guessed)
+- Connect the /previous question/ to the new question.
+
+The last two items are important
+- We need to keep track of the =current= node as well as the =previous= node.
+  - The =current= node is an =Animal=
+  - The =previous= node is a =Question=
+- We need to be able to insert new nodes =Node::insert()= takes care of this.
+  - /However/, we learn that we must also keep track of the =previous_answer= given by the user.
+* Some more Decisions
+- We start as a /console/ app (using =print= and =input=)
+  - We may wish to change this later, so let's keep the user interaction separate.
+  - Actually, let's keep the entire UI interaction in a class =ConsoleGame=.
+- We start without a container
+  - We may wish to change this too later, but this will not significantly impact our current development.
+* Let's start Coding
+Suggested Implementation Order:
+1. Node (wait with the =insert()= method)
+   - Easy start since it mostly consist of empty methods
+2. Question and Animal
+   - We have Node fresh in memory, so these are a good place to continue with
+   - Together, these three classes define the data structure.
+   - Can focus on what is the same and what differs between a Question and an Animal
+3. =app.py= and =ConsoleGame=
+   - =app.py= is just a launcher, so it should not contain much advanced coding.
+   - =ConsoleGame= is more involved since this is where we tie everything together and start making mistakes.
+
+When coding =ConsoleGame=,
+1. I include lots of calls to methods I haven't implemented yet. This is ok, I need to implement them anyway before I am ready to start testing.
+2. Then I add placeholders for the methods (with =pass= instead of method bodies)
+3. Then it's just a matter of implementing method by method and create new methods if it increases clarity.
+4. While implementing =ConsoleGame= I am going to revisit the =Node= hierarhy and add missing details there.
+5. I am skipping =save()= and =load()= at first -- they are not critical to get the game working, but will be once we start testing.
+* Next Steps
+- Take a step back. Look at the code. *What can be improved?*
+  - Are all methods consistently named?
+  - Do all variables have meaningful names?
+  - Is all logic in the right method/class/file?
+  - Can a method be made clearer by introducing new method calls?
+  - Can implementations be reused by creating new methods?
+
+*Never be afraid of adding new files, new classes, or new methods if it increases clarity!*
+* Embellishments
+- What if the user fat-fingers the answers by adding spaces or tabs to the beginning or end?
+- What if the user adds capital letters to their answer? What if they don't?
+- What if the user does not add a question mark at the end of their animal questions?
+- Correct use of a/an when guessing "Is it a" vs "Is it an"
+- Why don't we auto-save every time a new animal is added?
+- What if there are errors in the file (in case someone has edited it in a different program and failed to recognise the structure)?
+- What if the user adds an animal that is already in the dataset?
+- Making a GUI to replace `ConsoleGame`.
+- Making a TUI to replace `ConsoleGame`, just because we can.
+- Making the game into a web application and containerise it while we're at it.
