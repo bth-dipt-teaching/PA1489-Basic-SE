@@ -1,0 +1,6 @@
+Question Does it Swim?
+Question Does it have flippers?
+Animal seal
+Animal fish
+Animal bird
+

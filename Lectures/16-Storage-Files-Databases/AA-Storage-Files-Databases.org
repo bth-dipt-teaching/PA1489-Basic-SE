@@ -1,0 +1,510 @@
+#+Title: Storage: Files and Databases
+#+Author: Mikael Svahnberg
+#+Email: Mikael.Svahnberg@bth.se
+#+Date: 2025-05-16
+#+EPRESENT_FRAME_LEVEL: 1
+#+OPTIONS: email:t <:t todo:t f:t ':t H:1
+#+STARTUP: beamer num
+
+#+LATEX_CLASS_OPTIONS: [10pt,t,a4paper]
+#+BEAMER_THEME: BTH2025
+
+* Introduction
+- Overview of Persistent storage of data
+  - Files
+  - Databases
+
+Note:
+- Databases is a big topic, this is just a brief introduction
+- You will study an entire course just about databases later in your education
+* Persistent Storage
+- Data that should survive a restart of the program and/or the system
+- Data that you want searchable
+- You may have multiple users manipulating the data concurrently
+- You may have different programs for different types of views of the data
+
+Thus:
+- You need to store the data on a disk or harddrive -- keeping things in RAM memory is not sufficient
+- You need to /verifiably/ store the data -- so that you know that it has been written to disk correctly.
+- You may need to avoid race conditions where one user overwrites changes from another user
+* Regular Files
+- This is the normal, "single user" case.
+- pdf-documents, word-documents, a =.py= file, an executable program, ...
+
+Some concerns:
+- Is only one user modifying the data at a single point in time?
+- Is there a standard you need to follow for the particular filetype?
+- How do you detect errors in the file if it becomes corrupt? Can you compensate?
+* Reading and Writing to files
+- Differs /a lot/ between programming languages
+- Common steps:
+  1. Call some =open()= command, that returns a /file handle/
+  2. Use some functions to /read/ or /write/ to that file handle
+  3. Call some =close(file_handle)= command.
+- You decide in your call to =open()= whether you want to read, write, or random access the file.
+- There is a limited number of available file handles, you /must/ close them!
+- Some languages provide constructs that auto-close files e.g. in case of errors/exceptions.
+- Some languages provide decorators that enhance the low-level write/read operations
+- You may /append/ to the end of a file, but it is equally common to just /overwrite/ the entire file.
+
+* Examples (Python)
+#+begin_src python :results output
+
+my_file = open("file_name", "w")
+my_file.write("Overwriting the file with some contents here")
+my_file.close()
+
+my_file = open("file_name", "a")
+my_file.write("Appending some text")
+my_file.close()
+
+my_file = open("file_name", "r")
+file_contents = my_file.read()
+my_file.close()
+
+print("File contains:", file_contents)
+#+end_src
+
+#+RESULTS:
+: File contains: Overwriting the file with some contents hereAppending some text
+
+** Add Exception handling
+- In case e.g. a write fails (or your program fails), you will have a dangling file handle
+- There is a nicer construct for this, i.e. =with ... as:=
+
+#+begin_src python :results output
+  with open("file_name", "r") as my_file:
+      print(my_file.read())
+#+end_src
+
+#+RESULTS:
+: Overwriting the file with some contents hereAppending some text
+
+** Reading single lines
+- =file.read()= reads the entire file.
+- Two other options, =readline()= or =for line in file=
+
+#+begin_src python :results output
+  # Option 1, "for line in file"
+  with open("example_manylines.txt", "r") as my_file:
+      for line in my_file:
+          print(line.strip())
+
+  # Option 2, readline()
+  with open("example_manylines.txt", "r") as my_file:
+      line = my_file.readline()
+      while line:
+          print(line.strip())
+          line = my_file.readline()
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Question Does it Swim?
+Question Does it have flippers?
+Animal seal
+Animal fish
+Animal bird
+
+Question Does it Swim?
+Question Does it have flippers?
+Animal seal
+Animal fish
+Animal bird
+
+#+end_example
+** Reading formatted data
+- Standard readers for standard fileformats
+- Not standard how to access them.
+
+#+begin_src python
+import csv
+
+# Open the CSV file
+with open("example.csv", newline='') as csvfile:
+   
+    # Create a CSV reader object
+    csvreader = csv.reader(csvfile)
+    
+    # Read and print each row
+    for row in csvreader:
+        print(row)
+#+end_src
+
+#+begin_src python
+import json
+
+# Open the JSON file
+with open("sample1.json", "r") as jsonfile:
+    
+    # Load the JSON data
+    data = json.load(jsonfile)
+    print(data)
+#+end_src
+* Limitations
+- You have to yourself implement:
+  - error handling
+  - concurrency management
+  - search functionality
+- Large datasets with small changes
+  - Impractical to overwrite e.g. a 1GB file
+* Enter: Databases
+- A /Database/ is a program that specialises in /storing/ and /searching/ data
+- /Query/ the database instead of writing a program to read a file.
+- Rich /query language/ that makes it "easy" to ask complicated questions
+- Helps you enforce rules on /data structure/ and /data types/
+* Complex updates \to Transactions
+- A data update may consist of several parts, for example:
+  1. List the distances for all payment fees for a particular city
+  2. Find all drivers within the available distances
+  3. Find all vehicles that these drivers may drive within the right distance
+  4. Create an order to drive from point A to point B, with pickup at time T_1 and delivery at time T_2
+  5. Select an appropriate vehicle and add to the order
+  6. Select a suitable driver and add to the order
+  7. Mark the vehicle as occupied for the duration of the order
+  8. Mark the driver as occupied for the duration of the order
+  9. Schedule a reminder to the driver
+  10. Schedule a reminder to the vehichle preparation service to clean the vehichle.
+
+- Simpler example:
+  1. Check if there is more than X in your bank account
+  2. Withdraw X from your bank account
+  3. Insert X on your landlords bank account.
+
+- If /any/ part of these chains do not work, then /nothing/ should be updated
+- /no/ updates to /any/ part of the chain may occur during the update
+- If the system fails at any point, then nothing should be updated
+
+\therefore /Everything must happen together/ as a single *Transaction*
+* ACID
+Fundamental principle for databases:
+
+- Atomicity :: The entire update succeeds, or nothing.
+- Consistency :: All data is correct after the update.
+- Isolation :: Every update happens separate from other updates.
+- Durability :: The result from a successfull update is permanent.
+* Not all Databases are the same
+1. /Key-Value stores/ 
+   - Data (of all kinds) are stored under a /key/.
+   - Often used as a pre-cache for writing Big Data.
+2. /Document-oriented/ Databases
+   - like /key-value/, but indexed and searchable data
+   - No need for common data structure -- every entry may have its own attributes.
+3. *Relational Databases*
+   - "classic" database
+   - Focus on /tables/ and /relations between tables/
+   - Clear description of the fields each datum contains, and the types of these fields
+   - Can ask complex questions that retreive information from many tables
+   - Close relation to /set theory/ from mathematics.
+4. /Object Oriented Databases/
+   - Similar to object oriented programming
+   - Objects may be flagged as "persistent"
+5. /Graph Databases/
+   - Data is structured as /nodes/ and /edges/
+   - Useful when relations between similar nodes are in focus
+   - In a relational database, the edges are defined by the queries
+   - In a graph database, the edges are described together with the nodes.
+* Not all relational databases are the same
+- Relational databases have been around a long time, so there are many choices.
+- For a long time, /Oracle/ was dominant, followed by /IBM DB2/
+  - /mySQL/ is also Oracle (today)
+- Amazon, Google, Microsoft have their own cloud based solutions
+
+Open-Source-alternatives:
+- PostgreSQL
+- MariaDB
+- SQLite (SQLite is special, see below)
+
+"real" databases
+- Usually run on a separate machine ( or container )
+- Scalable; can add more storage when the size of your data increases
+- Even further scalable; several machines can collaborate for really big or busy databases
+- Can manage a large number of concurrent connections
+
+SQLite
+- A /file/ with a fancy interface
+* SQL -- Structured Query Language
+- SQL /Structured (English) Query Language/ is a "programming language" to query databases
+  - Actually, it is a language for discrete mathematics.
+- Invented 1974, has evolved alongside relational databases
+- Uses english rather than obscure mathematical notation.
+
+Example:
+#+begin_src sql
+  CREATE TABLE weather (
+       city    varchar(80),
+       temp_lo int,
+       temp_hi int,
+       prcp    real,
+       date    date
+  );
+
+  INSERT INTO weather VALUES ('San Francisco', 46, 50, 0.25, '1994-11-27');
+  INSERT INTO weather (city, temp_lo, temp_hi, prcp, date) 
+         VALUES ('San Francisco', 43, 57, 0.0, '1994-11-29');
+
+  SELECT city, temp_lo, temp_hi, prcp, date FROM weather;
+  SELECT * FROM weather WHERE city = 'San Francisco' AND prcp > 0.0;
+  SELECT * FROM weather ORDER BY city;
+  SELECT DISTINCT city FROM weather ORDER BY city;
+
+  DELETE FROM weather WHERE date < now() - interval '5 years';
+
+  DROP TABLE cities;
+#+end_src
+* Example Relational Database
+First, describe /tables/
+- A /Vehicle/ has the fields ~{_id, type:varchar(50), position:point }~
+- A /Driver/ has the fields ~{_id, name:varchar(50),position:point }~
+
+Collections get their own tables:
+- /DriverAvailability/ with the fields ~{_id, driver_id, startTime:Date, endTime:Date, available:boolean}~
+  - In your program, you would use an array inside the /Driver/ class for this
+  - SQL does not support arrays, so you need a separate table, using the /foreign key/ =driver_id=
+
+- /DriverVehicle/ with the fields ~{_id, driver_id, vehicle_type:varchar(50)}~
+  - Relations, too, need a table that acts as a bridge between source and target.
+** Examples of contents
+Example /Vehicle/
+| _id | type          | position              |
+|-----+---------------+-----------------------|
+|   0 | Station Wagon | (56.182759,15.591855) |
+|   1 | Roadster      | (56.161405,15.586522) |
+|   2 | Van           | (56.182759,15.591855) |
+|     | ...           |                       |
+|-----+---------------+-----------------------|
+
+Example /Driver/
+| _id | name  | position              |
+|-----+-------+-----------------------|
+|   8 | Kalle | (56.182759,15.591855) |
+|  12 | Emma  | (56.161405,15.586522) |
+|     |       |                       |
+
+Example /DriverAvailability/
+| _id | ~driver_id~ | startTime | endTime | available |
+|-----+-----------+-----------+---------+-----------|
+|   0 |         1 |     08:00 |   12:00 | false     |
+|   1 |         1 |     12:00 |   14:00 | true      |
+|   2 |         1 |     15:00 |   17:00 | false     |
+|   3 |        42 |     06:00 |   17:00 | true      |
+|     |       ... |           |         |           |
+|-----+-----------+-----------+---------+-----------|
+
+Note that the driver with id =1= has three /rows/ in the table -- one for each time.
+** Example Query
+1. From /DriverAvailability/, find all =driver_id= available at 11:00
+2. From /DriverVehicle/ find all =Vehicle.type= that these =driver_id='s are allowed to drive
+3. From /Vehicle/ find the =position= of all vehicles that match these =Vehicle.type=
+4. From /Driver/, find the =name= of all the =driver_id='s where =Driver.position= is near =Vehicle.position=
+
+... Preferrably, we want to do this as a single query.
+
+*Question:* What is the result we expect from this query?
+** Result of Query
+- This is where the relational algebra comes into play
+- We "join" rows in different tables using shared values in specific columns.
+
+| Vehicle  |      | DriverVehicle |           |    Driver |       |          | Comment                            |
+| position | =type= | =vehicle_type=  | =driver_id= | =driver_id= | name  | position |                                    |
+|----------+------+---------------+-----------+-----------+-------+----------+------------------------------------|
+| (X)      | Van  |               |           |           |       |          | No drivers can drive a van         |
+| (Y)      | Bus  | Bus           |         8 |         8 | Kalle | (q)      | Kalle and Emma may drive busses    |
+| (Y)      | Bus  | Bus           |        12 |        12 | Emma  | (w)      |                                    |
+| (ZZ)     | Bus  | Bus           |         8 |         8 | Kalle | (q)      | Another bus                        |
+| (ZZ)     | Bus  | Bus           |        12 |        12 | Emma  | (w)      | that Kalle and Emma also may drive |
+|----------+------+---------------+-----------+-----------+-------+----------+------------------------------------|
+
+
+#+begin_src sql
+  -- old school:
+  SELECT driver.name 
+         FROM vehicle, drivervehicle, driver 
+         WHERE vehicle.type = drivervehicle.type 
+         AND drivervehicle.id = driver.id
+         AND vehicle.position <@> driver.position;
+  -- (Cave! the <@> -operator may not always exist)
+
+  -- with joins:
+  SELECT name FROM driver
+         JOIN drivervehicle ON drivervehicle.id = driver.id
+         JOIN vehicle ON drivervehicle.type = vehicle.type
+         AND driver.position <@> vehicle.position; 
+#+end_src
+* Keys
+- Columns or sets of columns that uniquely identify one row is called a /key/
+- Primary Key :: uniquely identify one row in the current table
+- Foreign Key :: reference to data in some other table
+- Rules in the database help with uniqueness
+  - There may be an implicit =_id= column, but you can use other columns too.
+- Keys are used often, the database will use them to optimise.
+* NoSQL Databases
+- In a /document database/, relational algebra is less important
+- Instead, each document should be searchable on its own.
+
+- Documents /may/ be structured, e.g. a JSON post
+  - \dots But they need not be. The same collection may contain text, images, video, sensor data, etc.
+- Documents /may/ have the same or similar structure, e.g. certain pre-determined fields
+  - \dots But they need not have.
+- My personal preference is to keep the same structure for all elements in a collection
+  - /reading/ from the database is easier if you know what fields to expect
+  - old Bears schooled in relational databases will like you more
+
+- As the name implies NoSQL databases do not use SQL
+  - Each database tool may have their own language
+  - Some database tools may only provide an API -- not a query language
+
+#+begin_src javascript
+  await postgreClient.query('SELECT name FROM customers WHERE city=ANY($1)', [ ['London', 'Paris'] ]);
+  await MongoDB.CustomersCollection.find({city: {$in: ['London', 'Paris']}});
+#+end_src
+* NoSQL and Eventual Consistency
+- NoSQL databses often optimise for /clustering/
+  - i.e., many database nodes that collaborate
+  - optimise for /writing/ new data, rather than /reading/
+
+- Many NoSQL databases do not guarantee ACID (Atomicity-Consistency-Isolation-Durability)
+- Instead, they claim /Eventual Consistency/
+
+*Example:*
+1. User A posts to =db-node-1=
+2. User B reads from =db-node-1= and sees the new post
+3. User C reads, at the same time, from =db-node-2= and /does not/ see the new post
+4. The databases synchronise, allowing user C to also see the new post.
+
+In a relational database, User A would have to wait until the transaction is complete on /all/ nodes.
+- Neither User B or User C would see the new post until the transaction is complete.
+- The integrity of the database is protected at all times!
+- No-one may view a database in the middle of a transaction.
+- The /writer/ of data ensures that the entire operation is done within one transation.
+
+In an eventual consistent database
+- Anyone may read and view the database in the middle of a transaction
+- The /reader/ must check and compensate in case the data is inconsistent.
+* With Great Freedom comes Great Responsibility
+- NoSQL databases have increased in popularity
+  - Easy to get started with
+  - Design-as-you-go ; no need for an upfront database design before you start coding.
+  - Queries are created when you need them.
+  - Relations between data can be coded in your favourite programming language instead of in relational algebra.
+  - No upfront planning ; hack away!
+
+However,
+- In a large project, anyone may write any data they want to any collection
+- When you read data you do not know its format, its fields, or for what the fields are being used
+- Without plan you create a future maintenance burden.
+
+#+begin_src javascript
+  // This not efficient programming, it is is a passively aggressive word salad!
+  return DocumentStore.find(query).sort({time:1})
+      .catch( err => { debug('Error while fetching data. \nQuery: %s \nError: %s', query, err); })
+      .then( result => {
+        if (result) {
+            if (result.field) {
+                if (!isNaN(parseFloat(result.field))) {
+                    if (0 >= parseFloat(result.field)) {
+                        finallyProcessResults(results); // Only here do we know that the data is complete.
+                    } else {
+                        throw 'result.field is negative';
+                    }
+                } else {
+                    throw 'result.field is not a float';
+                }
+            } else {
+                throw 'result.field does not exist';
+            }
+        } else {
+            throw 'did not receive any result from query';
+        }
+      })
+      .catch( err => { debug('Error while parsing data. \nQuery: %s \nError: %s', query, err); });
+#+end_src
+* More SQL, Manage and Limit the Answers
+- WHERE :: Conditions that must match to include a row in the answer
+- GROUP BY :: Collect all rows with the same value into a single row
+- HAVING :: Filter with additional conditions
+- SELECT DISTINCT :: Only provide unique answers
+- ORDER BY :: Decide which column to use for sorting the answers
+- LIMIT :: Only return the first =X= answers
+- OFFSET :: Skip the first =Y= answers.
+  - Often used togeter, e.g.  *LIMIT 20 OFFSET 40* gives 20 answers starting from answer 40.
+
+#+begin_src sql
+  SELECT name,address FROM customers
+         WHERE customers.city = ANY( SELECT name from cities WHERE population>20000 )
+         AND customers.loyaltyStatus = 'premium'
+         GROUP BY address,name
+         HAVING age>18
+         ORDER BY city,address,name;
+#+end_src
+* Transactions
+- For more complicated operations that need to be divided into separate steps.
+
+- BEGIN :: start a transaction
+- COMMIT :: end and execute the transaction
+  - Execute all updates
+  - Selects have already been done, and the database is /prepared/ for the updates.
+- ROLLBACK :: abort the transaction.
+  - something went wrong, some conditions were not met
+  - do not execute any updates
+* Manage the answers: All at once or a Cursor
+- The results of a query can be many, many rows.
+- To get all answers in e.g. an array would require lots and lots of memory.
+- Instead, many databases return a /Cursor/ to the results.
+- This cursor is then used to fetch a manageable amount of results at the time.
+
+#+begin_src javascript
+  const {Client} = require('pg');
+  const Cursor = require('pg-cursor');
+  const connection = { host: 'db', database: 'FleetManagement', user: 'postgres', password: 'hunter2' };
+
+  async function fullSearch() {		// Hämta alla resultaten på en gång
+      const client = new Client(connection);
+      await client.connect();
+
+      let result = await client.query('SELECT * FROM chauffeaurs')
+      console.log('full', result.rows);
+
+      await client.end();
+  }
+
+  async function cursorSearch() {	// Hämta några i taget
+      const client = new Client(connection);
+      await client.connect();
+
+      const cursor = client.query(new Cursor('SELECT * FROM chauffeaurs')); // Notera ingen await här.
+
+      const MAXRESULTS = 20;
+      let done = false;
+      while (!done) {
+          let rows = await cursor.read(MAXRESULTS); // Await:en kommer här i stället. Varför?
+          if (0 == rows.length) { done = true; }
+
+          console.log('cursor', rows);
+      }
+
+      await cursor.close();
+  }
+
+  fullSearch();
+  cursorSearch();
+#+end_src
+
+* Summary
+- Create \to *Store* \to Search data
+- Relational algebra, set theory, discrete mathematics
+- Transactions, ACID, Eventual Consistency
+- NoSQL vs SQL
+
+- Become friends with databases early
+  - Some relational database, as well as some document database (noSQL) 
+- You /will/ encounter them, you /will/ find them useful
+
+- There are plenty of things not mentioned in this very brief overivew
+  - Tricks and good ideas for designing your database
+  - Requirements for how to avoid data duplication and ensuring relational consistency
+  - Details in how to write questions
+  - How to optimise your database for reading vs writing
+  - How and why to create /stored procedures/ that are stored and executed within the database
+  - How to create /aggregate pipelines/ for complex multi-stage queries and updates.
+  - \dots and much more.
