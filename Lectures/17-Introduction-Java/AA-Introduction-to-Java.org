@@ -1,0 +1,750 @@
+#+Title: Introduction to Java
+#+Author: Mikael Svahnberg
+#+Email: Mikael.Svahnberg@bth.se
+#+Date: 2025-06-05
+#+EPRESENT_FRAME_LEVEL: 1
+#+OPTIONS: email:t <:t todo:t f:t ':t H:1
+#+STARTUP: beamer num
+
+#+LATEX_CLASS_OPTIONS: [10pt,t,a4paper]
+#+BEAMER_THEME: BTH2025
+
+* Introduction
+- An example of a compiled programming language: /Java/
+  - Compilation cycle
+  - Data Types
+  - Conditions, iterations
+- Quick introduction to /Object Oriented Programming/
+  - Classes, objects, attributes
+- Structuring your application: /Packets/
+
+- Focus is not really Java
+  - Most typed languages behave similarly
+  - The way of working and thinking is similar for most of them.
+  - Java is an example from the /Algol/ family of languages.
+    - Other examples: C, C++, C#, JavaScript
+    - Decent starting point to start learning the entire family
+
+- Series on Youtube: /"Java for the Reluctant"/
+  - https://www.youtube.com/playlist?list=PLRyU9jMTRIX7QUrxZF9HNLbdXtiv6F9MT
+  - https://github.com/mickesv/Reluctant-Java.git
+* Compiled Languages
+- Java and C++ are /compiled/ languages
+  - A tool translates your source code into something machine readable /before/ you run it.
+  - \dots as opposed to e.g. Python, PHP, or JavaScript, where a tool /interprets/ your source code at runtime.
+- This adds a few steps to the toolchain, i.e. =write \rightarrow compile \rightarrow maybe-more-compilation \rightarrow run=
+- If you use a modern IDE you probably do not have to worry too much about this.
+
+Benefits
+- Efficiency (performance /and/ e.g. memory efficiency)
+- Compiler will syntax-check /all/ your code before you deploy
+  - /s/runtime errors/compilation errors/ -- Fix your code before you deploy
+  - Fosters a more stringent approach to programming
+- Source code is not accessible to end-users
+- Smaller size of shipped program
+- Access to low-level APIs on your computer, e.g. Operating System, CPU, network, disk, memory, etc.
+
+Challenges
+- Compiled code /may/ be platform dependent (C++ is, Java isn't)
+- More complex toolchain
+- Difficult to edit a running program on the fly
+- Some programming language constructs are difficult to achieve, e.g. homoiconicity.
+  - (But not impossible; Clojure accomplishes this)
+* Basic Steps
+Java
+1. Write Java Source Code
+2. *Compile* to machine independent =bytecode=
+3. *Interpret* =bytecode=
+
+Optional: Package the bytecode files into a ~JAR~ file.
+
+C/C++
+1. Write Source Code
+2. *Compile* to =runnable binary= or =relocatable machine code=
+3. *Link* relocatable machine code to a =runnable binary=
+4. *Run* the =runnable binary=
+
+*Think about*
+- How does this differ from e.g. Python?
+- What happens in your editor, your RAM, your disk?
+* Getting Started with Java
+1. Make sure you have a JDK/JRE installed
+2. Start a terminal
+3. use ~javac~ to compile a ~.java~ file
+   - ~javac Start.java~
+4. use ~java~ to run a ~.class~ file
+   - ~java Start~
+
+Basic rules:
+- Each class is defined in a file /with the same name as the class/
+  - Class names are in principle case sensitive (lower/upper case letters)
+  - In practice, some filesystems are not; this may create problems.
+  - \Rightarrow Use proper and unique names, and make sure the file and class are spelled the same way.
+- The "root" Class, where you want the program to start /must/ have a ~main()~ function:
+
+#+begin_src java
+  public class Start {
+
+    public static void main(String [] args) {
+    }
+
+  }
+#+end_src
+
+- It is good practice to keep this function /very/ small; a simple printout and an object creation or two.
+- You know about functions, variables, =if= , and =for=: they work similarly in Java
+* Data Types
+#+begin_src java
+  byte smallNumber = 127;
+  short largerNumber = 32767;
+  int normalNumber = 100000; 
+  float smallDecimal = 0.123456f;
+  double largeDecimal = 0.12456789;
+
+  boolean trueOrFalse = false;
+  char singleCharacter = 'A';
+  String someText = "Longer, but not too long Text";
+#+end_src
+
+- All variables must be /declared/ before use
+- Built in data types have no methods, except for arithemtic operations ( ~+-*/%=~ )
+- During arithmetic operations Java tries to convert variables so they can be combined, but does not always succeed.
+- Java also have classes to represent the built in data types as objects, with many useful convenience methods.
+  - e.g. ~Integer.parseInt("123")~
+
+- Builtin data types are small (a few bytes), and managed by the language
+  - Any more complex behavior and you need an /Object/ (created from a class definition)
+  - A /class/ is a user defined type
+  - An /object/ is an instance of a class
+  - A /variable/ refers to a specific /object/
+- Note that =String= is in fact a class
+* Classes and Objects in Java
+- All code in Java is written as part of a /Class/
+- (almost) all code is run within the context of an /object/
+
+Objects must be explicitly created: ~new Pony()~
+- This allocates memory for all the attributes that the ~Pony~ class defines
+- Runs the /Constructor/ on the object to initiate it.
+
+Objects can "pretend" to be of a different type
+- If it implements one or more ~interface~ 
+- If it extends another class
+* References to Objects
+- Object
+  - Representation of /a single entity/
+  - Representation of /a single real world entity/
+  - Representation of /a single real world entity with more than one data attribute/
+  - Representation of /a single real world entity with behaviour and one or more data attributes/
+- Class
+  - Description of all objects of a particular kind
+  - Description of attributes and methods common to one or more objects
+  - Convenient module of related functionality (e.g. ~java.lang.Math~)
+
+- /Object reference/ is a built in data type Java.
+- In C/C++ you often discuss =pointers= and have several chapters about pointer arithmetic
+- In Java, this is simplified, which usually is good.
+  - \sum All variables referring to an object is a /reference/
+  - To copy a variable ( ~a = b~ ) copies the reference /but not the object/
+
+* Objects and Methods
+- Objects have /methods/ (functions) that can be called /on one particular object/
+- An object is a small mini-program, consisting of all the data and all methods in the object
+
+The compiler:
+- Ensures that any method you call is actually available for that object
+- Ensures that the method has the same number of parameters that you call it with
+- Ensures that the method returns a value of the correct type
+- Ensures that the data type of the return value matches the data type of the variable you assign it to.
+- Tries to convert the given parameters so that they match the expected data types
+* Example: A small program
+#+begin_src java :file Start.java
+  public class Start {
+
+  	int addTwo(int num) {
+  		int toAdd = 2; // not really needed, but illustrates variable declaration
+  		System.out.println("Adding " + toAdd + " to " + num);
+
+  		int result = num + toAdd; // Variables can be declared in the middle of a method too
+
+  		return result;  		
+  	}
+
+  	/*
+  		Comments can also
+  		be multi-line  		
+  		,*/
+
+    public static void main(String [] args) {
+  		Start anObject = new Start();
+
+  		System.out.println("The result is " + anObject.addTwo(40) );
+    }
+
+  }
+#+end_src
+
+*Note*
+- Class
+- ~main()~
+- Method declaration: ~return-type name ( parmeter-type parameter-name )~
+- method calling
+- Blocks surrounded by curly brackets ={ }=
+- =return=
+- Object creation =new Start()=, reference =anObject=, using methods on an object.
+* Another Example
+#+begin_src java
+  public class Pony {
+    private String name = "whoami?";      // "name" is an attribute
+
+    public void setName(String theName) { // "theName" is a parameter
+      int nameLength = theName.length;    // "nameLength" is a local variable
+
+      if (0 < nameLength) {
+        int internal; // "internal" is a local variable only available until the end of the if-block
+        name = theName;
+      }
+      // "internal" is no longer accessible here
+    }
+  }  
+#+end_src
+
+*Note*
+- Attributes have one value for the entire object
+- Local variables are defined within the scope of a method or block
+  - Local varables can only used from the point where they are declared (not before)
+  - Local variables are only reachable within the block ={}= they are declared within
+- Parameters are almost like local variables
+  - The value of a parameter is given by the calling method.
+  - The value can be changed within the method, but will not change anything for the caller.
+  - Parameters can not be given a default value in Java
+* Local Variables and Object references
+#+begin_src java
+  public Pony createPony() {
+    Pony thePony = new Pony("Twilight");
+    thePony.setNewBehaviour();
+
+    return thePony;  // Vad returneras här?
+  }
+
+  public Pony modifyPony(Pony thePony) {
+    thePony.setSpeak("We'll do everything by the book.");
+    thePony.updateSpeakTimer(2000);
+    thePony.speak();
+
+    return thePony; // Vad returneras här? Är returen ens nödvändig?
+  }
+#+end_src
+
+- On line two, several things are done
+  1. Create a local variable that will hold an object reference
+  2. Create an object using the ~Pony~ class
+  3. Assign the local variable to reference the new object
+
+* The Details of Defining a Class
+Classes have:
+- Name, e.g. /Ticket/ 
+- "Accessibility statement" in the package where it is declared: ~public~ or ~private~
+  - Public :: Available anywhere
+  - Private  :: Only available from inside the package
+- Any number of /Fields/, or Attributes using the built in data types or object references.
+- Any number of /Constructors/ with the same name as the class.
+
+#+begin_src java :file Ticket
+  public class Ticket {
+    private int aField;
+    public Car anotherField;
+    protected String aThirdField; // We will get back to what "protected" means.
+
+    private String startStation;
+    private String endStation;
+    private String customerId;
+
+    Ticket() {  // Default constructor, used when you create objects without any parameters.
+      startStation = "Karlskrona";
+      endStation = "anywhereElse";
+      customerId = "";
+    }
+
+    Ticket(String theEndStation) {
+      this();
+      endStation = theEndStation;
+    }
+
+    public static void main(String[] args) {    } // Should not be needed, using this just to fool my Compiler.
+  }
+#+end_src
+
+#+RESULTS:
+
+** Chaining Constructors
+- The example above is usually not the best way to chain constructors.
+- More often you want one "complete" constructor and chain yourself to that instead. 
+- Example:
+
+#+begin_src java
+  Ticket(start, end, customer) {
+    this.startStation = start;
+    this.endStation = end;
+    this.customerID = customer;
+  }
+
+  Ticket(start, end) {
+    this(start, end, "DefaultCustomerID");
+  }
+
+  Ticket(end) {
+    this("Karlskrona", end);
+  }
+
+  Ticket() {
+    this("anywhereElse");
+  }
+#+end_src
+
+#+RESULTS:
+
+- You can chain to /one/ other constructor.
+- Has to be the /first/ call.
+- ~this~ always refers to the current object.
+
+* The ~this~ pointer
+- All methods on an object have an implicit parameter ~this~ which points to the object.
+- We do not need to write this in the method signature, Java knows to add it.
+- Not always necessary to use if the method or attribute name is unique anyway.
+- Can be used to disambiguate, e.g. if a parameter has the same name as an attribute.
+- Must be used when "passing on" to another constructor.
+- cf. =self= in Python
+
+#+begin_src java :file Car
+  public class Car {
+    private String licensePlate;
+
+    public Car() {
+      this("Default");
+    }
+
+    public Car(String licensePlate) {
+      setPlate(licensePlate);
+  		// or:
+  		this.setPlate(licensePlate);
+    }
+
+    public void setPlate(String licensePlate) {
+      this.licensePlate = licensePlate;
+    }    
+  }
+#+end_src
+* Conditional Execution: if
+#+begin_src java
+    // Basic form:
+    if ( /* some true or false test */ ) {
+      // Code to run if true
+    }
+
+    // With an 'else':
+    if ( /* some true or false test */ ) {
+      // Code to run if test is true
+    } else {
+      // Code to run if test is false
+    }
+
+    // Daisy-chaining
+    if ( /* some true or false test */ ) {
+      // Code to run if test is true
+    } else if ( /* some other true or false test */) {
+      // Code to run if the first test is false AND the second test is true
+    } else {
+      // Code to run if the first test is false AND the second test is false
+    }
+#+end_src
+
+#+begin_src java :file Car
+  public class Car {
+    private String owner;
+
+    public boolean isAvailable() {
+      if ("" == this.owner) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    public boolean isAbandoned() { // Same as above, but just evaluate the test.
+      return ("" == this.owner);   // We can do this since we did not have any other code that
+    }                              // we wanted to execute. Until we do, then we need to refactor.
+  }
+#+end_src
+
+* Traversing a Collection: for-each
+#+begin_src java
+  Customer c = new Customer();
+  c.addTicket(new Ticket("Spartacus", "19:00 tonight"));
+  c.addTicket(new Ticket("Ben Hur", "15:00 this afternoon"));
+
+  for (Ticket t : c.getTickets()) { // For each element t of the type Ticket in collection c.getTickets()
+    System.out.println(t.toString());
+  }
+#+end_src
+
+#+RESULTS:
+: Ticket for Spartacus at 19:00 tonight
+: Ticket for Ben Hur at 15:00 this afternoon
+
+* Other forms of Iteration: while
+#+begin_src java
+  int x = 5;
+
+  while (0 <= x) {
+    System.out.print(" " + x);
+    x--; // If you forget this line, x will never update and the while loop will continue forever.
+  }
+
+  System.out.println();
+  System.out.println("x = "+x);
+#+end_src
+
+#+RESULTS:
+:  5 4 3 2 1 0
+: x=-1
+
+- Repeat while some condition tests to ~true~
+- Can go on forever, if you are not careful
+- Often used if you do not know when to end, e.g.
+  - /while (user has not exited the menu)/
+  - /while (there are more elements in the database)/
+  - /while (there are more lines in this file)/
+  - /while (I still have not found a movie that shows tonight)/
+- Boolean expression can be arbitrarily complex:
+  ~while (index < myTickets.size() && !found && !userAborted)~
+* While without index
+#+begin_src java
+  int f0=0;
+  int f1=1;
+  int fn=f1 + f0; // Fibonacci Sequence
+
+  while (fn < 100) {
+    System.out.print(" " + fn);
+    f0 = f1;
+    f1 = fn;
+    fn = f1 + f0;
+  }
+#+end_src
+
+#+RESULTS:
+:  1 2 3 5 8 13 21 34 55 89
+* Yet another iteration: for
+#+begin_src java
+  for (int i = 0; i < 10; i++) {
+    System.out.print(" " + i);
+  }
+
+#+end_src
+
+- ~for (/<initialisation>/ ; /<condition>/ ; /<increment>/) { /<statements>/ }~
+- Difference to for-each is that we can use the iterator (e.g. ~i~ above) inside the loop
+- Does not have to look like above, initialisation, condition, and increment can be quite different:
+
+#+begin_src java
+  for (Query q=new Query("Select * from Users") ; q.hasMoreElements(); q.nextElement() ) {
+    System.out.println(q.currentElement());
+  }
+
+  for (Iterator<Ticket> it = myTickets.iterator() ; it.hasNext() ; /* empty increment */ ) {
+    Ticket t = it.next();
+    // ...
+  }
+#+end_src
+
+-Compare to the while loop:
+
+#+begin_verse
+/<initialisation>/;
+while (/<condition>/) {
+  /<statements>/
+  /<increment>/
+}
+#+end_verse
+
+* More on Object Oriented Programming
+* Background: Data Representation and Manipulation
+- Computer Programs are essentially about /Data/, e.g.
+  - Text
+  - Bank Account Information
+  - Demographics
+  - Warehouse Inventory
+  - Medical Journals
+  - Collections of Live or Historical Measurements from some device
+  - Images, Video, \dots
+  - Maps
+  - \dots
+- Some data only exist within the realm of a computer program
+- Other (most) data represent something in the real world
+
+Challenges
+- /Represent/ the data accurately
+- /Manipulate/ the data consistently
+- /Store/ data sufficiently durably
+* Representing Data
+- Simple datatypes: /int, float, char/
+- Compound datatype: /person, bank account, text document, position/
+
+Challenge
+- We usually do not only store /one/ datum; we have collections of data, e.g.
+  - /temperature readings every minute for the past 24 hours/
+  - /persons currently employed by this company/
+  - /patients in Sweden/
+* Manipulate Data
+- Program Structuring ensure that all code that manipulates a certain type of data is found in the same place.
+  - All code that manipulates /X/ is in this directory.
+  - All code that manpulates /X/ is in this file.
+  - All code that manipulates /X/ have the moniker ~X~ in their name.
+  - \dots
+  - /Only/ code with an ~X~ in their name is allowed to operate on /X/.
+  - code with an ~X~ in their name is only allowed to operate on a single instance of /X/.
+  - \dots 
+- The data representation may make it easier or harder to manipulate the data /consistently/.
+  - All parts of /X/ start with ~X~ , .e.g. ~PersonName~, ~PersonPhoneNumber~, ~PersonAddress~,
+  - Position ~i~ in all collections represent part of the same datum, e.g. ~PersonName[1]~ has the corresponding ~PersonPhoneNumber[1]~.
+
+Or, we may take a different approach.
+* Objects: Representing Compound Data Types
+#+begin_src c
+  struct Person {
+    char name[50];
+    char phoneNumber[20];
+    struct Address address;
+  };
+
+  struct Person p1;
+#+end_src
+
+#+begin_src javascript
+  let p1 = {
+      name: "",
+      phoneNumber: "",
+      address: {},
+  };
+#+end_src
+
+- In both these examples, we have created an /Object/ ~p1~.
+- ~p1~ contains three datum, name, phoneNumber, and address.
+- We can create another Object, ~p2~ which may contain a different name, phoneNumber, and address.
+- In fact, we can create a whole collection of ~Person~ objects.
+* Objects: Encapsulating Behaviour
+- Compound data types is a nifty extension to the built-in data types, we can now create our own types.
+
+However:
+- we still have to keep track of where we put the code to manipulate these data.
+- all data is still available to anyone, we cannot protect access.
+
+*Encapsulation*
+- Cleaner public interfaces of object/class/package/subsystem/system/service
+- Protect data from unsanctioned access
+- Focus each object/class on /their/ task, remain unaware of other objects and tasks.
+- /Easy To Change/
+
+Example: How to get from /Victoria Station/ to /Paddington Station/? 
+- Know every road and roadblock along the way?
+- Know the bus-routes that will take you there?
+- Know which tube-line to board?
+- Know how to wave down a taxi?
+
+- /Do not/ know how to drive a car in London traffic.
+- /Do not/ know whether there is enough fuel in the taxi.
+- /Do not/ know how other travellers will get there, their names, or anything else about them.
+* Classes describe Objects
+- Java and C++ are /typed languages/
+- Every item of data must have a type
+- At the very basic level it is used to allocate sufficient memory for the data item.
+- The language enforces type consistency, if you'll let it.
+  - (A ~Person~ can only be accessed as a person and not e.g. as a ~Car~ ).
+
+- Developer-defined data type ≃ *Class*
+- describes the structure of the data type
+- gathers methods (functions) that operate on the data.
+- Encapsulates methods and parts of the data type to create a cleaner interface.
+- /Blueprint for creating objects/
+- /Description for what a developer may do with an object/
+- The programming language helps developers to "stick to the script"
+* One Class, many Objects
+#+begin_src java
+  public class Person {
+    private String name;
+    private String phoneNumber;
+    private Address address;
+
+    // Constructors and methods
+    // ...
+  }
+
+  // ...
+  Person p1 = new Person("Ada", "1", "Newstead Abbey");
+  Person byron = new Person("George Gordon", "0", "Newstead Abbey");
+  Person[] students = new Person[25];
+  System.out.println(new Person("Coleridge", "2", "Coleridge Cottage"));
+#+end_src
+
+- Same class is used to create many objects
+- Each object contains the same attributes (variables), but with their own values.
+- Each object contains the same set of methods (functions).
+- Each object contains all the necessary data to describe /one and only one/ instance of that type.
+- You /may/ have a variable that reference an object.
+- The name of this variable is unknown to the object itself.
+- The variable name can (and often will) change as you pass an object around.
+* Summary
+- *We use objects to represent the real world.*
+  - *Reduced cognitive gap (Real World Object \Leftrightarrow Object in Computer Program)*
+- Classes describe Objects
+- Classes, or Types, are necessary in programming languages such as Java or C++.
+  - Encapsulates a compound data type
+  - Encapsulates associated behaviour
+
+- Object Oriented Programming with Classes is /one/ language design choice
+  - Other languages (e.g. JavaScript) do not /need/ classes but they help readability and maintainability.
+  - Other languages (e.g. Clojure) do not encapsulate behaviour together with data
+    - focus instead on describing data types and their relations
+    - made possible because data is immutable && code structure is enforced in other ways.
+
+* Some more on Java Strings :Extra:
+- A String is an /immutable object/ in Java.
+- We can glue together (concatenate) strings: ~"First" + "Second"~ 
+- The result, however, is a /new/ string ~"FirstSecond"~
+
+#+begin_src java
+  String f = "First";
+  String s = "Second";
+  f = f+s; // Create a new string "FirstSecond" and store a reference to it in f. Garbage collect the string "First".
+
+  // Be wary of the == operator:
+  String ss = "Second";
+  String fs = "FirstSecond";
+
+  System.out.println(s==ss);
+  System.out.println(f==fs);
+
+  // Instead, use equals():
+  System.out.println(f.equals(fs));
+
+  // Many concatenations drive the garbage collector into overtime.
+  // Better to use a StringBuilder:
+  StringBuilder sb = new StringBuilder();
+  for (int i = 0; i < 1000; i++) {
+    sb.append(f);
+  }
+
+  System.out.println(sb.toString());
+#+end_src
+* Deeper into the Difference between built in Data Types and Objects :Extra:
+- Computer Memory is used in two ways:
+  - Heap :: allocate a piece of memory at a random place with ~new~
+  - Stack :: One continuous piece of memory that shrinks and grows based on current needs.
+
+#+begin_src java
+   int x; // allocate four bytes on the top of the stack. When x is used, these four bytes are what is being used.
+   Car c3; // allocate 64 bits on the top of the stack
+
+   new Car(); // allocate size of all attributes in Car on the heap
+              // since we don't do anything with this, it will go straight
+              // to the garbage collector.
+
+  Car c4 = new Car(); // allocate 64 bits on the top of the stack AND
+                      // the size of Car on the heap.
+                      // Put the address of the Car object in the 64 bits referred to by c4.
+
+  c3 = c4; // Copy the address of c4 into c3 (the specific 64 bits on the stack referred to by c3)
+           // UNLESS the class Car has a copy constructor. Which we'll get to eventually.
+
+  int y = x; // allocate four bytes on the top of the stack AND
+             // copy the contents of the four bytes referred to by x into these.
+  y = y +1;  // Since y is a copy, this does not change the value of x
+  c3.setSpeed(70) // c3 and c4 refer to the same object, so c4.getSpeed() will also return 70 now
+
+  public int someMethod(int aParameter) { // Nothing really happens here, BUT when the method is called:
+                                           // Allocate four bytes on the stack AND 
+                                           // copy the parameter value from wherever someMethod() is called.
+
+    int localVar; // Allocate four bytes on the stack
+    Car c3 = new Car(); // Allocate four bytes on the stack for the variable c3
+                        // AND allocate the size of a Car on the heap, as before.
+                        // Within this method, c3 refers to these bytes, and it is
+                        // tricky to access the other c3 that was defined outside this block { }
+
+    c4 = new Car(); // Allocate the size of a Car on the heap AND
+                    // overwrite the previous reference that c4 held.
+                    // The old car goes to the garbage collector.
+    return localVar;
+
+  } // End of this method block
+    // Back up the stack with 64 bits for c3 and four bytes for localVar
+    // The Car formely referred to by c3 is now "free" and goes to the garbage collector.
+    // Push the value previously stored in localVar onto the stack, where it will be 
+    // retrieved by wherever someMethod() was called.
+#+end_src
+
+* Build Tools (multi-file project) :Extra:
+- ~javac~ will follow class dependencies 
+  - /until/ it encounters a class that does not need to be compiled (source code unchanged).
+- C++ compiler will just do one file at the time; need to link everything together afterwards.
+- Can use wildcards ~javac *.java~ to re-build everything.
+
+Build tools save time
+- Your IDE can help you (e.g. a project in Visual Studio)
+- Be a Good Friend (TM), create a ~makefile~.
+  - https://makefiletutorial.com/
+
+#+begin_src makefile
+VARIABLE = value
+
+target: dependency
+  Command to build target
+#+end_src
+** Generic makefile for Java
+#+begin_src makefile
+SRC_DIR := src
+OUT_DIR := out
+DOC_DIR := doc
+sources := $(wildcard $(SRC_DIR)/*.java)
+classes := $(sources:$(SRC_DIR)/%.java=$(OUT_DIR)/%.class)
+
+JC := javac
+JCFLAGS := -d $(OUT_DIR)/ -cp $(SRC_DIR)/
+
+.SUFFIXES: .java
+.PHONY: all clean
+
+all: $(classes) 
+
+$(classes): $(OUT_DIR)/%.class: $(SRC_DIR)/%.java 
+	$(JC) $(JCFLAGS) $<
+
+doc: $(sources)
+	javadoc -public -cp $(OUT_DIR)  $(sources) -d $(DOC_DIR)
+
+clean:
+	$(RM) -r $(OUT_DIR)/*
+
+run: all
+	java -cp $(OUT_DIR) JavaPonies
+#+end_src
+
+* Summary
+- Java is a /compiled/ language
+  - The compiler translates your written code to a /runnable program/
+  - The compiler checks that everything is correct and coherent
+    - (Not all errors can be caught at compile time)
+- Java is a /typed/ language: Every varaible has a specific type
+  - The compiler checks that you use every variable in the right way
+
+- An object is a mini-program within your program
+  - Every /object/ has a /Class/ that describes it
+  - You construct a larger program by creating objects that collaborate to solve a task
+  - Objects have references to other objects
+  - Objects calls methods on other objects
+
+- /Object Oriented Programming/ is a paradigm where
+  - You try to contain behaviour and data into separate classes
+  - You mimic real-world "things" and "concepts" by writing a class for each to reduce cognitive gap
+  - Classes are re-usable
+    - many objects created from the same class
+    - the entire class can easily be moved to a new project
