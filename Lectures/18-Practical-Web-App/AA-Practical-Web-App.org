@@ -1,0 +1,455 @@
+#+Title: Practical: Developing a Web App
+#+Author: Mikael Svahnberg
+#+Email: Mikael.Svahnberg@bth.se
+#+Date: 2025-06-11
+#+EPRESENT_FRAME_LEVEL: 1
+#+OPTIONS: email:t <:t todo:t f:t ':t H:1
+#+STARTUP: beamer num
+
+#+LATEX_CLASS_OPTIONS: [10pt,t,a4paper]
+#+BEAMER_THEME: BTH2025
+
+* Introduction
+- We continue with the "Guess the Animal" Game
+- Tasks:
+  1. Move everything into a Container
+  2. Implement a web interface
+* Quick Recap
+#+begin_src dot :file data-structure-oneIn.png
+  digraph G {
+    rankdir="LR";
+    label="Added 'seal'"
+    bgcolor="transparent";
+    node[width=0.15, height=0.15, fontsize=10.0 color=black, fontcolor=black];
+    edge[weight=2, color=darkgray, fontsize=10.0, fontcolor=darkgray];
+    
+    // Questions
+    q1[label="Does it swim?"]
+    q2[label="Does it have flippers?"]
+
+    // Animals
+    node[width=0.15, height=0.15, fontsize=10.0 color=black, fontcolor=white, style=filled, fillcolor=darkgreen];
+
+    a1[label="fish"]
+    a2[label="bird"]
+    a3[label="seal"]
+
+    // Edges
+    q1->q2 [label="yes"]
+    q1->a2 [label="no"]
+    q2->a3 [label="yes"]
+    q2->a1 [label="no"]
+  }
+#+end_src
+
+#+RESULTS:
+[[file:data-structure-oneIn.png]]
+
+#+begin_src plantuml :file data-structure-tree.png
+abstract class Node {
+  -Node yes_node
+  -Node no_node
+  +string get_question() {abstract}
+  +Node answer(boolean theAnswer) {abstract}
+  +insert(boolean theAnswer, Node newNode)
+}
+
+Node <|-- Question
+Node <|-- Animal
+Node -- "0..2" Node
+
+Question : -string question
+Question : +string get_question()
+Question : +Node answer(boolean theAnswer)
+
+Animal : -string species_name
+Animal : +string get_question()
+Animal : +Node answer(boolean theAnswer)
+#+end_src
+
+#+RESULTS:
+[[file:data-structure-tree.png]]
+
+Also:
+- ~app.py~
+- ~gamelogic.py~
+- class ~ConsoleGame~
+* First Steps
+1. Commit and tag the current version (for easier reference later)
+2. Create ~requirements.txt~ with one line: ~Flask>=3.0.3~
+3. Create a ~Dockerfile~
+4. Create a ~compose.yaml~ file
+5. Create the file ~webgame.py~
+6. Edit ~app.py~ to use ~WebGame~ instead of ~ConsoleGame~
+
+#+begin_src Dockerfile
+FROM python:3.8-slim
+
+WORKDIR /app
+
+COPY requirements.txt requirements.txt
+RUN pip3 install -r requirements.txt
+
+COPY . .
+EXPOSE 5000
+ENV PYTHONUNBUFFERED="yes"
+
+ENTRYPOINT ["python3", "app.py"]
+#+end_src
+
+#+begin_src yaml
+services:
+  animalguesser:
+    image: animalguesser
+    build: .
+    ports:
+      - 5000:5000
+    volumes:
+      - .:/app
+    develop:
+      watch:
+        - action: restart
+          path: .
+#+end_src
+* Diving into WebGame
+1. Add the ~flask~ imports we will need
+2. Add the program-specific imports (same as we had in ~ConsoleGame~)
+3. Define the class
+4. Edit ~start()~ to start listening
+5. Test if it builds and runs ~docker compose up~
+
+#+begin_src python
+from flask import Flask, request, render_template
+
+from node import Node
+from animal import Animal
+from question import Question
+import gamelogic
+
+app = Flask(__name__)
+
+class WebGame:
+    def __init__(self):
+        self.root = None
+
+    def setup(self):
+        self.root = gamelogic.setup()
+
+    def start(self):
+        print("Listening on: http://localhost:5000/")
+        app.run(debug=True, host="0.0.0.0", port=5000)
+#+end_src
+* Web Endpoints
+- =/= is the =startpage()=
+- =/play= is where most of the game's logic will be
+- It is useful to keep =/add= as a separate page
+- The other functionality we had in the console game was:
+  - =/list=
+  - =/save=
+  - =/load= (which we never used in the console game, and do not need here either)
+* Setting up web endpoints
+- Our decision to use a class is less than optimal for flask
+  - We may want access to data in the object (via ~self~)
+  - Flask decidedly does not like this.
+- Advanced programming concept: /Closures/
+  - We define the endpoints as normal functions /within/ a class method
+  - these endpoint methods will be defined only when the class method is first called.
+  - When we call the method, ~self~ is available and can be used also inside the defined functions.
+
+#+begin_src python
+class WebGame:
+    def __init__(self):
+        self.root = None
+        self.setup_endpoints()
+
+# ...
+
+    def setup_endpoints(self):
+        @app.get('/')
+        def startpage():
+            return render_template('index.html')
+#+end_src
+
+- ~render_template()~ expects the directory ~templates~, so we create ~templates/index.html~
+
+#+begin_src html
+<!DOCTYPE html>
+<html>
+<head>
+<title>Guess the Animal</title>
+</head>
+<body>
+<h1>Guess the Animal</h1>
+</body>
+</html>
+#+end_src
+
+* Stateful or Stateless application?
+- Design decision: /We want the application to be stateless/
+  - We /can/ keep track of where in the question-and-answer tree every player is
+  - \dots but it is easier if they do that themselves.
+  - (Note, in the examples below, the actual GameLogic is not represented; this will of course add complexity)
+
+#+begin_src plantuml :file stateful.png
+title: Stateful application
+actor "User" as u
+participant ":System" as sys
+participant ":SessionManager" as ses
+
+u -> sys : I am User 'AX1234', I am thinking of an Animal.
+sys -> ses : User 'AX1234' started playing
+ses --> sys : Ask them 'Does it swim?'
+sys --> u : Does it swim?
+u -> sys : I am User 'AX1234': yes
+sys -> ses : User 'AX1234' says 'yes'
+ses --> sys : Ask them 'Does it have flippers?'
+sys --> u : 'Does it have flippers?'
+#+end_src
+
+#+RESULTS:
+[[file:stateful.png]]
+
+#+begin_src plantuml :file stateless.png
+title: Stateless application
+actor "User" as u
+participant ":System" as sys
+
+u -> sys : I am thinking of an Animal.
+sys --> u : Question N1: 'Does it swim?'
+u -> sys : Answer to Question N1: 'Yes'
+sys -> u : Question N2: 'Does it have flippers?'
+#+end_src
+
+#+RESULTS:
+[[file:stateless.png]]
+
+* Consequence of Stateless: Node ID
+- Nodes need to have a unique ID so they can be found.
+- /However/ We do not actually need to store that ID in the node!
+  - We will need to iterate over the tree for every interaction anyway
+  - So if the ID is the "path" to the node, we can speed things up.
+
+#+begin_src plantuml :file path.png
+title: Embedding path into Node ID
+actor "User" as u
+participant ":System" as sys
+
+sys --> u : Question 0ynny: 'Does it keep its babies in a pouch?'
+u -> sys : Answer to Question 0ynny: 'Yes'
+sys -> u : Question 0ynnyy: 'Does it have cubic poop?'
+#+end_src
+
+#+RESULTS:
+[[file:path.png]]
+
+* Web browser and app
+- The tricky bit with web programming is:
+  - /some/ parts are run server-side (in your python-app)
+  - other parts are run client-side in your web browser
+- For now, consider the call to =render_template()= as a normal function call
+  - Add parameters as needed
+  - "print" these parameters in the html code using ={{double_curly_brackets}}=
+
+#+begin_src python
+        @app.get('/')
+        def startpage():
+            return render_template('index.html', path='', question='Are you thinking of an animal?')
+#+end_src
+
+#+begin_src html
+<form action="/play" method="get">
+<label> {{question}}
+<input type="hidden" id="path" name="path" value="{{path}}">
+<input type="submit" id="answer_yes" name="answer" value="yes">
+<input type="submit" id="answer_no" name="answer" value="no">
+</form>
+#+end_src
+
+*Note* 
+- =hidden= input =path= which is the Node ID as discussed before.
+- Before we play, the =path= is empty =''= .
+- The =name= attribute will be available to us in our =flask= code using =request.args['variable-name']=
+* Play()
+- analoguous (but not exactly identical) to the consolegame
+- This is what we get from the =form= when we submit:
+
+#+begin_src python
+        @app.get('/play')
+        def play():
+            path = request.args['path']
+            answer = request.args['answer'].lower()
+#+end_src
+
+Logic goes as follows:
+1. if ~''==path~ , this is the first play; we want to return the question from the root node.
+2. else, we re-use much of the logic from the consolegame version, except:
+   - /removed/: The question is now asked as part of the previous call
+   - /new/: we need to use =path= to find the =current= node
+   - /modified/: we need to convert the =answer= to a True/False value
+   - /modified:/ for each logic branch, we mostly return with an appropriate =render_template()= call.
+   - /modified/: we need to append the current answer to the =path= in order for the app to move forward.
+
+** Find a Node based on Path :noexport:
+#+begin_src python
+  def find_node(node, path):
+      if '' == path:  return node
+      if '0' == path:  return node
+
+      path = path[1:]             # This is where the main thing starts
+      if '' == path:  return node # Three cases: empty string, 'y', or 'n'.
+      if 'y' == path[0]: return find_node(node.yes_node, path)
+      if 'n' == path[0]: return find_node(node.no_node, path)
+#+end_src
+** Consolegame version :noexport:
+#+begin_src python
+    def _start_guessing(self):
+        current = self.root
+        previous = None
+        previous_ans = None
+        done=False
+        
+        while not done:
+            q = current.get_question()
+            a = self._y_or_n(q)
+            nxt = current.answer(a)
+            
+            if current.guessed_right():
+                print("I knew it! Next time, pick something more difficult.")
+                done=True
+            elif current.guessed_wrong():
+                self._new_animal(current, previous, previous_ans)
+                done=True
+            else: # If both are false, we were not at an Animal node
+                previous = current
+                previous_ans = a
+                current = nxt
+#+end_src
+** Webgame version :noexport:
+#+begin_src python
+        def play():
+            path = request.args['path']
+            answer = request.args['answer'].lower()
+
+            if '' == path:
+                print('first play')
+                return render_template('index.html', path='0', question = self.root.get_question())
+            else:
+                current = gamelogic.find_node(self.root, path)
+                nxt = current.answer('y' == answer[0])
+
+                if current.guessed_right(): # Just restart
+                    return render_template('index.html', path='', 
+                                           question='Are you thinking of an animal?',
+                                           message= 'I knew it! Next time, pick something more difficult.')
+                elif current.guessed_wrong(): # Add a new animal
+                    return render_template('add_animal.html', path=path, last_animal=current.get_name())
+                else:           # ask the next question
+                    path = path + answer[0]
+                    q = nxt.get_question()
+                    return render_template('index.html', path=path, question=q)
+#+end_src
+* Add New Animal
+- This form is so different that we want a separate page for it =add_animal.html=
+- In the same way as with =play()=, we need to find the current node based on the =path=
+- We also use =path= to find the /previous/ node.
+
+#+begin_src html
+<form action="/add" method="get">
+<label>The animal you were thinking of was a:
+<input type="text" id="animal" name="animal"><br>
+
+<label>Please type in a question that would distinguish this animal from a {{last_animal}}:
+<input type="text" id="question" name="question"><br>
+
+<label>For this animal, the answer would be:
+<input type="radio" id="answer_yes" name="answer" value="yes" checked=true><label for="answer_yes">Yes</label>
+<input type="radio" id="answer_no" name="answer" value="no"><label for="answer_no">No</label><br>
+
+<input type="hidden" id="path" name="path" value="{{path}}">
+<input type="submit" id="submit" value="Save">
+<input type="reset" id="reset" value="Clear">
+</form>
+#+end_src
+
+** Consolegame version :noexport:
+#+begin_src python
+    def _new_animal(self, current, previous, previous_ans):
+        new_animal=input("The animal you were thinking of was a ? ").lower()
+        new_question=input(f"Please type in a question that would distinguish a {new_animal} from a {current.get_name()} ? ")
+        new_answer=self._y_or_n(f"For a {new_animal} the answer would be? ")
+        gamelogic.insert(current, previous, previous_ans, new_animal, new_question, new_answer)
+#+end_src
+** Webgame version :noexport:
+#+begin_src python
+        @app.get('/add')
+        def add():
+            new_animal = request.args['animal']
+            new_question = request.args['question']
+            new_answer = request.args['answer'].lower()
+            path = request.args['path']
+            current = gamelogic.find_node(self.root, path)
+            previous = gamelogic.find_node(self.root, path[0:len(path)-1])
+            gamelogic.insert(current, previous, 'y'==path[-1], new_animal, new_question, 'y'==new_answer)
+            return render_template('index.html', path='', 
+                                   question='Are you thinking of an animal?',
+                                   message= f"Added {new_animal} to the collection...")
+#+end_src
+* List
+List is similar to the consolegame but different.
+
+1. We want to collect the names of the animals
+   - We can modify the =gamelogic.traverse()= function to collect return values
+   - Or, we can cheat and use a global variable
+   - There /ought/ to be a third way using closures, but I CBA to figure it out right now.
+   - Except for this, we use the same /visitor/ pattern as before.
+
+2. The names of the animals need to be nicely rendered.
+   - Collect them as an array
+   - Use flask template logic to render:
+
+#+begin_src html
+<div id="list">
+
+{% if known_animals: %}
+<h2>Known Animals:</h2>
+{% endif %}
+
+<ul>
+{% for animal in known_animals: %}
+<li>{{animal}}</li>
+{% endfor %}
+</ul>
+
+</div>
+#+end_src
+* Save, Reload
+- Save and Reload are very similar to the consolegame version
+- Just the output is different:
+  - we use the =render_template= call again.
+  - we re-use the =message= parameter to give some feedback
+* Decorate the pages: Add some quick-navigation
+- Purely in the HTML code
+- Rather than copy-pasting this, we ought to use ={% include 'somefile.html' %}=
+
+#+begin_src html
+<hr>
+[<a href="/">Restart</a>] &nbsp;
+[<a href="/list">List</a>] &nbsp;
+[<a href="/save">Save</a>] &nbsp;
+[<a href="/load">Reload</a>] &nbsp;
+#+end_src
+* Summary
+- Main changes:
+  - =app.py= now uses =WebGame=
+  - =gamelogic.py= now has a method =find_node()=
+  - =webgame.py= is new
+- Containerised the app: =Dockerfile= and =compose.yaml=
+- Stateful vs Stateless apps
+- Let the client keep track of state (=path=)
+- There are things to tidy up in the code, e.g.
+  1. The string /Are you thinking of an animal?/ appears in many places; refactor to a constant.
+  2. =Animal.get_question()= resets the =self._guess= variable.
+     - This was a useful shortcut in the console game
+     - It may now create problems since =answer()= does two things; refactor into two separate methods.
+
+- Next step: Using a database
