@@ -52,7 +52,7 @@ Functionality
 
 Notes:
 - This is a typical /CRUD/ (create-read-update-delete) - pattern
-- The names of the functionalities are chosen to be as unique as possible, as early as possible. This will make it easier to create an UI.
+- The names of the functionalities are chosen to be as unique as possible, as early as possible. This will make it easier to create a command-line UI.
 - You do not need to save any data between sessions, but it will help you during testing (and actually make the application usable).
 * This week
 0. [@0] Create the project /BackupOrganiser/ so that you are ready to start coding.
@@ -61,9 +61,8 @@ Notes:
    - This class contains a list of =DataCollection= objects.
    - It contains /at least/ the following methods:
      - =add_collection(name, description, creation_date, modification_date, updated)= creates a =DataCollection= object and adds it to its list.
-     - =overview()= returns an array containing lists of strings, one list per =DataColection= object
-       - Tip: call =info()= for each =DataCollection= object you have.
-     - =list()= returns an array containing lists of strings, one list per =DataColection= object
+     - =overview()= returns a lists of strings, one string per =DataColection= object
+     - =detailed_overview()= returns an array containing lists of strings, one list per =DataColection= object
        - Tip: create a method =DataCollection.brief_str()= to generate the list of strings.
      - =info(collection_name)= returns a list of strings that represent a single =DataCollection= object
        - Tip: create a method =DataCollection.full_str()= to generate the list of strings.
@@ -85,29 +84,84 @@ Notes:
 - Take a step back and look at the code you have written -- can you improve it?
 - Keep all the =print()= functionality in one place and /not/ in the classes =DataCollection=, =CollectionManager=, or =BackupManager=.
 * Next Week
-1. Create a class =RESTInterface= where you implement a http interface to your app.
-   - =POST /Collection= add a new collection
-   - =GET /Overview= get a JSON object with an overview of all data collections
-   - =GET /List= get a JSON object with a detailed list of all data collections
-   - =GET /Info?name=data-collection-name= get a JSON object with details for one specific data collection
-   - =POST /Backup?name=data-collection-name= add a backup
-   - You may wait with: =GET /Search?name=text=
-   - You may wait with: =POST /Edit?name=data-collection-name=
-   - You may wait with: =DELETE /Delete?name=data-collection-name=
-   - You may wait with: =POST /Unbackup?name=data-collection-name&backup=backup-name=
+1. Create a file =restinterface.py= where you implement a http interface to your app.
+   - =POST /api/Collection= add a new collection
+   - =GET /api/Overview= get a JSON object with an overview of all data collections
+   - =GET /api/List= get a JSON object with a detailed list of all data collections
+   - =GET /api/Info?name=data-collection-name= get a JSON object with details for one specific data collection
+   - =POST /api/Backup= add a backup
+   - You may wait with: =GET /api/Search?name=text=
+   - You may wait with: =POST /api/Edit=
+   - You may wait with: =POST /api/Unbackup=
+   - You may wait with: =DELETE /api/Delete?name=data-collection-name=
 
 *Note*
 - This is why we separated all =print()= statements into a single place; it is now "easy" to create a new frontend.
+- You will need some http interface (e.g. =flask= in Python) for this -- see lab from previous weeks.
+- You will need to modify your =main()= function to start the =RestInterface= for you.
 
 *Tips:*
 - create a method =DataCollection.full_json()= to generate a JSON object for a single DataCollection object.
-- similarly, you want to add methods =overview_json()=, =list_json()=, and =info_json()=  in your =CollectionManager= class.
+- similarly, you want to add methods =overview_json()=, =detailed_overview_json()=, and =info_json()=  in your =CollectionManager= class.
+- You may wish to run your app inside Docker already now.
+- The =POST= endpoints should accept a JSON object; see next slide for examples.
+* Example JSON objects
+#+begin_example
+# Add a Collection
+POST http://localhost:5000/api/Collection
+content-type: application/json
+
+{
+  "name": "web collection",
+  "description": "created over the interwebz",
+  "creation_date": "just now",
+  "modification_date": "only recently",
+  "still_updated": true
+}
+
+# Add a Backup
+POST http://localhost:5000/api/Backup
+content-type: application/json
+
+{
+  "name": "collection 1",
+  "backupname": "DVD Burn",
+  "date": "May 2025",
+  "location": "Top drawer"
+}
+
+# Unbackup
+POST http://localhost:5000/api/Unbackup
+content-type: application/json
+
+{
+  "name": "collection 1",
+  "backupname": "DVD Burn",
+  "date": "May 2025"
+}
+
+# Edit
+POST http://localhost:5000/api/Edit
+content-type: application/json
+
+{
+  "name": "collection 1",
+  "modification_date": "yesterday",
+  "still_updated": true
+}
+
+#+end_example
 * Next Next Week
-1. Make a web interface to use the =RESTInterface= entrypoints you made.
-2. Add a =Dockerfile= and a =compose.yaml= so you can start your application using Docker.
-3. Complete the remaining functionalities
+1. Complete the remaining functionalities
+2. Make a web interface to use the =RESTInterface= entrypoints you made.
+3. Add a =Dockerfile= and a =compose.yaml= so you can start your application using Docker.
+
+*Note*
+- You can get away with a single html page that converts =<form>= data into JSON requests to your already implemented =restinterface=
+- You may instead create separate pages for each of the functionalities and add new routes to manage these.
+  - That's why we included =/api/= in each URL: to separate them from "normal" web endpoints.
 * Show the TA :Assignment:
-Eventually (not this week) you are expected to show a TA when you:
+When the full app is done, you are expected to show a TA when you:
 
 1. Start the application as a docker container =docker compose up=
 2. Demo the application in a web browser
@@ -120,7 +174,9 @@ The TA will look at:
 - How well documented your source code is
 - Your understanding of the source code
 
-* Guess the Animal
+They will /not/ look at
+- How pretty your web page is.
+* This week's Practical: Guess the Animal
 - David H. Ahl, /"101 BASIC Computer Games"/, Digital Equipment Corporation, Maynard MA, 1975.
 - https://archive.org/details/101basiccomputer0000davi/page/18/mode/2up
 - One of the games is /"Guess the Animal"/

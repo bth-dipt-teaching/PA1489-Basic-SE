@@ -132,7 +132,7 @@ hexdump -C /home/msv/Documents/Play/Tornsvala/out/Tornsvala.class | head -20
 00000120  20 53 74 75 6b 61 20 52  49 2d 4a 4b 12 00 00 00  | Stuka RI-JK....|
 00000130  1d 0c 00 1e 00 1f 01 00  17 6d 61 6b 65 43 6f 6e  |.........makeCon|
 #+end_example
-* This Week's Lab
+* This Week's Lab :Info:
 1. Install a Package Manager
 2. Install an IDE if you have not already
 3. *Explore* your IDE

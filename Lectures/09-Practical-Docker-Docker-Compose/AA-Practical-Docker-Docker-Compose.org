@@ -12,7 +12,107 @@
 * Introduction
 - Build a small containerised application
 - Assignment Instructions: Show the TA that you can build a small system with Docker.
-* Application Introduction
+* The Lab This Week :Info:
+1) Get Started:
+   1. Make sure Docker is installed
+   2. (Optional) The official tutorials are quite good:
+      - Docker https://docs.docker.com/get-started/
+      - Docker with node.js  https://docs.docker.com/language/nodejs/
+      - Docker with python https://docs.docker.com/guides/python/
+   3. Clone the /PonyVoter/ project https://codeberg.org/mickesv/PonyVoter.git
+2) Inspect and Test
+3) Modify
+4) *Show the TA*
+* PonyVoter :Info:
+- PonyVoter presents two options and you vote by clicking on one of them
+- The votes are registered in a database so that you can keep track of which pony is the most popular.
+
+#+ATTR_ORG: :width 300
+[[./PonyVoter-Screenshot.png]]
+** Technical Overview
+- PonyVoter consists of three containers and a database
+  - PonyVoter :: the "front page" of the application that serves web pages to the users
+  - VoteCounter :: registers votes and stores them to the database
+  - StatsPresenter :: calculates how many votes each pony has, and summarises this
+  - MongoDB :: the database where the votes are stored.
+
+- PonyVoter is hopelessly over-designed and at the same time under-implemented:
+  - =VoteCounter= and =StatsPresenter= are extremely simple and probably did not need to be separate containers.
+  - Many things are hard coded.
+  - To keep things simple, no rendering engine (e.g. =Pug=) is used to generate the HTML code.
+  - To keep the project small, there are only six ponies to choose between.
+  - Completeness? Only the bare necessities are implemented.
+  - Scalability? What happens when the total number of votes increases?
+  - Bugs! Of course there are bugs.
+  - Security?
+
+Think about:
+1. What containers should be made available to the user?
+2. How do you ensure that these become available?
+3. How can you start all the containers with a single command?
+* Inspect and Test
+- Study the file =ponyvoter.yaml=
+  - Which /Services/ are launched?
+  - Where can you find the source code for each of these?
+  - What is specified for each container?
+  - Can you see how to access each container (e.g. which network ports to use)?
+- Study the file =makefile=
+  - How do you build the project?
+  - How do you run the project?
+
+Run the project:
+1. Start the application (using =make= or =docker compose -f ponyvoter.yaml up=)
+1. Visit http://localhost:8080 and test the application
+   - Keep an eye on the terminal while running. What is printed?
+2. Abort by pressing =Ctrl-C= in the terminal.
+   - What happens?
+   - Check with =docker images= what images you have
+   - Check with =docker ps -a= what container are running or no longer running
+3. Start again (same command)
+   - What happens?
+   - Note that the statistics are not reset despite all containers being restarted.
+     - Why not?
+     - How can you find out more information about this?
+* Modify
+Your task is to build a new StatsPresenter, =newStats=
+
+- =votecounter= has an API endpoint =/listVotes= that returns a json object with all votes currently cast.
+  - Call this in order to get an updated list of all votes (instead of querying the database)
+- Your new API will consist of:
+  - =/listponies=  returns an array with the names of all ponies (see example below)
+  - =/stats/<ponyname>= returns a json object (see example below)
+  - =/= is kept for historical reasons and will always return an empty array.
+- Make sure that there is console output in each of these functions so that you can see what they do in the log output.
+
+#+begin_example Examples of results
+/listpoinies    returns  ["applejack", "pinkiepie", "rainbow"]
+/stats/rainbow  returns  {_id: "rainbow", count: 2, name: "rainbow"}
+/               returns  []
+#+end_example
+
+Tasks
+1. Modify =ponyvoter.yaml=
+   - add the service =newStats= with appropriate configuration
+   - modify =services/ponyvoter/environment/STATSPRESENTER_HOST= to point towards =newStats=
+     (If applicable, change the port number too)
+2. Implement =newStats= (Run and Test as needed)
+3. You will have to make one change in the =PonyVoter= container: replace calls to ~createStatistics()~ with ~newStatistics()~ .
+* Show the TA :Assignment:
+Show the TA the following:
+
+1. A local clone of the PonyVoter repository
+2. Start the system using =docker compose=
+3. Test the system via a web browser.
+4. Describe each Container
+   - Which containers are there
+   - When is each container "invoked" in the log output?
+   - What does each container do?
+   - What is the difference between image and container?
+5. Show and explain your edited =ponyvoter.yaml=
+6. Show and explain the code for your =newStats= container
+7. Show that you are indeed using the =newStats= container (i.e. that =PonyVoter= is calling =newStatistics()= )
+
+* *IsItPokemon* Application Introduction
 - Based on "Is it Pokemon or Big Data?" ( https://pixelastic.github.io/pokemonorbigdata/ )
 - just /IsItPokemon/
   1. Enter a word, get a reply saying if it is a Pokémon or not.
@@ -171,102 +271,3 @@ Also:
   - Replicated containers
   - third party components (e.g. database, load generators, test APIs, etc.)
 
-* The Lab This Week :Info:
-1) Get Started:
-   1. Make sure Docker is installed
-   2. (Optional) The official tutorials are quite good:
-      - Docker https://docs.docker.com/get-started/
-      - Docker with node.js  https://docs.docker.com/language/nodejs/
-      - Docker with python https://docs.docker.com/guides/python/
-   3. Clone the /PonyVoter/ project https://codeberg.org/mickesv/PonyVoter.git
-2) Inspect and Test
-3) Modify
-4) *Show the TA*
-* PonyVoter :Info:
-- PonyVoter presents two options and you vote by clicking on one of them
-- The votes are registered in a database so that you can keep track of which pony is the most popular.
-
-#+ATTR_ORG: :width 300
-[[./PonyVoter-Screenshot.png]]
-** Technical Overview
-- PonyVoter consists of three containers and a database
-  - PonyVoter :: the "front page" of the application that serves web pages to the users
-  - VoteCounter :: registers votes and stores them to the database
-  - StatsPresenter :: calculates how many votes each pony has, and summarises this
-  - MongoDB :: the database where the votes are stored.
-
-- PonyVoter is hopelessly over-designed and at the same time under-implemented:
-  - =VoteCounter= and =StatsPresenter= are extremely simple and probably did not need to be separate containers.
-  - Many things are hard coded.
-  - To keep things simple, no rendering engine (e.g. =Pug=) is used to generate the HTML code.
-  - To keep the project small, there are only six ponies to choose between.
-  - Completeness? Only the bare necessities are implemented.
-  - Scalability? What happens when the total number of votes increases?
-  - Bugs! Of course there are bugs.
-  - Security?
-
-Think about:
-1. What containers should be made available to the user?
-2. How do you ensure that these become available?
-3. How can you start all the containers with a single command?
-* Inspect and Test
-- Study the file =ponyvoter.yaml=
-  - Which /Services/ are launched?
-  - Where can you find the source code for each of these?
-  - What is specified for each container?
-  - Can you see how to access each container (e.g. which network ports to use)?
-- Study the file =makefile=
-  - How do you build the project?
-  - How do you run the project?
-
-Run the project:
-1. Start the application (using =make= or =docker compose -f ponyvoter.yaml up=)
-1. Visit http://localhost:8080 and test the application
-   - Keep an eye on the terminal while running. What is printed?
-2. Abort by pressing =Ctrl-C= in the terminal.
-   - What happens?
-   - Check with =docker images= what images you have
-   - Check with =docker ps -a= what container are running or no longer running
-3. Start again (same command)
-   - What happens?
-   - Note that the statistics are not reset despite all containers being restarted.
-     - Why not?
-     - How can you find out more information about this?
-* Modify
-Your task is to build a new StatsPresenter, =newStats=
-
-- =votecounter= has an API endpoint =/listVotes= that returns a json object with all votes currently cast.
-  - Call this in order to get an updated list of all votes (instead of querying the database)
-- Your new API will consist of:
-  - =/listponies=  returns an array with the names of all ponies (see example below)
-  - =/stats/<ponyname>= returns a json object (see example below)
-  - =/= is kept for historical reasons and will always return an empty array.
-- Make sure that there is console output in each of these functions so that you can see what they do in the log output.
-
-#+begin_example Examples of results
-/listpoinies    returns  ["applejack", "pinkiepie", "rainbow"]
-/stats/rainbow  returns  {_id: "rainbow", count: 2, name: "rainbow"}
-/               returns  []
-#+end_example
-
-Tasks
-1. Modify =ponyvoter.yaml=
-   - add the service =newStats= with appropriate configuration
-   - modify =services/ponyvoter/environment/STATSPRESENTER_HOST= to point towards =newStats=
-     (If applicable, change the port number too)
-2. Implement =newStats= (Run and Test as needed)
-3. You will have to make one change in the =PonyVoter= container: replace calls to ~createStatistics()~ with ~newStatistics()~ .
-* Show the TA :Assignment:
-Show the TA the following:
-
-1. A local clone of the PonyVoter repository
-2. Start the system using =docker compose=
-3. Test the system via a web browser.
-4. Describe each Container
-   - Which containers are there
-   - When is each container "invoked" in the log output?
-   - What does each container do?
-   - What is the difference between image and container?
-5. Show and explain your edited =ponyvoter.yaml=
-6. Show and explain the code for your =newStats= container
-7. Show that you are indeed using the =newStats= container (i.e. that =PonyVoter= is calling =newStatistics()= )

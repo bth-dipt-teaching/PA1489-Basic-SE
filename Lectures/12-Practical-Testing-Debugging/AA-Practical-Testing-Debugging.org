@@ -9,11 +9,10 @@
 #+LATEX_CLASS_OPTIONS: [10pt,t,a4paper]
 #+BEAMER_THEME: BTH2025
 
-* TODO Introduction
+* Introduction
 - Automated Testing
 - Debugger
-- Assignment Instructions: Show the TA that you can build a small system with Docker.
-
+- Assignment Instructions
 * Automated Testing
 - /Unit Testing/
   - What is the Unit? Function? Class? Component? Use Case? User Story?
