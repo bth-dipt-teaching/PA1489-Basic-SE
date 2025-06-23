@@ -296,7 +296,7 @@ Fix the error:
 Show and explain to the TA the following:
 
 1. Which tests have you added? Show them and explain what they do.
-2. Run ~pytest -v~ . If any tests still fail, explain why.
+2. Run ~pytest -v~ . Explain the output. If any tests still fail, explain why.
 3. Show while you run the debugger on the =quickSort= method
    - Show while you use /breakpoints/, /step over/, /step in/, and /step out/
    - Show the current values of local variables
