@@ -80,7 +80,7 @@ Assessments:
 3. Engineering Diary
 
 Parts:
-1. Work with Git; *show TA while you:*
+1. [ ] Work with Git; *show TA while you:*
    1. Create directory
    2. Create files in directory
    3. Open files in editor; edit; save.
@@ -90,7 +90,7 @@ Parts:
    7. Git add/git commit.
    8. Find files in explorer.
    9. Show files in online repo.
-2. Microservices / Containers
+2. [ ] Microservices / Containers
    1. Clone git repo
    2. Run with docker compose; test via web browser.
    3. Edit one image/container
@@ -104,7 +104,7 @@ Parts:
       2. Show your edit
       3. Run with docker compose
       4. Show you using app via web browser.
-3. Testing and Debug Session
+3. [ ] Testing and Debug Session
    1. Clone project
    2. Run unit-tests
    3. Add some unit tests
@@ -114,55 +114,58 @@ Parts:
       2. Set a Breakpoint and run application
       3. Use the functions Step over, step in, step out, continue.
       4. Inspect the value of a variable
-4. Implementation and Documentation; *Show TA:*
+4. [ ] Implementation and Documentation; *Show TA:*
    1. Start application
    2. Demo application in web browser
    3. Talk through code
-   4. Code is well documented. Docstrings and comments.
-5. Engineering Diary
+   4. TODO: *Code is well documented. Docstrings and comments.*
+5. [ ] Engineering Diary
    1. Specific Questions to answer!
    2. Submit on Canvas
 * TODO Lecture Plan
-** Week 1 [3/4]
+** TODO Week 1 [3/4]
 1. [ ] Lecture: Introduction
 2. [X] Lecture: Datorn och dess Beståndsdelar
 3. [X] Practical: Utvecklingsmiljön - filer, editor, kompilator, mm.
 4. [X] Lab: Se till att utvecklingsmiljön fungerar.
+
+*** TODO Introduce the Engineering Diary Task
 ** Week 2 [4/4]
 1. [X] Lecture: Basic Tools - Editor and Console
 2. [X] Lecture: Configuration Management
 3. [X] Practical: Work with Git
 4. [X] Lab: Work with Git (*Show to TA*)
-** Week 3
-1. Lecture: Virtualisering och Containers (lect 06)
-2. Lecture: Microservice Application Development (lect 12)
-3. Practical: Docker, Docker Compose
-4. Lab: Docker and Docker Compose (*Show to TA*)
-** Week 5
-1. Lecture: Testing and Debugging
-2. Lecture: Documentation of Code
-3. Practical: Debugging
-4. Lab: Testing and Debugging  (*Show to TA*)
-** Week 4
-1. Lecture: User Interfaces (Text, Java, Web)
-2. Lecture: More about HTML
-3. Practical: Developing a small web service
-4. Lab: Develop a new microservice I (one microservice, simple web UI)
-** Week 6
-1. Lecture: Läsa och skriva till Konsollen
-2. Lecture: Läsa och skriva till filer
-3. Practical: Vi skriver en Konsol-app (gissa djuret?)
-4. Lab: Develop a new microservice II (one microservice, simple web UI)
-** Week 7
-1. Lecture: Introduktion till Java
-2. Lecture: Introduktion till JavaScript
-3. Practical: Ett enkelt Java-GUI program
-4. Lab: Develop a new microservice III (one microservice, simple web UI) (*Show to TA*)
-** Week 8
-1. Lecture: Databases Introduction
-2. Lecture: Buffer
-3. Practical: Get Started with Databases
-4. Lab: Buffer
+** Week 3 [4/4]
+1. [X] Lecture: Virtualisering och Containers (lect 06)
+2. [X] Lecture: Microservice Application Development (lect 12)
+3. [X] Practical: Docker, Docker Compose
+4. [X] Lab: Docker and Docker Compose (*Show to TA*)
+** Week 4 [4/4]
+1. [X] Lecture: Testing and Debugging
+2. [X] Lecture: Documentation of Code
+3. [X] Practical: Automated Tests (mocha/chai), Debugging
+4. [X] Lab: Testing and Debugging  (*Show to TA*)
+** Week 5 [4/4]
+1. [X] Lecture: User Interfaces (Text, Java, Web)
+2. [X] Lecture: More about HTML
+3. [X] Practical: Vi skriver en Konsol-app (gissa djuret)
+4. [X] Lab: Develop a new microservice I (one microservice, simple web UI)
+** Week 6 [4/4]
+1. [X] Lecture: Lagring: Filer och Databaser
+2. [X] Lecture: Introduktion till Java
+3. [X] Practical: Developing a small web service (gissa djuret -- Web)
+4. [X] Lab: Develop a new microservice II (one microservice, simple web UI)
+** Week 7 [0/4]
+1. [ ] Lecture: *???*
+2. [ ] Lecture: Introduktion till JavaScript
+3. [ ] Practical: Ett enkelt Java-GUI program
+4. [ ] Lab: Develop a new microservice III (one microservice, simple web UI) (*Show to TA*)
+** Week 8 [3/4]
+1. [X] Lecture: Buffert
+2. [X] Lecture: Buffert
+3. [ ] Practical: Get Started with Databases
+4. [X] Lab: Buffert
+* TODO Move "The lab this week" to top of practical lectures.
 * TODO Update Lectures
 - All Lectures delete "Nästa Föreläsning"
 - Lecture 1: Föreläsningsordning, struktur på kursen, inlämningsuppgifter, övningsuppgifter
@@ -186,6 +189,7 @@ Parts:
 - Lab: Microservices/Containers; suitable project for first container lab.
 - Lab: Microservices/Containers; suitable project for develop a microservice lab.
 - Lab Suggestion: Då-net
+- https://archive.org/details/101basiccomputer0000davi/page/18/mode/2up
 * TODO Write Assignment Descriptions
 * TODO Write Assignment Code
 * TODO Which Development Environment?
@@ -212,3 +216,6 @@ Parts:
   - Examination
     - What to do, when to do it.
     - Marking guides
+* TODO Course Map
+- "Be a Better Programmer", "Tool awareness" -> hands-on skills
+- Revisit in each lecture: intro and in summary
