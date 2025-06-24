@@ -135,7 +135,7 @@ file+emacs:/home/msv/Documents/Play/SorterTool/Python
 
 Commands that may need to be run:
 #+begin_src bash
-source .venv
+source .venv/bin/activate
 pip install pytest
 pytest -v --tb=no
 #+end_src
