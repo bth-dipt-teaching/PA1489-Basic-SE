@@ -2,26 +2,26 @@
 #+TODO: TODO(t) | DONE(d!) WAIT(w!) INFO(i) MORT(m)
 
 
-* From CourseEval [0/18]
-- [ ] Vi utökar den schemalagda laborationstiden där ni kan få tillgång till hjälp och svar på frågor
-- [ ] Vi inför en extra föreläsning per vecka med ett mer praktiskt fokus inför veckans laborationstid.
-- [ ] Strukturen på inlämningsuppgifterna ses över så att de får tydligare steg och inte kräver att man läser hela dokumentet först.
-- [ ] Övningsuppgifterna integreras tydligare med inlämningsuppgifterna.
-- [ ] Föreläsningarna ses över och får ett ökat fokus på de praktiska teknologier som skall användas.
+* From CourseEval [13/18]
+- [X] Vi utökar den schemalagda laborationstiden där ni kan få tillgång till hjälp och svar på frågor
+- [X] Vi inför en extra föreläsning per vecka med ett mer praktiskt fokus inför veckans laborationstid.
+- [X] Strukturen på inlämningsuppgifterna ses över så att de får tydligare steg och inte kräver att man läser hela dokumentet först.
+- [X] Övningsuppgifterna integreras tydligare med inlämningsuppgifterna.
+- [X] Föreläsningarna ses över och får ett ökat fokus på de praktiska teknologier som skall användas.
 - [ ] "Verktygslådan" och hur ni skall arbeta med den under och efter kursen introduceras tydligare.
 
-1. [ ] Write instructions on what to install and how to get going with the tools. (Chocolatey, vscode, venv?, git, docker, docker-compose)
-2. [ ] Extend the lab time to four hours per week and use student TA's.
-3. [ ] Merge Assignment 3 (Testing & Debugging) and the individual assignment into one individual assignment.
-4. [ ] Give Assignment 1 (Collaboration and git) a deadline and get it out of the way early.
-5. [ ] Restructure the assignments altogether so that they have smaller and clearer steps, direct the exercises towards this, 
-6. [ ] and align the lectures accordingly.
-7. [ ] Add one more lecture per week with a practical focus on the lab series.
-8. [ ] Fewer exercises in other programming languages (but keep some of it in the lectures)
-9. [ ] Better Overview of how the pieces fit together into the "project"
-10. [ ] Further stress the "reserve space in toolbox" aspect in intro lecture; also when introducing course book.
-11. [ ] Make Assignment Reviews by TA's during lab times.
-12. [ ] Clarify that other courses teaches how to code; this course discuss /good/ code.
+- [ ] Write instructions on what to install and how to get going with the tools. (Chocolatey, vscode, venv?, git, docker, docker-compose)
+- [X] Extend the lab time to four hours per week and use student TA's.
+- [X] Merge Assignment 3 (Testing & Debugging) and the individual assignment into one individual assignment.
+- [X] Give Assignment 1 (Collaboration and git) a deadline and get it out of the way early.
+- [X] Restructure the assignments altogether so that they have smaller and clearer steps, direct the exercises towards this, 
+- [X] and align the lectures accordingly.
+- [X] Add one more lecture per week with a practical focus on the lab series.
+- [X] Fewer exercises in other programming languages (but keep some of it in the lectures)
+- [ ] Better Overview of how the pieces fit together into the "project"
+- [ ] Further stress the "reserve space in toolbox" aspect in intro lecture; also when introducing course book.
+- [X] Make Assignment Reviews by TA's during lab times.
+- [ ] Clarify that other courses teaches how to code; this course discuss /good/ code.
 ---
 Should we keep team work? How shall we not keep it?
 - Keep Assignment 1 (collaboration and config management) as a team exercise, but with individual report.
@@ -30,7 +30,7 @@ Should we keep team work? How shall we not keep it?
 From Mario
 1. (already partially done) We could use tutorials from YouTube or the OReilly Learning Platform (not sure if it is available to the students).
 2. (no; discussed my reasons with MUU and TFR) Making lab sessions mandatory to attend.
-* Outline
+* DONE Outline
 :LOGBOOK:
 - State "DONE"       from "WAIT"       [2025-03-26 ons 13:00]
 - State "WAIT"       from "INFO"       [2025-03-26 ons 13:00]
@@ -44,7 +44,7 @@ From Mario
 2. Lecture 2 (2h)
 3. Practical Lecture (2h)
 4. Lab Time (4h)
-* Examination
+* DONE Examination
 - Inlämningsuppgift 1 2.5hp *A-F*
 - Inlämningsuppgift 2 2.5hp *A-F*
 - Inlämningsuppgift 3 2.5hp *A-F*
@@ -123,34 +123,62 @@ Parts:
    1. Specific Questions to answer!
    2. Submit on Canvas
 * TODO Lecture Plan
-** TODO Week 1 [3/4]
-1. [ ] Lecture: Introduction
+** DONE Week 1 [4/4]
+CLOSED: [2025-08-11 mån 15:22]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2025-08-11 mån 15:22]
+:END:
+1. [X] Lecture: Introduction
 2. [X] Lecture: Datorn och dess Beståndsdelar
 3. [X] Practical: Utvecklingsmiljön - filer, editor, kompilator, mm.
 4. [X] Lab: Se till att utvecklingsmiljön fungerar.
 
-*** TODO Introduce the Engineering Diary Task
-** Week 2 [4/4]
+*** DONE Introduce the Engineering Diary Task
+CLOSED: [2025-08-11 mån 15:22]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2025-08-11 mån 15:22]
+:END:
+** DONE Week 2 [4/4]
+CLOSED: [2025-08-11 mån 15:22]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2025-08-11 mån 15:22]
+:END:
 1. [X] Lecture: Basic Tools - Editor and Console
 2. [X] Lecture: Configuration Management
 3. [X] Practical: Work with Git
 4. [X] Lab: Work with Git (*Show to TA*)
-** Week 3 [4/4]
+** DONE Week 3 [4/4]
+CLOSED: [2025-08-11 mån 15:22]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2025-08-11 mån 15:22]
+:END:
 1. [X] Lecture: Virtualisering och Containers (lect 06)
 2. [X] Lecture: Microservice Application Development (lect 12)
 3. [X] Practical: Docker, Docker Compose
 4. [X] Lab: Docker and Docker Compose (*Show to TA*)
-** Week 4 [4/4]
+** DONE Week 4 [4/4]
+CLOSED: [2025-08-11 mån 15:22]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2025-08-11 mån 15:22]
+:END:
 1. [X] Lecture: Testing and Debugging
 2. [X] Lecture: Documentation of Code
 3. [X] Practical: Automated Tests (mocha/chai), Debugging
 4. [X] Lab: Testing and Debugging  (*Show to TA*)
-** Week 5 [4/4]
+** DONE Week 5 [4/4]
+CLOSED: [2025-08-11 mån 15:22]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2025-08-11 mån 15:22]
+:END:
 1. [X] Lecture: User Interfaces (Text, Java, Web)
 2. [X] Lecture: More about HTML
 3. [X] Practical: Vi skriver en Konsol-app (gissa djuret)
 4. [X] Lab: Develop a new microservice I (one microservice, simple web UI)
-** Week 6 [4/4]
+** DONE Week 6 [4/4]
+CLOSED: [2025-08-11 mån 15:22]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2025-08-11 mån 15:22]
+:END:
 1. [X] Lecture: Lagring: Filer och Databaser
 2. [X] Lecture: Introduktion till Java
 3. [X] Practical: Developing a small web service (gissa djuret -- Web)
@@ -160,19 +188,31 @@ Parts:
 2. [ ] Lecture: Introduktion till JavaScript
 3. [ ] Practical: Ett enkelt Java-GUI program
 4. [ ] Lab: Develop a new microservice III (one microservice, simple web UI) (*Show to TA*)
-** Week 8 [3/4]
+** DONE Week 8 [4/4]
+CLOSED: [2025-08-11 mån 15:23]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2025-08-11 mån 15:23]
+:END:
 1. [X] Lecture: Buffert
 2. [X] Lecture: Buffert
-3. [ ] Practical: Get Started with Databases
+3. [X] Practical: Buffert
 4. [X] Lab: Buffert
-* TODO Move "The lab this week" to top of practical lectures.
+* DONE Move "The lab this week" to top of practical lectures.
+CLOSED: [2025-06-24 tis 14:18]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2025-06-24 tis 14:18]
+:END:
 * TODO Update Lectures
 - All Lectures delete "Nästa Föreläsning"
 - Lecture 1: Föreläsningsordning, struktur på kursen, inlämningsuppgifter, övningsuppgifter
 - Lecture 1: Verktyg
 - Lecture 1: Flytta "An Executing Program" till Lektion 2 "Datorn och dess beståndsdelar"
 - Lecture "Virtualisation" -- make it more hands-on.
-* TODO Develop Lectures
+* DONE Develop Lectures
+CLOSED: [2025-06-24 tis 14:20]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2025-06-24 tis 14:20]
+:END:
 - Datorn och dess beståndsdelar
 - Practical: Utvecklingsmiljön
 - Practical: Work with Git
@@ -190,20 +230,52 @@ Parts:
 - Lab: Microservices/Containers; suitable project for develop a microservice lab.
 - Lab Suggestion: Då-net
 - https://archive.org/details/101basiccomputer0000davi/page/18/mode/2up
-* TODO Write Assignment Descriptions
-* TODO Write Assignment Code
-* TODO Which Development Environment?
+* DONE Write Assignment Descriptions
+CLOSED: [2025-06-24 tis 14:20]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2025-06-24 tis 14:20]
+:END:
+* DONE Write Assignment Code
+CLOSED: [2025-06-24 tis 14:18]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2025-06-24 tis 14:18]
+:END:
+* DONE Which Development Environment?
+CLOSED: [2025-06-24 tis 14:20]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2025-06-24 tis 14:20]
+:END:
 - Chocolatey
 - vscode, so that it works with Java as well as Python.
 - git; in vscode if necessary
 - docker / docker-compose
-* TODO Läsanvisningar på Canvas i stället
+* DONE Läsanvisningar på Canvas i stället
+CLOSED: [2025-06-24 tis 14:19]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2025-06-24 tis 14:19]
+:END:
 * TODO Övningar till föreläsningarna
-* TODO Get OOE to write instructions for DevEnv
+* DONE Get OOE to write instructions for DevEnv
+CLOSED: [2025-08-11 mån 15:23]
+:LOGBOOK:
+- State "DONE"       from "WAIT"       [2025-08-11 mån 15:23]
+- State "WAIT"       from "DONE"       [2025-08-11 mån 15:23]
+- State "DONE"       from "TODO"       [2025-08-11 mån 15:23]
+:END:
 * TODO Update Course Plan §6
 "... tekniker och metoder inom +objektorienterad design och programmering+ ... " \rarr "... tekniker och metoder inom _grundläggande mjukvaruutveckling_ ... "
-* TODO Assignment Introduction Lecture
-* TODO Course Modules
+* DONE Assignment Introduction Lecture
+CLOSED: [2025-08-11 mån 15:23]
+:LOGBOOK:
+- State "DONE"       from "WAIT"       [2025-08-11 mån 15:23]
+- State "WAIT"       from "DONE"       [2025-08-11 mån 15:23]
+- State "DONE"       from "TODO"       [2025-08-11 mån 15:23]
+:END:
+* DONE Course Modules
+CLOSED: [2025-08-11 mån 15:23]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2025-08-11 mån 15:23]
+:END:
 - Topic
   - Brief Introduction
   - Theory
