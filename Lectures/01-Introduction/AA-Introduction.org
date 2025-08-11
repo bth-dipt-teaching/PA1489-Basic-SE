@@ -87,12 +87,12 @@ Min förhoppning:
 - Kom ihåg att teknologierna /finns/, så att du kan använda dem senare, /när du behöver dem/
 - Försök etablera /några/ goda, pragmatiska vanor redan nu, och bygg på efter hand.
 - Kom tillbaka till det här kursmaterialet om något år (när du behöver) och använd det som referensmaterial.
-* TODO Struktur på Kursen
+* Struktur på Kursen
 - Lärplatform :: Canvas
 - Föreläsningar :: ger en översikt över ämnet och teorin.
 - Läsanvisningar :: inför vissa föreläsningar, I andra fall bara ett ämne som ni kan förbereda er fritt på.
-- Övningar :: om innehållet i varje föreläsning, går på djupet med det praktiska hantverket
 - Examinerade Uppgifter :: sätter samman hantverket till en helhet.
+- Övningar :: om innehållet i varje föreläsning, går på djupet med det praktiska hantverket
 - /Ingen tenta/
 
 Varje vecka:
@@ -107,7 +107,7 @@ D. Thomas, A. Hunt, The Pragmatic Programmer, 20th Anniversary Edition, 2020. IS
 #+ATTR_ORG: :width 400
 [[./Thomas-Hunt-2020-Pragmatic-Programmer.png]]
 
-* TODO Föreläsningar
+* Föreläsningar
 :PROPERTIES:
 :BEAMER_OPT: shrink=5
 :END:
@@ -115,30 +115,37 @@ D. Thomas, A. Hunt, The Pragmatic Programmer, 20th Anniversary Edition, 2020. IS
 - Föreläsningarna använder sig av en blandning av språk (svenska, engelska) och programspråk.
 - Språket och språken är verktyg som du kommer använda dig av på olika vis under hela din studietid och din karriär.
 
-| id | Innehåll                                 |
-|----+------------------------------------------|
-|  1 | Introduktion                             |
-|  2 | Översikt över Utvecklingsmiljön          |
-|  3 | Testning och Debuggning                  |
-|  4 | Dokumentation av Källkod                 |
-|  5 | Ett Kompilerat Språk: Java               |
-|  6 | Användargränssnitt i Java                |
-|  7 | Virtuella Maskiner och Containers        |
-|  8 | Applikationsutveckling med Microservices |
-|  9 | Ett Tolkat Språk: JavaScript             |
-| 10 | Applikationsutveckling med JavaScript    |
-| 11 | Introduktion till Databaser              |
-| 12 | --Buffert--                              |
-| 13 | --Buffert--                              |
-| 14 | --Buffert--                              |
-| 15 | --Buffert--                              |
-| 16 | --Buffert--                              |
-|----+------------------------------------------|
-* TODO Uppgifter i Kursen
+- Varje vecka
+  - Översikt över tekniker och teknologier
+  - Praktiskt arbete med någon teknik
+  - Genomgång av veckans lab-uppgift
+  - Enskilt arbete
+  - Lab-tid för att samla er, få svar på frågor, och redovisa.
+
+Översikt över föreläsningarna:
+
+1. Du och Din Dator
+   - Datorn och Dess Beståndsdelar
+   - Utvecklingsmiljön
+   - God ingenjörspraxis
+
+2. Verktyg för att producera Mjukvaran
+   - Konfigurationshantering
+   - Testning och Debuggning
+   - Olika Programspråk
+   - Dokumentation
+
+3. Modern Utveckling
+   - Containers
+   - Filer och Databaser
+   - Web-services
+   - Web-applikationer
+
+* Uppgifter i Kursen
 - Tre Examinerade uppgifter om vardera 2.5hp:
   1. Konfigurationshantering, Containers, Testning och Debuggning  (Redovisas i labsal)
   2. Implementation och Dokumentation (Redovisas i labsal)
-  3. Ingenjörsdagbok (Lämnas in på Canvas)
+  3. Ingenjörsdagbok (*Lämnas in på Canvas*)
 
 - Uppgifterna är /individuella/ 
   - Ni får väldigt gärna samarbeta när ni arbetar.
@@ -146,9 +153,14 @@ D. Thomas, A. Hunt, The Pragmatic Programmer, 20th Anniversary Edition, 2020. IS
   - Uppgift 2 får redovisas tillsammans (som mest 5 studenter per grupp)
   - Uppgift 3, Ingenjörsdagboken, lämnas in individuellt.
 
+- Uppgifterna introduceras vecka för vecka (se "Practical"- föreläsningarna)
+- Men /läs hela beskrivningen redan nu!/
+  - I synnerhet "Ingenjörsdagboken" skall uppdateras kontinuerligt.
+
 - Kompletteringar:
   - Inom två veckor efter att kursen slutar
-  - När kursen ges nästa gång.
+  - När kursen ges nästa gång
+  - Se Canvas för datum.
 
 - *Ni kommer inte hinna bli världsbäst på de teknologier som behövs!*
   - Kopiera och anpassa i stället.
@@ -175,7 +187,49 @@ Dessutom:
 - Man sätter inte en junior programmerare på att granska kod
 - Företag kommer behöva folk som förstår vad AIn spottar ur sig, vilka säkerhetsbrister den har, och vad man skall göra åt det.
 
-* TODO Introduktion till Uppgifterna
+* Djupare Introduktion till Uppgifterna
+** Uppgift 1: Verktyg
+- Git
+- Docker, Docker Compose
+- Testing & Debugging
+
+Varje del visas i labsal; Uppgiftsbeskrivningen innehåller deluppgifter du skall göra på egen hand, och de steg du skall visa under redovisningen ("Show the TA")
+** Uppgift 2: Implementation och Dokumentation
+- Bygg en mindre applikation, enligt instruktioner i uppgiftsbeskrivningen
+- Steg för steg: Några nya deluppgifter per vecka.
+- Under tiden: Försök komma ihåg och komma igång med goda programmerings-seder
+  - Strukturerad kod
+  - Dokumenterad kod
+** Uppgift 3: Ingenjörsdagbok
+- /Loggboken/ är bland de viktigaste verktyg som du har.
+  - Vem sade vad? När?
+  - Hur fungerar =X=?
+  - Vad behöver jag göra med =Y=?
+  - Vilka kommandon använder jag med verktyg =Z=?
+  - Andra domäner:
+    - Kemi: Vilka substanser blandade jag i  bägare =X=?
+    - Musik: Hur vill dirigenten att åttondelsnoterna i takt 30 spelas?
+    - Snickeri: Hur skall jag få till den här fogen?
+    - Bakning: Jag råkade använda fel mjöl till min surdeg. Vad är effekterna?
+    - \dots
+- I vissa situationer och företag är den ett /kvalitetssäkringsverktyg/
+- Oftast är det din individuella dagbok, bara till för dig.
+  - Ni kommer sällan ha lärare eller arbetsgivare som efterfrågar den
+
+/Inte efterfrågad \ne inte viktig/
+
+... Därav uppgiften i den här kursen. /Skapa en vana/
+
+- Börja idag!
+- Anteckna när du arbetar med uppgifterna i kursen
+  - Anteckna hellre lite varje dag än mycket sista dagen
+- Sätt datum på anteckningarna
+- Dagboken skall innehålla anteckningar om:
+  - Konfigurationshantering
+  - Container-utveckling
+  - Testning och Debugging
+  - Implementation och Dokumentation - uppgiften
+- Dagboken skall vara regelbundet uppdaterad (minst 5 gånger över hela kursen)
 * Verktyg
 :PROPERTIES:
 :BEAMER_OPT: shrink=5
