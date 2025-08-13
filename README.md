@@ -44,6 +44,8 @@ D. Thomas, A. Hunt, The Pragmatic Programmer, 20th Anniversary Edition, 2020. IS
 16. [Storage: Files and Databases](Lectures/16-Storage-Files-Databases/AA-Storage-Files-Databases.org)
 17. [Introduction to Java](Lectures/17-Introduction-Java/AA-Introduction-Java.org)
 18. [Practical: We develop a Web App](Lectures/18-Practical-Web-App/AA-Practical-Web-App.org)
+19. [Introducton to JavaScript](Lectures/19-Introduction-JavaScript/AA-Introduction-JavaScript.org)
+20. [Application Development](Lectures/20-Application-Development/AA-Application-Development.org)
 
 
 ## Written Assignments
