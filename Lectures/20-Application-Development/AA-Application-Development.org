@@ -1,0 +1,202 @@
+#+Title: Application Development [in JavaScript]
+#+Author: Mikael Svahnberg
+#+Email: Mikael.Svahnberg@bth.se
+#+Date: 2025-08-13
+#+EPRESENT_FRAME_LEVEL: 1
+#+OPTIONS: email:t <:t todo:t f:t ':t H:1
+#+STARTUP: beamer num
+
+#+LATEX_CLASS_OPTIONS: [10pt,t,a4paper]
+#+BEAMER_THEME: BTH2025
+
+* Introduction
+- Putting things together into one coherent development practice
+- Desktop applications and client-server applications
+- Integrating Testing into the workflow
+
+... We will be doing this with JavaScript in mind, but it works similarly for Python.
+* User Interfaces
+1. Text based Terminal
+2. Graphical user interfaces
+3. /Client-Server/ architecture
+4. One particular client-server type: Web-based applications
+   - Client == web browser (with JavaScript)
+   - Server == microservices/containers/node.js/python/\dots
+* Text Based User Interfaces
+- As before:
+  - Input: [command line parameters, configuration files, input from files, console input]
+  - Output: [console output, writing to files]
+  - Alternative Output: Present results as a web page
+* Graphical User Interaces
+- In node.js, GUI's are mostly based on a built in web browser
+  - often Chromium or webkit
+- Use a framework to create windows, and access local resources
+- Examples:
+  - Electron https://electronjs.org/
+  - NW.JS https://github.com/nwjs/nw.js
+  - NodeGUI https://github.com/nodegui/nodegui
+
+- Everything is bundled into a binary (may be quite big, e.g. ~300MB for an "empty" app)
+- Difficult to run from inside a container
+* Client Server architecture
+- Clients communicate with a server using some protocol
+  - Open standards, e.g. nntp, sendmail, http, irc, \dots
+  - proprietary, e.g. zoom, discord, \dots
+- May be several different clients (e.g. text based, graphial, \dots)
+
+- Can spread functionality across client and server
+  - Heavy Clients:
+    - more functionality in the client
+    - simpler server
+    - server needs to be more suspicious about client input
+  - Thin clients:
+    - Client only displays things and do simple input/output
+    - Server contains most of the functionality
+
+#+begin_src plantuml :file client-server.png
+actor User
+[Client]
+cloud Network
+node Server
+database Storage
+
+User - Client
+Client - Network
+Network - Server
+Server - Storage
+#+end_src
+
+#+RESULTS:
+[[file:client-server.png]]
+
+* Web Applications
+- A type of client server architecture
+- Web browser and a server "frontend" manages the client work
+  - Web browser presents results and performs simple input checking
+  - Frontend decides what to present
+  - Frontend takes care of authentication, encryption etc.
+  - Frontend does input sanity checks -- /including/ checks already performed by the web browser.
+    
+#+begin_src plantuml :file webapp.png
+actor User
+component "Web Browser" as wb
+cloud Internet
+node Server {
+component "Frontend" as fe
+collections "Other Services" as os
+}
+database Storage
+
+User - wb
+wb - Internet
+Internet - fe
+fe -- os
+os - Storage
+#+end_src
+
+#+RESULTS:
+[[file:webapp.png]]
+
+* Desktop Applications using e.g. Electron
+- Electron is /one/ example, there are a few others.
+- framework for managing windows and other resources
+- event-based: tie the application together using =EventListeners=
+- User Interface built with HTML/CSS and JavaScript (client-side)
+- Builtin "lightweight" web browser that displays user interface
+
+#+begin_src javascript
+  const { app, BrowserWindow } = require('electron')
+
+  function createWindow() {
+      const win = new BrowserWindow({ width: 800, height: 600 });
+      win.loadFile('index.html');
+  }
+
+  app.whenReady()
+      .then(() => { createWindow() });
+
+  app.on('window-all-closed', () => { if (process.platform !== 'darwin') app.quit() });
+  app.ipcMain.on('releasePony', (event, message) => { /* Find a Pony to release to pasture... */ });
+#+end_src
+
+* Frameworks have APIs
+- Objects, classes, functions that are available to you as a user
+- /should be/ well documented.
+- Example:
+  - https://www.electronjs.org/docs/latest/api/app
+  - [ =app=, =BrowserWindow=, =clipboard=, =dialog=, =Menu=, 
+      =net=, =Notification=, =powerMonitor=, =screen=, =shell=, =TouchBar=, =Tray= ]
+* Workflow: Develop \rarr Test \rarr Deploy
+- The goal is to keep everything as similar as possible
+  - Development :: Locally or in a Container
+  - Test :: first locally/container, then on a build server, then in test environment
+    - gradually more and more similar to the production environment
+    - Number of nodes/containers
+    - Amount of data
+    - Network stabilty, hardware errors, etc.
+  - Production ::
+    - No development or bug-fixing allowed. Only customer data.
+- Make it easy (one command line parameter) to change environment.
+  - =make=, =make test=, =make testDeploy=, =make deploy=
+- Include access control. Who may deploy to production? do they first need to go via =testDeploy=?, etc.)
+* diff Development vs Production
+- Debug-printouts
+  - use =debug= (~const debug = require('debug')('debug-category')~) instead of =console.log=
+- logs
+  - ~ENV NODE_ENV="production"~ , among other things, avoid printing =stack-traces= on errors.
+- Restart on error
+  - =nodemon= :: restart when files change
+  - =forever= :: restart on crash (other alternatives: =StrongLoop=, =PM2=)
+  - Avoid using =forever= during development. Why?
+
+- *Security*, e.g.
+  - access rights to database
+  - Filter known vulnerabilities, e.g. security policies in =Express.io=
+  - Do not reveal more than necessary about your tech-stack
+    - ~app.disable('x-powered-by');~
+  - Rate-limit IP-numbers e.g. if they make too many erroneuous connections
+
+- load balancing, run in background, =minify=, \dots
+* Testing
+- Start with /unit-testing/ immediately.
+  - Manual testing while developing
+  - Automated to repeat tests and build confidence
+- Simple and well described tests
+- Isolated tests that do not depend on each other.
+- Use tools to ensure /code coverage/
+- Write tests in parallell to your normal development
+- Refactor regularly
+
+#+begin_src javascript
+  describe('Pinkie Pie Test', function() {
+      it('should be able to say something', function() {
+          let said = pinkiepie.speak();
+          expect( said ).to.be.a.('string');
+          expect( said ).to.not.equal('');
+      });
+
+      it('should only move left to right', function() {
+          let [xPos, yPos] = pinkiepie.getPosition();
+          pinkiepie.move();
+          let [newXPos, newYPos] = pinkiepie.getPosition();
+
+          assert.equal(newYPos, yPos, 'Pinkie Pie moved up or down');
+          assert.notEqual(newXPos, xPos, 'Pinke Pie did not move left to right');
+      });
+
+      it('should stay on the screen', function() {
+          pinkiepie.setPosition(0, 0);
+          pinkiepie.move(-1, 0);
+          let [newXPos, newYPos] = pinkiepie.getPosition();
+				
+          newXPos.should.be.at.least(0);
+          newYPos.should.equal(0);
+      });
+  });
+#+end_src
+* Summary
+- Your choice of user interface decides your overall architecture
+- Use frameworks in your appliction
+- Be aware of what they mean e.g. in terms of size, memory usage, battery usage, etc.
+- Develop \rarr Test \rarr Deploy
+- Test early, Test all the time
