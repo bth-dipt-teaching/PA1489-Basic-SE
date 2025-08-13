@@ -1,0 +1,324 @@
+#+Title: Introduction to JavaScript
+#+Author: Mikael Svahnberg
+#+Email: Mikael.Svahnberg@bth.se
+#+Date: 2025-08-12
+#+EPRESENT_FRAME_LEVEL: 1
+#+OPTIONS: email:t <:t todo:t f:t ':t H:1
+#+STARTUP: beamer num
+
+#+LATEX_CLASS_OPTIONS: [10pt,t,a4paper]
+#+BEAMER_THEME: BTH2025
+
+* Introduction
+- Interpreted language with roots in functional programming: =JavaScript=
+- Javascript in web pages
+- Javascript as a server language: =node.js=
+  - \dots with a rich ecosystem: =npm=
+
+I prefer developing =node.js= inside a container
+- Common target platform
+- No need to install more software on your machine than you need
+- Keep js packages only inside the container
+
+/This lecture will not cover all of JavaScript/
+- JavaScript itself is similar to C/C++/Java; it works mostly as expected.
+- I will instead mostly highlight concepts that differ from other languages
+* Introduction to JavaScript
+- Initially developed to run smaller applications on web pages
+- Follows the /ECMAScript/ standard
+- Is /interpreted/, or /just-in-time/-compiled
+- Is /Dynamically typed/ (or weakly typed)
+- /Prototype-based object orientation/ (will get to this)
+- Has /First class functions/ (will get to this too)
+- Borrows many traits from /functional programming languages/
+- Can be run in a web browser or as a server platform
+* Interpreted languages
+- Does not need to be compiled
+- Changes in the code can take effect directly
+- Often shipped with a /REPL/ for quicker development/testing
+  - Read-Eval-Print-Loop
+* Dynamic Typning
+- /Duck-Typing/
+  - /"If it walks like a duck and it quacks like a duck, then it must be a duck"/
+  - Variables may contain anything, and can change type of content at any time.
+
+#+begin_src javascript
+  a = 1; // 1
+  a = a + 1.2 // 2.2
+  a = 'hello'; // 'hello'
+  a = { name: 'Pinkie Pie' }; // [object Object]
+  console.log(a.name); // 'pinkie pie'
+  console.log(a.handle); // undefined
+  a = Math.sqrt(-1); // NaN
+  a.sort(); // Uncaught TypeError: a.sort is not a function
+  a = [3,2,5]; // [3, 2, 5]
+  a.sort(); // [2, 3, 5]
+  a = function(x) { return x+1; } // [Function: a]    // funktions are also objects
+  a(1); // 2
+#+end_src
+* Prototype based object orientation
+- Do not need to write a class definition, as in C++ or Java
+- Sufficient to have an /object/, and then you can add methods as you go
+- Create a new object \leftrightarrow clone an existing object
+
+My view:
+- Sometimes useful when initially designing a data model
+- PiTA for maintenance
+  - Where are methods or attributes added?
+  - Which methods or attributes exist at a particular point in time?
+  - Will it work? Hopefully you test all paths...
+  - Careful so you do not accidentally add a new function instead of some value.
+    - What if that function came from an open web interface?
+
+#+begin_src plantuml :file hack-dialog.png
+@startsalt
+!theme bluegray
+
+{
+Please enter your name:
+.
+{SI
+ Bobby', save: function() { console.log('Well, this is stupid'); }'
+ .
+ .
+}
+}
+@endsalt
+#+end_src
+
+#+RESULTS:
+[[file:hack-dialog.png]]
+(Fortunately this will probably not work, but it illustrates the point)
+* Classes
+- Classes are also supported
+- /Use them/ to create maintainable code
+
+#+begin_src javascript
+  class ClassName {
+      memberAttribute = 12;
+
+      constructor() {
+          this.#someData=42;
+      }
+
+      #privateFunction(param1, param2='default value') {
+      }
+
+      publicFunction() {
+          this.#someData += this.memberAttribute;
+          this.#privateFunction(13, 14);
+      }
+  }
+
+  let someObject = new ClassName();
+#+end_src
+* Functions
+#+begin_src javascript
+  firstGreet('Greg'); // Functions can be called before declared (so called "Hoisting")
+
+  function firstGreet(name) {
+      console.log('Hello', name); 
+      return 'something'; // Returns work as usual
+  }
+
+  function greet(name, name2=null) { // Functions can have default values on parameters
+      let str = 'Hello ' + name;
+      if (name2) {
+          str += ' and ' + name2;
+      }
+      console.log(str); // No return statement means it returns undefined
+  }
+
+  greet('Joe'); // Let the second parameter use the default value
+  greet('Jack', 'Jill');
+#+end_src
+* Modules
+- Divide your application into manageable components
+- Reuse components between projects or subprojects
+- One file/modile per class
+- Three types
+  - Core :: Built in, e.g. =http=, =path=, =fs=, =querystring=, =util=, \dots
+    - ~var coreMod = require('module-name');~ 
+  - Local :: Those that you write yourself
+    - ~var localMod = require('my-module.js');~
+  - Third Party :: Modules written by others
+    - ~var thirdPartyMod = require('module-name');~
+* Local Modules
+- /Either/ a single, separate file
+- /Or/, a separate sub directory
+  - ~require('./module-subdirectory')~ 
+  - Node.js looks for =package.json= or =index.js=
+  - =index.js= should mostly "tie together" the files in the subdirectory
+  - In fact, each file is still its own module, you have only bundled some "file-modules" under a common name.
+* Creating a Module
+- A module may be a mixture of
+  - data (variables and constants)
+  - functions
+  - classes (preferrably only one per file)
+
+- the variable =module.exports= declares what others may use -- the rest is kept private.
+  - may add to =module.exports= as you go, or declare it once at the end of your file (preferred).
+
+#+begin_src javascript
+
+module.exports.someFunction = function() { /* ... */ }
+module.exports.someOtherFunction = function() { /* ... */ }
+
+function aThirdFunction() { /* ... */ } // This one is not exported, only usable inside this module
+function aFourthFunction() { /* ... */ }
+function aFifthFunction() { /* ... */ }
+
+// eller
+module.exports = { aFourthFunction, aFifthFunction };
+#+end_src
+
+- There is also an ECMAScript-6-variant:
+  - ~export {exported1, exported2};~
+  - ~import {exported1, exported2 as exp2} from 'module-name'~
+* Third Party Modules: NPM
+- =NPM= (Node Package Manager) is a package manager for node.js
+  - Installed alongside with node.js
+  - https://www.npmjs.com/
+
+- Modern Software Development is all about using the right third party library
+- Cave!
+  - Every package you use is a potential security hole
+  - Every package may have its own licensing terms
+  - Sometimes the functionality is already available in the language
+    - Somewhere around 2021, half of the internet broke down when the developer of the =whitespace= package got mad.
+    - =whitespace= does more or less the same as the built in function =trim()=
+    - \sum know your language /first/, before searching the internet.
+* Using npm to install packages
+- /if npm is installed locally/: =npm install package-name=
+  - Adds the package to the file =package.json=
+  - Installs the package in the directory =node-modules=
+  - Install other packages that the new package depends on
+    - Install other packages that /they/ in turn requires.
+
+- /if you develop in a container/:
+  - npm is no longer available locally
+  - You may manually add packages to =package.json=
+  - Then you /have/ to rebuild your container image and restart the application.
+  - Probably, your Dockerfile contains the line =RUN npm install=
+* JavaScript as a Functional Language
+Background: Different /programming paradigms/
+
+- Imperative :: describe step by step what the computer should do
+  - Procedure-orientered :: procedures (functions) that may call each other.
+  - Object-orientered :: Data and behaviour (procedures) are gathered in /objects/.
+- Declarative :: describe the desired end result
+  - Functional :: Desired result is described as a series of functions that are evaluated.
+  - Logical :: Describe all possible known relations, then query these.
+  - Reactive :: Focus on the dataflow and propagation of changes.
+
+- Common languages today are based on Cobol and ALGOL == procedure oriented.
+- Functional programming languages such as /lisp/ are still used
+- Many ideas from functional languages are today borrowed into procedure-oriented languages.
+* Traits of functional languages
+- Functions are first class citizens
+  - they have names
+  - they are objects that can be pased as parameters and return values
+  - they can also be anonymous when needed (functions are just data)
+
+- /Data/ and /collections of data/ are important
+  - Data is processed by applying a series of functions
+  - Special functions to work with collections
+  - Prefer these over iterations
+* Example: imperative vs functional
+#+begin_src c++
+  // ex 1
+  for (int i = 0; i < 10; i++) {
+    myArray[i] = myArray[i] + 10;    
+  }
+
+  // ex 2
+  for (int elem : myArray) {
+    cout << elem << endl;
+  }
+#+end_src
+
+#+begin_src javascript
+  // ex 1
+  myArray = myArray.map( function(elem) { return elem+10; });
+
+  // ex 2
+  myArray.forEach( console.log );
+#+end_src
+* Anonymous functions
+- /Lambda-functions/
+- Since functions are objects, you can pass them as parameters.
+- Common patterns:
+  - "Do this and call =callback()= once you are done"
+  - "Apply the function "have-fun()" on all elements in the collection"
+- Lambda functions are so common that there are shortcuts in the languages:
+
+#+begin_src javascript
+  let arr = [1,2,3,4,5,6,7,8,9,10];
+  arr.every( elem => elem<20 ); // true ; alla elements are smaller than 20
+  arr.filter( (elem) => 0==elem%2 ); // [2,4,6,8,10]
+  arr.find( elem => { if (0==elem%5) { // May have a full function body
+      return true;
+  } else {
+      return false;
+  }} ); //  5 (first element where the function returns true)
+
+  arr.forEach( elem => console.log(elem)); // Prints the elements but returns "undefined"
+  arr.forEach( console.log ); // May use existing functions directly
+  arr.map( elem => 2*elem ); // returns [2,4,6,8,10,12,14,16,18,20], but keeps arr unchanged.
+  arr.reduce(
+      (accumulator, elem) => accumulator += elem, // two parameters, must have parentheses around
+      0); //  0 is the start value of the accumulator. Returns '55'.
+#+end_src
+* Event-based programming
+- Asynchronous programming
+  - Non-deterministic order
+  - You define that  "when =event= occurs, call function =x=", and then wait for things to happen.
+- =EventEmitter= or =callback()=
+
+#+begin_src javascript
+  // ex 1 (EventEmitter)
+  const EventEmitter = require('node:events');
+  const myEventEmitter = new EventEmitter();
+
+  myEventEmitter.on('message', () => { console.log('Received message!'); });
+  myEventEmitter.emit('not-the-message'); // nothing happens, there is no listener for 'not-the-message'
+  myEventEmitter.emit('message');
+
+  // ex 2 (Callback)
+  const fs = Require('node:fs');
+  fs.readFile('./someFile.txt', fileRead); // the method fileRead is only called once the file is actually read.
+  console.log('This will be printed immediately'); // fs.readFile will continue working in the background.
+
+  function fileRead(err, data) {
+      if (err) { console.log('could not reat file'); return; }
+      // Do something with the contents of the file (in the parameter 'data')
+  }
+#+end_src
+* More functional programming
+Other things that you /may/ borrow from fp:
+- Immutable Data :: Everything is constant, you cannot change the values.
+- First Class Functions :: Functions are also objects and can be handled as other variables.
+- Homoiconic :: Code is also data, data can be code.
+
+and /Pure functions/:
+- Functions have no side effects. They return a value but nothing else changes.
+- The result of calling a function is always the same, given the same input.
+- Functions can be called in any order, and you still get the same result.
+  (is really a consequence of /immutable data/)
+
+Advantages
+- Easier to understand the code, only the return value may change
+- Easier to write multi-threaded programs
+
+With /good discipline/ you can program like this in JavaScript too.
+* Summary
+- JavaScript is not only used in the web browser
+- e.g. =node.js= or more modern variants such as =Bun=
+- C-like syntax
+- Support for classes, but they are not critical
+- Dynamically typed
+- Modular
+- Borrows from functional programming
+  - data and collections of data
+  - lambda functions, functions as data
+- /Pure functions/ are encouraged in many situations.
