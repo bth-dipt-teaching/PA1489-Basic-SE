@@ -1,0 +1,214 @@
+#+Title: Early Start
+#+Author: Mikael Svahnberg
+#+Email: Mikael.Svahnberg@bth.se
+#+Date: 2025-08-19
+#+EPRESENT_FRAME_LEVEL: 1
+#+OPTIONS: email:t <:t todo:t f:t ':t H:2
+#+STARTUP: beamer num
+
+#+LATEX_CLASS_OPTIONS: [10pt,t,a4paper]
+#+BEAMER_THEME: BTH2025
+
+* About this Course
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
+- Ni har precis börjat er väg till att bli Programvaruutvecklare
+- Under de närmaste åren kommer ni fördjupa er i en stor mängd teorier, principer, och teknologier.
+  - Ni kommer bygga upp er egen /verktygslåda/
+
+- Den här kursen ger en översikt över vissa viktiga grunder i denna verktygslåda
+- Tekniker
+  - konfigurationshantering
+  - enhetstestning
+  - kod-dokumentation
+  - olika programmeringsspråk
+  - utveckling i och med virtuella maskiner
+  - \dots
+- Men också en grundläggande filosofi:
+  - En Pragmatisk Mjukvaruutvecklare
+  - /Använd de verktyg som är dig givna, och gör dem till dina egna/
+
+[[./IToolchest.jpg]]
+* About this Course II
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
+- Kursen kommer /inte/ hinna gå på djupet om mjukvaruutveckling eller någon enskild teknik.
+  - ni har tre (plus två) år på er för detta
+
+Målet är att ni skall:
+- få upp ögonen för vad som finns tillgängligt
+- få en insikt i hur olika teorier, principer, och teknologier passar ihop
+- få /viss/ övning i att använda de mest grundläggande teknologierna
+
+Cave!
+- Mycket kommer verka svårt
+- Du kommer kanske inte hinna lära dig allt
+- Du kommer kanske inte hinna göra alla övningar
+
+*Det är ok. Det är tänkt så.*
+
+Min förhoppning:
+- Undvik de dåliga vanor som är svårast att bryta.
+- Kom ihåg att teknologierna /finns/, så att du kan använda dem senare, /när du behöver dem/
+- Försök etablera /några/ goda, pragmatiska vanor redan nu, och bygg på efter hand.
+- Kom tillbaka till det här kursmaterialet om något år (när du behöver) och använd det som referensmaterial.
+* About Me
+#+ATTR_LATEX: :height 2cm
+#+ATTR_ORG: :width 300
+[[file:~/Documents/Personal/avatar.png]]
+
+
+- Assistant Professor, PhD in Software Engineering
+- Programme Manager for the Master's program in Software Engineering
+- mailto:Mikael.Svahnberg@bth.se
+- https://mickesv.codeberg.page/
+- Interests:
+  - Software Architectures, Software Architecture Evaluation,
+    Software Architecture Evolution, Requirements Engineering,
+    Large Scale Requirements Engineering, Market-Driven Requirements Engineering,
+    Software Product Lines, Software Reuse, Empirical Research Methodology,
+    Software Engineering Decision Support, Static Code Analysis, Software Architecture Reconstruction
+* Why Study Software Engineering?
+#+begin_quote
+/Within 5 years we will replace all software developers with AI/
+#+end_quote
+
+- First claimed in 2022; repeated every year since.
+- Plenty of reasons why this is a bad idea, and plenty of evience why it is wrong
+- However, I know you have heard variants of it.
+
+#+begin_quote
+
+/Software Engineering as a career is dead, you will all be replaced by AI!/
+
+/Get a haircut and a proper education instead of becoming just another prompt-jockey!/
+
+#+end_quote
+
+** Show of hands
+- How many of you study software engineering because it is well paid?
+- How many of you study software engineering because it is a guaranteed job?
+- How many of you study software engineering because of something else?
+
+- What is this something else?
+** My Top Reasons for working in and with Software Engineering
+- The thrill of /creating/ something
+   - To create something from an idea or a concept
+   - To use something that you, yourself, have created.
+   - To see other people use what you have created, and understand /how/ they use what you created.
+   - Restricted only by your own brain; if you want your software to work in a world with seven dimensions and use \pi \equal 4, go for it!
+- The thrill of /challenging/ yourself
+   - Software Engineering is as much about creating knowledge for yourself as it is about creating the software itself.
+   - Music, Writing, Knitting, Woodworking, Baking -- They all require skills, and improve through practice.
+   - Learn and improve, become better, nerd out
+- /Curiosity/
+   - So much of the world around us is built with and from software
+   - How does it work? Why does it work that way?
+   - Deeper insight into what we see around us every day
+   - Understand the world around us
+   - Multifaceted: Software Engineering is about understanding people as much as it is about understanding production of software.
+- /Responsibility/
+   - Software engineering teaches us that /every developer matters/!
+   - Software is not created by an anonymous entity: it is created by individuals.
+   - We have power, we make a difference.
+- /If not you, then who?/
+   - If you do not understand the world around you, then someone else will.
+   - Someone else may not have good intentions.
+   - Ability and Responsibility to recognise when software is abusing our rights
+   - Ability and Responsibility to question and call out when we see something wrong.
+   - We become less gullible.
+- /Confidence/
+   - A deep and well-founded sense of /ability/.
+   - You have the /skills/, you have the /power/ and /ability/; /you can do this!/
+- Finally: /It is something I love doing!/
+
+*** Note the things that are not in this list :noexport:
+- e.g. fame & fortune, career, financial stability, workplace flexibility, \dots
+- /Why would you let anyone or anything take this away from you?/
+* Get Started: Canvas
+- Canvas :: Lärplatform
+  - All information i och om kurserna du läser finns här.
+  - Kontakt med lärare, kontakt med andra studenter
+  - Diskussionsforum
+  - Inlämning av uppgifter
+  - Schemaändringar, mm.
+  - /Ställ in notifieringar/ så du får mail från Canvas.
+  - *OBS* Canvas och Ladok är inte samma system. Följer kurs på Canvas \ne Formellt registrerad på kursen
+
+- Varje kurs har sin struktur på Canvas
+  - Förstasida :: Har de flesta kurser
+  - Uppgifter :: Beskrivning, inlämning, deadlines, mm.
+    - /Om det är en grupp-uppgift/:
+      - Gå med i en grupp först (under "Personer")
+      - Det räcker om en lämnar in; ni lämnar in för hela gruppen
+  - Moduler :: En del kurser organiserar kursmaterialet som moduler.
+    - Kan finnas mycket här!
+    - Syns inte självklart på mobilen; måste leta efter det.
+  - Diskussioner, Filer, mm. kan också finnas.
+
+*Att Göra:*
+- /För varje ny kurs: Bekanta er med vad som finns på Canvas./
+* Get Started: Your Computer
+- Vad finns i din dator? Vad finns på högskolans datorer?
+- Hur fungerar datorn? Hur fungerar ett program?
+- Hur kör jag program? Vad är WSL? Hur använder jag det?
+- \dots
+
+
+*Att Göra*: Installera de program som kommer behövas.
+
+*OBS* Det är /du/ som är ansvarig för vad du installerar på /din/ dator!
+
+I den här kursen behöver du:
+- Någon utvecklingsmiljö (Du har troligen redan VSCode installerat)
+- Konfigurationshanteringsverktyg;
+  - Git https://git-scm.com/downloads
+  - Gärna något grafiskt gränssnitt, t.ex. Github Desktop https://github.com/apps/desktop
+- Något verktyg för att arbeta med containers; Docker https://www.docker.com/
+
+* Get Started: Assignments
+- Tre Examinerade uppgifter om vardera 2.5hp:
+  1. Konfigurationshantering, Containers, Testning och Debuggning  (Redovisas i labsal)
+  2. Implementation och Dokumentation (Redovisas i labsal)
+  3. Ingenjörsdagbok (*Lämnas in på Canvas*)
+
+*Att Göra:* Läs Uppgiftsbeskrivningarna på Canvas
+
+- Uppgifterna är /individuella/ 
+  - Ni får väldigt gärna samarbeta när ni arbetar.
+  - Deluppgifterna för uppgift 1 redovisas individuellt.
+  - Uppgift 2 får redovisas tillsammans (som mest 5 studenter per grupp)
+  - Uppgift 3, Ingenjörsdagboken, lämnas in individuellt.
+
+- Uppgifterna introduceras vecka för vecka (se "Practical"- föreläsningarna)
+- Men /läs hela beskrivningen redan nu!/
+  - I synnerhet "Ingenjörsdagboken" skall uppdateras kontinuerligt.
+
+- Kompletteringar:
+  - Inom två veckor efter att kursen slutar
+  - När kursen ges nästa gång
+  - Se Canvas för datum.
+
+- *Ni kommer inte hinna bli världsbäst på de teknologier som behövs!*
+  - Kopiera och anpassa i stället.
+  - Men /förstå/ vad ni kopierar!
+  - /Börja med vad ni kan/
+    - Lös vad ni redan kan lösa, planera resten.
+
+* Get Started: Övningar
+- För dig som vill ha lite mer
+- Övningsbeskrivningar finns på Canvas
+* Sammanfattning
+
+*Att Göra:*
+1. Bekanta er med vad som finns på Canvas.
+
+2. Bekanta er med datorn
+3. Installera de program som kommer behövas.
+
+4. Läs Uppgiftsbeskrivningarna på Canvas, tjuvstarta med uppgifterna.
+5. Läs Övningsbeskrivningarna på Canvas, tjuvstarta.
