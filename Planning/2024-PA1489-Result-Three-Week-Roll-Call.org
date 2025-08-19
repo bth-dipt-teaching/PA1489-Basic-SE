@@ -1,0 +1,156 @@
+
+* Q1 Vad verkar svårt? Vad verkar lätt? Vad är du mest orolig för? Vad tycker du verkar lugnt?
+Sammanfattning:
+- Svårt att veta var man skall börja
+- Mycket på en gång
+- Brant inlärningskurva
+- Nybörjare på programmering
+- Jobba i grupp
+- Hitta en grupp
+- Studieteknik
+- Eget ansvar
+** Alla Svar
+- Inget verkar speciellt svårt just nu, men att ta in så mycket info på en gång kan kännas lite överväldigande de är mycket "nytt".
+- lite oklart hur man ska börja när man aldrig programmerat tidigare, lite bättre vägledning i hur det går till
+- Vad verkar svårt? Jag tyckte att det var mycket på en gång vilket blev svårt att absorbera, men med tiden så blev det mer självklart om vad vi ska göra och hur.  Vad verkar lätt? Grundläggande syntax och att skriva enklare program verkar lättare att greppa.  Vad är du mest orolig för? Jag är mest orolig för att fastna på svåra buggar eller att inte förstå vissa uppgifter tillräckligt snabbt.  Vad tycker du verkar lugnt? Att använda utvecklingsmiljön och jobba med enklare funktioner och variabler känns ganska lugnt och hanterbart.
+- det känns mycket på en gång, då vi ska programmera en hel webbapplikation redan när vi är väldigt nya till ämnet. Det kanske blir bättre med tiden när vi får veta mer om programmering. 
+- Det svåra är hur ny jag är och att att lärningskurvan känns väldigt brant. Det lätta är nog uppgifterna i sig, tror det går att lösa dem ganska enkelt om man delar upp dem i mindre delar.
+- jag tycker inte att någonting är svårt men jag känner att jag behöver jobba mycket på uppgifterna och att jag är orolig över inlämningarna eftersom det är första gång och det är ganska stor inlämning.  
+- Som nybörjare inom programmering känns allt väldigt nytt och lite överväldigande. Jag är orolig över att jag inte kommer hinna klart med uppgiften innan inlämningsdatumet, och jag har inte ens påbörjat arbetet än. 
+- Jag är nybörjare inom programmering därför verkar hela uppgiften svår. Är orolig över hur vi ska lyckas göra alltihopa faktiskt. Dock känns det ändå som en rolig och nyttig uppgift att göra så pass tidigt i programmet.
+- Just nu känns allt svårt helt ärligt men jag känner endå att det är en del av utmaningen. Det ska ju vara svårt och därför lär man sig för att det ska vara lätt. Jag är orolig för java för jag måste lära mig det. Jag har ingen tidigare erfarenhet i programmering så därför blir allting en utmaning då jag måste lära mig allt från grunden. 
+- Jag ser fram emot detta då jag ej har hållit på med det innan så har inte så mycket tankar kring vad som är svårt och vad som är lätt
+- Det verkar kul. Har byggt några liknande system innan. Det svåra kommer nog vara att jobba i grupp. Jag har alltid jobbat själv (inom programmering i allafall)
+- Jag har ännu inte byggt upp en tanke, jag har en känsla av att det kommer gå bra
+- Verkar inte jättesvårt men inte för lätt heller. Mest orolig över att hitta exakt vart man ska börja men annars är det nog lugnt. 
+- Jag tycker det känns som att det kommer väldigt mycket nya saker på en gång som man inte har jobbat med eller känner till sen tidigare. Men minimal introduktion, (kanske kommer senare).  Därför är det lite svårt att veta vart man ska börja. 
+- Det kommer nog vara ganska svårt just för att alla mina kollegor startar i olika nivåer av kunskap om programmering och språket java och javascript. Jag ser absolut inte det som en dålig del i det hela jag ser det snarare som en positiv grej just för att jag får lära mig att förklara så att de förstår vad jag menar.
+- Hej!  Jag att vi kunde gå genom uppgifter lite djupare så att bli inte vilsen och veta mera om det.   mvh 
+- Det är svårt att planera hur ska uppgiften ska utföras 
+- Jag kontaktar min lärare om nåt är svårt eller inte tydlig. Den mest orolig att hitta en grupp. . 
+- Inget som är specielt svårt men det är mycket arbete för att lära sig alla nya verktyg jag inte annvänt förut. Lite jobbigt med java och python samtidigt men det går bra. Det jag är mäst orolig för är grupparbete, kände igen när jag började här. Jag är i en grupp iallafall får se hur det går.
+- Det som verkar svårt, är att veta när ska jag göra vad och vad man ska börja med.     Det som verkar lätt, är att veta ungefär hur programmet ska se ut när det är klart och vad programmet ska innehålla.     Det är jag är mest orolig över är att hinna klart i tid samt att inte bidra tillräckligt till gruppen.      Det som verkar lugnt är gruppen jag är med i. 
+- Har tyvärr inte kommit igång med uppgifter än p.g.a att jag inte var med en grupp tills idag, så vet inte vad som är lätt eller svårt.
+- Det jag skulle tycka verkar svårt är själva att det är så stort projekt. Eftersom jag ej har haft ett sådant stort projekt innan så blir man lite nervös inför detta. Men den lätta delen tycket jag är att man jobbar i team. Vilket underlättar jobbet såklart och man kan hjälpa varandra när det behövs.
+- Vi i gruppen valde varandra själv eftersom vi såg att vi alla deltog aktivt i kursen. Vi har skapat en Discord-grupp för att prata och arbeta tillsammans. Det är vad jag tycker ser lugnt ut. Jag är väldigt nervös för nu kan jag bara lite Python, jag är helt ny på allt samtidigt som uppgifterna är som ett riktigt projekt där man behöver göra en massa olika nya saker. Men vi har tid, vårt team och din hjälp så jag tror att vi kan klara det.
+- Det som jag blir och kommer att bli osäker över är om jag gör rätt när jag ska lämna in uppgifter via terminalen.  Det är lätt att förstå det ni säger.   Orolig över att jag missar viktiga uppgifter/deadlines som jag inte haft någon aning om.   Takten verkar rätt så lugnt. 
+- orolig över programmeringen eftersom att det är något nytt
+- Känns ibland svårt att hitta en röd tråd i arbetet, dvs vart man börjar/fortsätter/avslutar.   Utöver det så känns allting bra än sålänge. 
+- Mycket eget arbete och eget ansvar. Känns som att jag inte hänger med på föreläsningarna och vet ej vad jag ska egentligen göra. Gruppen känner nästan samma men vi hjälps åt med att dela information mellan oss om vad vi vet om kursen och vad vi bör göra.
+- Jag tycker det mesta är ganska mild, lite små jobbigt att man måste skapa/gå med i en grupp som man sedan måste lära känna i den gruppen, komma överrens om hur man ska göra och utföra uppgiften/uppgifterna.
+- uppgiften i helhet verkar stor och komplex som kan göra det svårt. men om vi direkt fixar en bra plan så kommer det vara lungt. Det verkar också vara lätt att prata med folket i min grupp. vilket gör att jag är mindre orolig över att vi inte kommer att få en bra plan
+- Svårt = metod att plugga på   
+- Jag är lite orolig över ifall vi kommer ha tillräckligt med tid för att få förståelse för allt som vi ska lära oss och hinna implementera det i våra uppgifter
+- Vi är en grupp av 4 och jag tycker det är svårt att komma igång för av den enkla frågan om vem som ska göra vad? Eftersom våran oerfarenhet är det svårt att ge ett arbete x tid att göra.   Jag tycker inget verkar lätt av det vi ska göra för att det är en dålig inställning att gå in i ett projekt med, men jag har kollat upp vad skillnaden mellan javascript och java är och ser farm emot att använda mig av dessa programmerings språken.
+- med allt installering git och github men jag kämpar att lära mig 
+- Det som verkar svårt är att lära sig de nya programen  Det som värkar lätt är att jobba som en grupp  Orolg att det inte ska gå som man vill vilket gör att det blir tids press   Det som känns lungt är att jag tror att vi kommer komma överens väl 
+- Jag tror jag har all information jag behöver för att klara kursen redan nu, det är mer att jag har svårt att hitta tiden
+- Jag är bekant med programmering sedan innan, men jag har jobbat väldigt lite med andra i specifikt programmering. Jag tror Github kommer vara svårast att lära mig, men jag är ej orolig över resten.
+- Hela kursen i sig har flera moment som i sig är relativt enkla men pågrund av att det är så många verktyg som man kommer behöva lära sig så kan jag personligen känna att det kommer bli en utmaning. Det svåra kommer vara att bara lära sig precis det som behövs för att använda i vår grupps inlämingsprojekt och att vänta med att dyka in djupare på de diverse verktygen, annars kan tidshorisonten för uppgifterna bli alldeles för lång. 
+- Allt som är ny är svårt därför tycker jag man ska försöka och inte ge upp. Jag är mest orolig för att inte klara uppgifterna i slutet av kursen.   Det som är lugnt är att man försöker och att jag har skapat många nya vänner och information i en mycket kort tid. 
+- Hej, jag försökte få kontakt med dig men hittar ingenting. Denna vecka jag var sjuk och kunde inte ta mig till campus och labarna. Jag bor två timmar i tåg från karlskrona så det gjorde det svårt att vara här medan jag var sjuk. Jag har inte en grupp än men har läst lite i uppgiften. Nästa vecka kommer jag säkert vara frisk så kommer jag till campus.
+- Det verkar vara en ganksa stor uppgift som absolut kan kännas läskigt i början men jag tror det är just det som gör det extra viktigt att tränna på att bryta ner det och göra det till små delar.
+- Det är lite svårt i början men samtidigt jag är jätte taggad för och lära mig allt
+- Just nu är vi bara två i min grupp så vi hoppas kunna bli fler under nästa vecka. Det är största problemet just nu. Annars är det lugnt. 
+- Lite svårt att förstå vad det är som bedöms, en uppgift i taget eller om det egentligen bara är en stor uppgift. 
+- Det mesta verkar svårt just nu.
+- Svårt:  Tycker strukturen på hur du ska påbörja arbetet är svårt då jag och många andra står på en grund utan någon erfarenhet av att koda.     Lätt: hitta grupp
+- Jag tycker detta verkar jävligt svårt. Om detta hade varit på mitt gymnasium hade jag lärt mig allt det här på 1 år eller mer. Detta går väldigt fort tycker jag men jag gillar utmaningen för det betyder att bilden av att jag ska kunna jobba med programmering blir mer realistisk. Jag är ganska orolig för att jag kommer komma efter och sen blir det en stor röra. Inget verkar lungt skulle jag säga.
+- Jag är lite osäker på upplägget när det kommer till menyn om den ska vara interaktiv med t.ex tryckbara knappar eller om det ska vara en terminalsmeny. Självaste delen att programera i python känns bra.
+- Det som verkar svårt att strukturera och förstå hur de verktyg vi skaffar kommer att fungera tillsammans för att skapa en funktionell product. Det är något jag ser fram emot att lära mig c:   Är mest orolig för att inte lyckas få ihop det.    
+- De svåraste skulle jag säga kommer nog bli alla olikas kunskaper i gruppen då vissa kan programmera bättre än andra och att vissa har bättre motivation att få klart sitt arbete och vilja lära sig.
+- Jag har programerat innan men aldrig använt terminalen sådans mycket.
+- Det som verkar svårt är att man ibland inte hänger med, speciellt nu när man håller på med python och mjukvaruutveckling.   Jag är mesta dels orolig över grupparbetet då jag inte vet hur mycket vi får gjort med tanke på att gruppmedlemmarna inte kommit igång med det vissa saker som är grundläggande för allt vi ska göra i programmet. 
+- Att kursen verkar vara till de som har ganska bra erfarenhet i programmering för att kunna anv'mda dessa tekniker som man lär, medan jag och de flesta är nybörjare och knappt har lärt oss "print". 
+- Allting verkar svårt till en viss grad, men det kommer gå in i hjärnan förr eller senare, vilket innebär att det inte är något att oroa sig för :D  Jag är mer anteciperad än orolig liksom.
+- Det som verkar lite klurigt är att man ska jobba med flera olika projekt samtidigt. Det är inte något jag är bekant med att göra innan. Det som verkar lätt är att man får jobba i lag.  Att man ska fastna på en av uppgifterna och lägga för mycket tid på att lösa den uppgiften så att man inte har tid över till dom andra sen. Det som får mig att känna lugn är att mna kan arbeta i grupp och dela upp arbetet.
+- Det verkar svårt men ändå befriande att man måste planera sin egen tid när man ska jobba men gillar då att man kan jobba när det passar en.
+- Vet inte än
+- Jag är mest orolig över att halka efter i kurser och att inte kunna studera på egen hand.
+- Ingenting verkar direkt svårt då jag har tidigare erfarenhet, men fortfarande mycket nytt och spännande. Om jag ska säga något så kan det vara att få ett bra samarbete med gruppen så man får ett bra flöde på allt. Inte orolig över något och känner mig lugn och exalterad inför kursen :)
+- Jag hat inte programmerat tidigare så det kommer bli en utmaning. Men jag ser fram emot det. 
+- labbmiljön verkar lite svårt att sätta upp, samt att lära sig ett nytt språk, html känner jag verkar lugnt då jag använt det innan
+- Hittills verkar allting gå bra och jag är inte särskilt orolig övernågot än.
+- Attack behöva lära mig ett nytt programmeringsspråk och att jag kan glömma att lägga upp på gitarr eller github.
+- -Ingen aning!  -mest orolig för grupparbetet!  -lärarens erfarenhet!
+- Det verkar bara lite mycket nu i början men inget som är speciellt svårt eller lätt. Jag är nog mest orolig för att jag ska tappa bort mig mitt in i kursen eller uppgifter och sätta mig fast där det blir jobbigt att komma ut. Det som verkar lugnt är att jag har en bra grupp som jag kan vara öppen med och komma fram med ideer och få feedback på det jag gjort eller gör.
+- Har ok koll på git och github men aldrig startat ett repo från grunden med 5 personer, kommer vara svårt att organisera och dela upp uppgifterna men roligt också såklart.
+- Allt känns rätt svårt just nu, men jag hoppas att ju längre kursen pågår ju lättare blir det att komma in i det.
+- Jag tror de kommer vara en perfekt mängd med tid, och somjag har förstått de så kommer vi inte behöva vara låsta till burger orderer uppgiften   
+- Tycker att inlämningarna är svåra då det är många moment som msn inte ännu förstår inom mjukvara utveckling
+- Mycket verkar svårt tills det inte gör det längre. Tror allt kommer lösa sig bra.
+* Q2 Vad MÅSTE fixas genast för att du känner att du skall få ut det bästa möjliga ur kursen och klara den?
+Sammanfattning:
+- Boende
+- Funka-stöd
+- Hitta grupp
+- Tydligare Instruktioner
+- Studieteknik, Disciplin
+- Planering inom gruppen
+- Licens för en del programvara (IntelliJ; github)
+** Alla Svar
+- Att hitta grupp, gå på alla föreläsningar och laborationer. 
+- Det som måste fixas är att skaffa fram alla verktyg som behövs och lära mig hur de funkar, men allt detta har jag fixat redan. 
+- mer info om verktygen som vi ska använda. 
+- Tydlighet.
+- jag måste lägga tid och jobba mycket på inlämningar. 
+- Jag skulle behöva mer detaljerade förklaringar under föreläsningen om denna uppgift för att undvika att jag måste googla allt och slösa tid utan att få något gjort.
+- Jag behöver mer information om apparna och programmen som vi bör använda för att lyckas göra det som krävs med uppgiften. Kan än så länge bara koda väldigt enkelt med python.
+- Jag måste lära mig grunderna för att kunna hänga med vilket jag håller på med. 
+- Inget, allt är tydligt
+- Ingen aning
+- Ha disciplin
+- Bra fråga, Vet inte 
+- Det borde vara själva servern som hanterar alla get och post meddelanden, för utan den så kan ingen arbeta eller riktigt testa sina sidor. Så destu snabbare jag och robin får igång den desto bättre/lättare kommer det nog vara. Dels med att hjälpa mina kollegor men också att sätta upp test och annat som involverar servern.
+- Att planera 
+- Jag vet inte.
+- Inget. Borde gå bra.
+- Anteckningsstöd skulle underlätta mycket. 
+- Just nu har inte något att säga om detta, men om något dyker upp sen, då tar jag upp med dig på labben för att få hjälp med.  Tack på förhand!
+- Jag känner att en plan är det viktigaste för mig. T.ex hur många timmar om dagen jag bör lägga för att kunna klara mig till slutpunkten.
+- Alla i vårt team behöver samlas och börja planera, fördela uppgifter samtidigt hjälpa åt om någon inte har fixat färdigt med labbmiljön. 
+- Boende! 
+- inget hittills
+- En snabb praktisk genomgång på hur man som bäst använder git i lag hade varit kul & användbart, med tanke på att mycket i kursen handlar om samarbete och utvecklingsmiljö.
+- Kanske bättre förklaring från kursansvariga på föreläsningarna, tydligare och inte så hastig genomgång. 
+- Jag har allt jag behöver för att klara kursen.
+- En bra planering och upplägg
+- Mer instruktioner
+- ingen aning faktiskt
+- Att komma igång med arbetet är det aboslut svåraste, att dela upp arbetet och att påbörja det arbetet. Men mina och gruppens förhoppningar är att när vi väl har kommit igång med arbetet kommer det att bli en snöbollseffekt hela vägen ner till inlämningsdagen. 
+- bra planering och rätt redovisning 
+- Det viktigaste är att välja vilka miljöer vi ska använda och få dem att funka.  Få en struktur på vad som ska göras och när det ska vara klart.
+- Inget, bara jag som behöver få ihop min vardag
+- Jag måste lära mig github och min grupp måste planera och fördela arbete.
+- Fortsätta med inlämingsuppgifterna och succesivt gå igenom alla de nya verktygen på egen hand så jag vet hur jag bäst ska använda dem.
+- Det som måste fixas är att jag måste hitta en grupp eftersom hela kursens uppgift handlar om att man ska hitta en grupp för att genomföra projekten. 
+- jag kan inte tängka på något som inte har med uppgiften själv att göra tycker ändå att vi verkar ha fått all informansion vi behöver för att göra klart kursen.
+- Jag tror att jag behöver lite mer tid för att kunna svara på den här frågan
+- Svårt att säga eftersom vi inte riktigt kommit igång med uppgifterna än. Just nu känns allt nytt och svårt innan man kommit igång, men det brukar lösa sig.
+- Lite mer genomgång på själva uppgiften
+- Ingen aning.
+- En tydlig grund till vad som ska göras och vad jag behöver för att lösa det. 
+- Att förstå varje ord, mening och begrepp i uppgiftsbeskrivningen.
+- Att vi i gruppen planerar vem och vad som ska göras samt när vi vill att dessa milstenar ska vara klara. Även kommunikation är viktigt med varandra.
+- Tror att förklarande av funktionaliten av de olika verktygen som ska användas (utöver egen research) skulle vara bra (vilket troligtvis kommer lite senare)
+- Mina gruppmedlemmar måste komma på mer föreläsningar och labb tillfällen så vi kan alla var up to date på vart vi ligger i kursen, så jag inte kommer behöva göra allt i slutändan 
+- Att komma in i studie takten igen.
+- Min och mina gruppmedlemmars kunskap inom det hela. Att vi förstår det vi gör och det som ska göras. Att vi så snart som möjligt kommer igång med utvecklingmiljöerna. Jag känner mig lugnast när jag har det mesta under kontroll och vet vad det är som saknas och inte saknas, just nu är det mycket kunskap som saknas då det inte går att ha kontroll förutom att skynda på upplärningen. 
+- kombinera lite med andra kursen så att man inte har övningar i saker man har inte lärt i andra kursen ännu. 
+- Kolla igenom uppgifterna och se till att det känns som att jag har koll på vad som skall göras för att inte hamna efter.
+- Göra att schema där jag skriver ner hur mycket tid som borde behövas läggas per uppgift/moment.
+- Just nu är det bra och jag känner att jag har det jag behöver för att klara den.
+- Mer förklaring angående uppgifter och allt man behöver veta för att klara uppgifterna
+- Jag måste få igång ett fungerande schema för min tid.
+- Jag bör fixa en bra planering och en strategi för att det ska gå så smidigt och bra för alla som möjligt. 
+- För mig är det viktigt att det är tydligt vad man ska göra och gärna en bra genomgång på uppgiften. 
+- Ha lite extra koll på vad man ska göra, exempelvis om man ska göra en html och sen java osv.
+- Inget som jag har märkt hittills 
+- Alla verktygen som behövs för att kunna göra arbetet.
+- vet inte , måste komma ingång med allt först
+- Inget speciellt nu som jag vet om
+- Inhet speciellt som måste fixas, men såg stt intellij verkar behöva en licens, och vet inte om skolan erbjuder något sånt. Såg också att elever på bth har tillgång till github students, känns som det vore bra att meddela och rekommendera folk att skaffa men förstår att det inte är specifikt för denna kurs.
+- Inget som jag kan tänka på just nu, mer än kanske att man går igenom saker på ett ännu grundare sätt.
+- Min planering   
+- Lägg mer tid på kursen
+- Inget jag kan tänka på.
