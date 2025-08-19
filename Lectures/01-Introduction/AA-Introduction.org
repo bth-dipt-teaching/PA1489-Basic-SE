@@ -5,7 +5,7 @@
 #+Date: 2025-03-25
 #+EPRESENT_FRAME_LEVEL: 1
 #+OPTIONS: email:t <:t todo:t f:t ':t H:1 toc:nil
-#+STARTUP: beamer
+#+STARTUP: beamer num
 
 #+LATEX_CLASS_OPTIONS: [10pt,t,a4paper]
 #+BEAMER_THEME: BTH2025
@@ -23,7 +23,7 @@
 
 - Assistant Professor, PhD in Software Engineering
 - mailto:Mikael.Svahnberg@bth.se
-- https://sites.google.com/site/mikaelsvahnberg/
+- https://mickesv.codeberg.page/
 - Interests:
   - Software Architectures, Software Architecture Evaluation,
     Software Architecture Evolution, Requirements Engineering,
@@ -149,7 +149,7 @@ D. Thomas, A. Hunt, The Pragmatic Programmer, 20th Anniversary Edition, 2020. IS
 
 - Uppgifterna är /individuella/ 
   - Ni får väldigt gärna samarbeta när ni arbetar.
-  - Uppgift 1 redovisas individuellt.
+  - Deluppgifterna för uppgift 1 redovisas individuellt.
   - Uppgift 2 får redovisas tillsammans (som mest 5 studenter per grupp)
   - Uppgift 3, Ingenjörsdagboken, lämnas in individuellt.
 
