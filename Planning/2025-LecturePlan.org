@@ -73,7 +73,11 @@ Färdighet och förmåga
 
 Värderingsförmåga och förhållningssätt
 - Skriftligt reflektera över sina lösningar och sitt användande av utvecklingsverktyg.
-* TODO Assignment Parts
+* DONE Assignment Parts
+CLOSED: [2025-08-18 mån 14:33]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2025-08-18 mån 14:33]
+:END:
 Assessments:
 1. Git, Getting started with Containers, Testing/Debugging
 2. Implementation and Documentation
@@ -122,7 +126,11 @@ Parts:
 5. [ ] Engineering Diary
    1. Specific Questions to answer!
    2. Submit on Canvas
-* TODO Lecture Plan
+* DONE Lecture Plan
+CLOSED: [2025-08-18 mån 14:32]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2025-08-18 mån 14:32]
+:END:
 ** DONE Week 1 [4/4]
 CLOSED: [2025-08-11 mån 15:22]
 :LOGBOOK:
@@ -183,11 +191,15 @@ CLOSED: [2025-08-11 mån 15:22]
 2. [X] Lecture: Introduktion till Java
 3. [X] Practical: Developing a small web service (gissa djuret -- Web)
 4. [X] Lab: Develop a new microservice II (one microservice, simple web UI)
-** Week 7 [0/4]
-1. [ ] Lecture: *???*
-2. [ ] Lecture: Introduktion till JavaScript
-3. [ ] Practical: Ett enkelt Java-GUI program
-4. [ ] Lab: Develop a new microservice III (one microservice, simple web UI) (*Show to TA*)
+** DONE Week 7 [4/4]
+CLOSED: [2025-08-18 mån 14:29]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2025-08-18 mån 14:29]
+:END:
+1. [X] Lecture: Introduktion till JavaScript
+2. [X] Lecture: Application Development
+3. [X] Practical: Buffert
+4. [X] Lab: Develop a new microservice III (one microservice, simple web UI) (*Show to TA*)
 ** DONE Week 8 [4/4]
 CLOSED: [2025-08-11 mån 15:23]
 :LOGBOOK:
@@ -202,12 +214,16 @@ CLOSED: [2025-06-24 tis 14:18]
 :LOGBOOK:
 - State "DONE"       from "TODO"       [2025-06-24 tis 14:18]
 :END:
-* TODO Update Lectures
-- All Lectures delete "Nästa Föreläsning"
-- Lecture 1: Föreläsningsordning, struktur på kursen, inlämningsuppgifter, övningsuppgifter
-- Lecture 1: Verktyg
-- Lecture 1: Flytta "An Executing Program" till Lektion 2 "Datorn och dess beståndsdelar"
-- Lecture "Virtualisation" -- make it more hands-on.
+* DONE Update Lectures
+CLOSED: [2025-08-18 mån 14:32]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2025-08-18 mån 14:32]
+:END:
+- [X] All Lectures delete "Nästa Föreläsning"
+- [X] Lecture 1: Föreläsningsordning, struktur på kursen, inlämningsuppgifter, övningsuppgifter
+- [X] Lecture 1: Verktyg
+- [X] Lecture 1: Flytta "An Executing Program" till Lektion 2 "Datorn och dess beståndsdelar"
+- [X] Lecture "Virtualisation" -- make it more hands-on.
 * DONE Develop Lectures
 CLOSED: [2025-06-24 tis 14:20]
 :LOGBOOK:
@@ -254,7 +270,6 @@ CLOSED: [2025-06-24 tis 14:19]
 :LOGBOOK:
 - State "DONE"       from "TODO"       [2025-06-24 tis 14:19]
 :END:
-* TODO Övningar till föreläsningarna
 * DONE Get OOE to write instructions for DevEnv
 CLOSED: [2025-08-11 mån 15:23]
 :LOGBOOK:
@@ -262,8 +277,6 @@ CLOSED: [2025-08-11 mån 15:23]
 - State "WAIT"       from "DONE"       [2025-08-11 mån 15:23]
 - State "DONE"       from "TODO"       [2025-08-11 mån 15:23]
 :END:
-* TODO Update Course Plan §6
-"... tekniker och metoder inom +objektorienterad design och programmering+ ... " \rarr "... tekniker och metoder inom _grundläggande mjukvaruutveckling_ ... "
 * DONE Assignment Introduction Lecture
 CLOSED: [2025-08-11 mån 15:23]
 :LOGBOOK:
@@ -288,6 +301,9 @@ CLOSED: [2025-08-11 mån 15:23]
   - Examination
     - What to do, when to do it.
     - Marking guides
+* TODO Övningar till föreläsningarna
+* TODO Update Course Plan §6
+"... tekniker och metoder inom +objektorienterad design och programmering+ ... " \rarr "... tekniker och metoder inom _grundläggande mjukvaruutveckling_ ... "
 * TODO Course Map
 - "Be a Better Programmer", "Tool awareness" -> hands-on skills
 - Revisit in each lecture: intro and in summary
