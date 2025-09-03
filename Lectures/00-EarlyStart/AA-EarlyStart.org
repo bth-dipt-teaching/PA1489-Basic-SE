@@ -3,7 +3,7 @@
 #+Email: Mikael.Svahnberg@bth.se
 #+Date: 2025-08-19
 #+EPRESENT_FRAME_LEVEL: 1
-#+OPTIONS: email:t <:t todo:t f:t ':t H:2
+#+OPTIONS: email:t <:t todo:t f:t ':t H:1 toc:nil
 #+STARTUP: beamer num
 
 #+LATEX_CLASS_OPTIONS: [10pt,t,a4paper]
@@ -73,6 +73,7 @@ Min förhoppning:
     Software Product Lines, Software Reuse, Empirical Research Methodology,
     Software Engineering Decision Support, Static Code Analysis, Software Architecture Reconstruction
 * Why Study Software Engineering?
+
 #+begin_quote
 /Within 5 years we will replace all software developers with AI/
 #+end_quote
@@ -83,19 +84,25 @@ Min förhoppning:
 
 #+begin_quote
 
-/Software Engineering as a career is dead, you will all be replaced by AI!/
+/Software Engineering as a career is dead, 
+ you will all be replaced by AI!/
 
-/Get a haircut and a proper education instead of becoming just another prompt-jockey!/
+/Get a haircut and a proper education instead of 
+becoming just another prompt-jockey!/
 
 #+end_quote
 
-** Show of hands
+* Show of hands
 - How many of you study software engineering because it is well paid?
 - How many of you study software engineering because it is a guaranteed job?
 - How many of you study software engineering because of something else?
 
 - What is this something else?
-** My Top Reasons for working in and with Software Engineering
+* My Top Reasons for working in and with Software Engineering
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
 - The thrill of /creating/ something
    - To create something from an idea or a concept
    - To use something that you, yourself, have created.
@@ -126,10 +133,14 @@ Min förhoppning:
    - You have the /skills/, you have the /power/ and /ability/; /you can do this!/
 - Finally: /It is something I love doing!/
 
-*** Note the things that are not in this list :noexport:
+** Note the things that are not in this list :noexport:
 - e.g. fame & fortune, career, financial stability, workplace flexibility, \dots
 - /Why would you let anyone or anything take this away from you?/
 * Get Started: Canvas
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
 - Canvas :: Lärplatform
   - All information i och om kurserna du läser finns här.
   - Kontakt med lärare, kontakt med andra studenter
@@ -148,11 +159,15 @@ Min förhoppning:
   - Moduler :: En del kurser organiserar kursmaterialet som moduler.
     - Kan finnas mycket här!
     - Syns inte självklart på mobilen; måste leta efter det.
-  - Diskussioner, Filer, mm. kan också finnas.
+  - Diskussioner, Filer, mm. :: kan också finnas.
 
 *Att Göra:*
 - /För varje ny kurs: Bekanta er med vad som finns på Canvas./
 * Get Started: Your Computer
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
 - Vad finns i din dator? Vad finns på högskolans datorer?
 - Hur fungerar datorn? Hur fungerar ett program?
 - Hur kör jag program? Vad är WSL? Hur använder jag det?
@@ -171,6 +186,10 @@ I den här kursen behöver du:
 - Något verktyg för att arbeta med containers; Docker https://www.docker.com/
 
 * Get Started: Assignments
+:PROPERTIES:
+:BEAMER_OPT: shrink=5
+:END:
+
 - Tre Examinerade uppgifter om vardera 2.5hp:
   1. Konfigurationshantering, Containers, Testning och Debuggning  (Redovisas i labsal)
   2. Implementation och Dokumentation (Redovisas i labsal)
