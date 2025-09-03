@@ -189,9 +189,10 @@ Dessutom:
 
 * Djupare Introduktion till Uppgifterna
 ** Uppgift 1: Verktyg
-- Git
-- Docker, Docker Compose
-- Testing & Debugging
+Tre deluppgifter:
+- 1.1 Git
+- 1.2 Docker, Docker Compose
+- 1.3 Testing & Debugging
 
 Varje del visas i labsal; Uppgiftsbeskrivningen innehåller deluppgifter du skall göra på egen hand, och de steg du skall visa under redovisningen ("Show the TA")
 ** Uppgift 2: Implementation och Dokumentation
@@ -272,55 +273,6 @@ Det finns också open-source-alternativ:
   - Communicate with your team.
   - Keep your code tidy and improve it.
   - Fight the inevitable decay.
-* Åtagandekultur: Gruppen och Du
-*Gruppens åtagande är ditt åtagande -- alla behövs*
-
-#+ATTR_LATEX: :height 5cm
-[[file:./IDogsleigh.jpg]]
-* Åtagande / Commitment Culture
- - *Gruppen* har åtagit sig att leverera en produkt eller artefakt
-   - Med en viss funktionalitet
-   - Inom en viss budget
-   - Vid en viss tidpunkt
-   - Med en viss kvalitet
- - Som medlem i gruppen har *du* gjort samma åtagande!
-
-#+ATTR_LATEX: :height 4cm
- [[file:./IKennedy-AskNot.jpg]]
-* Teamwork och Individens Ansvar
- - Åtagandekultur
-   - Gemensam förståelse för uppgiften
-   - Individens åtagande mot gruppen
-   - Gruppens åtagande mot individen
-
- - Förutsättningar
-   - Har du nödvändig kunskap om uppgiften?
-   - Har du förmåga och vilja att ta på dig ansvaret?
-* Delaktighet
-:PROPERTIES:
-:BEAMER_OPT: shrink=5
-:END:
-
-- Gemensamma mål
-- Tillgång till nödvändig information -- i tid
-- Förståelse för sammanhanget, individens bidrag till målen
-- Möjlighet att uttrycka sin åsikt
-- Möjlighet att påverka sin situation
-- Individuellt ansvar
-  - för /uppgiften/
-  - för /arbetssättet/
-  - för /gruppen/
-
-*När det går fel:*
-- Saknar gemensamma mål, eller otydliga mål
-- Saknar styrning från de som skall styra
-- Saknar gemensamma processer, eller synkroniseringspunkter mellan processer
-- Saknar åtagande från individerna
-- Ingen tar eller avkrävs ansvar
-- Ett fåtal dominerar diskussioner och beslut
-- Beslut kommuniceras inte
-- *\sum Kommunikationen fungerar inte*
-
 * Entropi
 :PROPERTIES:
 :BEAMER_OPT: shrink=5
@@ -349,21 +301,6 @@ Fundamentalt för att motarbeta mjukvaruröta: *Fixa det som är trasigt*
 - Visa för resten av teamet att det spelar roll
 - Visa i projektplanen att det tar tid och kostar
 - Ta inte sönder saker när du bygger nytt. *Testa din kod*
-* Fortsätt Utvecklas
-- Programvaruteknik förändras ständigt
-  - Nya verktyg, nya teknologier, nya ramverk, nya programspråk
-- Sluta inte lära dig när du tar examen
-- Kurserna hänger ihop: använd det du lärt dig hela tiden.
-- Bredda dig: Lär dig lite om mycket
-  - Gör det enklare att förstå och använda ny teknologi
-- Läs böcker!
-  - Både tekniska och icke-tekniska böcker.
-  - Första steget till att bredda dina kunskaper.
-  - Träning i att hålla fokus.
-- Kritiskt tänkande
-  - Kan detta stämma?
-  - Vad är källan?
-  - "Fem varför"
 * Kommunikation
 :PROPERTIES:
 :BEAMER_OPT: shrink=5
