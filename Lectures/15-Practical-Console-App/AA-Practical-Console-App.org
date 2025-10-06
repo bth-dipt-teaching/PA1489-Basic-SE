@@ -325,6 +325,90 @@ The last two items are important
   - The =previous= node is a =Question=
 - We need to be able to insert new nodes =Node::insert()= takes care of this.
   - /However/, we learn that we must also keep track of the =previous_answer= given by the user.
+* Having Played for a While
+- After a while, you have a tree of /Nodes/
+  - /Questions/ have branches (one yes-branch, and one no-branch)
+  - /Animals/ are leaves.
+
+#+begin_src dot :file data-structure-some-way-in.png
+  digraph G {
+    rankdir="LR";
+    label="Having Played for a While"
+    bgcolor="transparent";
+    node[width=0.15, height=0.15, fontsize=10.0 color=black, fontcolor=black];
+    edge[weight=2, color=darkgray, fontsize=10.0, fontcolor=darkgray];
+    
+    // Questions
+    q1, q2, q3, q4, q5, q6, q8, q9, q10
+
+    // Animals
+    node[width=0.15, height=0.15, fontsize=10.0 color=black, fontcolor=white, style=filled, fillcolor=darkgreen];
+
+  //a1, a2, a3, a4, a5, 
+
+    // Edges
+    q1->q2 [label="yes"]
+    q1->a2 [label="no"]
+    q2->q3 [label="yes"]
+    q2->q4 [label="no"]
+    q3->q5 [label="yes"]
+    q3->q6 [label="no"]
+    q4->a4 [label="yes"]
+    q4->q8 [label="no"]
+    q5->q9 [label="yes"]
+    q5->q10 [label="no"]
+    q6->a1 [label="yes"]
+    q6->a3 [label="no"]
+    q8->a5 [label="yes"]
+    q8->a6 [label="no"]
+    q9->a7 [label="yes"]
+    q9->a8 [label="no"]
+    q10->a9 [label="yes"]
+    q10->a10 [label="no"]
+
+
+  }
+#+end_src
+
+#+RESULTS:
+[[file:data-structure-some-way-in.png]]
+* Tree Traversal Algorithm (brief)
+#+begin_src python
+  #
+  # This is actually some form of pseudo code; it will not work as python code.
+  #
+
+  current_node = self.root
+  done = False
+  while not done:
+      answer = input( current_node.get_question() )
+      answer = parse_answer( answer ) # Make the answer into a boolean [True if answer was 'y' or 'yes', otherwise False]
+      new_node = current_node.give_answer( answer )
+
+      if None == new_node:
+          # current_node must have been an Animal node,
+          # and the question "Are you thinking of a XXX?" was answered with "no"
+          new_question = create_new_question( old_current_node = current_node )
+          insert_node(start = self.root, place = current_node, new_node = new_question)
+          done = True
+
+      elif new_node == current_node:
+          # current_node must have been an Animal node,
+          # and the question "Are you thinkin of a XXX?" was answered with "yes"
+          # This means the computer wins -- it guessed what animal you were thinking of
+          print("Cool, I win! Next time, pick something more difficult.")
+          done = True
+
+      else:
+          # current_node was probably a question,
+          # and the answer (yes or no) returned a new node for me.
+          current_node = new_node
+
+  # end of while
+#+end_src
+
+[[./data-structure-some-way-in.png]]
+
 * Some more Decisions
 - We start as a /console/ app (using =print= and =input=)
   - We may wish to change this later, so let's keep the user interaction separate.
