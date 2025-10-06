@@ -167,12 +167,12 @@ if __name__ == "__main__":
 - How do you run the program in debug mode?
   - What happens?
 * Keep Editing
-1. Add a method in the class, =def addTen(int x)=
-   - Write the method above the ~__main__~ incantation.
-   - The method should add 10 to the parameter =x= and return this.
+1. Add a function, =def addTen(x)=
+   - Write the function above the ~__main__~ incantation.
+   - The function should add 10 to the parameter =x= and return this.
 2. Add a line at the end that calls the method =print addTen(i)=
 3. Run the program. What happens?
-4. *Read the Error Message* -- This contains all the clues you need to correct the mistage
+4. *Read the Error Message* -- This contains all the clues you need to correct the mistake
 
 While typing, you may get clues what to write.
 - How does this look?

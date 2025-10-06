@@ -19,10 +19,10 @@
       - Docker https://docs.docker.com/get-started/
       - Docker with node.js  https://docs.docker.com/language/nodejs/
       - Docker with python https://docs.docker.com/guides/python/
-   3. Clone the /PonyVoter/ project https://codeberg.org/mickesv/PonyVoter.git
-2) Inspect and Test
-3) Modify
-4) *Show the TA*
+2) Clone the /PonyVoter/ project https://codeberg.org/mickesv/PonyVoter.git
+3) Inspect and Test
+4) Modify
+5) *Show the TA*
 * PonyVoter :Info:
 - PonyVoter presents two options and you vote by clicking on one of them
 - The votes are registered in a database so that you can keep track of which pony is the most popular.

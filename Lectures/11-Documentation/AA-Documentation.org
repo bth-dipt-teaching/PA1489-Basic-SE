@@ -164,7 +164,7 @@ public boolean move(int xPosition, int yPosition) {
   - Även när metoden, parametrarna, och/eller returvärdet är uppenbara.
 
 - Använd hellre (säger kritikerna) :
-  - /Mindre metoder/ med ett små och tydliga ansvarsområden
+  - /Mindre metoder/ med små och tydliga ansvarsområden
   - /Rätt namn på metoden/ så att man av namnet tydligt ser vad den gör
   - /Rätt namn på parametrar/ Tillsammans med metodnamnet ger de ofta tillräckligt med ledtrådar
   - /Undvik överraskningar/ Var konsekvent i parameterordning och returvärden

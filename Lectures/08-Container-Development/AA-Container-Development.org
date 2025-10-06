@@ -24,6 +24,16 @@
 
 - Microservice Architectures
 - Communicating Microservices; REST APIs
+* What you Write and What you Run
+- You /develop/ as usual (Using your IDE to write source code)
+  - Focus: Directories and Files
+- You /commit/ your files locally
+- You /push/ your commits to github
+
+- You /run/ your program using Docker/Docker Compose
+  - Provisioning in the =Dockerfile=
+  - Orchestration in =compose.yaml=
+  - Docker builds the images locally and runs them locally
 * Software Architectures
 - A /Software Architecture/ is the overall structure of a system
   - Compare with a building's architecture
