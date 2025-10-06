@@ -40,7 +40,7 @@ D. Thomas, A. Hunt, The Pragmatic Programmer, 20th Anniversary Edition, 2020. IS
 12. [Practical: Testing and Debugging](Lectures/12-Practical-Testing-Debugging/AA-Practical-Testing-Debugging.org)
 13. [User Interfaces](Lectures/13-User-Interfaces/AA-User-Interfaces.org)
 14. [User Interfaces: Web and HTML](Lectures/14-UI-Web-HTML/AA-UI-Web-HTML.org)
-15. [Practical: We develop a Console App](Lectures/14-Practical-Console-App/AA-Practical-Console-App.org)
+15. [Practical: We develop a Console App](Lectures/15-Practical-Console-App/AA-Practical-Console-App.org)
 16. [Storage: Files and Databases](Lectures/16-Storage-Files-Databases/AA-Storage-Files-Databases.org)
 17. [Introduction to Java](Lectures/17-Introduction-Java/AA-Introduction-Java.org)
 18. [Practical: We develop a Web App](Lectures/18-Practical-Web-App/AA-Practical-Web-App.org)
