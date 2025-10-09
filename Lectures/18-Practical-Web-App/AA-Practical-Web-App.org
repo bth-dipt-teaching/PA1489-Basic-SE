@@ -14,7 +14,75 @@
 - Tasks:
   1. Move everything into a Container
   2. Implement a web interface
-* Quick Recap
+* The Lab This Week
+1. Create a file =restinterface.py= where you implement a http interface to your app.
+   - =POST /api/Collection= add a new collection
+   - =GET /api/Overview= get a JSON object with an overview of all data collections
+   - =GET /api/List= get a JSON object with a detailed list of all data collections
+   - =GET /api/Info?name=data-collection-name= get a JSON object with details for one specific data collection
+   - =POST /api/Backup= add a backup
+   - You may wait with: =GET /api/Search?name=text=
+   - You may wait with: =POST /api/Edit=
+   - You may wait with: =POST /api/Unbackup=
+   - You may wait with: =DELETE /api/Delete?name=data-collection-name=
+
+*Note*
+- This is why we separated all =print()= statements into a single place; it is now "easy" to create a new frontend.
+- You will need some http interface (e.g. =flask= in Python) for this -- see lab from previous weeks.
+- You will need to modify your =main()= function to start the =RestInterface= for you.
+
+*Tips:*
+- create a method =DataCollection.full_json()= to generate a JSON object for a single DataCollection object.
+- similarly, you want to add methods =overview_json()=, =detailed_overview_json()=, and =info_json()=  in your =CollectionManager= class.
+- You may wish to run your app inside Docker already now.
+- The =POST= endpoints should accept a JSON object; see next slide for examples.
+* Example JSON objects
+#+begin_example
+# Add a Collection
+POST http://localhost:5000/api/Collection
+content-type: application/json
+
+{
+  "name": "web collection",
+  "description": "created over the interwebz",
+  "creation_date": "just now",
+  "modification_date": "only recently",
+  "still_updated": true
+}
+
+# Add a Backup
+POST http://localhost:5000/api/Backup
+content-type: application/json
+
+{
+  "name": "collection 1",
+  "backupname": "DVD Burn",
+  "date": "May 2025",
+  "location": "Top drawer"
+}
+
+# Unbackup
+POST http://localhost:5000/api/Unbackup
+content-type: application/json
+
+{
+  "name": "collection 1",
+  "backupname": "DVD Burn",
+  "date": "May 2025"
+}
+
+# Edit
+POST http://localhost:5000/api/Edit
+content-type: application/json
+
+{
+  "name": "collection 1",
+  "modification_date": "yesterday",
+  "still_updated": true
+}
+
+#+end_example
+* AnimalGuesser -- Quick Recap
 #+begin_src dot :file data-structure-oneIn.png
   digraph G {
     rankdir="LR";
@@ -74,7 +142,7 @@ Also:
 - ~app.py~
 - ~gamelogic.py~
 - class ~ConsoleGame~
-* First Steps
+* Webifying: First Steps
 1. Commit and tag the current version (for easier reference later)
 2. Create ~requirements.txt~ with one line: ~Flask>=3.0.3~
 3. Create a ~Dockerfile~
@@ -83,7 +151,7 @@ Also:
 6. Edit ~app.py~ to use ~WebGame~ instead of ~ConsoleGame~
 
 #+begin_src Dockerfile
-FROM python:3.8-slim
+FROM python:3.13-slim
 
 WORKDIR /app
 
@@ -119,25 +187,25 @@ services:
 5. Test if it builds and runs ~docker compose up~
 
 #+begin_src python
-from flask import Flask, request, render_template
+  from flask import Flask, request, render_template
 
-from node import Node
-from animal import Animal
-from question import Question
-import gamelogic
+  from node import Node
+  from animal import Animal
+  from question import Question
+  import gamelogic
 
-app = Flask(__name__)
+  app = Flask(__name__)
 
-class WebGame:
-    def __init__(self):
-        self.root = None
+  class WebGame:
+      def __init__(self):
+          self.root = None
+          
+      def setup(self):
+          pass
 
-    def setup(self):
-        self.root = gamelogic.setup()
-
-    def start(self):
-        print("Listening on: http://localhost:5000/")
-        app.run(debug=True, host="0.0.0.0", port=5000)
+      def start(self):
+          print("Listening on: http://localhost:5000/")
+          app.run(debug=True, host="0.0.0.0", port=5000)
 #+end_src
 * Web Endpoints
 - =/= is the =startpage()=
@@ -302,50 +370,57 @@ Logic goes as follows:
 #+end_src
 ** Consolegame version :noexport:
 #+begin_src python
-    def _start_guessing(self):
-        current = self.root
-        previous = None
-        previous_ans = None
-        done=False
-        
+        current_node = self.root
+        done = False
+
         while not done:
-            q = current.get_question()
-            a = self._y_or_n(q)
-            nxt = current.answer(a)
-            
-            if current.guessed_right():
-                print("I knew it! Next time, pick something more difficult.")
-                done=True
-            elif current.guessed_wrong():
-                self._new_animal(current, previous, previous_ans)
-                done=True
-            else: # If both are false, we were not at an Animal node
-                previous = current
-                previous_ans = a
-                current = nxt
+            answer = input( current_node.get_question() )
+            answer = self._parse_answer( answer )
+            new_node = current_node.give_answer( answer )
+
+            if None == new_node:
+                # current_node must have been an Animal node,
+                # and the question "Are you thinking of a XXX?" was answered with "no"
+                new_question_node = self._create_new_question( old_current_node = current_node )
+                self._insert_node(start = self.root, place = current_node, new_node = new_question_node )
+                done = True
+
+            elif new_node == current_node:
+                # current_node must have been an Animal node,
+                # and the question "Are you thinkin of a XXX?" was answered with "yes"
+                # This means the computer wins -- it guessed what animal you were thinking of
+                print("Cool, I win! Next time, pick something more difficult.")
+                done = True
+
+            else:
+                # current_node was probably a question,
+                # and the answer (yes or no) returned a new node for me.
+                current_node = new_node
 #+end_src
 ** Webgame version :noexport:
 #+begin_src python
+        @app.get('/play')
         def play():
             path = request.args['path']
             answer = request.args['answer'].lower()
 
             if '' == path:
-                print('first play')
+                print('First play')
                 return render_template('index.html', path='0', question = self.root.get_question())
             else:
-                current = gamelogic.find_node(self.root, path)
-                nxt = current.answer('y' == answer[0])
+                current_node = self._find_node(self.root, path)
+                new_node = current_node.give_answer('y' == answer[0])
 
-                if current.guessed_right(): # Just restart
+                if None == new_node: # Add a new animal
+                    return render_template('add_animal.html', path=path, last_animal=current_node.get_name())
+
+                elif new_node == current_node: # Win and restart
                     return render_template('index.html', path='', 
                                            question='Are you thinking of an animal?',
                                            message= 'I knew it! Next time, pick something more difficult.')
-                elif current.guessed_wrong(): # Add a new animal
-                    return render_template('add_animal.html', path=path, last_animal=current.get_name())
                 else:           # ask the next question
                     path = path + answer[0]
-                    q = nxt.get_question()
+                    q = new_node.get_question()
                     return render_template('index.html', path=path, question=q)
 #+end_src
 * Add New Animal
@@ -373,23 +448,49 @@ Logic goes as follows:
 
 ** Consolegame version :noexport:
 #+begin_src python
-    def _new_animal(self, current, previous, previous_ans):
-        new_animal=input("The animal you were thinking of was a ? ").lower()
-        new_question=input(f"Please type in a question that would distinguish a {new_animal} from a {current.get_name()} ? ")
-        new_answer=self._y_or_n(f"For a {new_animal} the answer would be? ")
-        gamelogic.insert(current, previous, previous_ans, new_animal, new_question, new_answer)
+    def _create_new_question(self, old_current_node):
+        new_animal = input("The animal you were thinking of was a ? ").lower()
+        new_question = input(f"Please type a question that would distinguish a {new_animal} from a {old_current_node.get_name()} ? ")
+        new_answer = self._parse_answer( input(f"For a {new_animal} the answer would be? ") )
+
+        new_animal_node = Animal(new_animal)
+
+        if True==new_answer:
+            new_question_node = Question(new_question, yes=new_animal_node, no=old_current_node)
+            return new_question_node
+        else:
+            new_question_node = Question(new_question, no=new_animal_node, yes=old_current_node)
+            return new_question_node
+
+    def _insert_node(self, start, place, new_node):
+        if None==start: return
+
+        yes_node = start.get_yes_node()
+        no_node = start.get_no_node()
+
+        if place==yes_node:
+            start.insert(True, new_node)
+        elif place==no_node:
+            start.insert(False, new_node)
+        else:
+            self._insert_node(start.get_yes_node(), place, new_node)
+            self._insert_node(start.get_no_node(),  place, new_node)
 #+end_src
 ** Webgame version :noexport:
 #+begin_src python
-        @app.get('/add')
         def add():
             new_animal = request.args['animal']
             new_question = request.args['question']
-            new_answer = request.args['answer'].lower()
+            new_answer = self._parse_answer(request.args['answer'])
+
             path = request.args['path']
-            current = gamelogic.find_node(self.root, path)
-            previous = gamelogic.find_node(self.root, path[0:len(path)-1])
-            gamelogic.insert(current, previous, 'y'==path[-1], new_animal, new_question, 'y'==new_answer)
+            current_node = self._find_node(self.root, path)
+
+            new_question_node = self._create_new_question(current_node,
+                                                          new_animal,
+                                                          new_question,
+                                                          new_answer)
+            self._insert_node(self.root, current_node, new_question_node)
             return render_template('index.html', path='', 
                                    question='Are you thinking of an animal?',
                                    message= f"Added {new_animal} to the collection...")
@@ -422,11 +523,97 @@ List is similar to the consolegame but different.
 
 </div>
 #+end_src
+
+** Consolegame version :noexport:
+#+begin_src python
+    def _list(self, node=None):
+        if None==node: return self._list(self.root)
+
+        if node.get_name():
+            print(node.get_name())
+        else:
+            self._list(node.get_yes_node())
+            self._list(node.get_no_node())
+#+end_src
+** Webgame version :noexport:
+#+begin_src python
+        @app.get('/list')
+        def list():            
+            names = self._list(self.root, [])
+            return render_template('index.html', path='', 
+                                   question='Are you thinking of an animal?',
+                                   known_animals=names)
+
+    def _list(self, node=None, names=[]):
+        if None==node: return self._list(self.root, [])
+
+        if node.get_name():
+            return [node.get_name()]
+        else:
+            names.extend(self._list(node.get_yes_node()))
+            names.extend(self._list(node.get_no_node()))
+            return names
+
+#+end_src
 * Save, Reload
 - Save and Reload are very similar to the consolegame version
+  - As long as we load in the same order as we save, we should be mostly safe.
+  - Remember that we are saving inside the container, so we will lose our animals when it restarts
 - Just the output is different:
   - we use the =render_template= call again.
   - we re-use the =message= parameter to give some feedback
+
+#+begin_src python
+        @app.get('/save')
+        def save():
+            print("Saving...")
+            self._save()
+            return render_template('index.html', path='', 
+                                   question='Are you thinking of an animal?',
+                                   message= 'Saved the database')
+
+        @app.get('/load')
+        def load():
+            print("Loading...")
+            self.root = self._load()
+            return render_template('index.html', path='', 
+                                   question='Are you thinking of an animal?',
+                                   message= 'Reloaded the database')
+#+end_src
+** Save
+#+begin_src python
+    def _save_node(self, file_handle, node):
+        if None==node : return
+        print(" saving node ", node.__str__())
+        file_handle.write(node.__str__() + "\n")
+        self._save_node(file_handle, node.get_yes_node())
+        self._save_node(file_handle, node.get_no_node())
+
+    def _save(self, filename="animals.data"):
+        with open(filename, "w") as f:
+            self._save_node(f, self.root)
+#+end_src
+** Load
+#+begin_src python
+    def _read_nodes(self, file_handle):
+        line = file_handle.readline().strip()
+        print(" reading node ", line.__str__())
+
+        if line.startswith("Question"):
+            the_question = line[9:]  # Remove "Question " from beginning of line
+            yes_node = self._read_nodes(file_handle)
+            no_node = self._read_nodes(file_handle)
+            return Question(the_question, yes=yes_node, no=no_node)
+        elif line.startswith("Animal"):
+            the_animal = line[7:] # Remove "Animal " from beginning of line
+            return Animal(the_animal)
+        else:
+            return None # Default case, should not happen
+
+    def _load(self, filename="animals.data"):
+        with open(filename) as f:
+            return self._read_nodes(f)
+#+end_src
 * Decorate the pages: Add some quick-navigation
 - Purely in the HTML code
 - Rather than copy-pasting this, we ought to use ={% include 'somefile.html' %}=
@@ -441,15 +628,10 @@ List is similar to the consolegame but different.
 * Summary
 - Main changes:
   - =app.py= now uses =WebGame=
-  - =gamelogic.py= now has a method =find_node()=
   - =webgame.py= is new
 - Containerised the app: =Dockerfile= and =compose.yaml=
 - Stateful vs Stateless apps
 - Let the client keep track of state (=path=)
 - There are things to tidy up in the code, e.g.
   1. The string /Are you thinking of an animal?/ appears in many places; refactor to a constant.
-  2. =Animal.get_question()= resets the =self._guess= variable.
-     - This was a useful shortcut in the console game
-     - It may now create problems since =answer()= does two things; refactor into two separate methods.
-
 - Next step: Using a database
