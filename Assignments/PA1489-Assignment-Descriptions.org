@@ -495,7 +495,7 @@ A checklist is used to assess the contents of your diary, and this is used to ca
 |    17 |    >70% | C     |
 |    16 |    >65% | D     |
 |    14 |    >60% | E     |
-|   >14 |    <60% | F     |
+|   <14 |    <60% | F     |
 |-------+---------+-------|
 ** Generic Suggestions
 - Try to get into the habit of often reflecting upon what you have done, what you have learnt, and what you must find out.

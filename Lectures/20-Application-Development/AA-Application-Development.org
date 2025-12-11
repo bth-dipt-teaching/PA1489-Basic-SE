@@ -54,6 +54,7 @@
     - Server contains most of the functionality
 
 #+begin_src plantuml :file client-server.png
+scale 2
 actor User
 [Client]
 cloud Network
@@ -78,6 +79,7 @@ Server - Storage
   - Frontend does input sanity checks -- /including/ checks already performed by the web browser.
     
 #+begin_src plantuml :file webapp.png
+scale 2
 actor User
 component "Web Browser" as wb
 cloud Internet

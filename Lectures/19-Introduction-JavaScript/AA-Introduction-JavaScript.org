@@ -72,7 +72,8 @@ My view:
 
 #+begin_src plantuml :file hack-dialog.png
 @startsalt
-!theme bluegray
+scale 1.5
+' !theme bluegray
 
 {
 Please enter your name:
@@ -256,7 +257,7 @@ Background: Different /programming paradigms/
   let arr = [1,2,3,4,5,6,7,8,9,10];
   arr.every( elem => elem<20 ); // true ; alla elements are smaller than 20
   arr.filter( (elem) => 0==elem%2 ); // [2,4,6,8,10]
-  arr.find( elem => { if (0==elem%5) { // May have a full function body
+  arr.find( function(elem) { if (0==elem%5) { // May have a full function body
       return true;
   } else {
       return false;
@@ -265,9 +266,8 @@ Background: Different /programming paradigms/
   arr.forEach( elem => console.log(elem)); // Prints the elements but returns "undefined"
   arr.forEach( console.log ); // May use existing functions directly
   arr.map( elem => 2*elem ); // returns [2,4,6,8,10,12,14,16,18,20], but keeps arr unchanged.
-  arr.reduce(
-      (accumulator, elem) => accumulator += elem, // two parameters, must have parentheses around
-      0); //  0 is the start value of the accumulator. Returns '55'.
+  arr.reduce( (accumulator, elem) => accumulator += elem, // two parameters, must have parentheses around
+  						0); //  0 is the start value of the accumulator. Returns '55'.
 #+end_src
 * Event-based programming
 - Asynchronous programming
