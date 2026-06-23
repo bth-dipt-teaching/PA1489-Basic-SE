@@ -1,0 +1,90 @@
+#+STARTUP: OVERVIEW
+#+TODO: TODO(t) | DONE(d!) WAIT(w!) INFO(i) MORT(m)
+
+* Outline
+- Vecka 1-2: Konfigurationshantering, Bli vän med din IDE
+- Vecka 3-4: Microservices
+- Vecka 4-5: Utveckling, Debugging, 
+- Vecka 6-7: Testning, Dokumentation
+* Weekly Format
+1. Lecture 1 (2h)
+2. Lecture 2 (2h)
+3. Practical Lecture (2h)
+4. Lab Time (4h)
+* Assignment Deadlines
+rollcall: 09-11
+Git: 09-11
+Docker: 09-18
+Test&Debug: 09-25
+Implementation: 10-16
+Diary: 10-23
+* DONE Assignment Parts
+Assessments:
+1. Git, Getting started with Containers, Testing/Debugging
+2. Implementation and Documentation
+3. Engineering Diary
+
+Parts:
+1. [ ] Work with Git; *show TA while you:*
+   1. Create directory
+   2. Create files in directory
+   3. Open files in editor; edit; save.
+   4. Close editor and find files via explorer.
+   5. Git clone from online repo to a new directory.
+   6. Edit files in editor.
+   7. Git add/git commit.
+   8. Find files in explorer.
+   9. Show files in online repo.
+2. [ ] Microservices / Containers
+   1. Clone git repo
+   2. Run with docker compose; test via web browser.
+   3. Edit one image/container
+   4. Run again & test effect of edit
+   5. *Show TA:* 
+      1. Describe each container
+         - Which containers are there
+         - When is each container "invoked" in the log output?
+         - What does each container do?
+         - What is the difference between image and container?
+      2. Show your edit
+      3. Run with docker compose
+      4. Show you using app via web browser.
+3. [ ] Testing and Debug Session
+   1. Clone project
+   2. Run unit-tests
+   3. Add some unit tests
+   4. Run unit-tests again
+   5. *Show TA* while you:
+      1. Run tests
+      2. Set a Breakpoint and run application
+      3. Use the functions Step over, step in, step out, continue.
+      4. Inspect the value of a variable
+4. [ ] Implementation and Documentation; *Show TA:*
+   1. Start application
+   2. Demo application in web browser
+   3. Talk through code
+   4. TODO: *Code is well documented. Docstrings and comments.*
+5. [ ] Engineering Diary
+   1. Specific Questions to answer!
+   2. Submit on Canvas
+
+* TODO Instructions for Engineering Diary
+* TODO One Assignment Document to Rule them All
+* Learning Outcomes Map (from Canvas)
+- Kunskap och Förståelse ::
+  - Visa grundläggande kunskaper i modern mjukvaruutveckling och containerbaserad mjukvaruutveckling genom att skriftligt beskriva och sammanfatta erfarenheter och observationer från övningar och projekt.
+    - Inlämningsuppgift 3: Ingenjörsdagbok
+
+- Färdighet och Förmåga	::
+  - Utifrån en specifikation utveckla, dokumentera, och presentera ett mjukvaruprojekt som exekverar på ett fåtal kommunicerande containers.
+    - Inlämningsuppgift 2: Implementation och Dokumentation
+  - Felsöka ett program med hjälp av testkod och en debugger.
+    - Inlämningsuppgift 1: Verktyg/Testning och Debuggning
+  - Samarbeta runt ett gemensamt utvecklingsprojekt med hjälp av konfigurationsverktyg.
+    - Inlämningsuppgift 1: Verktyg/Git
+  - Hantera de verktyg och utvecklingsmiljöer som används vid utveckling och felsökning med containerbaserad mjukvaruutveckling.
+    - Inlämningsuppgift 1: Verktyg/Docker och Docker Compose
+
+- Värderingsförmåga och Förhållningssätt ::
+  - Skriftligt reflektera över sina lösningar och sitt användande av utvecklingsverktyg.
+  - Inlämningsuppgift 3: Ingenjörsdagbok
