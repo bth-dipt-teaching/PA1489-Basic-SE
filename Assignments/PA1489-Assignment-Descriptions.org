@@ -1,7 +1,7 @@
 #+Title: PA1489 Assignment Descriptions
 #+Author: Mikael Svahnberg
 #+Email: Mikael.Svahnberg@bth.se
-#+Date: 2025-06-23
+#+Date: 2026-06-15
 #+EPRESENT_FRAME_LEVEL: 1
 #+OPTIONS: email:t <:t todo:t f:t ':t H:3 toc:nil
 #+STARTUP: beamer num
@@ -23,6 +23,79 @@ The course consist of the following assignments:
 
 All assignments are submitted and graded individually, but it is ok to collaborate in their creation.
 
+* Assignment 3: Engineering Diary
+*Note* This assignment is introduced first since you will be working on it continuously throughout the entire course. You will, however, only submit it at the end of the course.
+
+In this assignment, the focus is on your learning and reflections. As you work with new tools, or implement new code, an engineering diary is a vital help to be able to re-trace previous decisions, to note down quick ideas, or items that require further reading. In real life this engineering diary is your personal tool and life-saver, but in this course we also use it as part of the examination in order to bootstrap your use of a diary as a vital engineering tool.
+
+Your engineering diary is individual, and is *submitted to Canvas* once you are done with assignments 1 and 2.
+
+A checklist is used to assess the contents of your diary, and this is used to calculate a score for the entirety of the assignment. This score is then translated to a grade as follows:
+
+| Score | Percent | Grade |
+|-------+---------+-------|
+|    24 |    100% |       |
+|    22 |    >90% | A     |
+|    19 |    >80% | B     |
+|    17 |    >70% | C     |
+|    16 |    >65% | D     |
+|    14 |    >60% | E     |
+|   <14 |    <60% | F     |
+|-------+---------+-------|
+** Generic Suggestions
+- Try to get into the habit of often reflecting upon what you have done, what you have learnt, and what you must find out.
+- It is better to write a little every day rather than a lot once a week.
+- Even an entry such as "2025-06-22: Finished implementing the Frobnicator class; all went well and now I want to go out in the sun and play!" is valuable.
+** Required Sections
+Your engineering diary /must/ contain reflections on:
+
+1. Configuration Management
+   - What is your interpretation of how configuration management works?
+   - Why should we use configuration management?
+   - Which commands are you using?
+   - What works well?
+   - What is difficult?
+   - How did you solve your challenges? What could you have done differently?
+   - What did you not manage to solve? Why not?
+2. Container Development 
+   - Which commands are you using?
+   - What works well?
+   - What is difficult?
+   - How did you solve your challenges? What could you have done differently?
+   - What did you not manage to solve? Why not?
+   - How is a Dockerfile structured?
+   - How is a docker compose file structured?
+3. Testing and Debugging
+   - What is your interpretation of how automated testing works?
+   - What is your interpretation of how the code debugger works?
+   - Which commands are you using?
+   - What works well?
+   - What is difficult?
+   - How did you solve your challenges? What could you have done differently?
+   - What did you not manage to solve? Why not?
+4. Implementation and Documentation
+   - Are there any programming languages you are particularly interested in? Why?
+   - What are your experiences when trying to follow the execution flow (e.g. what happens when you click on a button)?
+   - How do you keep your code "clean" and well structured?
+   - What works well?
+   - What is difficult?
+   - How did you solve your challenges? What could you have done differently?
+   - What did you not manage to solve? Why not?
+
+Please *timestamp* each entry in your diary.
+** Assessment
+The following criteria will be used to assess your engineering diary:
+
+1. [ ] There is a discussion about configuration management
+2. [ ] There is a discussion about container development
+3. [ ] There is a discussion about testing and debugging
+4. [ ] There is a discussion about implementation and documentation
+5. [ ] It is clear when each entry was made.
+6. [ ] There are regular updates to the engineering diary (more than five, spanning the entire course)
+7. [ ] The engineering diary contain summaries of the work that has been done since the last update.
+8. [ ] The engineering diary contain insightful reflections and identifies opportunities for improvements.
+
+Each completed item gives a maximum of 3 points for a total of 24 points.
 * Assignment 1: Tools
 This assignment covers basic software engineering tools. Do note that in order to work with these tools, you also need a basic understanding of how your computer works, your development environment, what a file is and how to find and use it, and (to some extent) working with a command line interface.
 
@@ -36,16 +109,16 @@ Each of these parts are examined separately and individually. They are examined 
 
 | Score | Percent | Grade |
 |-------+---------+-------|
-|    20 |    100% |       |
-|    18 |    >90% | A     |
-|    16 |    >80% | B     |
-|    14 |    >70% | C     |
-|    13 |    >65% | D     |
-|    12 |    >60% | E     |
-|   >12 |    <60% | F     |
+|    18 |    100% |       |
+|    16 |    >90% | A     |
+|    14 |    >80% | B     |
+|    13 |    >70% | C     |
+|    12 |    >65% | D     |
+|    10 |    >60% | E     |
+|   <10 |    <60% | F     |
 |-------+---------+-------|
 * Assignment 1 Tools: Git
-** TASKS Get Started with Git
+** Tasks: Get Started with Git
 *** Register an account
 - Register an account at some git server:
   - https://github.com/signup or https://education.github.com/pack
@@ -128,42 +201,30 @@ Working with git:
    10. [ ]  Show the files in your online repo (using web browser).
 
 Each completed item gives 1 point for a total of 10 points.
+** Update the Engineering Diary :Diary:
+- What is your interpretation of how configuration management works?
+- Why should we use configuration management?
+- Which git commands are you using?
+- What works well? What is difficult?
+- How did you solve your challenges? What could you have done differently?
+- What did you not manage to solve? Why not?
+- What do you need or want to learn more about?
+
 * Assignment 1 Tools: Docker and Docker Compose
-** Tasks: The PonyVoter Microservice app
-*** Get Started
+** Tasks: Get Started
    1. Make sure Docker is installed
    2. (Optional) The official tutorials are quite good:
       - Docker https://docs.docker.com/get-started/
       - Docker with node.js  https://docs.docker.com/language/nodejs/
       - Docker with python https://docs.docker.com/guides/python/
    3. Clone the /PonyVoter/ project https://codeberg.org/mickesv/PonyVoter.git
+** Tasks: The PonyVoter Microservice app
 *** Info PonyVoter :Info:
 - PonyVoter presents two options and you vote by clicking on one of them
 - The votes are registered in a database so that you can keep track of which pony is the most popular.
 
 #+ATTR_ORG: :width 300
 [[./PonyVoter-Screenshot.png]]
-*** Technical Overview
-- PonyVoter consists of three containers and a database
-  - PonyVoter :: the "front page" of the application that serves web pages to the users
-  - VoteCounter :: registers votes and stores them to the database
-  - StatsPresenter :: calculates how many votes each pony has, and summarises this
-  - MongoDB :: the database where the votes are stored.
-
-- PonyVoter is hopelessly over-designed and at the same time under-implemented:
-  - =VoteCounter= and =StatsPresenter= are extremely simple and probably did not need to be separate containers.
-  - Many things are hard coded.
-  - To keep things simple, no rendering engine (e.g. =Pug=) is used to generate the HTML code.
-  - To keep the project small, there are only six ponies to choose between.
-  - Completeness? Only the bare necessities are implemented.
-  - Scalability? What happens when the total number of votes increases?
-  - Bugs! Of course there are bugs.
-  - Security?
-
-Think about:
-1. What containers should be made available to the user?
-2. How do you ensure that these become available?
-3. How can you start all the containers with a single command?
 *** Inspect and Test
 - Study the file =ponyvoter.yaml=
   - Which /Services/ are launched?
@@ -187,46 +248,35 @@ Run the project:
    - Note that the statistics are not reset despite all containers being restarted.
      - Why not?
      - How can you find out more information about this?
-*** Modify
-Your task is to build a new StatsPresenter, =newStats=
-
-- =votecounter= has an API endpoint =/listVotes= that returns a json object with all votes currently cast.
-  - Call this in order to get an updated list of all votes (instead of querying the database)
-- Your new API will consist of:
-  - =/listponies=  returns an array with the names of all ponies (see example below)
-  - =/stats/<ponyname>= returns a json object (see example below)
-  - =/= is kept for historical reasons and will always return an empty array.
-- Make sure that there is console output in each of these functions so that you can see what they do in the log output.
-
-#+begin_example Examples of results
-/listpoinies    returns  ["applejack", "pinkiepie", "rainbow"]
-/stats/rainbow  returns  {_id: "rainbow", count: 2, name: "rainbow"}
-/               returns  []
-#+end_example
-
-Tasks
-1. Modify =ponyvoter.yaml=
-   - add the service =newStats= with appropriate configuration
-   - modify =services/ponyvoter/environment/STATSPRESENTER_HOST= to point towards =newStats=
-     (If applicable, change the port number too)
-2. Implement =newStats= (Run and Test as needed)
-3. You will have to make one change in the =PonyVoter= container: replace calls to ~createStatistics()~ with ~newStatistics()~ .
 ** Show the TA :Assignment:
 Show the TA the following:
 
-1. [ ] A local clone of the PonyVoter repository
-2. [ ] Start the system using =docker compose=
-3. [ ] Test the system via a web browser.
-4. [ ] Describe each Container
-   - Which containers are there
-   - When is each container "invoked" in the log output?
+1. [ ] Start the system using =docker compose=
+2. [ ] Describe each Container
+   - Which containers are there?
    - What does each container do?
-   - What is the difference between image and container?
-5. [ ] Show and explain your edited =ponyvoter.yaml=
-6. [ ] Show and explain the code for your =newStats= container
-7. [ ] Show that you are indeed using the =newStats= container (i.e. that =PonyVoter= is calling =newStatistics()= )
+   - What is the difference between an image and a container?
+3. [ ] Explain ~ponyvoter.yaml~
+4. [ ] When is each container "invoked" in the log output?
+5. [ ] Which containers are available to the user? How can you see this?
 
-Each completed item gives 1 point for a total of 7 points.
+Each completed item gives 1 point for a total of 5 points.
+** Update the Engineering Diary :Diary:
+- What is your interpretation of how automated testing works?
+- What is your interpretation of how the code debugger works?
+- Which debugging commands are you using?
+- What works well? What is difficult?
+- What do you need or want to learn more about?
+- How did you solve your challenges? What could you have done differently?
+- What did you not manage to solve? Why not?
+- Which commands are you using?
+- What works well?
+- What is difficult?
+- How did you solve your challenges? What could you have done differently?
+- What did you not manage to solve? Why not?
+- How is a Dockerfile structured?
+- How is a docker compose file structured?
+
 * Assignment 1 Tools: Testing and Debugging
 ** Tasks: Testing and Debugging SorterTool
 *** Get Started
@@ -275,276 +325,123 @@ Show and explain to the TA the following:
    - Show the current values of local variables
 
 Each completed item gives 1 point for a total of 3 points.
-* Assignment 2: Implementation and Documentation
-This assignment focus more on good implementation practices such as well-structured source code, and documented source code. The task is to implement a small web app, i.e. *BackupOrganiser* (further described below). This assignment spans several weeks, and is examined by showing a teaching assistant your running application and your source code.
+** Update the Engineering Diary :Diary:
+- What is your interpretation of how automated testing works?
+- What is your interpretation of how the code debugger works?
+- Which debugging commands are you using?
+- What works well? What is difficult?
+- What do you need or want to learn more about?
+- How did you solve your challenges? What could you have done differently?
+- What did you not manage to solve? Why not?
+
+* Assignment 2: A Bigger Project
+In this assignment you will be using the tools together; you will use git to download the project and to store your changes, you will use docker and docker compose to run the project, and you will use your IDE to read and modify the source code, and to add documentation to the project.
+
+This assignment is planned to span several weeks but you may of course work faster. The task is to understand and modify a webshop app, i.e. /The Auld Argument Shoppe/. The document *Assignment: The Auld Argument Shoppe* introduces the application and the assignment tasks. The assignment is shown through a combination of worksheets that you are expected to print and complete by hand, and some parts which you demo to one of the TAs. Your final assessment for this assignment is a combination of the worksheets and the demos.
+
+You may collaborate with other student colleagues, but you present your final work and is examined individually.
 
 The TA uses a checklist to mark the parts that you have shown, and this is used to calculate a score for the entirety of the assignment. This score is then translated to a grade as follows:
 
 | Score | Percent | Grade |
 |-------+---------+-------|
-|    33 |    100% |       |
-|    30 |    >90% | A     |
-|    26 |    >80% | B     |
-|    23 |    >70% | C     |
-|    21 |    >65% | D     |
-|    19 |    >60% | E     |
-|   >19 |    <60% | F     |
+|    28 |    100% |       |
+|    25 |    >90% | A     |
+|    22 |    >80% | B     |
+|    20 |    >70% | C     |
+|    18 |    >65% | D     |
+|    16 |    >60% | E     |
+|   <16 |    <60% | F     |
 |-------+---------+-------|
 
-You may collaborate with other student colleagues, but you present your final work and is examined individually.
-
-** Introducing the Backup Organiser App :Info:
-- *Backup Organiser* is an app to keep track of your data and when you last did a backup.
-- For now, it is self-reported by manually updating the information for a data collection when a new backup is created.
-
-A /data collection/ consists of:
-  - name (text)
-  - description (text)
-  - creation date (text; managing actual dates require more logic!)
-  - last modified date (text)
-  - still-updated (boolean flag)
-  - a list of /backup entries/
-A /backup entry/ consists of:
-  - name (text)
-  - date (text)
-  - location (text)
-
-Functionality
-- Create:
-  - Collection :: Add a data collection
-- Read:
-  - Overview :: Overview of all data collections -- displaying name and the date of the latest backup entry
-  - List :: Detailed list of all data collections -- displaying all information about all data collections
-  - Info :: Detailed information about a single data collection
-  - Search :: Find all data collections where the name contains the search term (display name and the date of the latest backup entry)
-- Update:
-  - Backup :: Add a backup to a data collection
-  - Edit :: Change the last modified date or the still-updated flag of a data collection
-- Delete:
-  - Delete :: Delete a specific data collection
-  - Unbackup :: remove a specific backup from a specific data collection
-
-Notes:
-- This is a typical /CRUD/ (create-read-update-delete) - pattern
-- The names of the functionalities are chosen to be as unique as possible, as early as possible. This will make it easier to create a command-line UI.
-- You do not need to save any data between sessions, but it will help you during testing (and actually make the application usable).
 ** Tasks Week 1
-0. [@0] Create the project /BackupOrganiser/ so that you are ready to start coding.
-1. Create a class =DataCollection= that contains attributes as listed earlier
-2. Create a class =CollectionManager=:
-   - This class contains a list of =DataCollection= objects.
-   - It contains /at least/ the following methods:
-     - =add_collection(name, description, creation_date, modification_date, updated)= creates a =DataCollection= object and adds it to its list.
-     - =overview()= returns a lists of strings, one string per =DataColection= object
-     - =detailed_overview()= returns an array containing lists of strings, one list per =DataColection= object
-       - Tip: create a method =DataCollection.brief_str()= to generate the list of strings.
-     - =info(collection_name)= returns a list of strings that represent a single =DataCollection= object
-       - Tip: create a method =DataCollection.full_str()= to generate the list of strings.
-     - =get(collection_name)= returns a =DataCollection= object
-     - You may wait with: =search=, =edit=, and =delete=
-3. Create a class =BackupManager= that /at least/ contains:
-   - =add_backup(collection_object, backup_name, backup_date, backup_location)= modifies the =DataCollection= object it was given and appends a new Backup entry
-     - Tip: Call =CollectionManager.get()= to find the =collection_object=
-   - You may wait with =unbackup=
-4. Create a =main()= function that
-   - Creates one =CollectionManager= and one =BackupManager= object.
-   - Tests each of the methods above on those two objects.
-5. You /may/ create a class =ConsoleInterface= to help you with this.
+Using the Assignment worksheet, the focus of this week is to familiarise yourself with the application.
 
-*Remember*
-- One class per file
-- Document your methods. Use the docstring.
-- Create new methods if/when you need to.
-- Take a step back and look at the code you have written -- can you improve it?
-- Keep all the =print()= functionality in one place and /not/ in the classes =DataCollection=, =CollectionManager=, or =BackupManager=.
+*Tasks*
+0. [@0] Read pages 1--5 of the document "Assignment: The Auld Argument Shoppe"
+1. Clone the repository: https://codeberg.org/mickesv/ArgumentShop.git
+2. Familiarise youself with the application and its code.
+3. Study, in particular, the code for the "Webshop" container.
+4. Briefly familiarise yourself with the listed programming languages
+5. Update your Engineering Diary as specified in the assignment document.
+
 ** Tasks Week 2
-1. Create a file =restinterface.py= where you implement a http interface to your app.
-   - =POST /api/Collection= add a new collection
-   - =GET /api/Overview= get a JSON object with an overview of all data collections
-   - =GET /api/List= get a JSON object with a detailed list of all data collections
-   - =GET /api/Info?name=data-collection-name= get a JSON object with details for one specific data collection
-   - =POST /api/Backup= add a backup
-   - You may wait with: =GET /api/Search?name=text=
-   - You may wait with: =POST /api/Edit=
-   - You may wait with: =POST /api/Unbackup=
-   - You may wait with: =DELETE /api/Delete?name=data-collection-name=
+This week, the focus is on Docker and Docker Compose, and to get the application built and running. You will also dive deeper into some of the services in order to understand how they call and make use of each other.
 
-*Note*
-- This is why we separated all =print()= statements into a single place; it is now "easy" to create a new frontend.
-- You will need some http interface (e.g. =flask= in Python) for this -- see lab from previous weeks.
-- You will need to modify your =main()= function to start the =RestInterface= for you.
+*Tasks*
+0. [@0] Read pages 6--12 of the document "Assignment: The Auld Argument Shoppe"
+1. Complete the Dockerfile crossword (on paper, you will show this to a TA later)
+2. Fix the two broken Dockerfiles (in your computer; the project will not run otherwise)
+3. Complete the microservice dependency map (on paper, you will show this to a TA later)
+4. Fix ~compose.yaml~ (in your computer; the project will not run otherwise)
+5. Build the project and run the project
+6. Complete the two call graphs (on paper, you will show this to a TA later)
+7. Update your Engineering Diary as specified in the assignment document.
+8. Remember to commit your work (you will show your commits to a TA later)
 
-*Tips:*
-- create a method =DataCollection.full_json()= to generate a JSON object for a single DataCollection object.
-- similarly, you want to add methods =overview_json()=, =detailed_overview_json()=, and =info_json()=  in your =CollectionManager= class.
-- You may wish to run your app inside Docker already now.
-- The =POST= endpoints should accept a JSON object; see next slide for examples.
-*** Example JSON objects
-#+begin_example
-# Add a Collection
-POST http://localhost:5000/api/Collection
-content-type: application/json
-
-{
-  "name": "web collection",
-  "description": "created over the interwebz",
-  "creation_date": "just now",
-  "modification_date": "only recently",
-  "still_updated": true
-}
-
-# Add a Backup
-POST http://localhost:5000/api/Backup
-content-type: application/json
-
-{
-  "name": "collection 1",
-  "backupname": "DVD Burn",
-  "date": "May 2025",
-  "location": "Top drawer"
-}
-
-# Unbackup
-POST http://localhost:5000/api/Unbackup
-content-type: application/json
-
-{
-  "name": "collection 1",
-  "backupname": "DVD Burn",
-  "date": "May 2025"
-}
-
-# Edit
-POST http://localhost:5000/api/Edit
-content-type: application/json
-
-{
-  "name": "collection 1",
-  "modification_date": "yesterday",
-  "still_updated": true
-}
-
-#+end_example
 ** Tasks Week 3
-1. Complete the remaining functionalities
-2. Make a web interface to use the =RESTInterface= entrypoints you made.
-3. Add a =Dockerfile= and a =compose.yaml= so you can start your application using Docker.
+This week, you are going to implement some new functionality in the project, and add documentation to some of the existing source code.
 
-*Note*
-- You can get away with a single html page that converts =<form>= data into JSON requests to your already implemented =restinterface=
-- You may instead create separate pages for each of the functionalities and add new routes to manage these.
-  - That's why we included =/api/= in each URL: to separate them from "normal" web endpoints.
+*Tasks*
+0. [@0] Read pages 13--16 of the document "Assignment: The Auld Argument Shoppe"
+1. Update ~compose.yaml~ to prepare for the implementation, and to add the ~logview~ service.
+2. Implement ~logmanager.py~
+3. Edit ~app.py~ to use the new method
+4. While coding, pay attention to your coding style: use small self-explanatory functions, informative variable names, etc.
+5. Add """docstrings""" to explain all functions in all the python files.
+6. Update your Engineering Diary as specified in the assignment document.
+7. Remember to commit your work (you will show your commits to a TA later)
+
 ** Show the TA :Assignment:
-When the full app is done, you are expected to show a TA when you:
+When you have completed all the tasks in the worksheet, you are expected to show a TA when you:
 
-1. Start the application as a docker container =docker compose up=
+1. Start the application using docker compose
 2. Demo the application in a web browser
-   - show each of the functionalities listed earlier
-3. Present your implementation and be ready to answer questions from the TA.
-
-The TA will look at:
-- The exent to which your app is working and supports all the listed functionalities
-- The structure of your source code
-- How well documented your source code is
-- Your understanding of the source code
-
-They will /not/ look at
-- How pretty your web page is.
+3. The web page http://localhost:8080/log
+4. The web page http://localhost:8080/health (which of course should be mostly healthy)
+5. A list of the running containers
+6. Your commit log, including
+   - A commit with the fixed Dockerfile for ~PackingSystem~ (Roopert the Kangaroo)
+   - A commit with the fixed Dockerfile for ~Webshop~ (Roopert the Kangaroo)
+   - Several commits with updates to ~compose.yaml~
+7. Explain your ~compose.yaml~ (Harriet the Hamster, and Owlivia the Owl)
+8. Explain all the source code in the Webshop container (Owlivia the Owl)
+9. Your worksheets for
+   - The Dockerfile crossword (Barry the Bear)
+   - The Docker compose dependency map (Briant the Ant)
+   - Call graph for ~checkout()~ (Skip the Squirrel)
+   - Call graph for ~viewCart()~ (Skip the Squirrel)
 
 The assessment is done as follows:
 
-1. Functionality, 1 point each for:
-   1. [ ] Add Collection
-   2. [ ] Overview of Collections
-   3. [ ] Detailed list of Collections
-   4. [ ] Detailed Info for one Collection
-   5. [ ] Search Collections by Name
-   6. [ ] Add Backup to Collection
-   7. [ ] Edit Collection
-   8. [ ] Delete Collection
-   9. [ ] Remove a Backup from a Collection
-2. Execution, 1 point each for:
-   1. [ ] The application runs inside Docker containers
-   2. [ ] The application is accessible from a web browser
-3. Source Code, 1 point each for:
-   1. [ ] Methods have names that accurately describe what they do
-   2. [ ] Methods are short and to the point
-   3. [ ] Methods have docstrings
-   4. [ ] Methods are implemented in the right file/class (where they logically belong)
-   5. [ ] Comments are used to explain
-   6. [ ] The application is built using classes and objects
-   7. [ ] Each class is implemented in a separate file
+1. Basics, 1 point each for:
+   1. [ ] The completed Dockerfile crossword
+   2. [ ] The Docker compose dependency map
+   3. [ ] Call graph for ~checkout()~
+   4. [ ] Call graph for ~viewCart()~
+2. Working Software, 1 point each for:
+   1. [ ] All services can be built and run
+   2. [ ] All service dependencies are correctly specified
+   3. [ ] The application is accessible from a web browser
+3. Functionality and Implementation, 1 point each for:
+   1. [ ] ~logmanager::get_all()~ works as intended
+   2. [ ] ~app.py~ has a working route ~/log~
+   3. [ ] All functions are well documented with """docstrings"""
+   4. [ ] Code comments are used to explain
+   5. [ ] Each commit has a single purpose
+   6. [ ] Each commit has a meaningful log message
 4. Understanding, a maximum of *5 points* each for:
-   1. [ ] At a high level explaining what each file/class does
-   2. [ ] Explaining how some functionality (TA selects) is implemented and showing the relevant source code.
-   3. [ ] Explaining how some other functionality (TA selects) is implemented and showing the relevant source code.
+   1. [ ] At a high level explain what each service and file does
+   2. [ ] Explain how some functionality (TA selects) is implemented and showing the relevant source code.
+   3. [ ] Explain how some other functionality (TA selects) is implemented and showing the relevant source code.
 
-This gives a total of 33 points.
-* Assignment 3: Engineering Diary
-In this assignment, the focus is on your learning and reflections. As you work with new tools, or implement new code, an engineering diary is a vital help to be able to re-trace previous decisions, to note down quick ideas, or items that require further reading. In real life this engineering diary is your personal tool and life-saver, but in this course we also use it as part of the examination in order to bootstrap your use of a diary as a vital engineering tool.
+This gives a total of 28 points.
+** Update and Submit your Engineering Diary :Diary:Assignment:
+Make sure your engineering diary contains the expected sections on configuration management, container development, testing and debugging, and implementation and documentation.
 
-Your engineering diary is individual, and is *submitted to Canvas* once you are done with assignments 1 and 2.
+- Are all entries timestamped?
+- Are there regular updates to the engineering diary?
+- Does the engineering diary contain summaries of the work that has been done since the last update?
 
-A checklist is used to assess the contents of your diary, and this is used to calculate a score for the entirety of the assignment. This score is then translated to a grade as follows:
+*Submit your Engineering Diary to Canvas* when you are done with assignments 1 and 2.
 
-| Score | Percent | Grade |
-|-------+---------+-------|
-|    24 |    100% |       |
-|    22 |    >90% | A     |
-|    19 |    >80% | B     |
-|    17 |    >70% | C     |
-|    16 |    >65% | D     |
-|    14 |    >60% | E     |
-|   <14 |    <60% | F     |
-|-------+---------+-------|
-** Generic Suggestions
-- Try to get into the habit of often reflecting upon what you have done, what you have learnt, and what you must find out.
-- It is better to write a little every day rather than a lot once a week.
-- Even an entry such as "2025-06-22: Finished implementing the Frobnicator class; all went well and now I want to go out in the sun and play!" is valuable.
-** Required Sections
-Your engineering diary /must/ contain reflections on:
-
-1. Configuration Management
-   - Why should we use configuration management?
-   - Which commands are you using?
-   - What works well?
-   - What is difficult?
-   - How did you solve your challenges? What could you have done differently?
-   - What did you not manage to solve? Why not?
-2. Container Development
-   - Which commands are you using?
-   - What works well?
-   - What is difficult?
-   - How did you solve your challenges? What could you have done differently?
-   - What did you not manage to solve? Why not?
-   - How is a Dockerfile structured?
-   - How is a docker compose file structured?
-3. Testing and Debugging
-   - Which commands are you using?
-   - What works well?
-   - What is difficult?
-   - How did you solve your challenges? What could you have done differently?
-   - What did you not manage to solve? Why not?
-4. Implementation and Documentation
-   - What are you working on?
-   - In what order are you implementing things?
-   - How do you keep your code "clean" and well structured?
-   - What works well?
-   - What is difficult?
-   - How did you solve your challenges? What could you have done differently?
-   - What did you not manage to solve? Why not?
-
-Please *timestamp* each entry in your diary.
-** Assessment
-The following criteria will be used to assess your engineering diary:
-
-1. [ ] There is a discussion about configuration management
-2. [ ] There is a discussion about container development
-3. [ ] There is a discussion about testing and debugging
-4. [ ] There is a discussion about the Implementation and documentation assignment
-5. [ ] It is clear when each entry was made.
-6. [ ] There are regular updates to the engineering diary (more than five, spanning the entire course)
-7. [ ] The engineering diary contain summaries of the work that has been done since the last update.
-8. [ ] The engineering diary contain insightful reflections and identifies opportunities for improvements.
-
-Each completed item gives a maximum of 3 points for a total of 24 points.
