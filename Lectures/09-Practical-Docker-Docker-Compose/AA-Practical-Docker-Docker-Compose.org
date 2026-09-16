@@ -73,44 +73,17 @@ Run the project:
    - Note that the statistics are not reset despite all containers being restarted.
      - Why not?
      - How can you find out more information about this?
-* Modify
-Your task is to build a new StatsPresenter, =newStats=
-
-- =votecounter= has an API endpoint =/listVotes= that returns a json object with all votes currently cast.
-  - Call this in order to get an updated list of all votes (instead of querying the database)
-- Your new API will consist of:
-  - =/listponies=  returns an array with the names of all ponies (see example below)
-  - =/stats/<ponyname>= returns a json object (see example below)
-  - =/= is kept for historical reasons and will always return an empty array.
-- Make sure that there is console output in each of these functions so that you can see what they do in the log output.
-
-#+begin_example Examples of results
-/listpoinies    returns  ["applejack", "pinkiepie", "rainbow"]
-/stats/rainbow  returns  {_id: "rainbow", count: 2, name: "rainbow"}
-/               returns  []
-#+end_example
-
-Tasks
-1. Modify =ponyvoter.yaml=
-   - add the service =newStats= with appropriate configuration
-   - modify =services/ponyvoter/environment/STATSPRESENTER_HOST= to point towards =newStats=
-     (If applicable, change the port number too)
-2. Implement =newStats= (Run and Test as needed)
-3. You will have to make one change in the =PonyVoter= container: replace calls to ~createStatistics()~ with ~newStatistics()~ .
 * Show the TA :Assignment:
 Show the TA the following:
 
-1. A local clone of the PonyVoter repository
-2. Start the system using =docker compose=
-3. Test the system via a web browser.
-4. Describe each Container
+1. Start the system using =docker compose=
+2. Describe each Container
    - Which containers are there
-   - When is each container "invoked" in the log output?
    - What does each container do?
    - What is the difference between image and container?
-5. Show and explain your edited =ponyvoter.yaml=
-6. Show and explain the code for your =newStats= container
-7. Show that you are indeed using the =newStats= container (i.e. that =PonyVoter= is calling =newStatistics()= )
+3. Show and explain =ponyvoter.yaml=
+4. When is each container "invoked" in the log output?
+5. Which containers are available to the user? How can you see this?
 
 * *IsItPokemon* Application Introduction
 - Based on "Is it Pokemon or Big Data?" ( https://pixelastic.github.io/pokemonorbigdata/ )
@@ -271,3 +244,28 @@ Also:
   - Replicated containers
   - third party components (e.g. database, load generators, test APIs, etc.)
 
+* Lost Puppies :noexport:
+** Modify :noexport:
+Your task is to build a new StatsPresenter, =newStats=
+
+- =votecounter= has an API endpoint =/listVotes= that returns a json object with all votes currently cast.
+  - Call this in order to get an updated list of all votes (instead of querying the database)
+- Your new API will consist of:
+  - =/listponies=  returns an array with the names of all ponies (see example below)
+  - =/stats/<ponyname>= returns a json object (see example below)
+  - =/= is kept for historical reasons and will always return an empty array.
+- Make sure that there is console output in each of these functions so that you can see what they do in the log output.
+
+#+begin_example Examples of results
+/listpoinies    returns  ["applejack", "pinkiepie", "rainbow"]
+/stats/rainbow  returns  {_id: "rainbow", count: 2, name: "rainbow"}
+/               returns  []
+#+end_example
+
+Tasks
+1. Modify =ponyvoter.yaml=
+   - add the service =newStats= with appropriate configuration
+   - modify =services/ponyvoter/environment/STATSPRESENTER_HOST= to point towards =newStats=
+     (If applicable, change the port number too)
+2. Implement =newStats= (Run and Test as needed)
+3. You will have to make one change in the =PonyVoter= container: replace calls to ~createStatistics()~ with ~newStatistics()~ .
