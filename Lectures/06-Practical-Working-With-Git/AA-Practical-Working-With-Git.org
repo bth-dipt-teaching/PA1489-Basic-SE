@@ -246,7 +246,7 @@ $ git branch --all
 - Github is still very popular for open source projects
   - In some trouble for how they may use the code you upload ther
 - Many migrated over to Gitlab when Microsoft bought Github
-- Atlassian and BitBucket are very well integrated with the rest of their produxcts
+- Atlassian and BitBucket are very well integrated with the rest of their products
   - Used to have very generous offers for students and universities (unclear status these days)
 - Codeberg.org is specifically focussed on open source projects.
 ** Create and Clone a Repository

@@ -14,7 +14,6 @@
 - Om Kursen
 - En Pragmatisk Mjukvaruutvecklare
 - En Pragmatisk Ansats
-- Kort om exekverande program
 * About Me: Mikael Svahnberg
 #+ATTR_LATEX: :height 2cm
 #+ATTR_ORG: :width 300
@@ -149,8 +148,7 @@ D. Thomas, A. Hunt, The Pragmatic Programmer, 20th Anniversary Edition, 2020. IS
 
 - Uppgifterna är /individuella/ 
   - Ni får väldigt gärna samarbeta när ni arbetar.
-  - Deluppgifterna för uppgift 1 redovisas individuellt.
-  - Uppgift 2 får redovisas tillsammans (som mest 5 studenter per grupp)
+  - Deluppgifterna för uppgift 1 och 2 redovisas individuellt.
   - Uppgift 3, Ingenjörsdagboken, lämnas in individuellt.
 
 - Uppgifterna introduceras vecka för vecka (se "Practical"- föreläsningarna)

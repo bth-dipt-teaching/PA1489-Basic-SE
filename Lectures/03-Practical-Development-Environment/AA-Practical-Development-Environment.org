@@ -236,7 +236,7 @@ Cave! I am mostly basing this on heresay; I have no personal experience. Nor do 
 - Windows Subsystem for Linux
 - Needs to be installed and configured before use: https://learn.microsoft.com/en-us/windows/wsl/
 - For VSCode you may also need to install a "Remote Development extension pack"
-- WSL will create its own sanboxed filesystem
+- WSL will create its own sandboxed filesystem
   - It's a PiTA to find this through your normal explorer
     - better to launch explorer from a WSL terminal: ~explorer.exe .~
     - (same as when you want to launch vscode: ~code .~  ; The dot '.' means the current directory )
