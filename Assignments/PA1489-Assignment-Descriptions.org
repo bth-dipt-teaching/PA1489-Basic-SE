@@ -262,14 +262,7 @@ Show the TA the following:
 
 Each completed item gives 1 point for a total of 5 points.
 ** Update the Engineering Diary :Diary:
-- What is your interpretation of how automated testing works?
-- What is your interpretation of how the code debugger works?
-- Which debugging commands are you using?
-- What works well? What is difficult?
-- What do you need or want to learn more about?
-- How did you solve your challenges? What could you have done differently?
-- What did you not manage to solve? Why not?
-- Which commands are you using?
+- Which docker/docker compose commands are you using?
 - What works well?
 - What is difficult?
 - How did you solve your challenges? What could you have done differently?
