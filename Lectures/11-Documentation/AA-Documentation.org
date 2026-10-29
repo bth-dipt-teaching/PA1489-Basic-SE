@@ -126,7 +126,7 @@ public boolean move(int xPosition, int yPosition) {
 #+begin_src bash
   mkdir -p DocExample
   javadoc -d DocExample Circle.java 
-  xdg-open DocExample/index.html
+  xdg-open DocExample/index.html &
 #+end_src
 
 #+RESULTS:
