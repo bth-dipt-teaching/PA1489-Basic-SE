@@ -1,5 +1,8 @@
 # PA1489 Grundläggande Mjukvaruutveckling / Basic Software Engineering
 
+> [!IMPORTANT]
+> This repository has moved to https://codeberg.org/mickesv/PA1489-Basic-SE
+
 This is a 7.5 ECTS course offered by [Blekinge Institute of Technology](https://www.bth.se). The purpose of the course is to introduce a basic toolbox for a modern software engineer. The intention is to be made aware of the concepts and technologies and get some starting practice in using them. This will be followed up in subsequent courses where familiarity with the introduced concepts may be implicitly expected.
 
 The course consists of Lectures, Written Assignments, and non-graded Advanced Exercises
